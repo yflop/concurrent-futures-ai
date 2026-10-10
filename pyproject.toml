@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "intelligent-futures"
-version = "0.1.0"
+version = "0.2.0"
 description = "Measured, safety-first adaptive scheduling on Python concurrent.futures"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -12,6 +12,13 @@ license = "MIT"
 license-files = ["LICENSE"]
 classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Topic :: System :: Distributed Computing"]
 dependencies = []
+
+[project.optional-dependencies]
+mcp = ["mcp>=2.3,<3"]
+
+[project.urls]
+Repository = "https://github.com/yflop/concurrent-futures-ai"
+Issues = "https://github.com/yflop/concurrent-futures-ai/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

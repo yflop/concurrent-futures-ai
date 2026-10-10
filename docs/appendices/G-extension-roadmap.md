@@ -4,7 +4,7 @@
 
 “Ever-expanding” should mean a maintainable collection of ideas that can be searched, tested, promoted, revised, or rejected. It should not mean a background agent silently modifies the package or that every catalog entry is a runtime switch.
 
-The current catalog has 61 concepts with stable IDs, explicit statuses, mechanisms, use cases, risks, benchmark methods, references, and dependencies. `ConceptRegistry` validates the JSON structure and dependency graph and returns read-only-by-copy query results. It never installs plugins or executes catalog prose.
+The current catalog has 63 concepts with stable IDs, explicit statuses, mechanisms, use cases, risks, benchmark methods, references, and dependencies. `ConceptRegistry` validates the JSON structure and dependency graph and returns read-only-by-copy query results. It never installs plugins or executes catalog prose.
 
 ```sh
 python -m intelligent_futures "queue" --status planned
@@ -122,3 +122,11 @@ Never silently repurpose a `TaskHints` field or consume a keyword from ordinary 
 Keep catalog labels synchronized with shipped code. Review built wheels because documentation files present in a checkout are not automatically included in the installed package. Retain IDs when titles improve so external references stay meaningful. A reference URL should explain a foundation or verified source; it should not be invented to make a proposal look established.
 
 A small dependable executor plus a candid research catalog is more valuable than a large list of unverified features. Growth should make the system easier to reason about, not harder to trust.
+
+## 8. Delivered opt-in layers in 0.2.0
+
+CF-062 adds the reusable registered-task framework; CF-063 adapts it to local MCP
+stdio using an optional SDK dependency. See [framework](../FRAMEWORK.md) and
+[MCP](../MCP.md) for contracts and boundaries. These do not implement the planned
+remote executor, durable recovery, hostile-code sandbox, or byte-weighted core
+admission concepts. Existing concept IDs and planned statuses remain unchanged.

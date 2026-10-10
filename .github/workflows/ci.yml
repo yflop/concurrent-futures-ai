@@ -22,3 +22,19 @@ jobs:
       - run: python -m intelligent_futures --status experimental --json
       - run: python -m compileall -q src examples benchmarks tests
       - run: python -m pip wheel . --no-deps -w dist
+
+  mcp:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ['3.10', '3.14']
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install ".[mcp]"
+      - run: python -m unittest tests.test_framework tests.test_mcp -v
+      - run: python -m pip check

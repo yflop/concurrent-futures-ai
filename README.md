@@ -12,7 +12,8 @@ Public repository: [yflop/concurrent-futures-ai](https://github.com/yflop/concur
 
 ## Start in a minute
 
-Python 3.10 or newer; no runtime dependencies.
+Python 3.10 or newer; the core has no runtime dependencies. Install the optional
+MCP adapter with `python -m pip install "intelligent-futures[mcp]"`.
 
 ```sh
 python -m pip install -e .
@@ -52,6 +53,8 @@ example demonstrates semantics, not a performance recommendation.
 - Safe hint routing, thread-only mode, custom policies, and a policy factory registry
 - Experimental EWMA latency selection with deterministic exploration
 - Ordered `map_bounded` for streaming inputs and bounded retained results
+- A dependency-free registered-task framework with bounded JSON task records
+- Optional local stdio MCP tools, restricted to explicitly registered callables
 - Runnable examples, reproducible baseline benchmarks, tests, packaging, and CI
 
 ## Safety first
@@ -68,6 +71,17 @@ execution, automatic worker resizing, or remote AI calls are implemented.
 Cancellation never stops a running callable. Context-manager exit waits for work.
 Blocking nested submissions into a saturated executor can deadlock: orchestrate
 from outside worker tasks, or use a finite `submit_timeout` and handle failure.
+
+## Optional MCP integration (0.2.0)
+
+Expose a trusted allowlist of Python tasks to an MCP client without changing the
+executor API. Task submission returns an ID immediately; tools inspect results,
+cancel queued work, forget completed records, and read metrics and concepts.
+The provided runner uses stdio and opens no listening port.
+
+See [the MCP setup and safety guide](docs/MCP.md),
+[framework API](docs/FRAMEWORK.md), and [changelog](CHANGELOG.md).
+The SDK is optional; registered code still runs with your Python process permissions.
 
 ## Choose the right policy
 

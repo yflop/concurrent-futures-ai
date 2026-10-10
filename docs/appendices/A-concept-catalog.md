@@ -1,6 +1,6 @@
 # Appendix A: Concept catalog
 
-The machine-readable source of truth is [`../concepts.json`](../concepts.json). It contains 61 concepts: 8 implemented, 1 experimental, and 52 planned. The experimental concept is the current EWMA adaptive learner; it is the constructor default, and callers can explicitly choose threads or hints instead. Each entry gives a mechanism, use case, failure risks, benchmark method, references, and dependency IDs.
+The machine-readable source of truth is [`../concepts.json`](../concepts.json). It contains 63 concepts: 10 implemented, 1 experimental, and 52 planned. The experimental concept is the current EWMA adaptive learner; it is the constructor default, and callers can explicitly choose threads or hints instead. Each entry gives a mechanism, use case, failure risks, benchmark method, references, and dependency IDs.
 
 Status is a delivery contract, not a quality rating. A planned item is not accepted by the executor API. References explain background; they do not imply endorsement or an implementation in this repository.
 
@@ -69,6 +69,8 @@ Status is a delivery contract, not a quality rating. A planned item is not accep
 | CF-059 | Worker initializer and warmup hooks | planned | backends |
 | CF-060 | Fail-fast task groups | planned | composition |
 | CF-061 | Removable bounded dispatch queue | planned | admission |
+| CF-062 | Registered JSON task framework | implemented | extensibility |
+| CF-063 | Optional MCP stdio adapter | implemented | integrations |
 
 ## How to choose the next concept
 

@@ -35,3 +35,26 @@ The upstream README distinguishes community and enterprise licensing. This repos
 - [PEP 703](https://peps.python.org/pep-0703/): background for the planned free-threaded-runtime work.
 
 The appendices and catalog primarily describe original project contracts, experiments, and proposals. A reference on a planned concept identifies relevant background; it never changes its status to implemented.
+
+## Version 0.2.0: the two requested commits
+
+The exact public diffs were inspected, not inferred from commit titles:
+
+- [90ba4b23ad](https://github.com/activepieces/activepieces/commit/90ba4b23ad)
+  renames `@activepieces/pieces` to `@activepieces/framework`, relocates the source
+  under `packages/pieces/framework`, adds its package/build configuration, and
+  updates imports. This motivates an explicit reusable framework boundary here;
+  it does not establish that Activepieces uses Python futures.
+- [f78edf10fc](https://github.com/activepieces/activepieces/commit/f78edf10fc)
+  moves seven existing MCP files from `app/ee/mcp` to `app/mcp` and adjusts import
+  paths in those files and two callers (nine files, 11 additions/11 deletions).
+  It is a folder relocation, not the introduction of MCP, new authentication,
+  new tools, or a protocol implementation.
+
+Our original translation is a dependency-free registered-task framework plus an
+optional MCP transport adapter in a separate `integrations` package. No upstream
+code is copied and no Activepieces interoperability is claimed. MCP behavior is
+implemented using the [official Python SDK](https://github.com/modelcontextprotocol/python-sdk)
+and its [low-level server documentation](https://py.sdk.modelcontextprotocol.io/).
+The SDK is an optional dependency, not vendored source. This release does not
+change routing performance and does not reinterpret existing benchmark results.

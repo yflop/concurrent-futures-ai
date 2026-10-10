@@ -109,3 +109,11 @@ its cancelled work item and arguments until a worker drains the queue. Repeated
 submit/cancel loops behind blocked workers can therefore accumulate tombstones.
 Rate-limit producers and cancellation churn; do not treat this executor as a
 hard memory limiter. A removable bounded physical queue is planned work.
+
+## Optional layers added in 0.2.0
+
+The core API above is unchanged. [TaskRegistry and TaskService](FRAMEWORK.md)
+provide a dependency-free explicit allowlist and bounded JSON task lifecycle.
+The separate [MCP stdio adapter](MCP.md) requires the `mcp` extra. Neither is
+imported by the top-level core package; importing existing symbols adds no SDK,
+network, or application-service side effects.

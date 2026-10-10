@@ -1,5 +1,54 @@
 # Validation record
 
+## 0.2.0 verification scope
+
+The 0.2.0 update preserves the core executor and existing benchmark data. It adds
+a separate standard-library-only task framework and an optional MCP2.3 adapter.
+Validation includes real subprocess stdio protocol calls through the official SDK,
+strict input/schema and JSON-output checks, malformed/unregistered tasks, bounded
+admission/retention, cancel/forget churn, errors, resources, metrics, import
+isolation, and disconnect/startup-failure cleanup.
+
+Installed-wheel checks use a clean core-only environment and an SDK2.3 environment;
+core-only optional test skips are reported separately. The example server is not
+started as a public network listener. No new scheduler speedup is claimed.
+
+### Local 0.2.0 checks (2026-10-10)
+
+- CPython 3.12.14/Linux with official MCP2.3.0: **129 tests passed**, including
+  13 adapter tests (10 requiring the SDK) and 26 framework tests.
+- CPython 3.13.5/Linux without the optional SDK: **129 tests run, 10 optional
+  tests skipped**; all remaining tests passed.
+- Eight benchmark-harness regression tests, catalog synchronization, compilation,
+  and six finite examples passed. Existing benchmark data was not regenerated
+  because executor/policy code and benchmark algorithms are unchanged.
+- Core-only installed wheel contains no mandatory dependency; SDK imports remain
+  absent until the adapter is created. Optional extra metadata is `mcp>=2.3,<3`.
+- Wheel and sdist pass strict distribution metadata checks. Clean installed-wheel
+  tests cover the core-only and SDK-enabled paths.
+
+Windows/macOS and Python3.10/3.14 are configured in CI, not locally verified here.
+The optional MCP job explicitly installs the extra on all three OSes with both
+minimum and newest configured Python versions. CI/publication are separate remote
+checks and are not implied by this local record.
+
+### Review corrections
+
+- Stdio ownership now covers SDK loading and runner startup failure, not just an
+  established session. Failure-path tests verify the service is actually closed.
+- Discovery bounds and service bounds agree; oldest-first record listing permits
+  bounded drain-and-forget cleanup.
+- Application outcome counters are distinct from lower-level wrapper counters.
+- JSON strings and keys must be valid Unicode scalar text; lone UTF-16 surrogates
+  are rejected so successfully stored results remain serializable by the SDK.
+- Parameter defaults, descriptions, names, and hint keys are explicitly documented
+  as client-visible metadata, unsuitable for secrets.
+
+## 0.1.0 historical baseline
+
+The measurements and original validation below belong to the initial release;
+they are retained rather than replaced by unmeasured 0.2.0 performance claims.
+
 Local validation: 2026-10-10, Linux x86_64, CPython 3.12.14. This is a tested
 prototype, not a production certification. Cross-platform and multi-version
 GitHub Actions configuration is included; remote CI results are a separate check.
@@ -80,8 +129,8 @@ are descriptive, not a statistical guarantee or a tail-latency SLA.
 
 ## Not verified here
 
-- Remote GitHub Actions or an externally published GitHub commit
+- Remote GitHub Actions for the 0.2.0 candidate (check current commit checks separately)
 - Python 3.10, 3.14, Windows, macOS, free-threaded CPython, subinterpreters
 - Production network/storage workloads, sustained days-long load, memory ceilings
 - Adversarial/untrusted tasks, security isolation, durable/distributed execution
-- Package-name availability or a PyPI release
+- Publication of the 0.2.0 candidate (verify index/release artifacts separately)

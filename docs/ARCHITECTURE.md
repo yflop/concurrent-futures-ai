@@ -50,3 +50,33 @@ stores experiments and raw results; `docs/concepts.json` is the reviewable conce
 index; `docs/appendices/` is the detailed design library. Changes to concepts do not
 automatically change runtime behavior. A maintained library needs evidence gates,
 not a growing number of undocumented switches.
+
+## Optional application and transport layers (0.2.0)
+
+```
+trusted application -> framework.TaskRegistry -> framework.TaskService
+                                                -> IntelligentExecutor (threads)
+MCP client <-> integrations.mcp (official optional SDK, stdio)
+                    -> same TaskService
+```
+
+The scheduling core retains its existing imports and zero runtime dependencies.
+`framework` owns explicit registration, JSON contracts, bounded task bookkeeping,
+and application lifecycle. `integrations.mcp` translates protocol tools into that
+API; the SDK is imported only when the adapter is created or run. The framework
+can be used without MCP and other future adapters can reuse it.
+
+The service freezes registered definitions at construction. Clients can choose
+only a registered name and validated JSON arguments. They cannot select a Python
+module, import code, change policy, enable process execution, or register tasks.
+The application author still controls trusted Python callables: this is not a
+sandbox, authorization system, or multi-tenant service. One stdio connection has
+access to every task/result on the supplied service.
+
+Pending work and retained records have separate limits. Completed records remain
+until explicitly forgotten; admission rejects rather than blocking a protocol
+request or silently evicting uncollected results. Queued cancellation is handled
+by a service wrapper so cancel/forget churn cannot release the physical admission
+slot before that wrapper drains. Running Python code cannot be forcibly stopped.
+JSON input/result byte limits constrain transmitted and retained JSON, not memory
+allocated by a callable, the SDK's input parser, or total process RSS.

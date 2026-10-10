@@ -998,6 +998,41 @@
         "CF-001",
         "CF-005"
       ]
+    },
+    {
+      "id": "CF-062",
+      "title": "Registered JSON task framework",
+      "status": "implemented",
+      "category": "extensibility",
+      "mechanism": "An application-defined callable allowlist with JSON input discovery and validation, nonblocking bounded thread execution, retained result records, and explicit queued cancellation and cleanup.",
+      "applicability": "Trusted applications needing task IDs and bounded JSON lifecycle management outside the Executor API.",
+      "risks": "Not a sandbox, durable queue, authorization service, or RSS bound. Running code cannot be killed. Result validation occurs after side effects. Retained records must be forgotten.",
+      "benchmark_method": "Hold a worker, saturate pending and retained-record budgets, cancel and forget queued work repeatedly, and verify no extra backend admission until wrappers drain. Verify validation, result limits, shutdown, and errors deterministically.",
+      "references": [
+        "https://github.com/activepieces/activepieces/commit/90ba4b23ad",
+        "https://docs.python.org/3/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-006"
+      ]
+    },
+    {
+      "id": "CF-063",
+      "title": "Optional MCP stdio adapter",
+      "status": "implemented",
+      "category": "integrations",
+      "mechanism": "A separately imported optional official-SDK adapter maps MCP tools and resources to an explicit registered task service and read-only concept discovery over stdio.",
+      "applicability": "Trusted local MCP hosts that need to submit and inspect bounded registered Python tasks without arbitrary code execution tools.",
+      "risks": "No authentication or tenant isolation. A client can invoke every registered task and read retained results. SDK parsing and callable memory are outside JSON retention limits. Running tasks may delay process exit.",
+      "benchmark_method": "Use the official client against a real stdio subprocess: initialize, discover tools/resources, submit, inspect results, cancel queued work, forget records, query metrics/catalog, reject malformed and unregistered requests, and verify shutdown.",
+      "references": [
+        "https://github.com/modelcontextprotocol/python-sdk",
+        "https://github.com/activepieces/activepieces/commit/f78edf10fc"
+      ],
+      "depends_on": [
+        "CF-062"
+      ]
     }
   ]
 }

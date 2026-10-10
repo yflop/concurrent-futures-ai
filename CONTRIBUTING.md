@@ -36,3 +36,9 @@ verification record is complete. Maintainers choose release compatibility rules.
 
 After editing docs/concepts.json, run `python tools/sync_catalog.py`. CI and
 unit tests check that the packaged catalog matches its canonical source.
+
+For framework changes also test cancel/forget churn while a worker is blocked,
+strict JSON boundaries, sanitized failures, capacity reclamation, and shutdown.
+For MCP changes install `.[mcp]` and run `tests.test_mcp` against the actual SDK
+stdio client/server subprocess; core-only optional skips are not an MCP pass.
+Keep the adapter separate from `framework` and avoid importing the SDK in the core.
