@@ -4,7 +4,7 @@
   "project": "concurrent-futures-ai",
   "status_definitions": {
     "implemented": "A mechanism present in this repository; its limits and tests remain authoritative. This label is not a performance claim.",
-    "experimental": "Executable prototype with recorded limitations and validation; the adaptive learner uses this status even though adaptive is the constructor default. Choose policy=threads or policy=hints to avoid learning.",
+    "experimental": "Executable implementation with recorded limitations and validation; the adaptive learner uses this status even though adaptive is the constructor default. Choose policy=threads or policy=hints to avoid learning.",
     "planned": "Design or research proposal only; not a supported runtime feature."
   },
   "reference_note": "References identify primary-source foundations or inspiration. The proposed mechanisms and benchmark designs are original project designs, not claims that the cited project implements them.",
@@ -14,9 +14,9 @@
       "title": "Bounded admission",
       "status": "implemented",
       "category": "admission",
-      "mechanism": "Cap admitted unfinished tasks across backends; a submitting producer waits for capacity or reaches its configured admission timeout.",
+      "mechanism": "Bound both logical unfinished tasks and physically retained owned-queued plus dispatched scheduling items by max_pending; each backend dispatches at most its worker budget.",
       "applicability": "Producers that can outpace workers and retain large argument graphs.",
-      "risks": "Logical task count does not strictly bound physical queue entries: cancelled tombstones can remain until workers drain. It also does not bound bytes, blocked producers, retained results, or worker allocations. Reentrant submission can deadlock.",
+      "risks": "A count bound does not bound bytes, blocked producers, caller-retained Futures/results, or worker allocations. A cancelled dispatched thread item retains its physical slot until backend acknowledgement. Reentrant submission or blocking completion callbacks can deadlock.",
       "benchmark_method": "Hold workers behind a barrier, fill the admission budget, and verify the next submission waits or times out. Release tasks and assert capacity is reclaimed after success, failure, and cancellation.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
@@ -43,9 +43,9 @@
       "title": "Per-key backend EWMA selection",
       "status": "experimental",
       "category": "learning",
-      "mechanism": "Keep exponentially weighted successful backend submit-to-completion latency by task key and backend; choose the lower EWMA after both backends have enough samples. Deterministic exploration periodically routes a new eligible submission to an under-sampled or alternate backend.",
+      "mechanism": "Keep per-key backend completion records and uncontended completion EWMA; combine eligible observations with immutable owned-queue/dispatch-slot pressure, per-key bounded exploration and a switching deadband. Built-in policy templates create isolated executor state.",
       "applicability": "Repeated, reasonably comparable tasks with stable explicit keys.",
-      "risks": "Wall time includes backend waiting and transfer overhead; unequal input sizes and stale samples bias comparisons. This is lightweight online adaptation, not a trained general-purpose AI model.",
+      "risks": "Uncontended observations still include startup and transfer overhead; slot occupancy is not CPU utilisation. Keys must group comparable tasks, observations can be stale, and pressure-adjusted scores are heuristics rather than service or completion-time guarantees.",
       "benchmark_method": "Feed controlled observations to policy unit tests, then run repeated comparable real workloads with separate cold and warm phases. Compare against fixed routes and report learning cost.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
@@ -74,9 +74,9 @@
       "title": "Cancellation propagation",
       "status": "implemented",
       "category": "lifecycle",
-      "mechanism": "Keep cancellation connected to the actual backend Future so successful cancellation represents work that the backend can still prevent.",
+      "mechanism": "Return executor-owned standard Futures connected to removable pending items. Successful queued cancellation releases the payload; thread dispatch cancellation retains physical capacity until acknowledgement, while process Futures become running at dispatch.",
       "applicability": "Callers abandoning pending work and shutdown paths that cancel pending futures.",
-      "risks": "A running task usually cannot be cancelled. A result wait timeout is not a cancellation request; process transport can make work non-cancellable before callable entry.",
+      "risks": "Running work is not preempted; process work can be non-cancellable before callable entry. Wait timeouts do not cancel tasks. Explicit context management or shutdown(wait=True) is required for orderly accepted-work drain.",
       "benchmark_method": "Block a worker, cancel queued work, and verify it never enters its callable. Race cancel against start; ensure wait and as_completed observe terminal cancellation.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
@@ -88,9 +88,9 @@
       "title": "Standard Future interoperability",
       "status": "implemented",
       "category": "api",
-      "mechanism": "Expose concurrent.futures-compatible submission and Future behavior so existing result collection and completion callbacks remain usable.",
+      "mechanism": "Return genuine executor-owned concurrent.futures.Future objects supporting result, exception, cancel, wait, as_completed and done callbacks.",
       "applicability": "Incremental adoption by callers using submit, result, wait, as_completed, and context-managed shutdown.",
-      "risks": "Compatibility does not imply identical scheduling, nonblocking submission, every new Python-version method, or identical map buffering behavior.",
+      "risks": "Future API compatibility does not imply identical stdlib callback threads, submission/map buffering or implicit interpreter-exit semantics. Normal completion callbacks are serialized on an owned pump and must not wait on another same-executor Future, even with free worker slots.",
       "benchmark_method": "Run compatibility tests for return values, keyword forwarding, exceptions, callbacks, mixed futures, cancellation, and shutdown across supported Python versions.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
@@ -196,11 +196,11 @@
     {
       "id": "CF-013",
       "title": "Queue-aware routing",
-      "status": "planned",
+      "status": "experimental",
       "category": "routing",
-      "mechanism": "Estimate backend waiting pressure and include it alongside service-time estimates when selecting an eligible destination.",
+      "mechanism": "Use immutable per-backend owned-queued and occupied-dispatch counts with explicit task hints and uncontended completion observations; a pressure gap can redirect eligible work and a deadband limits noisy switching.",
       "applicability": "Mixed bursts where the historically faster backend has a long queue.",
-      "risks": "Observed latency already includes some queue effects; counting them twice can oscillate routing. Queue state becomes stale immediately.",
+      "risks": "Dispatch-slot utilisation is not CPU utilisation. Uncontended completion timings include startup/serialization, so pressure-adjusted ranking is heuristic. Predictive admission remains global and may idle another backend; no work-conserving or optimal routing guarantee.",
       "benchmark_method": "Inject staggered CPU and I/O bursts, record queue occupancy and p95 latency, and compare with the same service-only policy.",
       "references": [
         "https://www.activepieces.com/docs/install/architecture/workers"
@@ -985,12 +985,12 @@
     {
       "id": "CF-061",
       "title": "Removable bounded dispatch queue",
-      "status": "planned",
+      "status": "implemented",
       "category": "admission",
-      "mechanism": "Introduce an owned dispatcher queue that can physically remove cancelled pending work, with an explicit combined queued-and-dispatched capacity contract.",
+      "mechanism": "Use executor-owned removable per-backend FIFO queues and bounded dispatch slots. Raw backend callbacks only enqueue completion notifications; an owned completion pump avoids backend-manager lock inversion during redispatch.",
       "applicability": "Long-running services facing repeated submit-and-cancel traffic while workers are blocked.",
-      "risks": "Stdlib queues can retain cancelled tombstones. An extra dispatcher changes cancellation races, shutdown ordering, and latency, and must not imply it can remove already dispatched process work.",
-      "benchmark_method": "Hold all workers blocked and perform many submit/cancel cycles; verify physical queue length and resident memory plateau, then test cancel-versus-dispatch races and shutdown.",
+      "risks": "Normal completion delivery is serialized; slow or waiting callbacks can delay the executor. Process dispatch commits cancellation early. Physical scheduling item bounds do not bound payload bytes, preempt running work, isolate callbacks, prevent dependency deadlocks or guarantee implicit interpreter-exit equivalence.",
+      "benchmark_method": "Block workers while retaining many cancelled Futures; verify queued payload weakrefs are released and physical retained/dispatch counts stay bounded. Exercise cancel/dispatch races, broken process pools, backend lock inversion, result/payload release and explicit shutdown.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
       ],
@@ -1068,6 +1068,23 @@
       "depends_on": [
         "CF-064",
         "CF-001"
+      ]
+    },
+    {
+      "id": "CF-066",
+      "title": "Explicit offline configuration calibration",
+      "status": "implemented",
+      "category": "learning",
+      "mechanism": "Evaluate explicit caller-owned calibration fixtures over bounded configurations. Exhaustive calibration minimizes mean objective; budgeted median successive halving selects the best comparable finalist. Reject correctness/resource/latency failures and validate frozen selections on independent holdout fixtures.",
+      "applicability": "Applications with safe repeatable calibration fixtures that can amortize measured configuration cost before running ordinary work.",
+      "risks": "Caller owns idempotence, representative inputs and holdout independence. Budgets count evaluator calls, not elapsed-time enforcement; measured caps filter observations rather than impose OS limits. No implicit task replay, global optimum or online convergence guarantee. Saved schema-v2 configurations bind scheduler/strategy revisions, workload, runtime and hardware identity.",
+      "benchmark_method": "Use deterministic callback fixtures to verify consent, bounds, errors, caps and selection; then compare actual representative workload runs with equal stdlib algorithm/resource/search grids, separate calibration/hold-out seeds, exact provenance and all configuration cost.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-002"
       ]
     }
   ]

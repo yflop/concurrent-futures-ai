@@ -1,5 +1,24 @@
 # Changelog
 
+
+## 0.4.0 — unpublished candidate
+
+- Eleven original local-fixture workload replicas with real optional libraries,
+  image/PDF OCR/video operations, collision-safe deduplication, graph/SQLite
+  oracles, and loopback-only networking. No upstream interoperability claim.
+- Explicit bounded offline configuration calibration and frozen hold-out
+  inspection; process candidates still require caller consent. No silent replay.
+- Fair backend/worker/batch benchmark grid, separate calibration/held-out seeds,
+  cold/warm timing, p95, throughput, errors, sampled process-tree RSS and raw results.
+- Optional workload dependency ranges, exact tested Python dependency pins,
+  provenance/license notes, dedicated Linux workload CI and acceptance gates.
+- Strict configuration-only JSON reuse with workload/hardware/Python checks and
+  renewed process consent; reuse performs no calibration callbacks.
+- Additional adversarial lifecycle, admission, cancellation and migration checks.
+
+No universal speedup, production certification, ArcGIS integration, task killing,
+hard memory limit, or implementation of the complete planned catalog is implied.
+
 ## 0.3.0
 
 - Opt-in hardware-aware predictive admission with explicit objectives and unchanged

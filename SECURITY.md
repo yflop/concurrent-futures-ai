@@ -66,3 +66,24 @@ not authority to use processes or exceed worker limits. Per-task RSS limits are
 unsupported. Logical pending-Future limits do not bound cancelled entries retained
 in stdlib queues or arbitrary task allocations. A failed batch may already have
 side effects; running batches cannot be partially cancelled and are never retried.
+
+
+## Optional real-workload harnesses
+
+The eleven workload replicas run only generated local fixtures; HTTP and discovery
+accept explicit 127.0.0.1 endpoints and disable proxies/redirects. They are not
+network scanners, file-upload clients, or production ingestion services. Their
+fixtures and task dictionaries are trusted inputs. Arbitrary hostile media,
+mutable filesystem trees and attacker-controlled databases require separate
+validation and isolation. Local-only endpoints do not make untrusted services safe.
+
+Media commands have finite subprocess waits and bounded fixtures, and receive
+argument lists rather than shell command strings. OCR/video invoke installed native
+tools with their own parser risks. The harness does not sandbox them or terminate
+an arbitrary descendant process tree. No binaries or upstream source are vendored.
+
+Offline tuning invokes only the explicitly supplied calibration callback. That
+callback may run once per candidate/repeat, so callers must use repeatable fixtures
+without consequential side effects. Process candidates require explicit consent.
+Observed resource-cap filters are not live resource enforcement. Keep calibration
+artifacts, hardware fingerprints, and task identifiers private when appropriate.

@@ -38,3 +38,22 @@ jobs:
       - run: python -m pip install ".[mcp]"
       - run: python -m unittest tests.test_framework tests.test_mcp -v
       - run: python -m pip check
+
+  real-workloads:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg poppler-utils tesseract-ocr tesseract-ocr-eng fonts-dejavu-core
+      - run: python -m pip install -r requirements-workloads.lock
+      - run: python -m pip install .
+      - run: python -m unittest tests.test_real_media tests.test_real_network tests.test_real_data tests.test_real_runner -v
+      - run: python -m benchmarks.real_world.run --quick --workers 1 --batches 1 --backends thread --count 2 --output benchmarks/results/ci-real-world.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: real-workload-evidence
+          path: benchmarks/results/ci-real-world.json

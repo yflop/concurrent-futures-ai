@@ -24,7 +24,7 @@ def main():
     ]
     if args.examples:
         commands.extend(["-m", f"examples.{name}"] for name in (
-            "profiling", "bounded_pipeline", "cancellation", "custom_policy", "process_hints", "registered_tasks", "predictive_batches"))
+            "profiling", "bounded_pipeline", "cancellation", "custom_policy", "process_hints", "registered_tasks", "predictive_batches", "tuned_execution"))
     for command in commands:
         print("+", sys.executable, *command, flush=True)
         subprocess.run([sys.executable, *command], cwd=ROOT, check=True)

@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "intelligent-futures"
-version = "0.3.0"
-description = "Measured, safety-first adaptive scheduling on Python concurrent.futures"
+version = "0.4.0"
+description = "Intelligent Futures is a workload-aware execution framework for Python that automates the evaluation and selection of concurrency configurations. It combines execution policies, workload characteristics, runtime measurements, and adaptive optimisation to help identify effective thread and process execution strategies under defined resource constraints."
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -15,6 +15,7 @@ dependencies = []
 
 [project.optional-dependencies]
 mcp = ["mcp>=2.3,<3"]
+workloads = ["Pillow>=10,<13", "requests>=2.32,<3", "requests-cache>=1.2,<2", "networkx>=3.2,<4", "psutil>=5.9,<8"]
 
 [project.urls]
 Repository = "https://github.com/yflop/concurrent-futures-ai"

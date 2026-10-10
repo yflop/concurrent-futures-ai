@@ -4,3 +4,5 @@ recursive-include examples *.py
 recursive-include benchmarks *.py *.md *.json *.gz
 recursive-include tests *.py
 recursive-include tools *.py
+
+include requirements-workloads.lock

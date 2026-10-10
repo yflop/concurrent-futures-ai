@@ -1,13 +1,14 @@
+> **Interim validation branch:** source and tests only. This is not a release-ready or publication candidate. New benchmark evidence is intentionally omitted while validation runs.
+
 # Intelligent Futures
 
-A practical, extensible laboratory for better Python concurrency: a bounded
-`concurrent.futures.Executor`, transparent workload measurements, an experimental
-online scheduler, and a growing library of optimization concepts.
+Intelligent Futures is a workload-aware execution framework for Python that automates the evaluation and selection of concurrency configurations. It combines execution policies, workload characteristics, runtime measurements, and adaptive optimisation to help identify effective thread and process execution strategies under defined resource constraints.
 
-**Status: alpha research prototype.** No universal speedup is promised. The
-“intelligence” includes an auditable EWMA latency learner and opt-in
-hardware-aware predictive admission with bounded runtime profiles,
-not an LLM, code generator, or automatic proof of process safety.
+Calibration is explicit: ordinary submitted work is never silently replayed.
+See [configuration selection](docs/TUNING.md),
+[budgeted optimisation](docs/BUDGETED-TUNING.md),
+[configuration reuse](docs/TUNING-PERSISTENCE.md), and the
+[measured release status and operational limits](docs/PRODUCTION-EVIDENCE.md).
 
 Public repository: [yflop/concurrent-futures-ai](https://github.com/yflop/concurrent-futures-ai).
 
@@ -54,6 +55,27 @@ chunk sizes from measured completion time, without replaying work. See
 Cross-machine learned transfer, per-task RSS enforcement, and process runtime
 profiling are not implemented. Tiny-workload measurements show overhead; this
 experimental foundation does not promise a speedup.
+
+## Eleven executable workload replicas
+
+[The workload guide](docs/WORKLOADS.md) supplies real local HTTP, images, graph
+routing, cached HTTP, range downloads, streaming pipelines, PDF OCR,
+collision-safe deduplication, SQLite, loopback discovery, and video-frame harnesses.
+They use actual libraries and correctness oracles. They are original workload
+replicas, not certified integrations with the referenced applications; ArcGIS
+itself remains untested. Optional dependencies and media tools stay outside the core.
+The [evidence report](docs/PRODUCTION-EVIDENCE.md) separates representative
+comparisons, targeted predictive experiments, and sustained reliability checks.
+
+[Explicit offline calibration](docs/TUNING.md) selects backend/worker/batch and
+profiling settings from caller-supplied safe calibration fixtures. It never replays
+ordinary submitted tasks. A bounded benchmark search compares the same algorithms against
+separately tuned standard-library executors on held-out seeds. It records cold/warm
+costs, p95, throughput, errors, sampled memory, and negative results. Read
+[measured evidence](docs/PRODUCTION-EVIDENCE.md) and
+[acceptance gates and limits](docs/WORKLOADS.md#production-acceptance-gates) before
+using smoke measurements as deployment evidence. Planned catalog entries remain
+planned; this work does not implement every optimization concept.
 
 ## What works today
 
@@ -108,8 +130,12 @@ The SDK is optional; registered code still runs with your Python process permiss
 The learner optimizes observed submission-to-completion latency, including pool
 queueing and serialization, **excluding admission wait**. It cannot identify
 causal backend advantages under arbitrary changing load. Errors are counted but
-do not train latency. Share keys only across comparable work. Profiles are
-executor-local, not persisted, and evicted with an LRU bound. The policy's
+do not train latency. Share keys only across comparable work. The original
+adaptive policy's EWMA latency statistics are executor-local, not persisted,
+and evicted with an LRU bound. Separately, the opt-in predictor supports explicit
+JSON profile export/import, and offline calibration supports validated JSON
+configuration reuse; see [prediction](docs/PREDICTIVE.md) and
+[configuration persistence](docs/TUNING-PERSISTENCE.md). The policy's
 exploration counter is global to that policy instance. Keep stateful policy
 instances private to one executor.
 

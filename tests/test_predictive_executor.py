@@ -243,8 +243,16 @@ class PredictiveRuntimeTests(unittest.TestCase):
                 executor.submit(identity, 8)
             self.assertTrue(future.cancel())
         self.assertEqual(executor.export_profiles(), ())
+        self.assertEqual(executor.snapshot()["pending"], 0)
+        self.assertEqual(executor.snapshot()["physical"]["in_flight"]["thread"], 1)
         self.assertEqual(executor.submit(identity, 9).result(WAIT), 9)
-        executor.shutdown()
+        executor.shutdown(wait=False)
+        self.assertEqual(executor.snapshot()["physical"]["retained"], 1)
+        # A cancelled public Future cannot pretend its backend queue entry was
+        # drained. Explicitly acknowledge the synthetic backend dispatch.
+        queued.set_result(None)
+        executor.shutdown(wait=True)
+        self.assertEqual(executor.snapshot()["physical"]["retained"], 0)
         self.assertEqual(self.invariants(executor)["counts"]["cancelled"], 1)
 
     def test_deterministic_profile_sampling_is_bounded(self):

@@ -16,6 +16,8 @@ import platform
 from statistics import mean
 from threading import RLock
 
+from .policies import SchedulingLoad
+
 MAX_SAMPLES = 128
 MAX_FEATURES = 32
 MAX_JSON_BYTES = 262144
@@ -379,6 +381,8 @@ class Prediction:
     transfer: str = 'unknown'
     expected_wall_seconds: float | None = None
     confidence: str = field(init=False)
+    load_adjusted: bool = False
+    stabilized: bool = False
 
     def __post_init__(self):
         # Qualitative evidence labels, not calibrated statistical confidence.
@@ -401,13 +405,16 @@ class Predictor:
     priors, never transferred latency or speedup claims. Local evidence supersedes
     those priors. Imported profiles are advice, not execution authority.
     """
-    def __init__(self, hardware=None, objective=None, profiles=(), max_profiles=MAX_PROFILES):
+    def __init__(self, hardware=None, objective=None, profiles=(), max_profiles=MAX_PROFILES, *,
+                 switch_margin=0.1):
         self.hardware = hardware if hardware is not None else HardwareCapabilities.detect()
         self.objective = objective if objective is not None else ExecutionObjective()
         if not isinstance(self.hardware, HardwareCapabilities) or not isinstance(self.objective, ExecutionObjective):
             raise ValueError('hardware and objective must use their validated types')
         self.max_profiles = _integer(max_profiles, 'max_profiles', 1, MAX_PROFILES)
+        self.switch_margin = _number(switch_margin, 'switch_margin', 0, .99)
         self._profiles = OrderedDict()
+        self._choices = OrderedDict()
         self._lock = RLock()
         if not isinstance(profiles, (list, tuple)) or len(profiles) > self.max_profiles:
             raise ValueError('profiles must be a bounded list or tuple')
@@ -434,14 +441,50 @@ class Predictor:
             self._profiles.move_to_end(profile_key)
             return profile
 
-    def recommend(self, key, features=(), kind='unknown', process_safe=False, process_available=False):
+    def recommend(self, key, features=(), kind='unknown', process_safe=False, process_available=False, *, load=None, backend=None):
+        """Select observed service-time evidence with optional live demand controls.
+
+        Load is dispatch-slot occupancy, not measured CPU utilisation. Queue-scaled
+        ranking remains a heuristic; expected_wall_seconds, when supplied, is the
+        observed service time only, never a forecast of queueing or batch speedup.
+        A bounded per-workload deadband suppresses small load-aware ranking flips.
+        backend optionally fixes the route chosen by an explicit executor policy;
+        evidence, demand and capacity then all refer to that actual backend.
+        This override never grants process consent or backend availability.
+        """
+        if load is not None and not isinstance(load, SchedulingLoad):
+            raise TypeError('load must be SchedulingLoad or None')
+        if backend not in (None, 'thread', 'process'):
+            raise ValueError('backend must be thread, process or None')
         key, features = _key(key), _features(features)
+        with self._lock:
+            result = self._recommend(key, features, kind, process_safe, process_available, load, backend)
+            if load is None:
+                return result
+            backend_load = load.for_backend(result.backend)
+            capacity = min(backend_load.workers, load.max_pending)
+            if capacity < self.objective.min_concurrency:
+                raise ValueError('load capacity is below min_concurrency')
+            # A sparse workload need not reserve its full observed budget. The
+            # next submission sees updated demand and can grow the limit again.
+            concurrency = min(result.concurrency, capacity,
+                              max(self.objective.min_concurrency, backend_load.outstanding + 1))
+            changed = concurrency != result.concurrency
+            source = 'measurement-guided' if changed and result.source == 'empirical' else result.source
+            return Prediction(result.backend, concurrency, source, result.transfer,
+                              None if changed else result.expected_wall_seconds,
+                              load_adjusted=True, stabilized=result.stabilized)
+
+    def _recommend(self, key, features, kind, process_safe, process_available, load, backend):
         if kind not in ('unknown', 'io', 'cpu'):
             raise ValueError('kind must be unknown, io, or cpu')
         if type(process_safe) is not bool or type(process_available) is not bool:
             raise ValueError('process safety and availability must be booleans')
-        process_allowed = process_safe and process_available and kind != 'io'
-        default_backend = 'process' if kind == 'cpu' and process_allowed else 'thread'
+        process_allowed = (process_safe and process_available and (kind != 'io' or backend == 'process')
+                           and (load is None or load.process.workers > 0))
+        if backend == 'process' and not process_allowed:
+            raise ValueError('process override requires process consent and availability')
+        default_backend = backend or ('process' if kind == 'cpu' and process_allowed else 'thread')
         default_concurrency = self.objective.clamp(self.hardware.usable_cpus if kind == 'cpu' else min(32, self.hardware.usable_cpus + 4))
         with self._lock:
             profile_key = (key, features, self.hardware.fingerprint)
@@ -455,6 +498,7 @@ class Predictor:
         buckets = [] if profile is None else [b for b in profile.scaling_curve()
             if b.samples >= 2 and b.mean_wall_seconds > 0
             and (b.backend == 'thread' or process_allowed)
+            and (backend is None or b.backend == backend)
             and self.objective.clamp(b.concurrency) == b.concurrency]
         if not buckets:
             # A single local CPU/wall observation is weak but more relevant than
@@ -492,15 +536,37 @@ class Predictor:
                                   'measurement-guided', 'fingerprint-match')
             return Prediction(default_backend, default_concurrency, 'heuristic')
         fastest = min(buckets, key=lambda b: (b.mean_wall_seconds, b.concurrency, b.backend))
-        if self.objective.mode == 'latency':
-            best = fastest
-        elif self.objective.mode == 'throughput':
-            best = max(buckets, key=lambda b: (b.estimated_throughput, -b.concurrency, b.backend == 'thread'))
-        else:
-            # Balance throughput against latency: reject >25% slower buckets.
+        candidates = buckets
+        if self.objective.mode == 'balanced':
+            # Balance throughput against service latency, excluding >25% slower
+            # observations. Queue pressure never becomes a stored runtime sample.
             candidates = [b for b in buckets if b.mean_wall_seconds <= 1.25 * fastest.mean_wall_seconds]
-            best = max(candidates, key=lambda b: (b.estimated_throughput, -b.concurrency, b.backend == 'thread'))
-        return Prediction(best.backend, best.concurrency, 'empirical', 'fingerprint-match', best.mean_wall_seconds)
+
+        def score(bucket):
+            if self.objective.mode == 'latency':
+                pressure = 0 if load is None else load.for_backend(bucket.backend).pressure
+                return 1 / (bucket.mean_wall_seconds * (1 + pressure))
+            concurrency = bucket.concurrency
+            if load is not None:
+                backend_load = load.for_backend(bucket.backend)
+                concurrency = min(concurrency, backend_load.workers, backend_load.outstanding + 1)
+            return concurrency / bucket.mean_wall_seconds
+
+        best = max(candidates, key=lambda b: (score(b), -b.concurrency, b.backend == 'thread'))
+        stabilized = False
+        if load is not None:
+            choice_key = (key, features, kind, process_allowed, backend)
+            previous = self._choices.get(choice_key)
+            incumbent = next((b for b in candidates if (b.backend, b.concurrency) == previous), None)
+            if incumbent is not None and score(best) <= score(incumbent) * (1 + self.switch_margin):
+                stabilized = best != incumbent
+                best = incumbent
+            self._choices[choice_key] = (best.backend, best.concurrency)
+            self._choices.move_to_end(choice_key)
+            if len(self._choices) > self.max_profiles:
+                self._choices.popitem(last=False)
+        return Prediction(best.backend, best.concurrency, 'empirical', 'fingerprint-match',
+                          best.mean_wall_seconds, stabilized=stabilized)
 
     def _foreign_prior(self, profiles, backend):
         """A bounded, unvalidated budget prior; source times are never predicted."""
