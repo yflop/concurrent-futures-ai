@@ -28,14 +28,16 @@ jobs:
             | sha256sum --check --strict
 
       - name: Install official PyPI upload tooling
-        run: python3 -m pip install --disable-pip-version-check twine==6.2.0
+        run: |
+          python3 -m venv .upload-venv
+          .upload-venv/bin/python -m pip install --disable-pip-version-check twine==6.2.0 packaging==25.0
 
       - name: Validate distributions
-        run: python3 -m twine check --strict dist/*
+        run: .upload-venv/bin/python -m twine check --strict dist/*
 
       - name: Publish verified distributions
         env:
           TWINE_USERNAME: __token__
           TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
           TWINE_NON_INTERACTIVE: '1'
-        run: python3 -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+        run: .upload-venv/bin/python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
