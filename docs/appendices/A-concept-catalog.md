@@ -1,8 +1,30 @@
 # Appendix A: Concept catalog
 
-The machine-readable source of truth is [`../concepts.json`](../concepts.json). It contains 63 concepts: 10 implemented, 1 experimental, and 52 planned. The experimental concept is the current EWMA adaptive learner; it is the constructor default, and callers can explicitly choose threads or hints instead. Each entry gives a mechanism, use case, failure risks, benchmark method, references, and dependency IDs.
+The machine-readable source of truth is [`../concepts.json`](../concepts.json). It contains 66 concepts: 12 implemented, 7 experimental, and 47 planned. These labels describe delivered mechanisms, not deployment readiness or performance guarantees. Adaptive routing remains a bounded heuristic; explicit hints and threads are available. Each entry records mechanism, risks, applicability, benchmark method and dependencies.
 
 Status is a delivery contract, not a quality rating. A planned item is not accepted by the executor API. References explain background; they do not imply endorsement or an implementation in this repository.
+
+## Overlapping scopes are not equivalent features
+
+Some planned concepts overlap with narrower delivered mechanisms:
+
+- CF-010 is a hard exploration-cost/decision budget; existing per-key interval
+  counters and bounded state do not implement that budget.
+- CF-015 is a resource/latency-feedback concurrency controller; experimental
+  demand/profile-driven predictive admission is recorded separately as CF-065.
+- CF-030 is a destructive process-only shutdown escalation path, not the
+  implemented `cancel_futures=True` cancellation escalation and waiting join.
+- CF-043 covers comprehensive policy/code/workload/environment provenance for
+  reusable observations. Saved configuration schema-v2 revision checks are
+  delivered under CF-066, without claiming that broader profile provenance.
+- CF-044 covers managed persistence of aggregate adaptive-policy profiles,
+  including file lifecycle and compatibility concerns. Explicit strict JSON
+  predictive-profile transfer is delivered experimentally under CF-064, while
+  configuration-only reuse is part of CF-066. Neither persists unfinished tasks.
+
+These distinctions do not change the catalog statuses below. Future API
+interoperability (CF-006) does not promise stdlib callback/thread/implicit-exit
+scheduling equivalence; physical item bounds (CF-061) are not byte/RSS caps.
 
 ## Catalog index
 
@@ -15,12 +37,12 @@ Status is a delivery contract, not a quality rating. A planned item is not accep
 | CF-005 | Cancellation propagation | implemented | lifecycle |
 | CF-006 | Standard Future interoperability | implemented | api |
 | CF-007 | Explicit policy registry | implemented | extensibility |
-| CF-008 | Input-size-aware profiles | planned | learning |
+| CF-008 | Input-size-aware profiles | experimental | learning |
 | CF-009 | Cold-start-aware routing | planned | learning |
 | CF-010 | Bounded exploration budget | planned | learning |
 | CF-011 | Concept-drift detection | planned | learning |
 | CF-012 | Uncertainty-aware selection | planned | learning |
-| CF-013 | Queue-aware routing | planned | routing |
+| CF-013 | Queue-aware routing | experimental | routing |
 | CF-014 | Failure-aware policy feedback | planned | learning |
 | CF-015 | Adaptive concurrency control | planned | admission |
 | CF-016 | Byte-weighted admission | planned | admission |
@@ -31,8 +53,8 @@ Status is a delivery contract, not a quality rating. A planned item is not accep
 | CF-021 | Burst reservation pools | planned | admission |
 | CF-022 | Reentrant submission guard | planned | lifecycle |
 | CF-023 | Bounded streaming map | implemented | api |
-| CF-024 | Small-task batching | planned | scheduling |
-| CF-025 | Adaptive chunk sizing | planned | scheduling |
+| CF-024 | Small-task batching | experimental | scheduling |
+| CF-025 | Adaptive chunk sizing | experimental | scheduling |
 | CF-026 | Explicit shared-memory payloads | planned | data-movement |
 | CF-027 | Data-local worker affinity | planned | data-movement |
 | CF-028 | Resource-class budgets | planned | admission |
@@ -68,9 +90,12 @@ Status is a delivery contract, not a quality rating. A planned item is not accep
 | CF-058 | Async application bridge | planned | api |
 | CF-059 | Worker initializer and warmup hooks | planned | backends |
 | CF-060 | Fail-fast task groups | planned | composition |
-| CF-061 | Removable bounded dispatch queue | planned | admission |
+| CF-061 | Removable bounded dispatch queue | implemented | admission |
 | CF-062 | Registered JSON task framework | implemented | extensibility |
 | CF-063 | Optional MCP stdio adapter | implemented | integrations |
+| CF-064 | Bounded transferable workload profiles | experimental | observability |
+| CF-065 | Hardware-aware predictive admission | experimental | learning |
+| CF-066 | Explicit offline configuration calibration | implemented | learning |
 
 ## How to choose the next concept
 
@@ -97,3 +122,13 @@ records bounded transferable measurements; CF-065 uses hardware-aware constraine
 admission. See [PREDICTIVE.md](../PREDICTIVE.md) for exact scope. Foreign-hardware
 reuse is an unvalidated conservative prior, not learned transfer. Controlled
 counterfactual/scaling experiments remain future work.
+
+
+## Offline measured selection (0.4)
+
+CF-066, **Explicit offline configuration calibration**, is implemented in
+`intelligent_futures.tuning`. It evaluates only the caller's explicit repeatable
+calibration callback, validates observations and process consent, records all
+configuration costs, and freezes selection before held-out inspection. See
+[TUNING.md](../TUNING.md). Its bounded measured search does not implement the
+remaining planned concepts or establish a universal optimal scheduler.

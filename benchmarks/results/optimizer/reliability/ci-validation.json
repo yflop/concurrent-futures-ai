@@ -1,0 +1,44 @@
+{
+  "scope": "Exact-commit compatibility validation, separate from the single-host serial performance matrix. No release publication.",
+  "commit": "50fec55e4d5b3c4d8ab8561334c422cffc13863d",
+  "branch": "validation/integrated-optimizer-2026-10-10",
+  "run_url": "https://github.com/yflop/concurrent-futures-ai/actions/runs/38052526385",
+  "conclusion": "success",
+  "jobs_passed": 16,
+  "core": {
+    "operating_systems": [
+      "ubuntu-latest",
+      "windows-latest",
+      "macos-latest"
+    ],
+    "python_versions": [
+      "3.10",
+      "3.12",
+      "3.14"
+    ],
+    "jobs": 9
+  },
+  "mcp": {
+    "operating_systems": [
+      "ubuntu-latest",
+      "windows-latest",
+      "macos-latest"
+    ],
+    "python_versions": [
+      "3.10",
+      "3.14"
+    ],
+    "jobs": 6
+  },
+  "native_workloads": {
+    "operating_system": "ubuntu-latest",
+    "python_version": "3.12",
+    "jobs": 1,
+    "scope": "real media/network/data/runner tests and eleven-workload quick run; native dependencies installed"
+  },
+  "notes": [
+    "Native workload performance was not measured across all three operating systems.",
+    "The only correction during CI was a test-only native path separator expectation; measured runtime and harness bytes were unchanged.",
+    "Optional dependencies can cause explicit skips in the core jobs; native workload coverage is the dedicated Ubuntu job."
+  ]
+}

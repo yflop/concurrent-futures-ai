@@ -1,0 +1,167 @@
+{
+  "scope": "Previously declared independent follow-ons, strictly serial; no replacement of primary failures",
+  "jobs": [
+    {
+      "name": "live-pipeline",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "benchmarks.real_world.optimizer_variants",
+        "--baseline",
+        "[redacted local path]",
+        "--mode",
+        "live"
+      ]
+    },
+    {
+      "name": "shifted-images",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "benchmarks.real_world.optimizer_variants",
+        "--baseline",
+        "[redacted local path]",
+        "--mode",
+        "shift"
+      ]
+    },
+    {
+      "name": "capacity-pipeline128",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "tools.probe_throughput_capacity",
+        "--affinity",
+        "8"
+      ]
+    },
+    {
+      "name": "images-affinity1",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "tools.probe_affinity_constraints",
+        "--workload",
+        "images",
+        "--affinity",
+        "1",
+        "--baseline",
+        "[redacted local path]"
+      ]
+    },
+    {
+      "name": "images-affinity2",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "tools.probe_affinity_constraints",
+        "--workload",
+        "images",
+        "--affinity",
+        "2",
+        "--baseline",
+        "[redacted local path]"
+      ]
+    },
+    {
+      "name": "geospatial-affinity1",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "tools.probe_affinity_constraints",
+        "--workload",
+        "geospatial",
+        "--affinity",
+        "1",
+        "--baseline",
+        "[redacted local path]"
+      ]
+    },
+    {
+      "name": "geospatial-affinity2",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "tools.probe_affinity_constraints",
+        "--workload",
+        "geospatial",
+        "--affinity",
+        "2",
+        "--baseline",
+        "[redacted local path]"
+      ]
+    },
+    {
+      "name": "load-transitions-final",
+      "wall_seconds": 300,
+      "arguments": [
+        "-m",
+        "benchmarks.real_world.load_scenarios"
+      ]
+    },
+    {
+      "name": "bounded-churn-final",
+      "wall_seconds": 120,
+      "arguments": [
+        "-m",
+        "benchmarks.stress.churn_limitation",
+        "--count",
+        "10000"
+      ]
+    },
+    {
+      "name": "endurance-final-adapters",
+      "wall_seconds": 1800,
+      "arguments": [
+        "-m",
+        "benchmarks.real_world.optimizer_endurance",
+        "--epoch-seconds",
+        "55",
+        "--epochs",
+        "22"
+      ]
+    }
+  ],
+  "source_sha256": {
+    "benchmarks/real_world/__init__.py": "d3a14705dadf8d7d17698e00aa29c4d107d617ee0e4961808706be2f6e9e2095",
+    "benchmarks/real_world/baseline_measurements.py": "25afc841b313fc3e0f34456afdc200161e9e6f1b2751e1978ca55be785d8e86d",
+    "benchmarks/real_world/data.py": "d06f28d210b3be094f63e199e0f2d622f6f484fcb3e9e153964af7465d467fcc",
+    "benchmarks/real_world/features.py": "dbad43dbc154556a7e77fb8a9b7469eb14faf3a231048ead712ea97ff2edbdce",
+    "benchmarks/real_world/load_scenarios.py": "b5675f833aaf9dd95c43421e1655ec55ce0bf430c5a29ba2fc7ce494c50eb521",
+    "benchmarks/real_world/media.py": "69884e5e47a43b1520ec8588ea19e81621835a32bacaee49e3392eed84026798",
+    "benchmarks/real_world/memory_diagnostics.py": "ca2418a4576d3cc2c24cf0fe9c1d2bf1fc13f6a1c6b06f147f5f8ce4565e1939",
+    "benchmarks/real_world/network.py": "7e2d6df2ee1df2325de89d84ab5728fef3d01260f00f73e5ef9030112b7c64a1",
+    "benchmarks/real_world/optimizer.py": "019b6e67b1b2249b9b4079fd9cd40f9855a372b35244a222bb6c628df5355492",
+    "benchmarks/real_world/optimizer_endurance.py": "8474d827e989584ea96c599ed41531c9fbaab4e173681acf63cfac1afd60c752",
+    "benchmarks/real_world/optimizer_metrics.py": "bb0bd54008de7369748b6f747a9fc80a30069391f65c81d1331a4ba1817af2c4",
+    "benchmarks/real_world/optimizer_supervisor.py": "cd4b80f29233f4f99ea69aba4e672bb277855ebed53d3c42f1d6c81c8c195f51",
+    "benchmarks/real_world/optimizer_variants.py": "51ff8a9eb3cfcb578ef59e8584d75ed85d841f2158fce21f44b35c557547e16f",
+    "benchmarks/real_world/recheck.py": "ab4e1a46ec627c2a5947e5420dd78066cd71fad9c2765705d7abf3d64d28de3a",
+    "benchmarks/real_world/resource_sampling.py": "32e3b41fd927040951784ac80a9c4ce35d3edff94096abb1365765aa1293dea1",
+    "benchmarks/real_world/run.py": "281b7e47b517750d4889e0229c42f5af56e353a0fb29ec9381e2a759041a3a8b",
+    "benchmarks/real_world/soak.py": "1521f525ec47b2ada9c97144b95b7a2f3be1c9cfc4bef9cd894adae3eceda56f",
+    "benchmarks/stress/churn_limitation.py": "f013bb021faac07a6e6536f0a93c34fb3921564eec63bd9c618925ab799ab622",
+    "src/intelligent_futures/__init__.py": "c28e5fe0c8d5dea0f5f6bbbcefb8f8857231ffb75844b6e4b34258a841687abc",
+    "src/intelligent_futures/__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+    "src/intelligent_futures/catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+    "src/intelligent_futures/executor.py": "a3c5cfb05473ab7553dfad7a2ad54c2286e1b3c8c933688c2b0bd9f7638704ad",
+    "src/intelligent_futures/framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+    "src/intelligent_futures/framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+    "src/intelligent_futures/integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+    "src/intelligent_futures/integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+    "src/intelligent_futures/policies.py": "9db6557b86d18ab8d60c7d88f1d3caf65a88d8b361f9b694149cade04aab732b",
+    "src/intelligent_futures/prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d",
+    "src/intelligent_futures/tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81",
+    "tools/probe_affinity_constraints.py": "779ce318a32d259584e4611f36a83bb62420f51149bb813422c625b539eb34fa",
+    "tools/probe_media_envelope.py": "6ad4334ea807d61260199550ccc600fc4531ff162a07062494f9d706be094b0d",
+    "tools/probe_throughput_capacity.py": "214e1b71a22d0445a8fa29fec046cbafea4fde8819867cba407dec13356b2659",
+    "tools/run_bounded_command.py": "04286b31404fb44626c336512aa8a5137bbc61a78e9d4593253db05aad3aac13"
+  },
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "3e7de33876e1d6b189fa36d0fdd1c6434a800fecf4826712d163093da91b598d",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

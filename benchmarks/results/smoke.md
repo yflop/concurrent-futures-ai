@@ -91,5 +91,5 @@ Batch timings are across repeats; task latencies pool individual tasks across re
 ## Reproduce
 
 ```sh
-/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python -m benchmarks.run --quick --output benchmarks/results/smoke.json
+python -m benchmarks.run --quick --output benchmarks/results/smoke.json
 ```

@@ -116,5 +116,5 @@ Accepted tasks summed across repeats, excluding warmup batches. Final raw snapsh
 ## Reproduce
 
 ```sh
-/opt/codex/runtimes/codex-primary-runtime/dependencies/python/bin/python -m benchmarks.run --max-pending 8 --output benchmarks/results/reference.json
+python -m benchmarks.run --max-pending 8 --output benchmarks/results/reference.json
 ```

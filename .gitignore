@@ -8,3 +8,10 @@ dist/
 .pytest_cache/
 
 .venv*/
+
+.venv-workloads/
+
+dist-*/
+
+# Raw optimizer measurement checkpoints are projected before publication.
+benchmarks/results/optimizer-primary/

@@ -26,7 +26,7 @@ Top-level module functions with simple immutable inputs are a good first fixture
 
 A notebook cell is not automatically an importable worker module. A function that runs in a thread from an interactive environment may fail when a spawned worker tries to resolve it. Put process worker functions in an importable `.py` module and run a guarded entry point for the first smoke test.
 
-Do not hide such failures by silently resubmitting the task to a thread. A fallback can change shared-state effects, duplicate external work after ambiguous failure, and conceal the importability defect. The prototype surfaces the backend failure and leaves the next action to the caller.
+Do not hide such failures by silently resubmitting the task to a thread. A fallback can change shared-state effects, duplicate external work after ambiguous failure, and conceal the importability defect. The executor surfaces the backend failure and leaves the next action to the caller.
 
 ## 4. Choosing a different context
 

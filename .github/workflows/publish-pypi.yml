@@ -1,0 +1,44 @@
+name: Publish verified 0.4.0 to PyPI
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pypi-intelligent-futures-0.4.0
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download and verify immutable release artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir dist
+          base=https://github.com/yflop/concurrent-futures-ai/releases/download/v0.4.0
+          curl --fail --location --retry 3 "$base/intelligent_futures-0.4.0-py3-none-any.whl" -o dist/intelligent_futures-0.4.0-py3-none-any.whl
+          curl --fail --location --retry 3 "$base/intelligent_futures-0.4.0.tar.gz" -o dist/intelligent_futures-0.4.0.tar.gz
+          printf '%s\n' \
+            'c1091e07bd40d32b0aceb8b51125a49542b856de0daaad33bb50c9b53cecd8cf  dist/intelligent_futures-0.4.0-py3-none-any.whl' \
+            '5ad92cdb2775240e401f86585832f02780323c5e72fb11e9e10b3581e41ffa04  dist/intelligent_futures-0.4.0.tar.gz' \
+            | sha256sum --check --strict
+
+      - name: Install official PyPI upload tooling
+        run: |
+          python3 -m venv .upload-venv
+          .upload-venv/bin/python -m pip install --disable-pip-version-check twine==6.2.0 packaging==25.0
+
+      - name: Validate distributions
+        run: .upload-venv/bin/python -m twine check --strict dist/*
+
+      - name: Publish verified distributions
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+          TWINE_NON_INTERACTIVE: '1'
+        run: .upload-venv/bin/python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*

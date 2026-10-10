@@ -1,0 +1,817 @@
+{
+  "schema_version": 1,
+  "environment": {
+    "recorded_at_utc": "2026-10-10T09:41:54.710724+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "implementation": "CPython",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "affinity_cpus": 9,
+    "cgroup_cpu_max": null,
+    "cgroup_cpu_quota_cores": null,
+    "cgroup_memory_max": null,
+    "free_threaded_build": false,
+    "process_start_method": "spawn",
+    "git_revision": "82a853a79d6ffb3706085f38d927a05db475ae25",
+    "command": "python -m benchmarks.real_world.soak --workloads http cached_http downloads discovery sqlite pipeline --seconds 60 --task-budget 50000 --fixture-count 6 --output benchmarks/results/sustained-workloads.json",
+    "source_sha256": {
+      "benchmarks/real_world/__init__.py": "d3a14705dadf8d7d17698e00aa29c4d107d617ee0e4961808706be2f6e9e2095",
+      "benchmarks/real_world/data.py": "d06f28d210b3be094f63e199e0f2d622f6f484fcb3e9e153964af7465d467fcc",
+      "benchmarks/real_world/features.py": "dbad43dbc154556a7e77fb8a9b7469eb14faf3a231048ead712ea97ff2edbdce",
+      "benchmarks/real_world/media.py": "17d3913c28eaf3d68cf5ec764552a83f223a9ca4e932ed9f4f5f1b42f3b34573",
+      "benchmarks/real_world/network.py": "7e2d6df2ee1df2325de89d84ab5728fef3d01260f00f73e5ef9030112b7c64a1",
+      "benchmarks/real_world/run.py": "019a94bea96f4fd939c86a0e03f42c0d725001ab1ed2f869377e2354c8fd562a",
+      "benchmarks/real_world/soak.py": "1521f525ec47b2ada9c97144b95b7a2f3be1c9cfc4bef9cd894adae3eceda56f",
+      "src/intelligent_futures/__init__.py": "937f53ea8271de43f3bc5feac7e6f7d2ba74292372f12526ea9837269c3c8509",
+      "src/intelligent_futures/__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+      "src/intelligent_futures/catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+      "src/intelligent_futures/executor.py": "31de74fbeb0afefd01f631a8f75f66dd867111687117b35cf26a44899b6b3c58",
+      "src/intelligent_futures/framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+      "src/intelligent_futures/framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+      "src/intelligent_futures/integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+      "src/intelligent_futures/integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+      "src/intelligent_futures/policies.py": "b4fedaace31f89b0c7c3f78202b095111ee0d96dbfc52e6b97618b2a7ea81ffd",
+      "src/intelligent_futures/prediction.py": "c1b2acfa6cdd71233d3f14a88aa3b4819e4daf892287605855a7a94a9c752a2b",
+      "src/intelligent_futures/tuning.py": "affeb7720c8ed967ce270607883f0531d3e37c40489f65a96a467879037e6cf9"
+    },
+    "git_dirty": true,
+    "dependencies": {
+      "Pillow": "12.3.0",
+      "requests": "2.34.2",
+      "requests-cache": "1.3.3",
+      "networkx": "3.7",
+      "psutil": "7.2.2"
+    },
+    "native_tools": {
+      "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+      "pdftoppm": "pdftoppm version 26.05.0",
+      "tesseract": "tesseract 5.5.0"
+    }
+  },
+  "command": "python -m benchmarks.real_world.soak --workloads http cached_http downloads discovery sqlite pipeline --seconds 60 --task-budget 50000 --fixture-count 6 --output benchmarks/results/sustained-workloads.json",
+  "configuration": {
+    "max_workers": 2,
+    "process_workers": 0,
+    "max_pending": 4,
+    "policy": "hints",
+    "predictive": false,
+    "profile_sample_interval": 1
+  },
+  "configuration_provenance": "Explicit fixed thread-only reliability configuration; not calibrated or a performance winner.",
+  "scope": "Bounded local representative-fixture observations, not uptime, task-killing, leak-freedom or deployment guarantees.",
+  "budgets": {
+    "task_budget_per_workload": 50000,
+    "min_checks": 12,
+    "max_rss_bytes": 1073741824,
+    "max_growth_bytes": 134217728,
+    "max_cpu_seconds": 600.0
+  },
+  "exception_probe": {
+    "passed": true,
+    "snapshot_after_shutdown": {
+      "counts": {
+        "submitted": 1,
+        "completed": 0,
+        "failed": 1,
+        "cancelled": 0,
+        "rejected": 0,
+        "thread_submitted": 1,
+        "process_submitted": 0,
+        "peak_pending": 1,
+        "profiles_evicted": 0
+      },
+      "pending": 0,
+      "predictive": null,
+      "closed": true,
+      "max_pending": 4,
+      "profiles": {
+        "default": {
+          "thread": {
+            "samples": 0,
+            "ewma_seconds": 0.0,
+            "total_seconds": 0.0,
+            "failures": 1
+          }
+        }
+      }
+    }
+  },
+  "workloads": [
+    {
+      "requested_seconds": 60.0,
+      "admission_seconds": 60.00094777499908,
+      "actual_seconds_including_drain_shutdown": 60.019121437999274,
+      "stop_reason": "duration_reached",
+      "duration_completed": true,
+      "submitted": 16872,
+      "completed": 16872,
+      "errors": 0,
+      "error_rate": 0.0,
+      "reference_mismatches": 0,
+      "error_examples": [],
+      "throughput_per_second": 281.11041274452924,
+      "time_windows": [
+        {
+          "start_seconds": 0,
+          "end_seconds": 10,
+          "throughput_per_second": 282.2,
+          "tasks": 2822,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 10,
+          "end_seconds": 20,
+          "throughput_per_second": 275.6,
+          "tasks": 2756,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 20,
+          "end_seconds": 30,
+          "throughput_per_second": 276.1,
+          "tasks": 2761,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 30,
+          "end_seconds": 40,
+          "throughput_per_second": 275.8,
+          "tasks": 2758,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 40,
+          "end_seconds": 50,
+          "throughput_per_second": 290.5,
+          "tasks": 2905,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 50,
+          "end_seconds": 60,
+          "throughput_per_second": 286.6,
+          "tasks": 2866,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 60,
+          "end_seconds": 60.019121437999274,
+          "throughput_per_second": 209.18928796839435,
+          "tasks": 4,
+          "errors": 0,
+          "mismatches": 0
+        }
+      ],
+      "callback_count": 16872,
+      "callback_errors": [],
+      "snapshot_after_shutdown": {
+        "counts": {
+          "submitted": 16872,
+          "completed": 16872,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 16872,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "predictive": null,
+        "closed": true,
+        "max_pending": 4,
+        "profiles": {
+          "soak": {
+            "thread": {
+              "samples": 16872,
+              "ewma_seconds": 0.019828825630748136,
+              "total_seconds": 232.83523649323251,
+              "failures": 0
+            }
+          }
+        }
+      },
+      "failures": [],
+      "name": "http",
+      "fixture_count": 6,
+      "seed": 8701,
+      "scale": "representative",
+      "reference_sha256": "74df42db766c2807d54174f831e20d2e2723117c97c796d378d1ea9c274a5631",
+      "memory": {
+        "start_bytes": 39129088,
+        "peak_bytes": 69734400,
+        "end_bytes": 69689344,
+        "end_minus_start_bytes": 30560256,
+        "samples": 4696,
+        "errors": []
+      },
+      "lifecycle_cpu_seconds": 88.76699800000002,
+      "new_live_threads": [],
+      "new_live_child_processes": [],
+      "accepted": true
+    },
+    {
+      "requested_seconds": 60.0,
+      "admission_seconds": 60.00286522600072,
+      "actual_seconds_including_drain_shutdown": 60.049904077000974,
+      "stop_reason": "duration_reached",
+      "duration_completed": true,
+      "submitted": 7536,
+      "completed": 7536,
+      "errors": 0,
+      "error_rate": 0.0,
+      "reference_mismatches": 0,
+      "error_examples": [],
+      "throughput_per_second": 125.49562094781558,
+      "time_windows": [
+        {
+          "start_seconds": 0,
+          "end_seconds": 10,
+          "throughput_per_second": 122.4,
+          "tasks": 1224,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 10,
+          "end_seconds": 20,
+          "throughput_per_second": 126.3,
+          "tasks": 1263,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 20,
+          "end_seconds": 30,
+          "throughput_per_second": 131.6,
+          "tasks": 1316,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 30,
+          "end_seconds": 40,
+          "throughput_per_second": 125.3,
+          "tasks": 1253,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 40,
+          "end_seconds": 50,
+          "throughput_per_second": 125.2,
+          "tasks": 1252,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 50,
+          "end_seconds": 60,
+          "throughput_per_second": 122.4,
+          "tasks": 1224,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 60,
+          "end_seconds": 60.049904077000974,
+          "throughput_per_second": 80.15377180349239,
+          "tasks": 4,
+          "errors": 0,
+          "mismatches": 0
+        }
+      ],
+      "callback_count": 7536,
+      "callback_errors": [],
+      "snapshot_after_shutdown": {
+        "counts": {
+          "submitted": 7536,
+          "completed": 7536,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 7536,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "predictive": null,
+        "closed": true,
+        "max_pending": 4,
+        "profiles": {
+          "soak": {
+            "thread": {
+              "samples": 7536,
+              "ewma_seconds": 0.04127904464408244,
+              "total_seconds": 235.81306641700576,
+              "failures": 0
+            }
+          }
+        }
+      },
+      "failures": [],
+      "name": "cached_http",
+      "fixture_count": 6,
+      "seed": 8701,
+      "scale": "representative",
+      "reference_sha256": "bbd56aa09db8b3128721192e74a66b22944bab047bdf3452aa9d96fe1e3e1b11",
+      "memory": {
+        "start_bytes": 84107264,
+        "peak_bytes": 95735808,
+        "end_bytes": 70152192,
+        "end_minus_start_bytes": -13955072,
+        "samples": 4821,
+        "errors": []
+      },
+      "lifecycle_cpu_seconds": 87.61568799999998,
+      "new_live_threads": [],
+      "new_live_child_processes": [],
+      "accepted": true
+    },
+    {
+      "requested_seconds": 60.0,
+      "admission_seconds": 60.00562772600097,
+      "actual_seconds_including_drain_shutdown": 60.02222950799842,
+      "stop_reason": "duration_reached",
+      "duration_completed": true,
+      "submitted": 6401,
+      "completed": 6401,
+      "errors": 0,
+      "error_rate": 0.0,
+      "reference_mismatches": 0,
+      "error_examples": [],
+      "throughput_per_second": 106.6438226715157,
+      "time_windows": [
+        {
+          "start_seconds": 0,
+          "end_seconds": 10,
+          "throughput_per_second": 103.4,
+          "tasks": 1034,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 10,
+          "end_seconds": 20,
+          "throughput_per_second": 106.9,
+          "tasks": 1069,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 20,
+          "end_seconds": 30,
+          "throughput_per_second": 106.9,
+          "tasks": 1069,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 30,
+          "end_seconds": 40,
+          "throughput_per_second": 109.2,
+          "tasks": 1092,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 40,
+          "end_seconds": 50,
+          "throughput_per_second": 107.1,
+          "tasks": 1071,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 50,
+          "end_seconds": 60,
+          "throughput_per_second": 106.2,
+          "tasks": 1062,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 60,
+          "end_seconds": 60.02222950799842,
+          "throughput_per_second": 179.94100455505796,
+          "tasks": 4,
+          "errors": 0,
+          "mismatches": 0
+        }
+      ],
+      "callback_count": 6401,
+      "callback_errors": [],
+      "snapshot_after_shutdown": {
+        "counts": {
+          "submitted": 6401,
+          "completed": 6401,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 6401,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "predictive": null,
+        "closed": true,
+        "max_pending": 4,
+        "profiles": {
+          "soak": {
+            "thread": {
+              "samples": 6401,
+              "ewma_seconds": 0.04156330416244189,
+              "total_seconds": 237.09951073786215,
+              "failures": 0
+            }
+          }
+        }
+      },
+      "failures": [],
+      "name": "downloads",
+      "fixture_count": 6,
+      "seed": 8701,
+      "scale": "representative",
+      "reference_sha256": "965048e20fe6c7e2cb5e1f787439222da87d574d6dfa8ac3a39332156b665131",
+      "memory": {
+        "start_bytes": 74948608,
+        "peak_bytes": 84455424,
+        "end_bytes": 84402176,
+        "end_minus_start_bytes": 9453568,
+        "samples": 4787,
+        "errors": []
+      },
+      "lifecycle_cpu_seconds": 83.56876499999998,
+      "new_live_threads": [],
+      "new_live_child_processes": [],
+      "accepted": true
+    },
+    {
+      "requested_seconds": 60.0,
+      "admission_seconds": 60.000644445000944,
+      "actual_seconds_including_drain_shutdown": 60.00715514100011,
+      "stop_reason": "duration_reached",
+      "duration_completed": true,
+      "submitted": 19898,
+      "completed": 19898,
+      "errors": 0,
+      "error_rate": 0.0,
+      "reference_mismatches": 0,
+      "error_examples": [],
+      "throughput_per_second": 331.59378999463047,
+      "time_windows": [
+        {
+          "start_seconds": 0,
+          "end_seconds": 10,
+          "throughput_per_second": 324.3,
+          "tasks": 3243,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 10,
+          "end_seconds": 20,
+          "throughput_per_second": 339.2,
+          "tasks": 3392,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 20,
+          "end_seconds": 30,
+          "throughput_per_second": 335.7,
+          "tasks": 3357,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 30,
+          "end_seconds": 40,
+          "throughput_per_second": 337.9,
+          "tasks": 3379,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 40,
+          "end_seconds": 50,
+          "throughput_per_second": 321.0,
+          "tasks": 3210,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 50,
+          "end_seconds": 60,
+          "throughput_per_second": 331.3,
+          "tasks": 3313,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 60,
+          "end_seconds": 60.00715514100011,
+          "throughput_per_second": 559.03859895107,
+          "tasks": 4,
+          "errors": 0,
+          "mismatches": 0
+        }
+      ],
+      "callback_count": 19898,
+      "callback_errors": [],
+      "snapshot_after_shutdown": {
+        "counts": {
+          "submitted": 19898,
+          "completed": 19898,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 19898,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "predictive": null,
+        "closed": true,
+        "max_pending": 4,
+        "profiles": {
+          "soak": {
+            "thread": {
+              "samples": 19898,
+              "ewma_seconds": 0.010917543704896183,
+              "total_seconds": 234.57516900297196,
+              "failures": 0
+            }
+          }
+        }
+      },
+      "failures": [],
+      "name": "discovery",
+      "fixture_count": 6,
+      "seed": 8701,
+      "scale": "representative",
+      "reference_sha256": "64592a13acbffed93e7635255dc72bb8d98a39fb13274f232b16a90603537f24",
+      "memory": {
+        "start_bytes": 84443136,
+        "peak_bytes": 84623360,
+        "end_bytes": 84545536,
+        "end_minus_start_bytes": 102400,
+        "samples": 3834,
+        "errors": []
+      },
+      "lifecycle_cpu_seconds": 70.81828999999999,
+      "new_live_threads": [],
+      "new_live_child_processes": [],
+      "accepted": true
+    },
+    {
+      "requested_seconds": 60.0,
+      "admission_seconds": 60.00228210700152,
+      "actual_seconds_including_drain_shutdown": 60.011210315002245,
+      "stop_reason": "duration_reached",
+      "duration_completed": true,
+      "submitted": 17521,
+      "completed": 17521,
+      "errors": 0,
+      "error_rate": 0.0,
+      "reference_mismatches": 0,
+      "error_examples": [],
+      "throughput_per_second": 291.9621168783512,
+      "time_windows": [
+        {
+          "start_seconds": 0,
+          "end_seconds": 10,
+          "throughput_per_second": 304.5,
+          "tasks": 3045,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 10,
+          "end_seconds": 20,
+          "throughput_per_second": 304.8,
+          "tasks": 3048,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 20,
+          "end_seconds": 30,
+          "throughput_per_second": 263.4,
+          "tasks": 2634,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 30,
+          "end_seconds": 40,
+          "throughput_per_second": 275.7,
+          "tasks": 2757,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 40,
+          "end_seconds": 50,
+          "throughput_per_second": 323.9,
+          "tasks": 3239,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 50,
+          "end_seconds": 60,
+          "throughput_per_second": 279.4,
+          "tasks": 2794,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 60,
+          "end_seconds": 60.011210315002245,
+          "throughput_per_second": 356.81423753025575,
+          "tasks": 4,
+          "errors": 0,
+          "mismatches": 0
+        }
+      ],
+      "callback_count": 17521,
+      "callback_errors": [],
+      "snapshot_after_shutdown": {
+        "counts": {
+          "submitted": 17521,
+          "completed": 17521,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 17521,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "predictive": null,
+        "closed": true,
+        "max_pending": 4,
+        "profiles": {
+          "soak": {
+            "thread": {
+              "samples": 17521,
+              "ewma_seconds": 0.018599421490140614,
+              "total_seconds": 236.8197180091738,
+              "failures": 0
+            }
+          }
+        }
+      },
+      "failures": [],
+      "name": "sqlite",
+      "fixture_count": 6,
+      "seed": 8701,
+      "scale": "representative",
+      "reference_sha256": "f5cd1fc4dbd75af7442f2673ea55835bb28e0edec1c97992de3bb11673ee3a3b",
+      "memory": {
+        "start_bytes": 87322624,
+        "peak_bytes": 87412736,
+        "end_bytes": 87367680,
+        "end_minus_start_bytes": 45056,
+        "samples": 5312,
+        "errors": []
+      },
+      "lifecycle_cpu_seconds": 82.21209699999997,
+      "new_live_threads": [],
+      "new_live_child_processes": [],
+      "accepted": true
+    },
+    {
+      "requested_seconds": 60.0,
+      "admission_seconds": 60.018599465998705,
+      "actual_seconds_including_drain_shutdown": 60.09209028499754,
+      "stop_reason": "duration_reached",
+      "duration_completed": true,
+      "submitted": 2088,
+      "completed": 2088,
+      "errors": 0,
+      "error_rate": 0.0,
+      "reference_mismatches": 0,
+      "error_examples": [],
+      "throughput_per_second": 34.74666948840163,
+      "time_windows": [
+        {
+          "start_seconds": 0,
+          "end_seconds": 10,
+          "throughput_per_second": 33.9,
+          "tasks": 339,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 10,
+          "end_seconds": 20,
+          "throughput_per_second": 35.8,
+          "tasks": 358,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 20,
+          "end_seconds": 30,
+          "throughput_per_second": 34.1,
+          "tasks": 341,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 30,
+          "end_seconds": 40,
+          "throughput_per_second": 33.6,
+          "tasks": 336,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 40,
+          "end_seconds": 50,
+          "throughput_per_second": 34.9,
+          "tasks": 349,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 50,
+          "end_seconds": 60,
+          "throughput_per_second": 36.1,
+          "tasks": 361,
+          "errors": 0,
+          "mismatches": 0
+        },
+        {
+          "start_seconds": 60,
+          "end_seconds": 60.09209028499754,
+          "throughput_per_second": 43.4356349326847,
+          "tasks": 4,
+          "errors": 0,
+          "mismatches": 0
+        }
+      ],
+      "callback_count": 2088,
+      "callback_errors": [],
+      "snapshot_after_shutdown": {
+        "counts": {
+          "submitted": 2088,
+          "completed": 2088,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 2088,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "predictive": null,
+        "closed": true,
+        "max_pending": 4,
+        "profiles": {
+          "soak": {
+            "thread": {
+              "samples": 2088,
+              "ewma_seconds": 0.11781061034887755,
+              "total_seconds": 239.30511045395542,
+              "failures": 0
+            }
+          }
+        }
+      },
+      "failures": [],
+      "name": "pipeline",
+      "fixture_count": 6,
+      "seed": 8701,
+      "scale": "representative",
+      "reference_sha256": "00d1d2d6290bd356dc6421a573b8b9c79b20184d0d31f3cfec0b6ecc98ed354d",
+      "memory": {
+        "start_bytes": 87392256,
+        "peak_bytes": 87404544,
+        "end_bytes": 87392256,
+        "end_minus_start_bytes": 0,
+        "samples": 3071,
+        "errors": []
+      },
+      "lifecycle_cpu_seconds": 64.08444899999995,
+      "new_live_threads": [],
+      "new_live_child_processes": [],
+      "accepted": true
+    }
+  ],
+  "failures": []
+}

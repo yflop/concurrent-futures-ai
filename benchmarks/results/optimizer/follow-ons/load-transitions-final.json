@@ -1,0 +1,1574 @@
+{
+  "schema_version": 1,
+  "scope": "deterministic queued/occupied-slot transitions with real pipeline and image tasks; gates are orchestration, elapsed time is not speedup evidence",
+  "environment": {
+    "recorded_at_utc": "2026-10-10T17:26:54.721482+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "implementation": "CPython",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "affinity_cpus": 9,
+    "cgroup_cpu_max": null,
+    "cgroup_cpu_quota_cores": null,
+    "cgroup_memory_max": null,
+    "free_threaded_build": false,
+    "process_start_method": "spawn",
+    "git_revision": "82a853a79d6ffb3706085f38d927a05db475ae25",
+    "command": "python -m benchmarks.real_world.load_scenarios --output load-transitions-final.json",
+    "native_runtime_environment": {
+      "MALLOC_ARENA_MAX": null,
+      "MALLOC_MMAP_THRESHOLD_": null,
+      "GLIBC_TUNABLES": null,
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    },
+    "source_sha256": {
+      "benchmarks/real_world/__init__.py": "d3a14705dadf8d7d17698e00aa29c4d107d617ee0e4961808706be2f6e9e2095",
+      "benchmarks/real_world/baseline_measurements.py": "25afc841b313fc3e0f34456afdc200161e9e6f1b2751e1978ca55be785d8e86d",
+      "benchmarks/real_world/data.py": "d06f28d210b3be094f63e199e0f2d622f6f484fcb3e9e153964af7465d467fcc",
+      "benchmarks/real_world/features.py": "dbad43dbc154556a7e77fb8a9b7469eb14faf3a231048ead712ea97ff2edbdce",
+      "benchmarks/real_world/load_scenarios.py": "b5675f833aaf9dd95c43421e1655ec55ce0bf430c5a29ba2fc7ce494c50eb521",
+      "benchmarks/real_world/media.py": "69884e5e47a43b1520ec8588ea19e81621835a32bacaee49e3392eed84026798",
+      "benchmarks/real_world/memory_diagnostics.py": "ca2418a4576d3cc2c24cf0fe9c1d2bf1fc13f6a1c6b06f147f5f8ce4565e1939",
+      "benchmarks/real_world/network.py": "7e2d6df2ee1df2325de89d84ab5728fef3d01260f00f73e5ef9030112b7c64a1",
+      "benchmarks/real_world/optimizer.py": "019b6e67b1b2249b9b4079fd9cd40f9855a372b35244a222bb6c628df5355492",
+      "benchmarks/real_world/optimizer_endurance.py": "8474d827e989584ea96c599ed41531c9fbaab4e173681acf63cfac1afd60c752",
+      "benchmarks/real_world/optimizer_metrics.py": "bb0bd54008de7369748b6f747a9fc80a30069391f65c81d1331a4ba1817af2c4",
+      "benchmarks/real_world/optimizer_supervisor.py": "cd4b80f29233f4f99ea69aba4e672bb277855ebed53d3c42f1d6c81c8c195f51",
+      "benchmarks/real_world/optimizer_variants.py": "51ff8a9eb3cfcb578ef59e8584d75ed85d841f2158fce21f44b35c557547e16f",
+      "benchmarks/real_world/recheck.py": "ab4e1a46ec627c2a5947e5420dd78066cd71fad9c2765705d7abf3d64d28de3a",
+      "benchmarks/real_world/resource_sampling.py": "32e3b41fd927040951784ac80a9c4ce35d3edff94096abb1365765aa1293dea1",
+      "benchmarks/real_world/run.py": "281b7e47b517750d4889e0229c42f5af56e353a0fb29ec9381e2a759041a3a8b",
+      "benchmarks/real_world/soak.py": "1521f525ec47b2ada9c97144b95b7a2f3be1c9cfc4bef9cd894adae3eceda56f",
+      "src/intelligent_futures/__init__.py": "c28e5fe0c8d5dea0f5f6bbbcefb8f8857231ffb75844b6e4b34258a841687abc",
+      "src/intelligent_futures/__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+      "src/intelligent_futures/catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+      "src/intelligent_futures/executor.py": "a3c5cfb05473ab7553dfad7a2ad54c2286e1b3c8c933688c2b0bd9f7638704ad",
+      "src/intelligent_futures/framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+      "src/intelligent_futures/framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+      "src/intelligent_futures/integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+      "src/intelligent_futures/integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+      "src/intelligent_futures/policies.py": "9db6557b86d18ab8d60c7d88f1d3caf65a88d8b361f9b694149cade04aab732b",
+      "src/intelligent_futures/prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d",
+      "src/intelligent_futures/tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81"
+    },
+    "git_dirty": true,
+    "dependencies": {
+      "Pillow": "12.3.0",
+      "requests": "2.34.2",
+      "requests-cache": "1.3.3",
+      "networkx": "3.7",
+      "psutil": "7.2.2"
+    },
+    "native_tools": {
+      "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+      "pdftoppm": "pdftoppm version 26.05.0",
+      "tesseract": "tesseract 5.5.0"
+    }
+  },
+  "transitions": [
+    {
+      "label": "process backlog diverts CPU-safe work to thread",
+      "before": {
+        "counts": {
+          "submitted": 4,
+          "completed": 0,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 0,
+          "process_submitted": 4,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 4,
+        "load": {
+          "thread": {
+            "workers": 2,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "process": {
+            "workers": 2,
+            "queued": 2,
+            "in_flight": 2
+          },
+          "max_pending": 12
+        },
+        "policy": {
+          "tracked_keys": 1,
+          "max_keys": 256,
+          "last_decision": {
+            "backend": "process",
+            "reason": "task-hint",
+            "exploration": false
+          }
+        },
+        "predictive": null,
+        "closed": false,
+        "max_pending": 12,
+        "physical": {
+          "queued": {
+            "thread": 0,
+            "process": 2
+          },
+          "in_flight": {
+            "thread": 0,
+            "process": 2
+          },
+          "retained": 4,
+          "max_retained": 12,
+          "dispatch_limits": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_queued": {
+            "thread": 0,
+            "process": 2
+          },
+          "peak_in_flight": {
+            "thread": 0,
+            "process": 2
+          },
+          "peak_retained": 4
+        },
+        "profiles": {}
+      },
+      "after": {
+        "counts": {
+          "submitted": 5,
+          "completed": 0,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 1,
+          "process_submitted": 4,
+          "peak_pending": 5,
+          "profiles_evicted": 0
+        },
+        "pending": 5,
+        "load": {
+          "thread": {
+            "workers": 2,
+            "queued": 0,
+            "in_flight": 1
+          },
+          "process": {
+            "workers": 2,
+            "queued": 2,
+            "in_flight": 2
+          },
+          "max_pending": 12
+        },
+        "policy": {
+          "tracked_keys": 1,
+          "max_keys": 256,
+          "last_decision": {
+            "backend": "thread",
+            "reason": "queue-pressure",
+            "exploration": false
+          }
+        },
+        "predictive": null,
+        "closed": false,
+        "max_pending": 12,
+        "physical": {
+          "queued": {
+            "thread": 0,
+            "process": 2
+          },
+          "in_flight": {
+            "thread": 1,
+            "process": 2
+          },
+          "retained": 5,
+          "max_retained": 12,
+          "dispatch_limits": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_queued": {
+            "thread": 0,
+            "process": 2
+          },
+          "peak_in_flight": {
+            "thread": 1,
+            "process": 2
+          },
+          "peak_retained": 5
+        },
+        "profiles": {}
+      }
+    },
+    {
+      "label": "drained backlog restores CPU process preference",
+      "after": {
+        "counts": {
+          "submitted": 6,
+          "completed": 5,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 1,
+          "process_submitted": 5,
+          "peak_pending": 5,
+          "profiles_evicted": 0
+        },
+        "pending": 1,
+        "load": {
+          "thread": {
+            "workers": 2,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "process": {
+            "workers": 2,
+            "queued": 0,
+            "in_flight": 1
+          },
+          "max_pending": 12
+        },
+        "policy": {
+          "tracked_keys": 1,
+          "max_keys": 256,
+          "last_decision": {
+            "backend": "process",
+            "reason": "task-hint",
+            "exploration": false
+          }
+        },
+        "predictive": null,
+        "closed": false,
+        "max_pending": 12,
+        "physical": {
+          "queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "in_flight": {
+            "thread": 0,
+            "process": 1
+          },
+          "retained": 1,
+          "max_retained": 12,
+          "dispatch_limits": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_queued": {
+            "thread": 0,
+            "process": 2
+          },
+          "peak_in_flight": {
+            "thread": 1,
+            "process": 2
+          },
+          "peak_retained": 5
+        },
+        "profiles": {
+          "actual-pipeline": {
+            "thread": {
+              "samples": 1,
+              "ewma_seconds": 0.029243997996672988,
+              "total_seconds": 0.029243997996672988,
+              "failures": 0,
+              "uncontended_samples": 1,
+              "uncontended_ewma_seconds": 0.029243997996672988,
+              "uncontended_total_seconds": 0.029243997996672988
+            },
+            "process": {
+              "samples": 4,
+              "ewma_seconds": 0.13611636990719944,
+              "total_seconds": 0.5506911580014275,
+              "failures": 0,
+              "uncontended_samples": 1,
+              "uncontended_ewma_seconds": 0.12427589500293834,
+              "uncontended_total_seconds": 0.12427589500293834
+            }
+          }
+        }
+      }
+    },
+    {
+      "label": "thread backlog allows independent CPU process progress",
+      "before": {
+        "counts": {
+          "submitted": 10,
+          "completed": 6,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 5,
+          "process_submitted": 5,
+          "peak_pending": 5,
+          "profiles_evicted": 0
+        },
+        "pending": 4,
+        "load": {
+          "thread": {
+            "workers": 2,
+            "queued": 2,
+            "in_flight": 2
+          },
+          "process": {
+            "workers": 2,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 12
+        },
+        "policy": {
+          "tracked_keys": 1,
+          "max_keys": 256,
+          "last_decision": {
+            "backend": "thread",
+            "reason": "process-ineligible",
+            "exploration": false
+          }
+        },
+        "predictive": null,
+        "closed": false,
+        "max_pending": 12,
+        "physical": {
+          "queued": {
+            "thread": 2,
+            "process": 0
+          },
+          "in_flight": {
+            "thread": 2,
+            "process": 0
+          },
+          "retained": 4,
+          "max_retained": 12,
+          "dispatch_limits": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_queued": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_in_flight": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_retained": 5
+        },
+        "profiles": {
+          "actual-pipeline": {
+            "thread": {
+              "samples": 1,
+              "ewma_seconds": 0.029243997996672988,
+              "total_seconds": 0.029243997996672988,
+              "failures": 0,
+              "uncontended_samples": 1,
+              "uncontended_ewma_seconds": 0.029243997996672988,
+              "uncontended_total_seconds": 0.029243997996672988
+            },
+            "process": {
+              "samples": 5,
+              "ewma_seconds": 0.10871059642951764,
+              "total_seconds": 0.5771844339978998,
+              "failures": 0,
+              "uncontended_samples": 2,
+              "uncontended_ewma_seconds": 0.09983024025132181,
+              "uncontended_total_seconds": 0.15076917099941056
+            }
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "submitted": 11,
+          "completed": 6,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 5,
+          "process_submitted": 6,
+          "peak_pending": 5,
+          "profiles_evicted": 0
+        },
+        "pending": 5,
+        "load": {
+          "thread": {
+            "workers": 2,
+            "queued": 2,
+            "in_flight": 2
+          },
+          "process": {
+            "workers": 2,
+            "queued": 0,
+            "in_flight": 1
+          },
+          "max_pending": 12
+        },
+        "policy": {
+          "tracked_keys": 1,
+          "max_keys": 256,
+          "last_decision": {
+            "backend": "process",
+            "reason": "task-hint",
+            "exploration": false
+          }
+        },
+        "predictive": null,
+        "closed": false,
+        "max_pending": 12,
+        "physical": {
+          "queued": {
+            "thread": 2,
+            "process": 0
+          },
+          "in_flight": {
+            "thread": 2,
+            "process": 1
+          },
+          "retained": 5,
+          "max_retained": 12,
+          "dispatch_limits": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_queued": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_in_flight": {
+            "thread": 2,
+            "process": 2
+          },
+          "peak_retained": 5
+        },
+        "profiles": {
+          "actual-pipeline": {
+            "thread": {
+              "samples": 1,
+              "ewma_seconds": 0.029243997996672988,
+              "total_seconds": 0.029243997996672988,
+              "failures": 0,
+              "uncontended_samples": 1,
+              "uncontended_ewma_seconds": 0.029243997996672988,
+              "uncontended_total_seconds": 0.029243997996672988
+            },
+            "process": {
+              "samples": 5,
+              "ewma_seconds": 0.10871059642951764,
+              "total_seconds": 0.5771844339978998,
+              "failures": 0,
+              "uncontended_samples": 2,
+              "uncontended_ewma_seconds": 0.09983024025132181,
+              "uncontended_total_seconds": 0.15076917099941056
+            }
+          }
+        }
+      }
+    }
+  ],
+  "predictive_epochs": [
+    {
+      "label": "small sparse",
+      "tasks": 2,
+      "source_pixel_counts": [
+        307200,
+        1920000
+      ],
+      "observed_limits": [
+        1,
+        2
+      ],
+      "observed_loads": [
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 1
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 2
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        }
+      ],
+      "prediction_sources": [
+        {
+          "backend": "thread",
+          "concurrency": 1,
+          "source": "heuristic",
+          "transfer": "unknown",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 2,
+          "source": "heuristic",
+          "transfer": "unknown",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        }
+      ],
+      "completion_snapshot": {
+        "counts": {
+          "submitted": 2,
+          "completed": 2,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 2,
+          "process_submitted": 0,
+          "peak_pending": 2,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "load": {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        "policy": null,
+        "predictive": {
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+            "usable_cpus": 9,
+            "fingerprint": null
+          },
+          "objective": {
+            "mode": "throughput",
+            "min_concurrency": 1,
+            "max_concurrency": 4,
+            "memory_limit_bytes": null
+          },
+          "concurrency_limit": 2,
+          "last_prediction": {
+            "backend": "thread",
+            "concurrency": 2,
+            "source": "heuristic",
+            "transfer": "unknown",
+            "expected_wall_seconds": null,
+            "confidence": "heuristic",
+            "load_adjusted": true,
+            "stabilized": false
+          },
+          "profile_count": 2,
+          "profiling_errors": 0,
+          "profile_sample_interval": 1,
+          "process_runtime_metrics": "unavailable",
+          "task_memory_metrics": "unavailable"
+        },
+        "closed": false,
+        "max_pending": 8,
+        "physical": {
+          "queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "in_flight": {
+            "thread": 0,
+            "process": 0
+          },
+          "retained": 0,
+          "max_retained": 8,
+          "dispatch_limits": {
+            "thread": 4,
+            "process": 0
+          },
+          "peak_queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "peak_in_flight": {
+            "thread": 2,
+            "process": 0
+          },
+          "peak_retained": 2
+        },
+        "profiles": {
+          "changing-image-cost": {
+            "thread": {
+              "samples": 2,
+              "ewma_seconds": 0.08737062600084755,
+              "total_seconds": 0.19908394999947632,
+              "failures": 0,
+              "uncontended_samples": 1,
+              "uncontended_ewma_seconds": 0.07519927700195694,
+              "uncontended_total_seconds": 0.07519927700195694
+            }
+          }
+        }
+      }
+    },
+    {
+      "label": "large burst",
+      "tasks": 16,
+      "source_pixel_counts": [
+        3145728,
+        3686400,
+        3145728,
+        3686400,
+        3145728,
+        3686400,
+        3145728,
+        3686400,
+        3145728,
+        3686400,
+        3145728,
+        3686400,
+        3145728,
+        3686400,
+        3145728,
+        3686400
+      ],
+      "observed_limits": [
+        1,
+        2,
+        3,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "observed_loads": [
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 1
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 2
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 3
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        }
+      ],
+      "prediction_sources": [
+        {
+          "backend": "thread",
+          "concurrency": 1,
+          "source": "heuristic",
+          "transfer": "unknown",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 2,
+          "source": "heuristic",
+          "transfer": "unknown",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 3,
+          "source": "heuristic",
+          "transfer": "unknown",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "heuristic",
+          "transfer": "unknown",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        }
+      ],
+      "completion_snapshot": {
+        "counts": {
+          "submitted": 18,
+          "completed": 18,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 18,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "load": {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        "policy": null,
+        "predictive": {
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+            "usable_cpus": 9,
+            "fingerprint": null
+          },
+          "objective": {
+            "mode": "throughput",
+            "min_concurrency": 1,
+            "max_concurrency": 4,
+            "memory_limit_bytes": null
+          },
+          "concurrency_limit": 4,
+          "last_prediction": {
+            "backend": "thread",
+            "concurrency": 4,
+            "source": "measurement-guided",
+            "transfer": "fingerprint-match",
+            "expected_wall_seconds": null,
+            "confidence": "heuristic",
+            "load_adjusted": true,
+            "stabilized": false
+          },
+          "profile_count": 3,
+          "profiling_errors": 0,
+          "profile_sample_interval": 1,
+          "process_runtime_metrics": "unavailable",
+          "task_memory_metrics": "unavailable"
+        },
+        "closed": false,
+        "max_pending": 8,
+        "physical": {
+          "queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "in_flight": {
+            "thread": 0,
+            "process": 0
+          },
+          "retained": 0,
+          "max_retained": 8,
+          "dispatch_limits": {
+            "thread": 4,
+            "process": 0
+          },
+          "peak_queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "peak_in_flight": {
+            "thread": 4,
+            "process": 0
+          },
+          "peak_retained": 4
+        },
+        "profiles": {
+          "changing-image-cost": {
+            "thread": {
+              "samples": 18,
+              "ewma_seconds": 0.11918976885502003,
+              "total_seconds": 2.0898694839925156,
+              "failures": 0,
+              "uncontended_samples": 2,
+              "uncontended_ewma_seconds": 0.10063764325241209,
+              "uncontended_total_seconds": 0.2521520190057345
+            }
+          }
+        }
+      }
+    },
+    {
+      "label": "small recovery",
+      "tasks": 4,
+      "source_pixel_counts": [
+        307200,
+        1920000,
+        307200,
+        1920000
+      ],
+      "observed_limits": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "observed_loads": [
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 1
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 2
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 3
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 4
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        }
+      ],
+      "prediction_sources": [
+        {
+          "backend": "thread",
+          "concurrency": 1,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 2,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 3,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        },
+        {
+          "backend": "thread",
+          "concurrency": 4,
+          "source": "measurement-guided",
+          "transfer": "fingerprint-match",
+          "expected_wall_seconds": null,
+          "confidence": "heuristic",
+          "load_adjusted": true,
+          "stabilized": false
+        }
+      ],
+      "completion_snapshot": {
+        "counts": {
+          "submitted": 22,
+          "completed": 22,
+          "failed": 0,
+          "cancelled": 0,
+          "rejected": 0,
+          "thread_submitted": 22,
+          "process_submitted": 0,
+          "peak_pending": 4,
+          "profiles_evicted": 0
+        },
+        "pending": 0,
+        "load": {
+          "thread": {
+            "workers": 4,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "process": {
+            "workers": 0,
+            "queued": 0,
+            "in_flight": 0
+          },
+          "max_pending": 8
+        },
+        "policy": null,
+        "predictive": {
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+            "usable_cpus": 9,
+            "fingerprint": null
+          },
+          "objective": {
+            "mode": "throughput",
+            "min_concurrency": 1,
+            "max_concurrency": 4,
+            "memory_limit_bytes": null
+          },
+          "concurrency_limit": 4,
+          "last_prediction": {
+            "backend": "thread",
+            "concurrency": 4,
+            "source": "measurement-guided",
+            "transfer": "fingerprint-match",
+            "expected_wall_seconds": null,
+            "confidence": "heuristic",
+            "load_adjusted": true,
+            "stabilized": false
+          },
+          "profile_count": 3,
+          "profiling_errors": 0,
+          "profile_sample_interval": 1,
+          "process_runtime_metrics": "unavailable",
+          "task_memory_metrics": "unavailable"
+        },
+        "closed": false,
+        "max_pending": 8,
+        "physical": {
+          "queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "in_flight": {
+            "thread": 0,
+            "process": 0
+          },
+          "retained": 0,
+          "max_retained": 8,
+          "dispatch_limits": {
+            "thread": 4,
+            "process": 0
+          },
+          "peak_queued": {
+            "thread": 0,
+            "process": 0
+          },
+          "peak_in_flight": {
+            "thread": 4,
+            "process": 0
+          },
+          "peak_retained": 4
+        },
+        "profiles": {
+          "changing-image-cost": {
+            "thread": {
+              "samples": 22,
+              "ewma_seconds": 0.11145445758322939,
+              "total_seconds": 2.4868376749946037,
+              "failures": 0,
+              "uncontended_samples": 3,
+              "uncontended_ewma_seconds": 0.09307135418839607,
+              "uncontended_total_seconds": 0.3225245060020825
+            }
+          }
+        }
+      }
+    }
+  ],
+  "failures": [],
+  "routing_final_snapshot": {
+    "counts": {
+      "submitted": 11,
+      "completed": 11,
+      "failed": 0,
+      "cancelled": 0,
+      "rejected": 0,
+      "thread_submitted": 5,
+      "process_submitted": 6,
+      "peak_pending": 5,
+      "profiles_evicted": 0
+    },
+    "pending": 0,
+    "load": {
+      "thread": {
+        "workers": 2,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "process": {
+        "workers": 2,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "max_pending": 12
+    },
+    "policy": {
+      "tracked_keys": 1,
+      "max_keys": 256,
+      "last_decision": {
+        "backend": "process",
+        "reason": "task-hint",
+        "exploration": false
+      }
+    },
+    "predictive": null,
+    "closed": true,
+    "max_pending": 12,
+    "physical": {
+      "queued": {
+        "thread": 0,
+        "process": 0
+      },
+      "in_flight": {
+        "thread": 0,
+        "process": 0
+      },
+      "retained": 0,
+      "max_retained": 12,
+      "dispatch_limits": {
+        "thread": 2,
+        "process": 2
+      },
+      "peak_queued": {
+        "thread": 2,
+        "process": 2
+      },
+      "peak_in_flight": {
+        "thread": 2,
+        "process": 2
+      },
+      "peak_retained": 5
+    },
+    "profiles": {
+      "actual-pipeline": {
+        "thread": {
+          "samples": 1,
+          "ewma_seconds": 0.029243997996672988,
+          "total_seconds": 0.029243997996672988,
+          "failures": 0,
+          "uncontended_samples": 1,
+          "uncontended_ewma_seconds": 0.029243997996672988,
+          "uncontended_total_seconds": 0.029243997996672988
+        },
+        "process": {
+          "samples": 6,
+          "ewma_seconds": 0.08819403457122377,
+          "total_seconds": 0.6038287829942419,
+          "failures": 0,
+          "uncontended_samples": 3,
+          "uncontended_ewma_seconds": 0.0815337674375769,
+          "uncontended_total_seconds": 0.17741351999575272
+        }
+      },
+      "controlled-thread-gate": {
+        "thread": {
+          "samples": 4,
+          "ewma_seconds": 0.10629309195326186,
+          "total_seconds": 0.45461905900447164,
+          "failures": 0,
+          "uncontended_samples": 1,
+          "uncontended_ewma_seconds": 0.11806634000095073,
+          "uncontended_total_seconds": 0.11806634000095073
+        }
+      }
+    }
+  },
+  "profile_count": 3,
+  "predictive_final_snapshot": {
+    "counts": {
+      "submitted": 22,
+      "completed": 22,
+      "failed": 0,
+      "cancelled": 0,
+      "rejected": 0,
+      "thread_submitted": 22,
+      "process_submitted": 0,
+      "peak_pending": 4,
+      "profiles_evicted": 0
+    },
+    "pending": 0,
+    "load": {
+      "thread": {
+        "workers": 4,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "process": {
+        "workers": 0,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "max_pending": 8
+    },
+    "policy": null,
+    "predictive": {
+      "hardware": {
+        "logical_cpus": 9,
+        "affinity_cpus": 9,
+        "quota_cpus": null,
+        "machine": "x86_64",
+        "system": "Linux",
+        "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+        "usable_cpus": 9,
+        "fingerprint": null
+      },
+      "objective": {
+        "mode": "throughput",
+        "min_concurrency": 1,
+        "max_concurrency": 4,
+        "memory_limit_bytes": null
+      },
+      "concurrency_limit": 4,
+      "last_prediction": {
+        "backend": "thread",
+        "concurrency": 4,
+        "source": "measurement-guided",
+        "transfer": "fingerprint-match",
+        "expected_wall_seconds": null,
+        "confidence": "heuristic",
+        "load_adjusted": true,
+        "stabilized": false
+      },
+      "profile_count": 3,
+      "profiling_errors": 0,
+      "profile_sample_interval": 1,
+      "process_runtime_metrics": "unavailable",
+      "task_memory_metrics": "unavailable"
+    },
+    "closed": true,
+    "max_pending": 8,
+    "physical": {
+      "queued": {
+        "thread": 0,
+        "process": 0
+      },
+      "in_flight": {
+        "thread": 0,
+        "process": 0
+      },
+      "retained": 0,
+      "max_retained": 8,
+      "dispatch_limits": {
+        "thread": 4,
+        "process": 0
+      },
+      "peak_queued": {
+        "thread": 0,
+        "process": 0
+      },
+      "peak_in_flight": {
+        "thread": 4,
+        "process": 0
+      },
+      "peak_retained": 4
+    },
+    "profiles": {
+      "changing-image-cost": {
+        "thread": {
+          "samples": 22,
+          "ewma_seconds": 0.11145445758322939,
+          "total_seconds": 2.4868376749946037,
+          "failures": 0,
+          "uncontended_samples": 3,
+          "uncontended_ewma_seconds": 0.09307135418839607,
+          "uncontended_total_seconds": 0.3225245060020825
+        }
+      }
+    }
+  },
+  "accepted": true,
+  "status": "complete",
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "ada1fd6bf735fede7699bc33520285a9ad6e9a8d89db0c313a287580a79ded17",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

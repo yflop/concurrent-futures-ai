@@ -1,0 +1,112 @@
+{
+  "status": "complete",
+  "jobs": [
+    {
+      "name": "live-pipeline",
+      "returncode": 0,
+      "elapsed_seconds": 123.6390602600004,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "shifted-images",
+      "returncode": 0,
+      "elapsed_seconds": 372.10957926199626,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "capacity-pipeline128",
+      "returncode": 0,
+      "elapsed_seconds": 0.5442487090040231,
+      "report_status": "complete",
+      "accepted": false,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "images-affinity1",
+      "returncode": 0,
+      "elapsed_seconds": 361.96306376500434,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "images-affinity2",
+      "returncode": 0,
+      "elapsed_seconds": 506.1041970540027,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "geospatial-affinity1",
+      "returncode": 0,
+      "elapsed_seconds": 146.65435336899827,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "geospatial-affinity2",
+      "returncode": 0,
+      "elapsed_seconds": 239.65037217699864,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "load-transitions-final",
+      "returncode": 0,
+      "elapsed_seconds": 3.0584606659977,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "bounded-churn-final",
+      "returncode": 0,
+      "elapsed_seconds": 1.0465204669962986,
+      "report_status": null,
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    },
+    {
+      "name": "endurance-final-adapters",
+      "returncode": 0,
+      "elapsed_seconds": 1239.6373929500041,
+      "report_status": "complete",
+      "accepted": true,
+      "experiment_completed": true,
+      "watchdog_stop_reason": null,
+      "source_unchanged": true
+    }
+  ],
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "6c2a5f70a274758e91c3a20898f4f7b12427a2aca675881471d0286c4b0b5567",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

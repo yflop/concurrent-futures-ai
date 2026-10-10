@@ -1,0 +1,34 @@
+{
+  "scope": "Explicit Linux/glibc allocator-constrained short diagnostic; no change to library global settings. Tracing, per-epoch GC and short epochs prevent interpreting this as a 20-minute endurance pass or portable memory guarantee.",
+  "comparison": [
+    {
+      "engine": "intelligent",
+      "MALLOC_ARENA_MAX": "2",
+      "epoch_count": 22,
+      "epoch_seconds": 5.0,
+      "parent_growth_before_trim_bytes": 54923264,
+      "under_unchanged_128MiB_reference": true,
+      "unexpected_errors": 0,
+      "digest_mismatches": 0,
+      "traced_final_current_bytes": 2143117
+    },
+    {
+      "engine": "stdlib",
+      "MALLOC_ARENA_MAX": "2",
+      "epoch_count": 22,
+      "epoch_seconds": 5.0,
+      "parent_growth_before_trim_bytes": 45805568,
+      "under_unchanged_128MiB_reference": true,
+      "unexpected_errors": 0,
+      "digest_mismatches": 0,
+      "traced_final_current_bytes": 2147615
+    }
+  ],
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "87a32204d232cf54352a80edbaf5971fd8a291d321d51995ceac318675f32be4",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

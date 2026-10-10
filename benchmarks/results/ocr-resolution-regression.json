@@ -1,0 +1,66 @@
+{
+  "kind": "OCR correctness regression evidence, not a performance measurement",
+  "original_report": "final-source-recheck-pre-ocr-fix.json",
+  "failing_seed": 12011,
+  "failing_task_index": 6,
+  "failing_page_1based": 2,
+  "source_size": [
+    1275,
+    1650
+  ],
+  "original_render_long_side": 1650,
+  "expected_phrase": "ALPHA NOVEMBER DELTA",
+  "actual_phrase": "ALPHA NOVEMBER DELIA",
+  "original_errors": [
+    {
+      "index": 6,
+      "error": "ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT DELTA BRAVO NOVEMBER THE QUICK BROWN FOX READ EVERY WORD SOUTH GREEN WEST NORTH BLUE GREEN SOUTH NORTH EAST WEST SOUTH GREEN NORTH WEST GREEN BLUE BLUE SOUTH WEST NORTH WEST NORTH EAST GREEN LOCAL DOCUMENT ALPHA NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD BLUE GREEN EAST NORTH SOUTH NORTH BLUE WEST NORTH SOUTH EAST GREEN WEST NORTH EAST GREEN EAST SOUTH WEST NORTH EAST NORTH SOUTH GREEN'"
+    }
+  ],
+  "diagnosis": "Visually inspected rendered page: clean, legible, unclipped. PSM 3/4/6/11 all misread the unchanged 1650px raster. Long-side rasterization at 1800/2000/2200/2400 each passed the unchanged exact oracle. Evidence supports raster-resolution-sensitive Tesseract recognition, not layout clipping.",
+  "fix": "Set render long side to max(1800,width,height) for all generated OCR tasks; no dictionary, output correction, token deletion, or oracle change.",
+  "versions": {
+    "tesseract": "tesseract 5.5.0",
+    "poppler": "26.05.0"
+  },
+  "source_sha256": "a2127bc318db6df3a9d2415af6d350ea8cc6fc5203e303c3aaa28792a3a9c8b9",
+  "sequential_validation": [
+    {
+      "seed": 12011,
+      "count": 12,
+      "failures": []
+    },
+    {
+      "seed": 2903,
+      "count": 12,
+      "failures": []
+    },
+    {
+      "seed": 3911,
+      "count": 12,
+      "failures": []
+    },
+    {
+      "seed": 4933,
+      "count": 12,
+      "failures": []
+    },
+    {
+      "seed": 17023,
+      "count": 12,
+      "failures": []
+    },
+    {
+      "seed": 22039,
+      "count": 12,
+      "failures": []
+    }
+  ],
+  "media_tests": {
+    "command": ".venv-workloads/bin/python -m unittest discover -s tests -p test_real_media.py -v",
+    "tests": 12,
+    "result": "PASS",
+    "log": "test_images_backends (test_real_media.MediaTests.test_images_backends) ... ok\ntest_invalid_requests (test_real_media.MediaTests.test_invalid_requests) ... ok\ntest_missing_dependency_is_explicit (test_real_media.MediaTests.test_missing_dependency_is_explicit) ... ok\ntest_real_ocr_backends (test_real_media.MediaTests.test_real_ocr_backends) ... ok\ntest_representative_images_backends (test_real_media.MediaTests.test_representative_images_backends) ... ok\ntest_representative_ocr_backends (test_real_media.MediaTests.test_representative_ocr_backends) ... ok\ntest_representative_ocr_resolution_regression (test_real_media.MediaTests.test_representative_ocr_resolution_regression) ... ok\ntest_representative_profiles_and_caps (test_real_media.MediaTests.test_representative_profiles_and_caps) ... ok\ntest_representative_video_backends (test_real_media.MediaTests.test_representative_video_backends) ... ok\ntest_video_backends (test_real_media.MediaTests.test_video_backends) ... ok\ntest_wrong_ocr_oracle_fails (test_real_media.MediaTests.test_wrong_ocr_oracle_fails) ... ok\ntest_wrong_video_oracle_fails (test_real_media.MediaTests.test_wrong_video_oracle_fails) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 48.113s\n\nOK\n"
+  },
+  "limitations": "Clean synthetic print only; finite seeds do not guarantee OCR accuracy across arbitrary text or Tesseract versions. Executor performance must be measured again for the changed rendering work."
+}

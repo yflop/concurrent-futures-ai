@@ -1,14 +1,19 @@
-> **Interim validation branch:** source, tests, and completed diagnostic fixtures only. This is not a release-ready or publication candidate. Performance matrix evidence is intentionally omitted while validation runs.
-
 # Intelligent Futures
 
 Intelligent Futures is a workload-aware execution framework for Python that automates the evaluation and selection of concurrency configurations. It combines execution policies, workload characteristics, runtime measurements, and adaptive optimisation to help identify effective thread and process execution strategies under defined resource constraints.
 
+Version 0.4 is a **Beta workload-aware execution framework**. Beta is not
+Production/Stable or a deployment certification. Individual adaptive/predictive
+capabilities retain their documented experimental status. The release workflow
+requires source verification, built-artifact checks and exact-commit CI; maturity
+labels do not substitute for those records.
+
 Calibration is explicit: ordinary submitted work is never silently replayed.
-See [configuration selection](docs/TUNING.md),
-[budgeted optimisation](docs/BUDGETED-TUNING.md),
-[configuration reuse](docs/TUNING-PERSISTENCE.md), and the
-[measured release status and operational limits](docs/PRODUCTION-EVIDENCE.md).
+See [configuration selection](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/TUNING.md),
+[budgeted optimisation](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/BUDGETED-TUNING.md),
+[configuration reuse](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/TUNING-PERSISTENCE.md),
+[configuration-quality evidence](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/CONFIGURATION-QUALITY.md), and
+[historical workload evidence](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/PRODUCTION-EVIDENCE.md).
 
 Public repository: [yflop/concurrent-futures-ai](https://github.com/yflop/concurrent-futures-ai).
 
@@ -51,42 +56,49 @@ wall/current-thread CPU measurements, reusable validated JSON profiles guide col
 starts, and admission adapts within hardware/objective/worker budgets.
 `map_batches(batch_fn, iterable)` submits actual bounded tuple chunks and adjusts
 chunk sizes from measured completion time, without replaying work. See
-[the predictive guide](docs/PREDICTIVE.md) and `examples/predictive_batches.py`.
+[the predictive guide](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/PREDICTIVE.md) and `examples/predictive_batches.py`.
 Cross-machine learned transfer, per-task RSS enforcement, and process runtime
 profiling are not implemented. Tiny-workload measurements show overhead; this
 experimental foundation does not promise a speedup.
 
 ## Eleven executable workload replicas
 
-[The workload guide](docs/WORKLOADS.md) supplies real local HTTP, images, graph
+[The workload guide](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/WORKLOADS.md) supplies real local HTTP, images, graph
 routing, cached HTTP, range downloads, streaming pipelines, PDF OCR,
 collision-safe deduplication, SQLite, loopback discovery, and video-frame harnesses.
 They use actual libraries and correctness oracles. They are original workload
 replicas, not certified integrations with the referenced applications; ArcGIS
 itself remains untested. Optional dependencies and media tools stay outside the core.
-The [evidence report](docs/PRODUCTION-EVIDENCE.md) separates representative
-comparisons, targeted predictive experiments, and sustained reliability checks.
+The [current configuration-quality report](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/CONFIGURATION-QUALITY.md)
+preserves the original **7/11** workload outcome, including failed cases, and
+separates later revised-source results. Earlier representative, predictive and
+sustained checks remain in the [historical evidence report](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/PRODUCTION-EVIDENCE.md).
 
-[Explicit offline calibration](docs/TUNING.md) selects backend/worker/batch and
+[Explicit offline calibration](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/TUNING.md) selects backend/worker/batch and
 profiling settings from caller-supplied safe calibration fixtures. It never replays
 ordinary submitted tasks. A bounded benchmark search compares the same algorithms against
 separately tuned standard-library executors on held-out seeds. It records cold/warm
 costs, p95, throughput, errors, sampled memory, and negative results. Read
-[measured evidence](docs/PRODUCTION-EVIDENCE.md) and
-[acceptance gates and limits](docs/WORKLOADS.md#production-acceptance-gates) before
+[current measured evidence](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/CONFIGURATION-QUALITY.md) and
+[acceptance gates and limits](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/WORKLOADS.md#production-acceptance-gates) before
 using smoke measurements as deployment evidence. Planned catalog entries remain
 planned; this work does not implement every optimization concept.
 
 ## What works today
 
-- Standard-library `Future` objects, `wait`, `as_completed`, `map`, exceptions,
-  callbacks, and best-effort queued cancellation
+- Genuine executor-owned standard-library `Future` objects, `wait`,
+  `as_completed`, `map`, exceptions, callbacks and queued cancellation;
+  backend Future identities and stdlib callback scheduling are not preserved
 - Independent thread/process worker budgets; processes disabled by default
-- `max_pending` bounds **all unfinished accepted tasks**, queued plus running
+- `max_pending` bounds both **logical unfinished accepted tasks** and
+  **physical owned-queued-plus-dispatched items** across both backends
+- Removable per-backend FIFO queues and worker-bounded dispatch; cancelled
+  dispatched thread work retains its physical slot until acknowledgement
 - Blocking backpressure, optional admission timeout, and shutdown wakeup
 - Bounded per-key/backend latency profiles, failures, and aggregate counters
 - Safe hint routing, thread-only mode, custom policies, and a policy factory registry
-- Experimental EWMA latency selection with deterministic exploration
+- Experimental load-aware EWMA routing with bounded per-key/kind exploration
+  and switching margins
 - Ordered `map_bounded` for streaming inputs and bounded retained results
 - A dependency-free registered-task framework with bounded JSON task records
 - Optional local stdio MCP tools, restricted to explicitly registered callables
@@ -104,9 +116,24 @@ a separate process. Do not rely on mutated thread-shared globals across processe
 No retries, speculative duplicates, hard timeouts, task killing, distributed
 execution, live pool resizing, or remote AI calls are implemented. Predictive mode
 can adjust admission within fixed worker capacities.
-Cancellation never stops a running callable. Context-manager exit waits for work.
-Blocking nested submissions into a saturated executor can deadlock: orchestrate
-from outside worker tasks, or use a finite `submit_timeout` and handle failure.
+Cancellation never stops a running callable. Process Futures commit to `RUNNING`
+at dispatch, before the child callable necessarily starts. Use a context manager
+or explicit `shutdown(wait=True)` to guarantee accepted work drains before
+interpreter exit. Omitted shutdown can settle deferred submissions with
+`RuntimeError`; implicit stdlib teardown equivalence is not promised.
+
+**Normal completion callbacks run serially on one owned completion pump. Never
+wait for another Future from this executor inside a callback, even when worker
+slots are free.** The other result may require that blocked pump for publication.
+Callbacks added after completion or triggered by external cancellation may run on
+the caller. Waiting shutdown from the executor's task/pump context raises
+`RuntimeError`. Genuine stdlib Future APIs do not imply identical callback/thread
+scheduling. Keep callbacks short and notify an external coordinator.
+
+Blocking nested submissions into a saturated executor can also deadlock; there is
+no general dependency-deadlock prevention or callback isolation. Orchestrate from
+outside worker tasks, and use a finite `submit_timeout` where producer blocking
+must be bounded. No item-count limit is a hard byte/RSS cap.
 
 ## Optional MCP integration (0.2.0)
 
@@ -115,8 +142,8 @@ executor API. Task submission returns an ID immediately; tools inspect results,
 cancel queued work, forget completed records, and read metrics and concepts.
 The provided runner uses stdio and opens no listening port.
 
-See [the MCP setup and safety guide](docs/MCP.md),
-[framework API](docs/FRAMEWORK.md), and [changelog](CHANGELOG.md).
+See [the MCP setup and safety guide](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/MCP.md),
+[framework API](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/FRAMEWORK.md), and [changelog](https://github.com/yflop/concurrent-futures-ai/blob/main/CHANGELOG.md).
 The SDK is optional; registered code still runs with your Python process permissions.
 
 ## Choose the right policy
@@ -125,19 +152,29 @@ The SDK is optional; registered code still runs with your Python process permiss
 | --- | --- | --- |
 | `threads` | Always threads | Closures, shared state, general I/O |
 | `hints` | CPU + explicit process consent routes to processes | Known workloads, predictable routing |
-| `adaptive` (default) | Eligible workloads can explore both backends and learn EWMA completion latency | Controlled experiments with comparable task keys |
+| `adaptive` (default) | Eligible workloads use hints, uncontended completion EWMA, queue/dispatch pressure and bounded exploration | Controlled experiments with comparable task keys |
 
-The learner optimizes observed submission-to-completion latency, including pool
-queueing and serialization, **excluding admission wait**. It cannot identify
-causal backend advantages under arbitrary changing load. Errors are counted but
-do not train latency. Share keys only across comparable work. The original
-adaptive policy's EWMA latency statistics are executor-local, not persisted,
-and evicted with an LRU bound. Separately, the opt-in predictor supports explicit
-JSON profile export/import, and offline calibration supports validated JSON
-configuration reuse; see [prediction](docs/PREDICTIVE.md) and
-[configuration persistence](docs/TUNING-PERSISTENCE.md). The policy's
-exploration counter is global to that policy instance. Keep stateful policy
-instances private to one executor.
+Full latency profiles measure accepted submission to completion, including owned
+queueing, dispatch/startup and serialization, **excluding admission wait**. The
+executor's load-aware adaptive path uses the uncontended subset, accepted when the
+selected backend had no outstanding work, plus current queue/dispatch-slot
+pressure. Uncontended measurements still include startup and serialization; load
+counts occupied slots and queued items, not CPU utilisation. Routing and switching
+margins are heuristics, without causal or optimality guarantees. Errors do not train
+successful latency. Share keys only across comparable work.
+
+Exploration counters and incumbent choices are bounded per `(key, kind)`.
+Exact built-in `AdaptivePolicy` instances are configuration templates: every
+executor receives a fresh independent exploration/switching session. Custom
+subclasses retain supplied state unless they override `for_executor`; shared
+custom policies must synchronize themselves or return independent sessions.
+Executor-local EWMA statistics are bounded and evicted. Separately, the opt-in
+predictor supports explicit strict JSON profile export/import, and offline
+calibration supports version-checked JSON configuration reuse; see
+[prediction](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/PREDICTIVE.md) and
+[configuration persistence](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/TUNING-PERSISTENCE.md).
+Predictive admission is global and can leave another backend idle; it is not a
+work-conserving scheduling guarantee.
 
 ## Browse the concept library
 
@@ -151,13 +188,13 @@ dependencies. Catalog content never imports or executes plugin code.
 
 ## API and documents
 
-- [API and semantics](docs/API.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Concept library and appendices](docs/appendices/)
-- [Machine-readable concept catalog](docs/concepts.json)
-- [Activepieces inspiration and attribution](docs/INSPIRATION.md)
-- [Benchmarks](benchmarks/) and [verification record](docs/VALIDATION.md)
-- [Contributing](CONTRIBUTING.md), [Security](SECURITY.md), [Publishing](docs/PUBLISHING.md)
+- [API and semantics](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/API.md)
+- [Architecture](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/ARCHITECTURE.md)
+- [Concept library and appendices](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/appendices/)
+- [Machine-readable concept catalog](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/concepts.json)
+- [Activepieces inspiration and attribution](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/INSPIRATION.md)
+- [Benchmarks](https://github.com/yflop/concurrent-futures-ai/blob/main/benchmarks/) and [verification record](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/VALIDATION.md)
+- [Contributing](https://github.com/yflop/concurrent-futures-ai/blob/main/CONTRIBUTING.md), [Security](https://github.com/yflop/concurrent-futures-ai/blob/main/SECURITY.md), [Publishing](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/PUBLISHING.md)
 
 Appendices separate implemented mechanisms from experimental and planned work.
 Ideas are extension proposals, not hidden features. Benchmark raw data is the
@@ -176,14 +213,17 @@ See benchmark help for workload sizes, repeated cold/warm comparisons, and JSON
 output. A hybrid executor may use more total workers than a single baseline pool;
 compare resource budgets before interpreting a timing ratio.
 
-## Measured result
+## Historical measured result
 
-The included five-repeat reference run did not beat the best stdlib pool:
+The included five-repeat reference run predates the owned-FIFO/load-aware
+implementation and did not beat the best stdlib pool:
 for warm CPU, synthetic I/O, and mixed batches, adaptive took approximately
 548, 164, and 344 ms versus 256, 122, and 196 ms for the best measured stdlib
 configuration. Worker allocation and hint information differ; see the full
-[validation record](docs/VALIDATION.md). Treat this as an extensible research
-baseline with tested contracts, not a performance upgrade by default.
+[validation record](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/VALIDATION.md). These historical observations do not establish
+current configuration quality or a default performance upgrade. Current
+configuration-selection evidence and its failed cases are reported separately in
+[configuration quality](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/CONFIGURATION-QUALITY.md).
 
 ## License
 
@@ -193,9 +233,13 @@ material retains its own license.
 
 ### Cancellation churn and memory
 
-The admission limit is not a strict physical queue or memory bound. Cancelling a
-queued Future frees logical admission immediately, but stdlib pools can retain
-its cancelled work item and arguments until a worker drains the queue. Repeated
-submit/cancel loops behind blocked workers can therefore accumulate tombstones.
-Rate-limit producers and cancellation churn; do not treat this executor as a
-hard memory limiter. A removable bounded physical queue is planned work.
+`max_pending` separately caps logical unfinished work and physical retained
+scheduling items (owned queued plus dispatched), with each backend's dispatches
+also capped by its worker budget. Cancelling owned queued work removes its payload
+without adding a backend tombstone. Successful dispatched thread cancellation
+releases logical capacity but keeps the physical slot until acknowledgement.
+
+These item-count bounds do not constrain payload/result bytes, blocked-producer
+memory, caller-retained Futures, native allocations, transport bytes, or RSS.
+Earlier churn reports describe the historical direct-submission implementation;
+they are not the current queue contract or a hard memory guarantee.

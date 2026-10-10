@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import argparse
+from tools.report_io import read_report, resolve_report
 from fractions import Fraction
 import json
 import math
@@ -285,12 +286,12 @@ def audit(raw):
 def summary(root):
     workloads, incomplete = [], []
     for name in NAMES:
-        source = root / (name + '.json')
+        source = resolve_report(root / (name + '.json'))
         if not source.exists():
             incomplete.append({'workload': name, 'status': 'missing', 'expected_heldout_seeds': None,
                                'seed_slots': None, 'reason': 'No raw protocol available; workload remains in planned denominator.'})
             continue
-        raw = json.loads(source.read_text())
+        raw = read_report(source)
         if raw.get('status') == 'complete':
             workloads.append(audit(raw))
         else:

@@ -1,0 +1,1206 @@
+{
+  "schema_version": 1,
+  "mode": "fixture_only_preflight",
+  "status": "complete",
+  "protocol": {
+    "workload": "pipeline",
+    "experiment": "pipeline-capacity-sharded-v2",
+    "grid": [
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      }
+    ],
+    "count_per_pass": 128,
+    "fixture_composition": {
+      "shards_per_dataset": 2,
+      "tasks_per_shard": 64,
+      "tasks_per_pass": 128,
+      "generator_representative_count_limit": 64,
+      "declared_pages_per_task": 128,
+      "declared_pages_per_pass": 16384,
+      "shard_seed_namespace": 64016431,
+      "datasets": [
+        {
+          "dataset_seed": 6401855876882033917,
+          "phase": "training",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 5329912671394826783,
+              "count": 64,
+              "directory": "shard-0-5329912671394826783"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 4691217711961355406,
+              "count": 64,
+              "directory": "shard-1-4691217711961355406"
+            }
+          ]
+        },
+        {
+          "dataset_seed": 1438089848198961045,
+          "phase": "training",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 2636501107601918821,
+              "count": 64,
+              "directory": "shard-0-2636501107601918821"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 4845034820440272146,
+              "count": 64,
+              "directory": "shard-1-4845034820440272146"
+            }
+          ]
+        },
+        {
+          "dataset_seed": 5083976489921555059,
+          "phase": "training",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 1631338080087279563,
+              "count": 64,
+              "directory": "shard-0-1631338080087279563"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 8808322162415635402,
+              "count": 64,
+              "directory": "shard-1-8808322162415635402"
+            }
+          ]
+        },
+        {
+          "dataset_seed": 7028254806360379243,
+          "phase": "training",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 2593439889383316704,
+              "count": 64,
+              "directory": "shard-0-2593439889383316704"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 2711929793828779364,
+              "count": 64,
+              "directory": "shard-1-2711929793828779364"
+            }
+          ]
+        },
+        {
+          "dataset_seed": 64013819,
+          "phase": "heldout",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 8591717404068576253,
+              "count": 64,
+              "directory": "shard-0-8591717404068576253"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 1450138552052552940,
+              "count": 64,
+              "directory": "shard-1-1450138552052552940"
+            }
+          ]
+        },
+        {
+          "dataset_seed": 64014823,
+          "phase": "heldout",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 4428379491974223434,
+              "count": 64,
+              "directory": "shard-0-4428379491974223434"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 7959279934847275006,
+              "count": 64,
+              "directory": "shard-1-7959279934847275006"
+            }
+          ]
+        },
+        {
+          "dataset_seed": 64015829,
+          "phase": "heldout",
+          "shards": [
+            {
+              "index": 0,
+              "fixture_seed": 1662637782884047478,
+              "count": 64,
+              "directory": "shard-0-1662637782884047478"
+            },
+            {
+              "index": 1,
+              "fixture_seed": 2394530329967644118,
+              "count": 64,
+              "directory": "shard-1-2394530329967644118"
+            }
+          ]
+        }
+      ],
+      "task_identity": "Original task dictionaries and per-shard IDs 0..63 are unchanged. Ordered (shard index, original task ID) identifies each task; task paths are disjoint.",
+      "composition": "Concatenate shard 0 then shard 1 without modifying, repeating, truncating or relabeling tasks. All candidates and the direct reference receive the identical ordered list."
+    },
+    "prior_failed_scenario": {
+      "experiment": "original unsharded pipeline capacity attempt",
+      "protocol_sha256": "1af7bed87cc720eedbfb54414ce9595dd0d347d4c8520b274c7e89ae39124090",
+      "raw_report_sha256": "b536d0af1bc82d03946f51ca0c5d02093f9bb36578f5615ca1ff2840e96ec18b",
+      "tool_sha256": "214e1b71a22d0445a8fa29fec046cbafea4fde8819867cba407dec13356b2659",
+      "recorded_slots": 62,
+      "started_trials": 0,
+      "task_observations": 0,
+      "reason": "Representative prepare rejects count above 64. The original observed_trials=62 field counted recorded unexecuted slots, not executed trials.",
+      "retained_as_failure": true,
+      "scope": "Separate corrected follow-on; never replace or reclassify the original failed scenario or remove it from existing quality denominators."
+    },
+    "batch_size_fixed": 16,
+    "passes_per_trial": 2,
+    "scale": "representative",
+    "training_seed": 64012817,
+    "training_fixture_seeds": [
+      6401855876882033917,
+      1438089848198961045,
+      5083976489921555059,
+      7028254806360379243
+    ],
+    "training_repeats": 4,
+    "heldout_seeds": [
+      64013819,
+      64014823,
+      64015829
+    ],
+    "seed_split": {
+      "training_seeds": [
+        6401855876882033917,
+        1438089848198961045,
+        5083976489921555059,
+        7028254806360379243
+      ],
+      "heldout_seeds": [
+        64013819,
+        64014823,
+        64015829
+      ],
+      "seeds_disjoint": true,
+      "fixture_content_disjoint_checked": false,
+      "selection_inputs_checked": false,
+      "independence_limit": "Disjoint declared inputs do not establish distributional independence or prevent manual tuning after holdout inspection."
+    },
+    "earlier_seed_overlap": false,
+    "shard_seeds_disjoint_checked": true,
+    "holdout_distribution": "fresh same-generator mixed-input seeds; no distribution-shift claim",
+    "fixture_size_caveat": "The frozen representative generator permits at most 64 tasks per prepare call. Two independent 64-item shards each produce 128 pages per task via min((128,256,512)[i%3],8192//64), giving 16384 pages per pass. This doubles the unrealizable 8192-page work declaration in the original failed 128-at-once plan; this is not a pure task-count scaling experiment.",
+    "objective": "combined cold executor lifecycle plus warm pass elapsed",
+    "selection": {
+      "budgeted": "PRIMARY: median successive halving, minimum 2 / maximum 4 repeats, callback limit 24",
+      "exhaustive": "four paired training repeats, arithmetic mean, 32 callbacks",
+      "exhaustive_median": "four paired repeats, median statistic-matched control, callback limit 32; failed candidates may stop early"
+    },
+    "selection_cost_scope": "Recorded-training replay only. Virtual callback seconds sum requested measured rows, including failed rows. Replay wall seconds are selector overhead, not live calibration.",
+    "gates": {
+      "max_p95_seconds": 60.0,
+      "max_rss_bytes": 1073741824,
+      "max_cpu_seconds": 300.0
+    },
+    "correctness": "zero errors, exactly 128 results per pass, same-algorithm reference SHA256 match",
+    "gate_scope": "observed acceptance gates, not hard runtime resource limits",
+    "affinity_requested": 8,
+    "runnable_batches_per_pass": 8,
+    "parallelism_ceilings": [
+      {
+        "configuration": {
+          "backend": "thread",
+          "workers": 1,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 1,
+        "affinity_bounded_parallelism_ceiling": 1,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "thread",
+          "workers": 2,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 2,
+        "affinity_bounded_parallelism_ceiling": 2,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "thread",
+          "workers": 4,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 4,
+        "affinity_bounded_parallelism_ceiling": 4,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "thread",
+          "workers": 8,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 8,
+        "affinity_bounded_parallelism_ceiling": 8,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "process",
+          "workers": 1,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 1,
+        "affinity_bounded_parallelism_ceiling": 1,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "process",
+          "workers": 2,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 2,
+        "affinity_bounded_parallelism_ceiling": 2,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "process",
+          "workers": 4,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 4,
+        "affinity_bounded_parallelism_ceiling": 4,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      },
+      {
+        "configuration": {
+          "backend": "process",
+          "workers": 8,
+          "batch_size": 16,
+          "profile_sample_interval": 0
+        },
+        "runnable_batches_per_pass": 8,
+        "worker_batch_parallelism_ceiling": 8,
+        "affinity_bounded_parallelism_ceiling": 8,
+        "scope": "computed maximum concurrent batches, not observed concurrency or CPU utilization"
+      }
+    ],
+    "baseline_configurations": {
+      "standard_library_fixed": {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      "direct_python": null
+    },
+    "baseline_scope": "three heldout repeats each; fixed stdlib with 8 threads and batch size 16, and direct sequential same-algorithm calls; no stdlib training search",
+    "oracle": "all eight configurations on three heldout seeds; conditional on batch_size=16 and this host/fixture/affinity, never a global optimum",
+    "planned_costs": {
+      "training_callbacks": 32,
+      "heldout_oracle_callbacks": 24,
+      "baseline_callbacks": 6,
+      "total_callbacks": 62,
+      "reference_passes": 7,
+      "callback_task_observations": 15872,
+      "reference_task_observations": 896,
+      "callback_page_observations": 2031616,
+      "reference_page_observations": 114688
+    },
+    "ordering": "paired common-seed training repeats, reproducibly shuffled candidates; heldout candidates and baselines shuffled together after selection/protocol/source freeze",
+    "limits": "One local host, generated fixtures, no actual CPU utilization measurement, no inference about all batch sizes, upstream inputs, other hardware, or production deployment."
+  },
+  "protocol_sha256": "b9c522aba8f3cb2ecee6be46a001e56ace8b3f57b1449f852cbf95305e2f4235",
+  "dataset_seed": 6401855876882033917,
+  "source_sha256": {
+    "tools/probe_throughput_capacity_sharded.py": "2501813220224ee4fc2369f0d04822ddf2b116ad5f097a066bed6c01f45e7bfd",
+    "benchmarks/real_world/data.py": "d06f28d210b3be094f63e199e0f2d622f6f484fcb3e9e153964af7465d467fcc"
+  },
+  "started_trials": 0,
+  "executed_task_observations": 0,
+  "reference_task_observations": 0,
+  "scope": "One real composed training fixture and read-only file/page/content validation. No pipeline transformations, correctness-reference execution, executor, training selection, or heldout preparation.",
+  "dataset": {
+    "seed": 6401855876882033917,
+    "shards": [
+      {
+        "index": 0,
+        "fixture_seed": 5329912671394826783,
+        "directory": "shard-0-5329912671394826783",
+        "requested_count": 64,
+        "status": "prepared",
+        "prepared_task_count": 64,
+        "preparation_seconds": 0.4331952470020042
+      },
+      {
+        "index": 1,
+        "fixture_seed": 4691217711961355406,
+        "directory": "shard-1-4691217711961355406",
+        "requested_count": 64,
+        "status": "prepared",
+        "prepared_task_count": 64,
+        "preparation_seconds": 0.43417262400180334
+      }
+    ],
+    "declared_pages_per_task": 128,
+    "declared_pages_per_pass": 16384
+  },
+  "failures": [],
+  "prepared_task_count": 128,
+  "observed_pages_per_pass": 16384,
+  "observed_pages_per_task_min": 128,
+  "observed_pages_per_task_max": 128,
+  "ordered_input_content_sha256": "3d18b87d3f742cbc9d0a0f65320ddc81e6d40a9d9b39d873d1ae3d37cdb0362b",
+  "input_content_identities": [
+    {
+      "shard_index": 0,
+      "original_task_id": 0,
+      "pages": 128,
+      "content_sha256": "700a37f11bda1779deeee2863f954abd107dce573ce7045340d81ed2271b934c"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 1,
+      "pages": 128,
+      "content_sha256": "c2193c4e89dd5518ad5877bb3d53f17f354d62111e7abf3534a7d4c8c67de79b"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 2,
+      "pages": 128,
+      "content_sha256": "fa17cc1f0bfa0d1d4d3eba23fe7b56ac90c74edebef332d7a9af3f212e3a8b99"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 3,
+      "pages": 128,
+      "content_sha256": "677ac75dd49993929b7dee02fd05e1be34be158eda612df62bd5611defb61f41"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 4,
+      "pages": 128,
+      "content_sha256": "6e9a32b034c745fcf9194ac1c03192d02d5fdc40ccea686692b2beceb71a8952"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 5,
+      "pages": 128,
+      "content_sha256": "05e61be2a63631d8a9de96f0635a74429baaabdad2dbc210028c54886b117346"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 6,
+      "pages": 128,
+      "content_sha256": "acbe19dee09e9ae5d21ab7a8a59f29da3201696a229c5ccd30e281b3a4b16882"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 7,
+      "pages": 128,
+      "content_sha256": "4a698bdde1c65375a22b836baea137bbd309681133c276f1b94530081c9bbee5"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 8,
+      "pages": 128,
+      "content_sha256": "09dac7f022259da67751a4af22407fc9a88ddd8e6671508d94d380fd06725a4c"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 9,
+      "pages": 128,
+      "content_sha256": "3172a4e8877e927d8af48d8b4b17b7f508e4b49d1ee588c61f1381bedca3b038"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 10,
+      "pages": 128,
+      "content_sha256": "6c8b3fa371e1390e56baa65a42fcfc85e140b6e7c4783f911e613bd947c29222"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 11,
+      "pages": 128,
+      "content_sha256": "227c7583adc512e684d8d2cf67969fadd6123f36e56dd6449e6eef16802741ab"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 12,
+      "pages": 128,
+      "content_sha256": "c769025b217a2428d7c1f39afc13cd2a87e48f5be83d365fbadbf2b4f8b7392a"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 13,
+      "pages": 128,
+      "content_sha256": "b1c6291aebf4ee801faab5a56052db9afd938938ac20ea9c53ae7bcb0b0ea068"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 14,
+      "pages": 128,
+      "content_sha256": "7fd960f28a5ad33816a85aa484a387f66cc7ac6c3a95c6994a76b9b7601080fe"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 15,
+      "pages": 128,
+      "content_sha256": "ce1ed5ffa49863ffd7a90240852211b32a240195dae79db26a3bd0df95db898d"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 16,
+      "pages": 128,
+      "content_sha256": "f0533a05f920c06c09ac31185d446dfe7600041e77bad542d1f637597f7f5d2c"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 17,
+      "pages": 128,
+      "content_sha256": "27eda1bd9b919a2d63575a2789f75ac17bdf7dd1c1253663225fa21d050662a8"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 18,
+      "pages": 128,
+      "content_sha256": "d2cffbbed19b694b8278bc3f3410cad5e8274a179c21a5c65497d4ea0498520a"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 19,
+      "pages": 128,
+      "content_sha256": "19623cc69d514c518e78eb5a9199d9bf48fee21fc22596981f362a7c244d26e5"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 20,
+      "pages": 128,
+      "content_sha256": "d37a2142764edab37cfe2c089932d70fafe99809da70be086c6dd1c85915b624"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 21,
+      "pages": 128,
+      "content_sha256": "514e97e0837358f2f03f662405e5dc4a06f3e54df6733b21faf60a3ada20f7b8"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 22,
+      "pages": 128,
+      "content_sha256": "7edfdb31405ee4542d77df8cd9c8e7a8e71068818b5c75cb723e097c6a210237"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 23,
+      "pages": 128,
+      "content_sha256": "4d71517f9cebc830aeb349273fa499ebd65ef15753a22962f91a208823583e53"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 24,
+      "pages": 128,
+      "content_sha256": "69c229ddc8e19356dba83c1af85d0d4bb92a1e59038db6b413b6d78677898256"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 25,
+      "pages": 128,
+      "content_sha256": "60efacab9f19526463b9987c78d4ee550e3bf65ea4c299e2b69f8acdf09749e3"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 26,
+      "pages": 128,
+      "content_sha256": "a7d2d7fcea49a390076b43c7d9bdcc7f187860ffa77039d549d6e00c8d6c51eb"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 27,
+      "pages": 128,
+      "content_sha256": "883c2811e1b85203540bcd450e4f5fec1a272f7b2304f08a404e7c395d1e551d"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 28,
+      "pages": 128,
+      "content_sha256": "2612eadc18a8506f211ab336d30e04e5064a43ab57fa894b5e716791ca8030da"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 29,
+      "pages": 128,
+      "content_sha256": "e58273c90d29d2d12eb8c426550346e61b135f56b867422fa49f22ee95bf972d"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 30,
+      "pages": 128,
+      "content_sha256": "4d57ce998a47267e851747f8838129b8cb0fc46e9141d9d4ae2f32382951e00f"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 31,
+      "pages": 128,
+      "content_sha256": "f5922e0db63d585941e627103820612716806252ee90e8eeed49b17ee807cd87"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 32,
+      "pages": 128,
+      "content_sha256": "52cb002e02d8ec61a9ddd742928d0294f784c11523befe767e24f63588c8b2ae"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 33,
+      "pages": 128,
+      "content_sha256": "10a6894c2fde207fad8b28200c41703729f94fed76af6a9bcfa13e584668b1ba"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 34,
+      "pages": 128,
+      "content_sha256": "9bbc0bb47bd84358b1a142b16e69425761f72a8168a84e872e6e059ff8f6612d"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 35,
+      "pages": 128,
+      "content_sha256": "16f50bb5c21f990be2bdad1866d00010e8b95758fa09e9c8606a244e045f3699"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 36,
+      "pages": 128,
+      "content_sha256": "3a778734dd7df639ec92fb81d918d217da8d6ae847e5a47378ab637767cda842"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 37,
+      "pages": 128,
+      "content_sha256": "93f78e28480cf052547dfff808720b62d78d92331cba463612824f6a0d3f0d54"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 38,
+      "pages": 128,
+      "content_sha256": "c52ad08a343ebb4f21880c109ef29b130990290a437dbbde013a59a5d22049a3"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 39,
+      "pages": 128,
+      "content_sha256": "199ac0dd3c2dcdfc4d7057c68be3b9e33e682b0b52f8520c5862efb07313de42"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 40,
+      "pages": 128,
+      "content_sha256": "ce515b0013790bcad4858337de2c46e1bb72bb10d3a43f4e6ebf7723df67df36"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 41,
+      "pages": 128,
+      "content_sha256": "976d8f22909b3ec9fa10cf8adea29e8a8459fde1c898a7e1a8e7df07fbab0d79"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 42,
+      "pages": 128,
+      "content_sha256": "b0ceb01deedf7811467cebe95be284b539f11c162cac97d9f15e0cc04a5f7f00"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 43,
+      "pages": 128,
+      "content_sha256": "705424b994b317cec260d830c53d13411f5602663f330e09b752198aa5832e54"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 44,
+      "pages": 128,
+      "content_sha256": "a9b0f5e7df67ee8b6ea45d608862ac73e8f9f73ed647fc2f272ec9a7d744fee6"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 45,
+      "pages": 128,
+      "content_sha256": "843ba0f1c922bac51f7184fa68145e357614a1db48f6e6dac98aaa9913b826c8"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 46,
+      "pages": 128,
+      "content_sha256": "5838f72b64f6dd1b08db342305107efe52ffde0c2597044c5254c431593e24ba"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 47,
+      "pages": 128,
+      "content_sha256": "dc8661c51518768598623a698f70a56bd28e917ab4ad8dda22eb6850c2c5b642"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 48,
+      "pages": 128,
+      "content_sha256": "61c57e18e3997f37e6c51c8546626906cc47f74c203c91b51561a38da355a56a"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 49,
+      "pages": 128,
+      "content_sha256": "9aa0cef58e4c5647ed392de75c43d7dda95b632c2240965c63c1c197a28bab80"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 50,
+      "pages": 128,
+      "content_sha256": "0576534e747549dd1db2bdbc3278797553b037e449453b0386bf5c4d9c0e4428"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 51,
+      "pages": 128,
+      "content_sha256": "9a550b2693d973beb9f9c39662bd463a9bdf2747e34f39690229429d2d0ce4fd"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 52,
+      "pages": 128,
+      "content_sha256": "8dc9af6443cee6331c030f1a5d5d57af98cfa81e04207ec6bc304ebbad94ea12"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 53,
+      "pages": 128,
+      "content_sha256": "3bdc886938510327a1e535bf1176408cbc1ffc92efc5c17fa77ba0a8687b016a"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 54,
+      "pages": 128,
+      "content_sha256": "2992744854a22654cc028bfdfc4f795c04835b4abcc5936296bfed0b5de4ef97"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 55,
+      "pages": 128,
+      "content_sha256": "73a481106f33ee77a92f14b282c53640caa35d6d16313b0f54ed9ff78ad83f47"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 56,
+      "pages": 128,
+      "content_sha256": "72a6a7e6c9246931516f10e02182f7919e9b7e6009448aea83de721fc04ff6d5"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 57,
+      "pages": 128,
+      "content_sha256": "179bf8819515d38604fb6619c35c44ae018235caa1a151844cdd330abde6fd9f"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 58,
+      "pages": 128,
+      "content_sha256": "650ceba94fd9eed5ad53f6ec4e894866f351ad7c9f1c6670babf3a8902c1dc44"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 59,
+      "pages": 128,
+      "content_sha256": "c1f2c59bd2b7bb608db06efcf2687af0fc1eb7dbcf676ff26f3925550aa232ce"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 60,
+      "pages": 128,
+      "content_sha256": "d74b97a0f4dea04c66faf120d60ef795e5b537b17f1c3b4e9f1ff9235f2c0e5b"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 61,
+      "pages": 128,
+      "content_sha256": "115f406ab05fd23ed69dfc7d4f8344e493d6f20282931a2ed9a60478d3945fd7"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 62,
+      "pages": 128,
+      "content_sha256": "6d2c608454e609d4bb43d8a2c1435dedfbbf6ce65a11ea79975636a8a497aaf3"
+    },
+    {
+      "shard_index": 0,
+      "original_task_id": 63,
+      "pages": 128,
+      "content_sha256": "0f92e2346c4745c28df8a6ae617e725be16c0fb2750ef533ab5483e1731fc090"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 0,
+      "pages": 128,
+      "content_sha256": "93b03bb759b080a28b04b1d7391c92b811524a690d24debdfa37bf426217bacf"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 1,
+      "pages": 128,
+      "content_sha256": "337e0eb212ebbe2e6d2c9ac7babd5c3061772f0e4e45ac46199bb4ff359dddce"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 2,
+      "pages": 128,
+      "content_sha256": "ac0f7819c6005073bc6bb671dfe42ccb7b1e71de88b66cdc08b67475978c1f05"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 3,
+      "pages": 128,
+      "content_sha256": "b76c6bc1b721fd487dccabb7e092302e1bc6c4d93747089689d456e00e10d13a"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 4,
+      "pages": 128,
+      "content_sha256": "6fa26a80651e7b635f010c726a09ca67861c9cd522e3accd280895b091e8a312"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 5,
+      "pages": 128,
+      "content_sha256": "1231dafb9a9a4066778bd4b65b2d900c9bb44b350ae8b6d2158ef5c3f867e4e6"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 6,
+      "pages": 128,
+      "content_sha256": "abf06093c0eea472e5d7bbe28d90cf1d11cb1ab16c626c457ba09bd2eb85389a"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 7,
+      "pages": 128,
+      "content_sha256": "110959ef1c19a471dcfcf97f267ff8b1bdb1666a714fec743df9552cb82d90bd"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 8,
+      "pages": 128,
+      "content_sha256": "f707e89f0227812c874f021a608cfc3cf295ff6664f1d0a807a7038c3aba614f"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 9,
+      "pages": 128,
+      "content_sha256": "fa2994f6eb5f318ffa9ba60abccc464b29bd72df350e8a60f71b96ec4c84c2e4"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 10,
+      "pages": 128,
+      "content_sha256": "69b3051c1e534ad54598c567d336f9632432513b05610f4752cd45482d74a83a"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 11,
+      "pages": 128,
+      "content_sha256": "fe985d1b5062f3f1af54df6b0e6c71578f4b71096acd793b5b3bd49ba3eff4f3"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 12,
+      "pages": 128,
+      "content_sha256": "ab85dd24e1eec33521cda74ef06ef8021222da4fb55f760285058b184381d329"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 13,
+      "pages": 128,
+      "content_sha256": "cfb425f965f099dc5e54d02651b873075d0c4014d7d335bd52aa1d51840ffc51"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 14,
+      "pages": 128,
+      "content_sha256": "13ecf0e1ad2ce22a49ca5bccb1857c9e4360cd7ffaf8204daa6c87c572561fe3"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 15,
+      "pages": 128,
+      "content_sha256": "e3bb032255182ab001550c35d77dee3eebdfee1c5cef8164e5c5864487098f69"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 16,
+      "pages": 128,
+      "content_sha256": "0600ddecec0cbb16b490f696dfcf801eaa283735cf83b3afa0a4941a0f52c185"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 17,
+      "pages": 128,
+      "content_sha256": "c13900d389541f242d4416d1f22415336cdb420764c27cff99e196eb20004e35"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 18,
+      "pages": 128,
+      "content_sha256": "8a390b2f79980c6a60db561a979c7f33f2d0441b6d76aac15d6c9b74859456e2"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 19,
+      "pages": 128,
+      "content_sha256": "1b4f33d8189f3552a09e52eee526e75f03bc7fc6b1315f4ed70cf69add51373d"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 20,
+      "pages": 128,
+      "content_sha256": "2075a2d78f0f7e41622b34440fe25d0066d3a6b259ffd78a7a9ce9bb02afa2f8"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 21,
+      "pages": 128,
+      "content_sha256": "901cf27a14480f5f90a2dfb73660895f2cedab76517977d6b873f53af6abce08"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 22,
+      "pages": 128,
+      "content_sha256": "4b35b1a60c67db7aeca89b6a8e1a9686ca7a6d192766e45a7fd1c733a5a828e1"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 23,
+      "pages": 128,
+      "content_sha256": "325abaeb5918689b1bbe8d9bae6e8f46836176c13e02e9cd261be64606dbb589"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 24,
+      "pages": 128,
+      "content_sha256": "00564b714fb482c458475966bc8b5595120fefae4636d97b79ae72a433da86bb"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 25,
+      "pages": 128,
+      "content_sha256": "a27194f94f3aa4963c2d46cd796ba96930f17e9386d4df4905b30bae2f51abcf"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 26,
+      "pages": 128,
+      "content_sha256": "41a2b65d1f42709a3e1b740503e6a8d7b470d595810632ee9370610f48a4ff3e"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 27,
+      "pages": 128,
+      "content_sha256": "d81a322e3354364d2620e8e363e021fbc6585dc4915e9b2c25631d8cecee9022"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 28,
+      "pages": 128,
+      "content_sha256": "07b1f73df95a3526abc4c98fa35893de057966fc9196f68b03315eb62bf561e3"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 29,
+      "pages": 128,
+      "content_sha256": "0e3bcb22e4b250f14fc89b6a1e87e158e3f828caf9f049f419bbe58d49647915"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 30,
+      "pages": 128,
+      "content_sha256": "5a50349272facf890e418a0f3b3447b75c796a446d46cbfb72a414e2506587b1"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 31,
+      "pages": 128,
+      "content_sha256": "f062f951341c0360368af18dcf71020acc1539e4962e2113d3d507f0f74b6108"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 32,
+      "pages": 128,
+      "content_sha256": "04c94f966976c2a7b5d692f955e842a91ad0e864c65243dae55dd147b9ba0205"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 33,
+      "pages": 128,
+      "content_sha256": "c4dfd418ac80af4e5c0b72d7c6e0065afbc584e323908e0562828a3fdc84db2d"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 34,
+      "pages": 128,
+      "content_sha256": "068db8096c296ad3b7a94d3edef01c5198ed58638df83300d2f47211016b5867"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 35,
+      "pages": 128,
+      "content_sha256": "a7e81afb1f2ec8843ea5571e4ca2b5c7e2b9ee24791b1cfaf26c9a5da661404c"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 36,
+      "pages": 128,
+      "content_sha256": "09b446a7a0a1d408d09379b40e8136c4645cc7f5750a8a2a3806d95669664775"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 37,
+      "pages": 128,
+      "content_sha256": "3e9b54e2e23f82580cad75acdaf70c17557892bf109c59aa01b821442c162316"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 38,
+      "pages": 128,
+      "content_sha256": "7c90fead3b2f77011351f3acf2eb24c3ff419906140863157a498f81feaa1a08"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 39,
+      "pages": 128,
+      "content_sha256": "6626acb1257fbdee7edf3e3ea63f664029e862b4e3d216730231558a30c41d3f"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 40,
+      "pages": 128,
+      "content_sha256": "abac1b41cf91a67b263d5383cde471aca235d4582597e711c18b158f28d30c6e"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 41,
+      "pages": 128,
+      "content_sha256": "f1214045ad7b9b35d2a67fd7a56517f2282e1d387797bc2dd6baa32fc76e38eb"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 42,
+      "pages": 128,
+      "content_sha256": "481bc812de72a4c41dc4debb71965fa1d56254a3d4011fa89a9b3ddf7df911fb"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 43,
+      "pages": 128,
+      "content_sha256": "d1a6c1e5eeff6f188fc73041710f5a503b3d2892adfe5a25f89dd54afed3d924"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 44,
+      "pages": 128,
+      "content_sha256": "791c78f27246bedf1776e03890ad8001396a4173cc957269b7552669e17f47a0"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 45,
+      "pages": 128,
+      "content_sha256": "005f106b2e942f9d487c08b0ecbddedd911f5cdce2ae9d9213bd3fc8f2c7cc38"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 46,
+      "pages": 128,
+      "content_sha256": "c6ff32504a57f56245c474bf9b0afd496027d39d6f5d1f4a5cc32fc7ba8caca1"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 47,
+      "pages": 128,
+      "content_sha256": "6b78ee72b9e4018c4f9ff4c2f9692001fe79a17e810de9025f7f100a54ff8dad"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 48,
+      "pages": 128,
+      "content_sha256": "dd2b9c62f57b59ebcc14bbbce764049b3da27c2b92c875e81177b492450ab921"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 49,
+      "pages": 128,
+      "content_sha256": "928005896da4c899bf4f0fcd1cda8f8ec8d5d6d3c8128bc7045b50abd4b5942f"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 50,
+      "pages": 128,
+      "content_sha256": "90a8adbd4ba541aa8ca553349f6206eb24224259b77cdb2b5a746191d9b0203b"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 51,
+      "pages": 128,
+      "content_sha256": "86f939388a6f83b3f5a9d1765a566b7446df0e61a34b55342aed4d57cef29940"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 52,
+      "pages": 128,
+      "content_sha256": "0f588b707b6d6adfec35352b73ca67705fec900e4d3dfd349439472f6d9a80fc"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 53,
+      "pages": 128,
+      "content_sha256": "816f76d86e53cb7a9f2a8a92a7c0f92733c0b8123e49ec30bb77b590b27f96de"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 54,
+      "pages": 128,
+      "content_sha256": "cd9d0ee2443b6dd6efbfb59f31b3337664e110d49c1be96424c5b937bdaf1a3e"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 55,
+      "pages": 128,
+      "content_sha256": "144d3875c5113a74a5bd76854c69042e243997aa4baae9aa34d23bf6e1f720e7"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 56,
+      "pages": 128,
+      "content_sha256": "394ae1f2124ea5c887881913c3380fa378dfb6359140905374cab268e08cda36"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 57,
+      "pages": 128,
+      "content_sha256": "260b06a1e80bfff756af7076ba4c713432b082d2f9703807a14c6a87f347932a"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 58,
+      "pages": 128,
+      "content_sha256": "fb9bcc379bee0361ef232cd49008b97c84d88e4d4e3460e3fde50248cc2f0609"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 59,
+      "pages": 128,
+      "content_sha256": "494b6a18412a46cd6aaf46053fb89bb06c8257d61660cf1cfaa0e033f06c9523"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 60,
+      "pages": 128,
+      "content_sha256": "f959e322f7b07c9c5523dd4634db7f4d65507719848c006aa872a8b3e2247b99"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 61,
+      "pages": 128,
+      "content_sha256": "c2b34e778ae68e13d77022c0f92abfe3a1ddf9876cb054b8ef428c85eee3ba2a"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 62,
+      "pages": 128,
+      "content_sha256": "229382b5fc6d1aa4a75ca0017f340d980fa56493f8c2206086add0277c851617"
+    },
+    {
+      "shard_index": 1,
+      "original_task_id": 63,
+      "pages": 128,
+      "content_sha256": "112df639b505166f34cd76363ff6a6b44a8a3faf1f8e00b3b82cd570fd27e1ad"
+    }
+  ],
+  "accepted": true,
+  "elapsed_seconds": 0.9154298399953404,
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "6857098141e92674c71355a16aaa9941f43d9856b023ed2968db8517b24f6c3a",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

@@ -1,8 +1,21 @@
 # Changelog
 
 
-## 0.4.0 — unpublished candidate
+## 0.4.0 — Beta
 
+- Purpose-led workload-aware configuration evaluation and selection: backend,
+  worker count and batch size are evaluated under caller-declared objectives
+  and resource constraints. Ordinary submitted work is never silently replayed.
+- Budgeted paired-repeat successive halving with robust median selection,
+  explicit exclusions, comparable finalist scores and separately reported
+  search costs; exhaustive calibration remains available.
+- Removable executor-owned queues, physical scheduling-item bounds, cancellation
+  acknowledgement, shutdown coordination and bounded completion handling.
+  Genuine stdlib Future APIs retain explicitly documented scheduling differences.
+- Isolated, synchronized load-aware policy state and occupancy-sensitive routing;
+  predictive admission follows the selected backend.
+- Saved configuration schema 2 checks scheduler/strategy compatibility in addition
+  to workload, hardware and Python identity, with renewed process consent.
 - Eleven original local-fixture workload replicas with real optional libraries,
   image/PDF OCR/video operations, collision-safe deduplication, graph/SQLite
   oracles, and loopback-only networking. No upstream interoperability claim.
@@ -16,8 +29,12 @@
   renewed process consent; reuse performs no calibration callbacks.
 - Additional adversarial lifecycle, admission, cancellation and migration checks.
 
-No universal speedup, production certification, ArcGIS integration, task killing,
-hard memory limit, or implementation of the complete planned catalog is implied.
+Configuration quality is measured against the eligible candidates actually
+tested, with independent held-out inputs and explicit discovery costs. The
+[configuration-quality report](docs/CONFIGURATION-QUALITY.md) retains failed
+resource/correctness scenarios and comparisons with independently tuned stdlib.
+Production certification, ArcGIS integration, task preemption and hard memory
+enforcement are outside the implemented contract.
 
 ## 0.3.0
 

@@ -1,0 +1,22 @@
+{
+  "workload": "ocr",
+  "limits": {
+    "wall_seconds": 21600.0,
+    "checkpoint_stall_seconds": 600.0,
+    "emergency_process_tree_rss_bytes": 2147483648,
+    "cpu_affinity_count": 8
+  },
+  "started_unix": 1791637807.335443,
+  "status": "failed",
+  "returncode": 1,
+  "stop_reason": null,
+  "elapsed_seconds": 34.02225180499954,
+  "sampled_peak_tree_rss_bytes": 396574720,
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "e92dbb3660057fdf5cdd358e868bd0b23ae07972d20ed9caa6e418dc07620ac7",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

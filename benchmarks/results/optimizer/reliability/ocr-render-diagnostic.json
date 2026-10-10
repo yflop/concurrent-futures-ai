@@ -1,0 +1,91 @@
+{
+  "scope": "Post-failure diagnostic on two failing primary training inputs; not replacement heldout evidence",
+  "seed": 6864650689634725,
+  "rows": [
+    {
+      "index": 11,
+      "render_side": 1800,
+      "source_size": [
+        1200,
+        900
+      ],
+      "error": "ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT HOTEL NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD BLUE EAST WEST GREEN WEST GREEN SOUTH NORTH'",
+      "result": null,
+      "seconds": 0.6307149450003635
+    },
+    {
+      "index": 11,
+      "render_side": 2100,
+      "source_size": [
+        1200,
+        900
+      ],
+      "error": null,
+      "result": {
+        "name": "ocr",
+        "index": 11,
+        "text": "LOCAL DOCUMENT HOTEL NOVEMBER DELTA THE QUICK BROWN FOX READ EVERY WORD BLUE EAST WEST GREEN WEST GREEN SOUTH NORTH",
+        "words": 20,
+        "sha256": "a80fc71ec9e345d436c6dc6bf86bf72f63202948d54752fde5a44cac3ec67c41"
+      },
+      "seconds": 0.7275900859967805
+    },
+    {
+      "index": 11,
+      "render_side": 2400,
+      "source_size": [
+        1200,
+        900
+      ],
+      "error": "ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT HOTEL NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD BLUE EAST WEST GREEN WEST GREEN SOUTH NORTH'",
+      "result": null,
+      "seconds": 0.8752576300030341
+    },
+    {
+      "index": 15,
+      "render_side": 1800,
+      "source_size": [
+        1200,
+        900
+      ],
+      "error": "ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT HOTEL NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD SOUTH GREEN BLUE EAST EAST NORTH SOUTH BLUE'",
+      "result": null,
+      "seconds": 0.5674618729972281
+    },
+    {
+      "index": 15,
+      "render_side": 2100,
+      "source_size": [
+        1200,
+        900
+      ],
+      "error": null,
+      "result": {
+        "name": "ocr",
+        "index": 15,
+        "text": "LOCAL DOCUMENT HOTEL NOVEMBER DELTA THE QUICK BROWN FOX READ EVERY WORD SOUTH GREEN BLUE EAST EAST NORTH SOUTH BLUE",
+        "words": 20,
+        "sha256": "0db93d68e49f131eeb3283b515745f5f7d4b7b2eb7f429177bb10b0fbdcfba73"
+      },
+      "seconds": 0.7040419089971692
+    },
+    {
+      "index": 15,
+      "render_side": 2400,
+      "source_size": [
+        1200,
+        900
+      ],
+      "error": "ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT HOTEL NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD SOUTH GREEN BLUE EAST EAST NORTH SOUTH BLUE'",
+      "result": null,
+      "seconds": 0.8066197599982843
+    }
+  ],
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "84e88f828c58a821802b16433fb6c323852c8cbd042fcf516bc9ea85ae26bf05",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

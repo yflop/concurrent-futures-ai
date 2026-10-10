@@ -1,5 +1,6 @@
 """Create a scoped evidence summary from final representative raw reports."""
 import argparse
+from tools.report_io import read_report, resolve_report
 import json
 from pathlib import Path
 import statistics
@@ -40,7 +41,7 @@ def main():
     results = []
     seen = set()
     for path in args.reports:
-        report = json.loads(path.read_text())
+        report = read_report(path)
         if report.get("failures"):
             print(f"WARNING: preserving failures from {path}: {report['failures']}")
         for workload in report["workloads"]:

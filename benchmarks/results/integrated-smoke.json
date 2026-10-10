@@ -1,0 +1,1591 @@
+{
+  "schema_version": 1,
+  "environment": {
+    "recorded_at_utc": "2026-10-10T09:19:12.638997+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "implementation": "CPython",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "affinity_cpus": 9,
+    "cgroup_cpu_max": null,
+    "cgroup_cpu_quota_cores": null,
+    "cgroup_memory_max": null,
+    "free_threaded_build": false,
+    "process_start_method": "spawn",
+    "git_revision": "82a853a79d6ffb3706085f38d927a05db475ae25",
+    "command": "python -m benchmarks.real_world.run --quick --workloads images ocr dedup --workers 1 --backends thread --batches 1 --count 2 --heldout-seeds 2903 --output benchmarks/results/integrated-smoke.json",
+    "source_sha256": {
+      "benchmarks/real_world/__init__.py": "d3a14705dadf8d7d17698e00aa29c4d107d617ee0e4961808706be2f6e9e2095",
+      "benchmarks/real_world/data.py": "d06f28d210b3be094f63e199e0f2d622f6f484fcb3e9e153964af7465d467fcc",
+      "benchmarks/real_world/media.py": "17d3913c28eaf3d68cf5ec764552a83f223a9ca4e932ed9f4f5f1b42f3b34573",
+      "benchmarks/real_world/network.py": "7e2d6df2ee1df2325de89d84ab5728fef3d01260f00f73e5ef9030112b7c64a1",
+      "benchmarks/real_world/run.py": "94133ca6eb99df7b5035c50bc5b50184d1e86ccc94bfcb27c259467c46809553",
+      "src/intelligent_futures/__init__.py": "937f53ea8271de43f3bc5feac7e6f7d2ba74292372f12526ea9837269c3c8509",
+      "src/intelligent_futures/__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+      "src/intelligent_futures/catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+      "src/intelligent_futures/executor.py": "31de74fbeb0afefd01f631a8f75f66dd867111687117b35cf26a44899b6b3c58",
+      "src/intelligent_futures/framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+      "src/intelligent_futures/framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+      "src/intelligent_futures/integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+      "src/intelligent_futures/integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+      "src/intelligent_futures/policies.py": "b4fedaace31f89b0c7c3f78202b095111ee0d96dbfc52e6b97618b2a7ea81ffd",
+      "src/intelligent_futures/prediction.py": "c1b2acfa6cdd71233d3f14a88aa3b4819e4daf892287605855a7a94a9c752a2b",
+      "src/intelligent_futures/tuning.py": "9771907a363e19fe194070ff7bfc2a8647c9603c753b4e987eec8a9b84b3b9f9"
+    },
+    "git_dirty": true,
+    "dependencies": {
+      "Pillow": "12.3.0",
+      "requests": "2.34.2",
+      "requests-cache": "1.3.3",
+      "networkx": "3.7",
+      "psutil": "7.2.2"
+    },
+    "native_tools": {
+      "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+      "pdftoppm": "pdftoppm version 26.05.0",
+      "tesseract": "tesseract 5.5.0"
+    }
+  },
+  "count_per_trial": 2,
+  "scope": "Single host, local generated fixtures, original workload replicas; no upstream interoperability or deployment certification.",
+  "method": {
+    "calibration_shuffle_and_fixture_seed_source": 1701,
+    "heldout_seeds": [
+      2903
+    ],
+    "scale": "smoke",
+    "calibration_count": 2,
+    "calibration_repeats": 1,
+    "selection": "Minimum mean calibration cold construction+execution+shutdown plus warm execution; same search grid for both engines",
+    "cpu": "POSIX getrusage SELF + waited CHILDREN delta for executor lifecycle, including sampling/fixture threads; unavailable on Windows",
+    "warm": "Second pass in same pool; reused immutable fixture inputs, fresh per-invocation caches/outputs; OS/library caches uncontrolled",
+    "memory": "10 ms sampled absolute aggregate process-tree RSS including fixture server, shared pages may double-count",
+    "intelligent": "Calibration-selected explicit thread/process hints; fixed admission at interval 0, opt-in predictive otherwise. No automatic workload replay.",
+    "tuning_budget": "Same backend/worker/batch grid; additional intelligent profiling modes only when explicitly requested, costs reported",
+    "comparison": "Held-out time of calibration-selected stdlib divided by separately calibration-selected intelligent; no held-out oracle tuning",
+    "configuration_grid": [
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      }
+    ],
+    "acceptance_budgets": {
+      "zero_errors_and_correct_results": true,
+      "p95_seconds": 30.0,
+      "rss_bytes": 1073741824,
+      "lifecycle_cpu_seconds": 300.0
+    }
+  },
+  "workloads": [
+    {
+      "name": "images",
+      "calibration_seconds": 0.5785400710010435,
+      "calibration": [
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 6944076420179008675,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 2.504800067981705e-05,
+          "executor_shutdown_seconds": 0.00014585000099032186,
+          "cold": {
+            "seconds": 0.1553291049967811,
+            "tasks": 2,
+            "throughput_per_second": 12.875886975859716,
+            "batch_completion_latency_p95_seconds": 0.15089262849669466,
+            "task_service_p95_seconds": 0.07785723559991312,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "f7d0a9c1964b4cca930540cf5ec5b637df5052a32c089091ae093ba73482ecf9",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07861203299762565
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.15532771299695014
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.14457071799915866,
+            "tasks": 2,
+            "throughput_per_second": 13.834060089620909,
+            "batch_completion_latency_p95_seconds": 0.14102232324839858,
+            "task_service_p95_seconds": 0.07539537659940834,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "f7d0a9c1964b4cca930540cf5ec5b637df5052a32c089091ae093ba73482ecf9",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07610038899656502
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.14456915499977185
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.15535415299746091,
+          "cold_lifecycle_seconds": 0.15550000299845124,
+          "lifecycle_cpu_seconds": 0.316854,
+          "sampled_tree_peak_rss_bytes": 34951168,
+          "rss_samples": 27,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 6944076420179008675,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 4.217400055495091e-05,
+          "executor_shutdown_seconds": 0.00010819300223374739,
+          "cold": {
+            "seconds": 0.14190316399981384,
+            "tasks": 2,
+            "throughput_per_second": 14.094118437011199,
+            "batch_completion_latency_p95_seconds": 0.1382973937503266,
+            "task_service_p95_seconds": 0.07662424284972076,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "f7d0a9c1964b4cca930540cf5ec5b637df5052a32c089091ae093ba73482ecf9",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07763563400294515
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.14190210200104048
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.1262652950026677,
+            "tasks": 2,
+            "throughput_per_second": 15.839665206165673,
+            "batch_completion_latency_p95_seconds": 0.12297900225039485,
+            "task_service_p95_seconds": 0.0632704999021371,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "f7d0a9c1964b4cca930540cf5ec5b637df5052a32c089091ae093ba73482ecf9",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06291396000233362
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.12626401400120812
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.1419453380003688,
+          "cold_lifecycle_seconds": 0.14205353100260254,
+          "lifecycle_cpu_seconds": 0.2757099999999999,
+          "sampled_tree_peak_rss_bytes": 39477248,
+          "rss_samples": 26,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "configuration_selection": {
+        "stdlib": {
+          "selected": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "objective": {
+            "elapsed": "combined",
+            "max_cpu_seconds": null,
+            "max_peak_rss_bytes": null
+          },
+          "records": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "repeat": 0,
+              "seed": 6944076420179008675,
+              "measurement": {
+                "cold_seconds": 0.15550000299845124,
+                "warm_seconds": 0.14457071799915866,
+                "correct": true,
+                "error_count": 0,
+                "cpu_seconds": 0.316854,
+                "peak_rss_bytes": 34951168
+              },
+              "exclusion": null,
+              "callback_seconds": 0.3079137589993479
+            }
+          ],
+          "candidates": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "score_seconds": 0.3000707209976099,
+              "callback_seconds": 0.3079137589993479
+            }
+          ],
+          "trace": [
+            {
+              "evaluations": 1,
+              "best_configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "best_score_seconds": 0.3000707209976099,
+              "relative_gap_to_best_observed": 0.0,
+              "within_ten_percent": true
+            }
+          ],
+          "seed": 1701,
+          "repeats": 1,
+          "allow_process": false,
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+          },
+          "elapsed_seconds": 0.30890398400151753,
+          "evaluations_to_stable_near_best": 1,
+          "provenance": "caller-owned-offline-calibration-v1",
+          "hardware_fingerprint": null,
+          "convergence_reference": "best eligible mean observed in this calibration only"
+        },
+        "intelligent": {
+          "selected": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "objective": {
+            "elapsed": "combined",
+            "max_cpu_seconds": null,
+            "max_peak_rss_bytes": null
+          },
+          "records": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "repeat": 0,
+              "seed": 6944076420179008675,
+              "measurement": {
+                "cold_seconds": 0.14205353100260254,
+                "warm_seconds": 0.1262652950026677,
+                "correct": true,
+                "error_count": 0,
+                "cpu_seconds": 0.2757099999999999,
+                "peak_rss_bytes": 39477248
+              },
+              "exclusion": null,
+              "callback_seconds": 0.26895553799840854
+            }
+          ],
+          "candidates": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "score_seconds": 0.26831882600527024,
+              "callback_seconds": 0.26895553799840854
+            }
+          ],
+          "trace": [
+            {
+              "evaluations": 1,
+              "best_configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "best_score_seconds": 0.26831882600527024,
+              "relative_gap_to_best_observed": 0.0,
+              "within_ten_percent": true
+            }
+          ],
+          "seed": 1701,
+          "repeats": 1,
+          "allow_process": false,
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+          },
+          "elapsed_seconds": 0.26936410600319505,
+          "evaluations_to_stable_near_best": 1,
+          "provenance": "caller-owned-offline-calibration-v1",
+          "hardware_fingerprint": null,
+          "convergence_reference": "best eligible mean observed in this calibration only"
+        }
+      },
+      "heldout": [
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 3.9950002246769145e-05,
+          "executor_shutdown_seconds": 7.433300197590142e-05,
+          "cold": {
+            "seconds": 0.13392921700142324,
+            "tasks": 2,
+            "throughput_per_second": 14.933261350872726,
+            "batch_completion_latency_p95_seconds": 0.130282481798713,
+            "task_service_p95_seconds": 0.06735703425056272,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "1d7dcd02e9f7a8dc032991ff3ea96e264287bcad6eed61d5f329e917daa7226a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06784757800051011
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.13392813600148656
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.13612517599904095,
+            "tasks": 2,
+            "throughput_per_second": 14.692359332663715,
+            "batch_completion_latency_p95_seconds": 0.1324850717019217,
+            "task_service_p95_seconds": 0.0703664189501069,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "1d7dcd02e9f7a8dc032991ff3ea96e264287bcad6eed61d5f329e917daa7226a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06548822499826201
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.13612430400098674
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.13396916700367,
+          "cold_lifecycle_seconds": 0.1340435000056459,
+          "lifecycle_cpu_seconds": 0.2723629999999999,
+          "sampled_tree_peak_rss_bytes": 39489536,
+          "rss_samples": 26,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 9.333998605143279e-06,
+          "executor_shutdown_seconds": 0.00015353100025095046,
+          "cold": {
+            "seconds": 0.1585252840013709,
+            "tasks": 2,
+            "throughput_per_second": 12.616283973871981,
+            "batch_completion_latency_p95_seconds": 0.15436666504883761,
+            "task_service_p95_seconds": 0.07932484324755933,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "1d7dcd02e9f7a8dc032991ff3ea96e264287bcad6eed61d5f329e917daa7226a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07966283099813154
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.15852451300088433
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.13128699600201799,
+            "tasks": 2,
+            "throughput_per_second": 15.233801221023127,
+            "batch_completion_latency_p95_seconds": 0.1280115499970634,
+            "task_service_p95_seconds": 0.06745684950328723,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "1d7dcd02e9f7a8dc032991ff3ea96e264287bcad6eed61d5f329e917daa7226a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06789995200233534
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.13128562400015653
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.15853461799997604,
+          "cold_lifecycle_seconds": 0.15868814900022699,
+          "lifecycle_cpu_seconds": 0.2992929999999998,
+          "sampled_tree_peak_rss_bytes": 39489536,
+          "rss_samples": 27,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "summary": {
+        "chosen_from_calibration": {
+          "stdlib": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "intelligent": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          }
+        },
+        "heldout_comparisons": [
+          {
+            "seed": 2903,
+            "phase": "cold",
+            "T_best_tuned_stdlib_over_T_intelligent": 1.1838556065273067,
+            "within_10_percent": true,
+            "correct": true
+          },
+          {
+            "seed": 2903,
+            "phase": "warm",
+            "T_best_tuned_stdlib_over_T_intelligent": 0.9644578604838164,
+            "within_10_percent": true,
+            "correct": true
+          }
+        ],
+        "near_optimal_coverage": 1.0,
+        "convergence": {
+          "status": "not_established",
+          "reason": "Two pool passes measure cold/warm behavior, not statistical policy convergence."
+        },
+        "calibration_convergence": {
+          "stdlib": {
+            "evaluations_to_stable_near_best": 1,
+            "trace": [
+              {
+                "evaluations": 1,
+                "best_configuration": {
+                  "backend": "thread",
+                  "workers": 1,
+                  "batch_size": 1,
+                  "profile_sample_interval": 0
+                },
+                "best_score_seconds": 0.3000707209976099,
+                "relative_gap_to_best_observed": 0.0,
+                "within_ten_percent": true
+              }
+            ],
+            "reference": "best eligible mean observed in this calibration only"
+          },
+          "intelligent": {
+            "evaluations_to_stable_near_best": 1,
+            "trace": [
+              {
+                "evaluations": 1,
+                "best_configuration": {
+                  "backend": "thread",
+                  "workers": 1,
+                  "batch_size": 1,
+                  "profile_sample_interval": 0
+                },
+                "best_score_seconds": 0.26831882600527024,
+                "relative_gap_to_best_observed": 0.0,
+                "within_ten_percent": true
+              }
+            ],
+            "reference": "best eligible mean observed in this calibration only"
+          }
+        }
+      },
+      "fixture_datasets": [
+        {
+          "reference_sha256": "f7d0a9c1964b4cca930540cf5ec5b637df5052a32c089091ae093ba73482ecf9",
+          "seed": 6944076420179008675,
+          "count": 2,
+          "preparation_seconds": 0.04633237100279075,
+          "reference_seconds": 0.14007423000293784
+        },
+        {
+          "reference_sha256": "1d7dcd02e9f7a8dc032991ff3ea96e264287bcad6eed61d5f329e917daa7226a",
+          "seed": 2903,
+          "count": 2,
+          "preparation_seconds": 0.034092531001078896,
+          "reference_seconds": 0.1588454519987863
+        }
+      ],
+      "scale": "smoke",
+      "acceptance_failures": [],
+      "accepted": true
+    },
+    {
+      "name": "ocr",
+      "calibration_seconds": 3.8600044079976215,
+      "calibration": [
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 6944076420179008675,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 1.3209999451646581e-05,
+          "executor_shutdown_seconds": 0.0002636889985296875,
+          "cold": {
+            "seconds": 0.9918334750000213,
+            "tasks": 2,
+            "throughput_per_second": 2.0164675325159367,
+            "batch_completion_latency_p95_seconds": 0.9671845641527397,
+            "task_service_p95_seconds": 0.506500948199573,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce6380f1fcd90d4b315ad48b139da6f080b4f2396179ebb17d00c49bccdfccda",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.5080434720002813
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.9918324640020728
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.984260509001615,
+            "tasks": 2,
+            "throughput_per_second": 2.031982368193052,
+            "batch_completion_latency_p95_seconds": 0.9589463382502799,
+            "task_service_p95_seconds": 0.5032221580031546,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce6380f1fcd90d4b315ad48b139da6f080b4f2396179ebb17d00c49bccdfccda",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.48273150000022724
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.984259478002059
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.9918466849994729,
+          "cold_lifecycle_seconds": 0.9921103739980026,
+          "lifecycle_cpu_seconds": 2.0562059999999995,
+          "sampled_tree_peak_rss_bytes": 85782528,
+          "rss_samples": 188,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 6944076420179008675,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 3.438199928496033e-05,
+          "executor_shutdown_seconds": 0.00011730700134648941,
+          "cold": {
+            "seconds": 0.9247403500012297,
+            "tasks": 2,
+            "throughput_per_second": 2.1627692573351434,
+            "batch_completion_latency_p95_seconds": 0.8987821634991633,
+            "task_service_p95_seconds": 0.4682898386499801,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce6380f1fcd90d4b315ad48b139da6f080b4f2396179ebb17d00c49bccdfccda",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.4695970220018353
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.9247392079996644
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.9561888919997727,
+            "tasks": 2,
+            "throughput_per_second": 2.0916369315033574,
+            "batch_completion_latency_p95_seconds": 0.9336427652508064,
+            "task_service_p95_seconds": 0.5042257638506271,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce6380f1fcd90d4b315ad48b139da6f080b4f2396179ebb17d00c49bccdfccda",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.5074949369991373
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.9561877300002379
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.9247747320005146,
+          "cold_lifecycle_seconds": 0.9248920390018611,
+          "lifecycle_cpu_seconds": 1.9517259999999998,
+          "sampled_tree_peak_rss_bytes": 85794816,
+          "rss_samples": 179,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "configuration_selection": {
+        "stdlib": {
+          "selected": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "objective": {
+            "elapsed": "combined",
+            "max_cpu_seconds": null,
+            "max_peak_rss_bytes": null
+          },
+          "records": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "repeat": 0,
+              "seed": 6944076420179008675,
+              "measurement": {
+                "cold_seconds": 0.9921103739980026,
+                "warm_seconds": 0.984260509001615,
+                "correct": true,
+                "error_count": 0,
+                "cpu_seconds": 2.0562059999999995,
+                "peak_rss_bytes": 85782528
+              },
+              "exclusion": null,
+              "callback_seconds": 1.9770356369990623
+            }
+          ],
+          "candidates": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "score_seconds": 1.9763708829996176,
+              "callback_seconds": 1.9770356369990623
+            }
+          ],
+          "trace": [
+            {
+              "evaluations": 1,
+              "best_configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "best_score_seconds": 1.9763708829996176,
+              "relative_gap_to_best_observed": 0.0,
+              "within_ten_percent": true
+            }
+          ],
+          "seed": 1701,
+          "repeats": 1,
+          "allow_process": false,
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+          },
+          "elapsed_seconds": 1.9774767140006588,
+          "evaluations_to_stable_near_best": 1,
+          "provenance": "caller-owned-offline-calibration-v1",
+          "hardware_fingerprint": null,
+          "convergence_reference": "best eligible mean observed in this calibration only"
+        },
+        "intelligent": {
+          "selected": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "objective": {
+            "elapsed": "combined",
+            "max_cpu_seconds": null,
+            "max_peak_rss_bytes": null
+          },
+          "records": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "repeat": 0,
+              "seed": 6944076420179008675,
+              "measurement": {
+                "cold_seconds": 0.9248920390018611,
+                "warm_seconds": 0.9561888919997727,
+                "correct": true,
+                "error_count": 0,
+                "cpu_seconds": 1.9517259999999998,
+                "peak_rss_bytes": 85794816
+              },
+              "exclusion": null,
+              "callback_seconds": 1.8818571520023397
+            }
+          ],
+          "candidates": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "score_seconds": 1.8810809310016339,
+              "callback_seconds": 1.8818571520023397
+            }
+          ],
+          "trace": [
+            {
+              "evaluations": 1,
+              "best_configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "best_score_seconds": 1.8810809310016339,
+              "relative_gap_to_best_observed": 0.0,
+              "within_ten_percent": true
+            }
+          ],
+          "seed": 1701,
+          "repeats": 1,
+          "allow_process": false,
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+          },
+          "elapsed_seconds": 1.8823545339982957,
+          "evaluations_to_stable_near_best": 1,
+          "provenance": "caller-owned-offline-calibration-v1",
+          "hardware_fingerprint": null,
+          "convergence_reference": "best eligible mean observed in this calibration only"
+        }
+      },
+      "heldout": [
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 3.514299896778539e-05,
+          "executor_shutdown_seconds": 8.229499871958978e-05,
+          "cold": {
+            "seconds": 0.9083160240006691,
+            "tasks": 2,
+            "throughput_per_second": 2.201876821671624,
+            "batch_completion_latency_p95_seconds": 0.8828232617006506,
+            "task_service_p95_seconds": 0.45631010309898556,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce1eb53f5686b205cf4b1ab2c237db8a801dcbb83e2fb53fa7b3aa48acc18c79",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.4492956489993958
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.9083147929995903
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.9615114070002164,
+            "tasks": 2,
+            "throughput_per_second": 2.080058526023862,
+            "batch_completion_latency_p95_seconds": 0.9393376231013462,
+            "task_service_p95_seconds": 0.5161771123512153,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce1eb53f5686b205cf4b1ab2c237db8a801dcbb83e2fb53fa7b3aa48acc18c79",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.520385209001688
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.9615102750030928
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.9083511669996369,
+          "cold_lifecycle_seconds": 0.9084334619983565,
+          "lifecycle_cpu_seconds": 1.9359590000000004,
+          "sampled_tree_peak_rss_bytes": 85786624,
+          "rss_samples": 179,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 8.21300272946246e-06,
+          "executor_shutdown_seconds": 0.0003197429978172295,
+          "cold": {
+            "seconds": 0.8661282740031311,
+            "tasks": 2,
+            "throughput_per_second": 2.309126788756431,
+            "batch_completion_latency_p95_seconds": 0.8429549320993828,
+            "task_service_p95_seconds": 0.45585880544877,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce1eb53f5686b205cf4b1ab2c237db8a801dcbb83e2fb53fa7b3aa48acc18c79",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.40805753400127287
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.866127483001037
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.877148676001525,
+            "tasks": 2,
+            "throughput_per_second": 2.280115167153855,
+            "batch_completion_latency_p95_seconds": 0.8553702107014032,
+            "task_service_p95_seconds": 0.4424864724995132,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "ce1eb53f5686b205cf4b1ab2c237db8a801dcbb83e2fb53fa7b3aa48acc18c79",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.4431188980015577
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.8771477750015038
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.8661364870058605,
+          "cold_lifecycle_seconds": 0.8664562300036778,
+          "lifecycle_cpu_seconds": 1.791169,
+          "sampled_tree_peak_rss_bytes": 85798912,
+          "rss_samples": 168,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "summary": {
+        "chosen_from_calibration": {
+          "stdlib": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "intelligent": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          }
+        },
+        "heldout_comparisons": [
+          {
+            "seed": 2903,
+            "phase": "cold",
+            "T_best_tuned_stdlib_over_T_intelligent": 0.9537916272895343,
+            "within_10_percent": true,
+            "correct": true
+          },
+          {
+            "seed": 2903,
+            "phase": "warm",
+            "T_best_tuned_stdlib_over_T_intelligent": 0.9122602910537572,
+            "within_10_percent": true,
+            "correct": true
+          }
+        ],
+        "near_optimal_coverage": 1.0,
+        "convergence": {
+          "status": "not_established",
+          "reason": "Two pool passes measure cold/warm behavior, not statistical policy convergence."
+        },
+        "calibration_convergence": {
+          "stdlib": {
+            "evaluations_to_stable_near_best": 1,
+            "trace": [
+              {
+                "evaluations": 1,
+                "best_configuration": {
+                  "backend": "thread",
+                  "workers": 1,
+                  "batch_size": 1,
+                  "profile_sample_interval": 0
+                },
+                "best_score_seconds": 1.9763708829996176,
+                "relative_gap_to_best_observed": 0.0,
+                "within_ten_percent": true
+              }
+            ],
+            "reference": "best eligible mean observed in this calibration only"
+          },
+          "intelligent": {
+            "evaluations_to_stable_near_best": 1,
+            "trace": [
+              {
+                "evaluations": 1,
+                "best_configuration": {
+                  "backend": "thread",
+                  "workers": 1,
+                  "batch_size": 1,
+                  "profile_sample_interval": 0
+                },
+                "best_score_seconds": 1.8810809310016339,
+                "relative_gap_to_best_observed": 0.0,
+                "within_ten_percent": true
+              }
+            ],
+            "reference": "best eligible mean observed in this calibration only"
+          }
+        }
+      },
+      "fixture_datasets": [
+        {
+          "reference_sha256": "ce6380f1fcd90d4b315ad48b139da6f080b4f2396179ebb17d00c49bccdfccda",
+          "seed": 6944076420179008675,
+          "count": 2,
+          "preparation_seconds": 0.051730907001910964,
+          "reference_seconds": 0.9857348619989352
+        },
+        {
+          "reference_sha256": "ce1eb53f5686b205cf4b1ab2c237db8a801dcbb83e2fb53fa7b3aa48acc18c79",
+          "seed": 2903,
+          "count": 2,
+          "preparation_seconds": 0.02801064400046016,
+          "reference_seconds": 0.994429312999273
+        }
+      ],
+      "scale": "smoke",
+      "acceptance_failures": [],
+      "accepted": true
+    },
+    {
+      "name": "dedup",
+      "calibration_seconds": 0.018919479996839073,
+      "calibration": [
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 6944076420179008675,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 8.14200029708445e-06,
+          "executor_shutdown_seconds": 3.961000038543716e-05,
+          "cold": {
+            "seconds": 0.004214005999529036,
+            "tasks": 2,
+            "throughput_per_second": 474.6077723248432,
+            "batch_completion_latency_p95_seconds": 0.0039656357514104455,
+            "task_service_p95_seconds": 0.0023423348018695835,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.002556111998273991
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.0042136359988944605
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.003525516000081552,
+            "tasks": 2,
+            "throughput_per_second": 567.2928444953125,
+            "batch_completion_latency_p95_seconds": 0.0034040424989143503,
+            "task_service_p95_seconds": 0.001731600649873144,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0018285219994140789
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.003525025000271853
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.00422214799982612,
+          "cold_lifecycle_seconds": 0.004261758000211557,
+          "lifecycle_cpu_seconds": 0.00820299999999996,
+          "sampled_tree_peak_rss_bytes": 42319872,
+          "rss_samples": 1,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 6944076420179008675,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 2.026000220212154e-05,
+          "executor_shutdown_seconds": 6.989599933149293e-05,
+          "cold": {
+            "seconds": 0.005121186000906164,
+            "tasks": 2,
+            "throughput_per_second": 390.53453626681625,
+            "batch_completion_latency_p95_seconds": 0.0046348959005626965,
+            "task_service_p95_seconds": 0.0023569094479171326,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0027090319999842905
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.005120605001138756
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.004375168999104062,
+            "tasks": 2,
+            "throughput_per_second": 457.125199143063,
+            "batch_completion_latency_p95_seconds": 0.004199936049917596,
+            "task_service_p95_seconds": 0.002123699448929983,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.002224190000561066
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.004374527998152189
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.005141446003108285,
+          "cold_lifecycle_seconds": 0.005211342002439778,
+          "lifecycle_cpu_seconds": 0.009826000000000334,
+          "sampled_tree_peak_rss_bytes": 42323968,
+          "rss_samples": 1,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "configuration_selection": {
+        "stdlib": {
+          "selected": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "objective": {
+            "elapsed": "combined",
+            "max_cpu_seconds": null,
+            "max_peak_rss_bytes": null
+          },
+          "records": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "repeat": 0,
+              "seed": 6944076420179008675,
+              "measurement": {
+                "cold_seconds": 0.004261758000211557,
+                "warm_seconds": 0.003525516000081552,
+                "correct": true,
+                "error_count": 0,
+                "cpu_seconds": 0.00820299999999996,
+                "peak_rss_bytes": 42319872
+              },
+              "exclusion": null,
+              "callback_seconds": 0.008169150998583063
+            }
+          ],
+          "candidates": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "score_seconds": 0.0077872740002931096,
+              "callback_seconds": 0.008169150998583063
+            }
+          ],
+          "trace": [
+            {
+              "evaluations": 1,
+              "best_configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "best_score_seconds": 0.0077872740002931096,
+              "relative_gap_to_best_observed": 0.0,
+              "within_ten_percent": true
+            }
+          ],
+          "seed": 1701,
+          "repeats": 1,
+          "allow_process": false,
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+          },
+          "elapsed_seconds": 0.00859372299964889,
+          "evaluations_to_stable_near_best": 1,
+          "provenance": "caller-owned-offline-calibration-v1",
+          "hardware_fingerprint": null,
+          "convergence_reference": "best eligible mean observed in this calibration only"
+        },
+        "intelligent": {
+          "selected": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "objective": {
+            "elapsed": "combined",
+            "max_cpu_seconds": null,
+            "max_peak_rss_bytes": null
+          },
+          "records": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "repeat": 0,
+              "seed": 6944076420179008675,
+              "measurement": {
+                "cold_seconds": 0.005211342002439778,
+                "warm_seconds": 0.004375168999104062,
+                "correct": true,
+                "error_count": 0,
+                "cpu_seconds": 0.009826000000000334,
+                "peak_rss_bytes": 42323968
+              },
+              "exclusion": null,
+              "callback_seconds": 0.009930531999998493
+            }
+          ],
+          "candidates": [
+            {
+              "configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "score_seconds": 0.00958651100154384,
+              "callback_seconds": 0.009930531999998493
+            }
+          ],
+          "trace": [
+            {
+              "evaluations": 1,
+              "best_configuration": {
+                "backend": "thread",
+                "workers": 1,
+                "batch_size": 1,
+                "profile_sample_interval": 0
+              },
+              "best_score_seconds": 0.00958651100154384,
+              "relative_gap_to_best_observed": 0.0,
+              "within_ten_percent": true
+            }
+          ],
+          "seed": 1701,
+          "repeats": 1,
+          "allow_process": false,
+          "hardware": {
+            "logical_cpus": 9,
+            "affinity_cpus": 9,
+            "quota_cpus": null,
+            "machine": "x86_64",
+            "system": "Linux",
+            "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+          },
+          "elapsed_seconds": 0.010209682997810887,
+          "evaluations_to_stable_near_best": 1,
+          "provenance": "caller-owned-offline-calibration-v1",
+          "hardware_fingerprint": null,
+          "convergence_reference": "best eligible mean observed in this calibration only"
+        }
+      },
+      "heldout": [
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 2.2513999283546582e-05,
+          "executor_shutdown_seconds": 7.586499850731343e-05,
+          "cold": {
+            "seconds": 0.004755273999762721,
+            "tasks": 2,
+            "throughput_per_second": 420.58564871336455,
+            "batch_completion_latency_p95_seconds": 0.004472273452120134,
+            "task_service_p95_seconds": 0.002225820799321809,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.002645747001224663
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.004754613000841346
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.003889405998052098,
+            "tasks": 2,
+            "throughput_per_second": 514.2173383292063,
+            "batch_completion_latency_p95_seconds": 0.003740340947661025,
+            "task_service_p95_seconds": 0.0018917368484835605,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0021011639983044006
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.003888895000272896
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.004777787999046268,
+          "cold_lifecycle_seconds": 0.004853652997553581,
+          "lifecycle_cpu_seconds": 0.009365000000000734,
+          "sampled_tree_peak_rss_bytes": 42323968,
+          "rss_samples": 1,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.0,
+          "executor_construction_seconds": 5.207999492995441e-06,
+          "executor_shutdown_seconds": 5.3471001592697576e-05,
+          "cold": {
+            "seconds": 0.005023878999054432,
+            "tasks": 2,
+            "throughput_per_second": 398.0987600171958,
+            "batch_completion_latency_p95_seconds": 0.0047531244990750565,
+            "task_service_p95_seconds": 0.002666886551742209,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0028542619984364137
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.00502325799971004
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.0043003859973396175,
+            "tasks": 2,
+            "throughput_per_second": 465.0745308066011,
+            "batch_completion_latency_p95_seconds": 0.004155750551035453,
+            "task_service_p95_seconds": 0.0021366638986364704,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0021492969972314313
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.004299865999200847
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.005029086998547427,
+          "cold_lifecycle_seconds": 0.005082558000140125,
+          "lifecycle_cpu_seconds": 0.009789999999998855,
+          "sampled_tree_peak_rss_bytes": 42323968,
+          "rss_samples": 1,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "summary": {
+        "chosen_from_calibration": {
+          "stdlib": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "intelligent": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          }
+        },
+        "heldout_comparisons": [
+          {
+            "seed": 2903,
+            "phase": "cold",
+            "T_best_tuned_stdlib_over_T_intelligent": 1.0471613860121274,
+            "within_10_percent": true,
+            "correct": true
+          },
+          {
+            "seed": 2903,
+            "phase": "warm",
+            "T_best_tuned_stdlib_over_T_intelligent": 1.1056665206700838,
+            "within_10_percent": true,
+            "correct": true
+          }
+        ],
+        "near_optimal_coverage": 1.0,
+        "convergence": {
+          "status": "not_established",
+          "reason": "Two pool passes measure cold/warm behavior, not statistical policy convergence."
+        },
+        "calibration_convergence": {
+          "stdlib": {
+            "evaluations_to_stable_near_best": 1,
+            "trace": [
+              {
+                "evaluations": 1,
+                "best_configuration": {
+                  "backend": "thread",
+                  "workers": 1,
+                  "batch_size": 1,
+                  "profile_sample_interval": 0
+                },
+                "best_score_seconds": 0.0077872740002931096,
+                "relative_gap_to_best_observed": 0.0,
+                "within_ten_percent": true
+              }
+            ],
+            "reference": "best eligible mean observed in this calibration only"
+          },
+          "intelligent": {
+            "evaluations_to_stable_near_best": 1,
+            "trace": [
+              {
+                "evaluations": 1,
+                "best_configuration": {
+                  "backend": "thread",
+                  "workers": 1,
+                  "batch_size": 1,
+                  "profile_sample_interval": 0
+                },
+                "best_score_seconds": 0.00958651100154384,
+                "relative_gap_to_best_observed": 0.0,
+                "within_ten_percent": true
+              }
+            ],
+            "reference": "best eligible mean observed in this calibration only"
+          }
+        }
+      },
+      "fixture_datasets": [
+        {
+          "reference_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+          "seed": 6944076420179008675,
+          "count": 2,
+          "preparation_seconds": 0.0028135800021118484,
+          "reference_seconds": 0.0035698920000868384
+        },
+        {
+          "reference_sha256": "23fdbef2ae8569a8007ab9dea9e3df5eb647793afbd75d72b5c144a734ba12ed",
+          "seed": 2903,
+          "count": 2,
+          "preparation_seconds": 0.002983696998853702,
+          "reference_seconds": 0.005301387998770224
+        }
+      ],
+      "scale": "smoke",
+      "acceptance_failures": [],
+      "accepted": true
+    }
+  ],
+  "failures": []
+}

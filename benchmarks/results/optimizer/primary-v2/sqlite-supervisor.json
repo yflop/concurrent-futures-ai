@@ -1,0 +1,22 @@
+{
+  "workload": "sqlite",
+  "limits": {
+    "wall_seconds": 21600.0,
+    "checkpoint_stall_seconds": 600.0,
+    "emergency_process_tree_rss_bytes": 2147483648,
+    "cpu_affinity_count": 8
+  },
+  "started_unix": 1791634374.8941739,
+  "status": "complete",
+  "returncode": 0,
+  "stop_reason": null,
+  "elapsed_seconds": 138.09080284200172,
+  "sampled_peak_tree_rss_bytes": 205737984,
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "2d3994d25785527c8572815584b15f6ffad9b24a81eba07efe20834fe49b2f28",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

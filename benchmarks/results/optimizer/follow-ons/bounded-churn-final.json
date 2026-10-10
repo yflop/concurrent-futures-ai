@@ -1,0 +1,160 @@
+{
+  "classification": "bounded cancellation payload-retention regression",
+  "cancelled": 10000,
+  "payload_bytes_each": 4096,
+  "cancelled_futures_deliberately_retained": 10000,
+  "live_cancelled_payloads_before_drain": 0,
+  "traced_bytes_held_including_caller_retained_futures": 17529856,
+  "traced_bytes_after_drain_including_caller_retained_futures": 17539748,
+  "before_drain": {
+    "counts": {
+      "submitted": 10001,
+      "completed": 0,
+      "failed": 0,
+      "cancelled": 10000,
+      "rejected": 0,
+      "thread_submitted": 10001,
+      "process_submitted": 0,
+      "peak_pending": 2,
+      "profiles_evicted": 0
+    },
+    "pending": 1,
+    "load": {
+      "thread": {
+        "workers": 1,
+        "queued": 0,
+        "in_flight": 1
+      },
+      "process": {
+        "workers": 0,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "max_pending": 2
+    },
+    "policy": {
+      "tracked_keys": 0,
+      "max_keys": 256,
+      "last_decision": {
+        "backend": "thread",
+        "reason": "process-ineligible",
+        "exploration": false
+      }
+    },
+    "predictive": null,
+    "closed": false,
+    "max_pending": 2,
+    "physical": {
+      "queued": {
+        "thread": 0,
+        "process": 0
+      },
+      "in_flight": {
+        "thread": 1,
+        "process": 0
+      },
+      "retained": 1,
+      "max_retained": 2,
+      "dispatch_limits": {
+        "thread": 1,
+        "process": 0
+      },
+      "peak_queued": {
+        "thread": 1,
+        "process": 0
+      },
+      "peak_in_flight": {
+        "thread": 1,
+        "process": 0
+      },
+      "peak_retained": 2
+    },
+    "profiles": {}
+  },
+  "after_drain": {
+    "counts": {
+      "submitted": 10001,
+      "completed": 1,
+      "failed": 0,
+      "cancelled": 10000,
+      "rejected": 0,
+      "thread_submitted": 10001,
+      "process_submitted": 0,
+      "peak_pending": 2,
+      "profiles_evicted": 0
+    },
+    "pending": 0,
+    "load": {
+      "thread": {
+        "workers": 1,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "process": {
+        "workers": 0,
+        "queued": 0,
+        "in_flight": 0
+      },
+      "max_pending": 2
+    },
+    "policy": {
+      "tracked_keys": 0,
+      "max_keys": 256,
+      "last_decision": {
+        "backend": "thread",
+        "reason": "process-ineligible",
+        "exploration": false
+      }
+    },
+    "predictive": null,
+    "closed": true,
+    "max_pending": 2,
+    "physical": {
+      "queued": {
+        "thread": 0,
+        "process": 0
+      },
+      "in_flight": {
+        "thread": 0,
+        "process": 0
+      },
+      "retained": 0,
+      "max_retained": 2,
+      "dispatch_limits": {
+        "thread": 1,
+        "process": 0
+      },
+      "peak_queued": {
+        "thread": 1,
+        "process": 0
+      },
+      "peak_in_flight": {
+        "thread": 1,
+        "process": 0
+      },
+      "peak_retained": 2
+    },
+    "profiles": {
+      "default": {
+        "thread": {
+          "samples": 1,
+          "ewma_seconds": 0.6921486619976349,
+          "total_seconds": 0.6921486619976349,
+          "failures": 0,
+          "uncontended_samples": 1,
+          "uncontended_ewma_seconds": 0.6921486619976349,
+          "uncontended_total_seconds": 0.6921486619976349
+        }
+      }
+    }
+  },
+  "accepted": true,
+  "limits": "Explicit shutdown; physical item count is not an RSS/byte cap; no task preemption or callback/deadlock guarantee.",
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "33337d8e466a6dd1adab562b2dce74669259f60bb4a2ecef2467a4a38114eeed",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

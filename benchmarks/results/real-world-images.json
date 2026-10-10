@@ -1,0 +1,1771 @@
+{
+  "schema_version": 1,
+  "environment": {
+    "recorded_at_utc": "2026-10-10T09:06:56.453257+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "implementation": "CPython",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "affinity_cpus": 9,
+    "cgroup_cpu_max": null,
+    "cgroup_cpu_quota_cores": null,
+    "cgroup_memory_max": null,
+    "free_threaded_build": false,
+    "process_start_method": "spawn",
+    "git_revision": "82a853a79d6ffb3706085f38d927a05db475ae25",
+    "command": "python -m benchmarks.run --quick --workloads images --workers 1 2 --batches 1 4 --backends thread process --output benchmarks/results/real-world-images.json"
+  },
+  "count_per_trial": 4,
+  "scope": "Single host, local generated fixtures, original workload replicas; no upstream interoperability or deployment certification.",
+  "method": {
+    "calibration_seed": 1701,
+    "heldout_seeds": [
+      2903,
+      3911
+    ],
+    "selection": "Minimum calibration cold construction+execution plus warm execution; same search grid for both engines",
+    "warm": "Second pass in same pool; fresh application fixtures/cache; OS/library caches uncontrolled",
+    "memory": "10 ms sampled absolute aggregate process-tree RSS including fixture server, shared pages may double-count",
+    "intelligent": "Explicit thread/process hints with predictive admission; not automatic backend selection",
+    "comparison": "Held-out time of calibration-selected stdlib divided by separately calibration-selected intelligent; no held-out oracle tuning",
+    "configuration_grid": [
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 1
+      },
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 4
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 1
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 4
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 1
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 4
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 1
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 4
+      }
+    ]
+  },
+  "workloads": [
+    {
+      "name": "images",
+      "calibration_seconds": 15.149433517999569,
+      "calibration": [
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "process",
+            "workers": 1,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.10697237700151163,
+          "executor_construction_seconds": 0.007321369001147104,
+          "executor_shutdown_seconds": 0.014545172001817264,
+          "cold": {
+            "seconds": 0.35122870199847966,
+            "tasks": 4,
+            "throughput_per_second": 11.388590901711998,
+            "batch_completion_latency_p95_seconds": 0.20716177780232098,
+            "task_service_p95_seconds": 0.07594948194946483,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.15188439899793593
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.21962830899792607
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.2869486599993252
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.3512272000007215
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.2664136800012784,
+            "tasks": 4,
+            "throughput_per_second": 15.014244013223367,
+            "batch_completion_latency_p95_seconds": 0.1359287786499408,
+            "task_service_p95_seconds": 0.06643425109868986,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06579341899850988
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.13617825300025288
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.20187854200048605
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.26641207699867664
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.35855007099962677,
+          "sampled_tree_peak_rss_bytes": 71327744,
+          "rss_samples": 62,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "process",
+            "workers": 1,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.08829963099924498,
+          "executor_construction_seconds": 0.0004981530000804923,
+          "executor_shutdown_seconds": 0.016322056002536556,
+          "cold": {
+            "seconds": 0.3567173039991758,
+            "tasks": 4,
+            "throughput_per_second": 11.213361267187762,
+            "batch_completion_latency_p95_seconds": 0.35664080800052034,
+            "task_service_p95_seconds": 0.08628812954902967,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.35671612200167147
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.28617242600012105,
+            "tasks": 4,
+            "throughput_per_second": 13.97758706493374,
+            "batch_completion_latency_p95_seconds": 0.2861122200010868,
+            "task_service_p95_seconds": 0.07231049214988161,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.28617120399940177
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.3572154569992563,
+          "sampled_tree_peak_rss_bytes": 68268032,
+          "rss_samples": 64,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.09584220400211052,
+          "executor_construction_seconds": 0.0006165109989524353,
+          "executor_shutdown_seconds": 0.00011555499804671854,
+          "cold": {
+            "seconds": 0.27280009199967026,
+            "tasks": 4,
+            "throughput_per_second": 14.662751653341946,
+            "batch_completion_latency_p95_seconds": 0.2727548940019915,
+            "task_service_p95_seconds": 0.07094838244902349,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2727989599989087
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.2484988299984252,
+            "tasks": 4,
+            "throughput_per_second": 16.096655264032226,
+            "batch_completion_latency_p95_seconds": 0.24845568599994294,
+            "task_service_p95_seconds": 0.06395957169861503,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.24849781900047674
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.2734166029986227,
+          "sampled_tree_peak_rss_bytes": 48218112,
+          "rss_samples": 49,
+          "profiles_after_two_batches": [
+            {
+              "version": 1,
+              "key": "real-world-images",
+              "features": [
+                [
+                  "batch_size",
+                  4.0
+                ]
+              ],
+              "hardware_fingerprint": null,
+              "hardware": {
+                "logical_cpus": 9,
+                "affinity_cpus": 9,
+                "quota_cpus": null,
+                "machine": "x86_64",
+                "system": "Linux",
+                "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+              },
+              "samples": [
+                {
+                  "wall_seconds": 0.2719445909970091,
+                  "thread_cpu_seconds": 0.270544972,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.24820945399915217,
+                  "thread_cpu_seconds": 0.24807985400000004,
+                  "backend": "thread",
+                  "concurrency": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.10448530100256903,
+          "executor_construction_seconds": 0.0005313729998306371,
+          "executor_shutdown_seconds": 9.145800140686333e-05,
+          "cold": {
+            "seconds": 0.2543562050013861,
+            "tasks": 4,
+            "throughput_per_second": 15.725977669694364,
+            "batch_completion_latency_p95_seconds": 0.13201141485078552,
+            "task_service_p95_seconds": 0.0688276250504714,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07043084800170618
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.1340329720005684
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.19358153299981495
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.25435517400183016
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.24479568500100868,
+            "tasks": 4,
+            "throughput_per_second": 16.34015730295049,
+            "batch_completion_latency_p95_seconds": 0.12323922120067436,
+            "task_service_p95_seconds": 0.061754189298699205,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06101893199956976
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.12134405600227183
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.1834902200025681
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.24479463299940107
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.25488757800121675,
+          "sampled_tree_peak_rss_bytes": 52686848,
+          "rss_samples": 47,
+          "profiles_after_two_batches": [
+            {
+              "version": 1,
+              "key": "real-world-images",
+              "features": [
+                [
+                  "batch_size",
+                  1.0
+                ]
+              ],
+              "hardware_fingerprint": null,
+              "hardware": {
+                "logical_cpus": 9,
+                "affinity_cpus": 9,
+                "quota_cpus": null,
+                "machine": "x86_64",
+                "system": "Linux",
+                "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+              },
+              "samples": [
+                {
+                  "wall_seconds": 0.06981268900199211,
+                  "thread_cpu_seconds": 0.06974207900000001,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.06333120400086045,
+                  "thread_cpu_seconds": 0.063261071,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.05926423099663225,
+                  "thread_cpu_seconds": 0.05925654999999999,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.06054356399909011,
+                  "thread_cpu_seconds": 0.06053803200000002,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.06065305899755913,
+                  "thread_cpu_seconds": 0.060349761,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.06005506499786861,
+                  "thread_cpu_seconds": 0.06002132199999999,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.06188216599912266,
+                  "thread_cpu_seconds": 0.06184722399999998,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.061101947001588996,
+                  "thread_cpu_seconds": 0.060978618999999956,
+                  "backend": "thread",
+                  "concurrency": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.09068991200183518,
+          "executor_construction_seconds": 0.0011496869992697611,
+          "executor_shutdown_seconds": 0.017546490002132487,
+          "cold": {
+            "seconds": 0.2515141420008149,
+            "tasks": 4,
+            "throughput_per_second": 15.903678290929024,
+            "batch_completion_latency_p95_seconds": 0.22694752644893013,
+            "task_service_p95_seconds": 0.09051199564946728,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.16960749300051248
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.16961033799816505
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.23873238500164007
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.251513139999588
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.15687214200079325,
+            "tasks": 4,
+            "throughput_per_second": 25.498472507500875,
+            "batch_completion_latency_p95_seconds": 0.13728253519875577,
+            "task_service_p95_seconds": 0.08106292714946903,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.08299036500102375
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08299301900115097
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.14716580999811413
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.15687117999914335
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.25266382900008466,
+          "sampled_tree_peak_rss_bytes": 108122112,
+          "rss_samples": 41,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "process",
+            "workers": 1,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.09244230799959041,
+          "executor_construction_seconds": 0.0005999169989081565,
+          "executor_shutdown_seconds": 0.015101341999979923,
+          "cold": {
+            "seconds": 0.3733334909993573,
+            "tasks": 4,
+            "throughput_per_second": 10.71428118943362,
+            "batch_completion_latency_p95_seconds": 0.22853604569991146,
+            "task_service_p95_seconds": 0.08257565119856736,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.16976492200046778
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.23976817000220763
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.3050577930007421
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.37333209899952635
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.26723095800116425,
+            "tasks": 4,
+            "throughput_per_second": 14.968325638313855,
+            "batch_completion_latency_p95_seconds": 0.13474296084987145,
+            "task_service_p95_seconds": 0.06904761489931843,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06788184800097952
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.13182953400246333
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.19766103000074509
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.26722980699923937
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.37393340799826547,
+          "sampled_tree_peak_rss_bytes": 77303808,
+          "rss_samples": 63,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.09849894699800643,
+          "executor_construction_seconds": 0.0006946790017536841,
+          "executor_shutdown_seconds": 0.00026708299992606044,
+          "cold": {
+            "seconds": 0.1619582849998551,
+            "tasks": 4,
+            "throughput_per_second": 24.697717687017857,
+            "batch_completion_latency_p95_seconds": 0.1305743605000316,
+            "task_service_p95_seconds": 0.08373959805157938,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0865287749984418
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08653170999969007
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.13925883599949884
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.16195703300036257
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.17575890100124525,
+            "tasks": 4,
+            "throughput_per_second": 22.758449086863944,
+            "batch_completion_latency_p95_seconds": 0.16240873635215392,
+            "task_service_p95_seconds": 0.08814701909959695,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.08859649900114164
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08859886199934408
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.17575467500137165
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.1757583809994685
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.16265296400160878,
+          "sampled_tree_peak_rss_bytes": 63373312,
+          "rss_samples": 31,
+          "profiles_after_two_batches": [
+            {
+              "version": 1,
+              "key": "real-world-images",
+              "features": [
+                [
+                  "batch_size",
+                  1.0
+                ]
+              ],
+              "hardware_fingerprint": null,
+              "hardware": {
+                "logical_cpus": 9,
+                "affinity_cpus": 9,
+                "quota_cpus": null,
+                "machine": "x86_64",
+                "system": "Linux",
+                "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+              },
+              "samples": [
+                {
+                  "wall_seconds": 0.0735366310000245,
+                  "thread_cpu_seconds": 0.065430318,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08530139099821099,
+                  "thread_cpu_seconds": 0.07874365000000001,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.06408971099881455,
+                  "thread_cpu_seconds": 0.060201011,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.07515965200218488,
+                  "thread_cpu_seconds": 0.06919438,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08692058699671179,
+                  "thread_cpu_seconds": 0.079532556,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.0882584280006995,
+                  "thread_cpu_seconds": 0.08013646600000002,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.08762360900072963,
+                  "thread_cpu_seconds": 0.08034037899999999,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08699198500107741,
+                  "thread_cpu_seconds": 0.08012802400000002,
+                  "backend": "thread",
+                  "concurrency": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.08948412899917457,
+          "executor_construction_seconds": 1.9548999262042344e-05,
+          "executor_shutdown_seconds": 0.00010953600212815218,
+          "cold": {
+            "seconds": 0.27808570499837515,
+            "tasks": 4,
+            "throughput_per_second": 14.384054728823159,
+            "batch_completion_latency_p95_seconds": 0.14933995370047343,
+            "task_service_p95_seconds": 0.07789098209832446,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0716085079984623
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.15071998399798758
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.21578045999922324
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.27808410299985553
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.2496060360026604,
+            "tasks": 4,
+            "throughput_per_second": 16.025253491695874,
+            "batch_completion_latency_p95_seconds": 0.12542203460016027,
+            "task_service_p95_seconds": 0.06283704034976836,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06165682500068215
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.1240469030017266
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.18672795100064832
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.24960492399986833
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.2781052539976372,
+          "sampled_tree_peak_rss_bytes": 57114624,
+          "rss_samples": 50,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.08851140999831841,
+          "executor_construction_seconds": 1.4862998796161264e-05,
+          "executor_shutdown_seconds": 0.0002820760018948931,
+          "cold": {
+            "seconds": 0.14370029600104317,
+            "tasks": 4,
+            "throughput_per_second": 27.835711625611143,
+            "batch_completion_latency_p95_seconds": 0.14250625620061327,
+            "task_service_p95_seconds": 0.07370078369986004,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07116580900037661
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.07477775500228745
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.1407043799990788
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.1436993240022275
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.1841463560012926,
+            "tasks": 4,
+            "throughput_per_second": 21.721852589751613,
+            "batch_completion_latency_p95_seconds": 0.1838246233486643,
+            "task_service_p95_seconds": 0.09197360055059108,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.09198965500036138
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.09222089399918332
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.1825722930007032
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.18414528500215965
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.14371515899983933,
+          "sampled_tree_peak_rss_bytes": 63348736,
+          "rss_samples": 28,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.09715728500304976,
+          "executor_construction_seconds": 1.3360000593820587e-05,
+          "executor_shutdown_seconds": 9.005600077216513e-05,
+          "cold": {
+            "seconds": 0.25014972200006014,
+            "tasks": 4,
+            "throughput_per_second": 15.990423527230778,
+            "batch_completion_latency_p95_seconds": 0.25008622699897387,
+            "task_service_p95_seconds": 0.06433497664966126,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2501485300017521
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.27388843600056134,
+            "tasks": 4,
+            "throughput_per_second": 14.604486623859511,
+            "batch_completion_latency_p95_seconds": 0.27384545000313665,
+            "task_service_p95_seconds": 0.07299803469868493,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.27388712399988435
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.25016308200065396,
+          "sampled_tree_peak_rss_bytes": 57118720,
+          "rss_samples": 49,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.0967500349979673,
+          "executor_construction_seconds": 1.356000211671926e-05,
+          "executor_shutdown_seconds": 0.00017141900025308132,
+          "cold": {
+            "seconds": 0.25636621700323303,
+            "tasks": 4,
+            "throughput_per_second": 15.60267981779189,
+            "batch_completion_latency_p95_seconds": 0.2563069780007936,
+            "task_service_p95_seconds": 0.06608413265166746,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.25636475500141387
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.2570970810011204,
+            "tasks": 4,
+            "throughput_per_second": 15.558325222613355,
+            "batch_completion_latency_p95_seconds": 0.25351790900094784,
+            "task_service_p95_seconds": 0.0648918960505398,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.25709562900010496
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.25637977700534975,
+          "sampled_tree_peak_rss_bytes": 57118720,
+          "rss_samples": 49,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.11701319400162902,
+          "executor_construction_seconds": 0.0007999690024007577,
+          "executor_shutdown_seconds": 9.818800026550889e-05,
+          "cold": {
+            "seconds": 0.27255213200260187,
+            "tasks": 4,
+            "throughput_per_second": 14.67609139803689,
+            "batch_completion_latency_p95_seconds": 0.2725061029996141,
+            "task_service_p95_seconds": 0.07024131349880917,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2725508200019249
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.27569961699919077,
+            "tasks": 4,
+            "throughput_per_second": 14.508543912891039,
+            "batch_completion_latency_p95_seconds": 0.2756609889984247,
+            "task_service_p95_seconds": 0.07569955205071892,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2756983949984715
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.2733521010050026,
+          "sampled_tree_peak_rss_bytes": 57118720,
+          "rss_samples": 50,
+          "profiles_after_two_batches": [
+            {
+              "version": 1,
+              "key": "real-world-images",
+              "features": [
+                [
+                  "batch_size",
+                  4.0
+                ]
+              ],
+              "hardware_fingerprint": null,
+              "hardware": {
+                "logical_cpus": 9,
+                "affinity_cpus": 9,
+                "quota_cpus": null,
+                "machine": "x86_64",
+                "system": "Linux",
+                "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+              },
+              "samples": [
+                {
+                  "wall_seconds": 0.27205498200055445,
+                  "thread_cpu_seconds": 0.26954429,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.27543111100021633,
+                  "thread_cpu_seconds": 0.273337848,
+                  "backend": "thread",
+                  "concurrency": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "process",
+            "workers": 1,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.08390329100075178,
+          "executor_construction_seconds": 0.001290729000174906,
+          "executor_shutdown_seconds": 0.01735931299845106,
+          "cold": {
+            "seconds": 0.35777670399693307,
+            "tasks": 4,
+            "throughput_per_second": 11.180157778060051,
+            "batch_completion_latency_p95_seconds": 0.35769232700113207,
+            "task_service_p95_seconds": 0.08414605924990609,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.3577752019991749
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.2921753090013226,
+            "tasks": 4,
+            "throughput_per_second": 13.690410779994735,
+            "batch_completion_latency_p95_seconds": 0.29207150699949125,
+            "task_service_p95_seconds": 0.08072587464794197,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2921733760013012
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.35906743299710797,
+          "sampled_tree_peak_rss_bytes": 81735680,
+          "rss_samples": 65,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.0845335830017575,
+          "executor_construction_seconds": 0.00039898199975141324,
+          "executor_shutdown_seconds": 0.017408266001439188,
+          "cold": {
+            "seconds": 0.3830451379981241,
+            "tasks": 4,
+            "throughput_per_second": 10.442633525920355,
+            "batch_completion_latency_p95_seconds": 0.3795386769998004,
+            "task_service_p95_seconds": 0.08416581104902435,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.38304332500047167
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.2766768330002378,
+            "tasks": 4,
+            "throughput_per_second": 14.457300080475338,
+            "batch_completion_latency_p95_seconds": 0.27651668099861126,
+            "task_service_p95_seconds": 0.07689195004732027,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2766747800014855
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.38344411999787553,
+          "sampled_tree_peak_rss_bytes": 81735680,
+          "rss_samples": 66,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.09505751999677159,
+          "executor_construction_seconds": 0.00042481100172153674,
+          "executor_shutdown_seconds": 0.01619497799765668,
+          "cold": {
+            "seconds": 0.2629240829992341,
+            "tasks": 4,
+            "throughput_per_second": 15.213516975588927,
+            "batch_completion_latency_p95_seconds": 0.2609109097498731,
+            "task_service_p95_seconds": 0.09941576240107679,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.19543087000056403
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.1956767919982667
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.26060284599952865
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.2629231520004396
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.13418556099713896,
+            "tasks": 4,
+            "throughput_per_second": 29.809466609341715,
+            "batch_completion_latency_p95_seconds": 0.13341577155151754,
+            "task_service_p95_seconds": 0.06702392114948452,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06499815399729414
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.06768879799710703
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.1299372029970982
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.13418484999783686
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.2633488940009556,
+          "sampled_tree_peak_rss_bytes": 112545792,
+          "rss_samples": 40,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 4
+          },
+          "seed": 1701,
+          "fixture_seconds": 0.0958140029979404,
+          "executor_construction_seconds": 0.0009592889982741326,
+          "executor_shutdown_seconds": 0.01504793099957169,
+          "cold": {
+            "seconds": 0.35785082599977613,
+            "tasks": 4,
+            "throughput_per_second": 11.177842020693008,
+            "batch_completion_latency_p95_seconds": 0.3577817320001486,
+            "task_service_p95_seconds": 0.08100028915068833,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.3578497039998183
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.25727815400023246,
+            "tasks": 4,
+            "throughput_per_second": 15.54737523496218,
+            "batch_completion_latency_p95_seconds": 0.2571305520032183,
+            "task_service_p95_seconds": 0.06468457964965638,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "4e7eaa1c842205efe61ec969400a2f747aeac3ac4bfcfa378a76b547a772363a",
+            "completion_trace": [
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.25727690299754613
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.35881011499805027,
+          "sampled_tree_peak_rss_bytes": 81743872,
+          "rss_samples": 61,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "heldout": [
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.08921276099863462,
+          "executor_construction_seconds": 0.0005543469997064676,
+          "executor_shutdown_seconds": 0.0003834290000668261,
+          "cold": {
+            "seconds": 0.17899038099858444,
+            "tasks": 4,
+            "throughput_per_second": 22.347569616222195,
+            "batch_completion_latency_p95_seconds": 0.164107166148824,
+            "task_service_p95_seconds": 0.09151167109848757,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "8425cc9a58cb80bee5bdea2af7eade9a9b7a725c457ce8e21cb71a39c7868aa6",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.09256000700042932
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.09256262100097956
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.17719255499832798
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.17898991000038222
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.15133815000081086,
+            "tasks": 4,
+            "throughput_per_second": 26.430876814461975,
+            "batch_completion_latency_p95_seconds": 0.14093806599812522,
+            "task_service_p95_seconds": 0.08550949084910826,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "8425cc9a58cb80bee5bdea2af7eade9a9b7a725c457ce8e21cb71a39c7868aa6",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.08618008000121335
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08618257400303264
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.15076063800006523
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.1513376690018049
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.1795447279982909,
+          "sampled_tree_peak_rss_bytes": 63479808,
+          "rss_samples": 28,
+          "profiles_after_two_batches": [
+            {
+              "version": 1,
+              "key": "real-world-images",
+              "features": [
+                [
+                  "batch_size",
+                  1.0
+                ]
+              ],
+              "hardware_fingerprint": null,
+              "hardware": {
+                "logical_cpus": 9,
+                "affinity_cpus": 9,
+                "quota_cpus": null,
+                "machine": "x86_64",
+                "system": "Linux",
+                "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+              },
+              "samples": [
+                {
+                  "wall_seconds": 0.09037967400217894,
+                  "thread_cpu_seconds": 0.08355363,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.0917213710017677,
+                  "thread_cpu_seconds": 0.083547808,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08540732400069828,
+                  "thread_cpu_seconds": 0.07983365399999999,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08600585699969088,
+                  "thread_cpu_seconds": 0.078978278,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08373701999880723,
+                  "thread_cpu_seconds": 0.07827538,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08583624200036866,
+                  "thread_cpu_seconds": 0.07855062299999999,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.0662525679981627,
+                  "thread_cpu_seconds": 0.05951637800000001,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.065020097001252,
+                  "thread_cpu_seconds": 0.05856502000000002,
+                  "backend": "thread",
+                  "concurrency": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 2903,
+          "fixture_seconds": 0.09325630999956047,
+          "executor_construction_seconds": 1.3901000784244388e-05,
+          "executor_shutdown_seconds": 0.0001710679971438367,
+          "cold": {
+            "seconds": 0.15391179400103283,
+            "tasks": 4,
+            "throughput_per_second": 25.988911544836895,
+            "batch_completion_latency_p95_seconds": 0.15299909915229365,
+            "task_service_p95_seconds": 0.08187536915156671,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "8425cc9a58cb80bee5bdea2af7eade9a9b7a725c457ce8e21cb71a39c7868aa6",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.07102903399936622
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.07176033900032053
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.15124165000088396
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.15391098300096928
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.17281630000070436,
+            "tasks": 4,
+            "throughput_per_second": 23.145964819196436,
+            "batch_completion_latency_p95_seconds": 0.17240377749785693,
+            "task_service_p95_seconds": 0.08912139929998375,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "8425cc9a58cb80bee5bdea2af7eade9a9b7a725c457ce8e21cb71a39c7868aa6",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.08300561999931233
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08372427100039204
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.17063394299839274
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.17281540800104267
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.15392569500181708,
+          "sampled_tree_peak_rss_bytes": 63442944,
+          "rss_samples": 28,
+          "profiles_after_two_batches": []
+        },
+        {
+          "engine": "intelligent",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 3911,
+          "fixture_seconds": 0.09093505200144136,
+          "executor_construction_seconds": 0.0007316049996006768,
+          "executor_shutdown_seconds": 0.00018576000002212822,
+          "cold": {
+            "seconds": 0.17256183099743794,
+            "tasks": 4,
+            "throughput_per_second": 23.18009710999989,
+            "batch_completion_latency_p95_seconds": 0.15378424880000235,
+            "task_service_p95_seconds": 0.08655328140139318,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "857cacbd0945263c7bcd7ccd7d6df2c88b6d4a407c1312d352f52e414927477a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.08539811499940697
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08540132999769412
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.16564136699889787
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.17256076899866457
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.17630184500012547,
+            "tasks": 4,
+            "throughput_per_second": 22.688361542655173,
+            "batch_completion_latency_p95_seconds": 0.16053376330146418,
+            "task_service_p95_seconds": 0.0878508669515213,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "857cacbd0945263c7bcd7ccd7d6df2c88b6d4a407c1312d352f52e414927477a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.08804363500166801
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.08804627900099149
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.17354387900195434
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.17630087400175398
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.17329343599703861,
+          "sampled_tree_peak_rss_bytes": 63442944,
+          "rss_samples": 29,
+          "profiles_after_two_batches": [
+            {
+              "version": 1,
+              "key": "real-world-images",
+              "features": [
+                [
+                  "batch_size",
+                  1.0
+                ]
+              ],
+              "hardware_fingerprint": null,
+              "hardware": {
+                "logical_cpus": 9,
+                "affinity_cpus": 9,
+                "quota_cpus": null,
+                "machine": "x86_64",
+                "system": "Linux",
+                "cpu_model": "AMD EPYC 9V74 80-Core Processor"
+              },
+              "samples": [
+                {
+                  "wall_seconds": 0.08111927500067395,
+                  "thread_cpu_seconds": 0.07190345799999999,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.08427101699999184,
+                  "thread_cpu_seconds": 0.074891246,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08366927200040664,
+                  "thread_cpu_seconds": 0.078174965,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08696796100048232,
+                  "thread_cpu_seconds": 0.079913921,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.0871009909969871,
+                  "thread_cpu_seconds": 0.080089894,
+                  "backend": "thread",
+                  "concurrency": 1
+                },
+                {
+                  "wall_seconds": 0.08751530700101284,
+                  "thread_cpu_seconds": 0.07955696100000001,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.08560152599966386,
+                  "thread_cpu_seconds": 0.07994536099999996,
+                  "backend": "thread",
+                  "concurrency": 2
+                },
+                {
+                  "wall_seconds": 0.0879175350019068,
+                  "thread_cpu_seconds": 0.07991651800000002,
+                  "backend": "thread",
+                  "concurrency": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "engine": "stdlib",
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "seed": 3911,
+          "fixture_seconds": 0.09686291699836147,
+          "executor_construction_seconds": 1.3429998944047838e-05,
+          "executor_shutdown_seconds": 0.00018600100156618282,
+          "cold": {
+            "seconds": 0.13474501100063208,
+            "tasks": 4,
+            "throughput_per_second": 29.68570019992233,
+            "batch_completion_latency_p95_seconds": 0.1338751487481204,
+            "task_service_p95_seconds": 0.06881761170079699,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "857cacbd0945263c7bcd7ccd7d6df2c88b6d4a407c1312d352f52e414927477a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.0677920140005881
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.06949926299785147
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.13473970300037763
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.13474402900101268
+              }
+            ],
+            "correct": true
+          },
+          "warm": {
+            "seconds": 0.13337560199943255,
+            "tasks": 4,
+            "throughput_per_second": 29.99049256412742,
+            "batch_completion_latency_p95_seconds": 0.13300028384928736,
+            "task_service_p95_seconds": 0.06664278174939682,
+            "errors": [],
+            "error_rate": 0.0,
+            "result_sha256": "857cacbd0945263c7bcd7ccd7d6df2c88b6d4a407c1312d352f52e414927477a",
+            "completion_trace": [
+              {
+                "completed_tasks": 1,
+                "elapsed_seconds": 0.06605344800118473
+              },
+              {
+                "completed_tasks": 2,
+                "elapsed_seconds": 0.06669827199948486
+              },
+              {
+                "completed_tasks": 3,
+                "elapsed_seconds": 0.13160916400011047
+              },
+              {
+                "completed_tasks": 4,
+                "elapsed_seconds": 0.13337436100118794
+              }
+            ],
+            "correct": true
+          },
+          "cold_including_construction_seconds": 0.13475844099957612,
+          "sampled_tree_peak_rss_bytes": 63447040,
+          "rss_samples": 24,
+          "profiles_after_two_batches": []
+        }
+      ],
+      "summary": {
+        "chosen_from_calibration": {
+          "stdlib": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          },
+          "intelligent": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1
+          }
+        },
+        "heldout_comparisons": [
+          {
+            "seed": 2903,
+            "phase": "cold",
+            "T_best_tuned_stdlib_over_T_intelligent": 0.8573111375527679,
+            "within_10_percent": false,
+            "correct": true
+          },
+          {
+            "seed": 2903,
+            "phase": "warm",
+            "T_best_tuned_stdlib_over_T_intelligent": 1.1419215842124304,
+            "within_10_percent": true,
+            "correct": true
+          },
+          {
+            "seed": 3911,
+            "phase": "cold",
+            "T_best_tuned_stdlib_over_T_intelligent": 0.7776315370761013,
+            "within_10_percent": false,
+            "correct": true
+          },
+          {
+            "seed": 3911,
+            "phase": "warm",
+            "T_best_tuned_stdlib_over_T_intelligent": 0.756518469783102,
+            "within_10_percent": false,
+            "correct": true
+          }
+        ],
+        "near_optimal_coverage": 0.25,
+        "convergence": {
+          "status": "not_established",
+          "reason": "Two pool passes measure cold/warm behavior, not statistical policy convergence."
+        }
+      }
+    }
+  ],
+  "failures": []
+}

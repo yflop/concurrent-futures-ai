@@ -1,7 +1,9 @@
 # Contributing
 
 Small evidence-backed contributions are welcome. Open a focused issue before a
-large policy, backend, or API change. This alpha has no stability guarantee yet.
+large policy, backend, or API change. Version 0.4 has Beta maturity. Beta does not
+promise API stability or production suitability; document compatibility changes
+explicitly and complete the source, artifact and exact-commit CI release checks.
 
 1. Explain the workload, constraint, observable problem, and expected outcome.
 2. Link or add a concept entry with status, mechanism, risks, and a falsifiable

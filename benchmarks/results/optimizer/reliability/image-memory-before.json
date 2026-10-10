@@ -1,0 +1,32 @@
+{
+  "mode": "before",
+  "source_sha256": "a2127bc318db6df3a9d2415af6d350ea8cc6fc5203e303c3aaa28792a3a9c8b9",
+  "scope": "paired fresh-process image adapter memory observation, same12 tasks/all6 profiles,3 pool lifecycles,2 stdlib thread workers; sampled RSS is not allocator or hard memory proof",
+  "tasks": 36,
+  "correct_per_repeat": [
+    true,
+    true,
+    true
+  ],
+  "expected_digest": "cf4940b9949e000fa03c585382ae886c5987c2a2ff1a2f49117185f7401f0e02",
+  "baseline_parent_rss_bytes": 55635968,
+  "final_parent_rss_bytes": 66977792,
+  "sampled_tree_peak_rss_bytes": 152440832,
+  "rss_collection": {
+    "complete": true,
+    "samples": 180,
+    "attempts": 180,
+    "exited_process_races": 0,
+    "error_count": 0,
+    "errors": [],
+    "peak_rss_bytes": 152440832,
+    "observational_limits": "10ms samples may miss spikes and double-count shared mappings; not a hard memory cap"
+  },
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "27b961b5b4d08ebf24e9b59cbdc14f13e6121e2433821f007ddb464d29835a97",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

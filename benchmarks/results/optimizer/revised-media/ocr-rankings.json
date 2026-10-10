@@ -1,0 +1,3454 @@
+{
+  "schema_version": 2,
+  "workload": "ocr",
+  "raw_status": "complete",
+  "recorded_failures": [],
+  "expected_heldout_seeds": [
+    20272011,
+    20272017,
+    20272023
+  ],
+  "choices": {
+    "selected": {
+      "configuration": {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "observations": {
+        "training": {
+          "cold": {
+            "count": 4,
+            "mean": 6.1889556534988515,
+            "median": 6.200667928496841,
+            "mad": 0.024706052005058154,
+            "minimum": 6.106451786996331,
+            "maximum": 6.248034970005392,
+            "expected_count": 4,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "warm": {
+            "count": 4,
+            "mean": 6.093359910002619,
+            "median": 6.124387216001196,
+            "mad": 0.12240704000214464,
+            "minimum": 5.784727128004306,
+            "maximum": 6.339938080003776,
+            "expected_count": 4,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "combined": {
+            "count": 4,
+            "mean": 12.28231556350147,
+            "median": 12.34771613400153,
+            "mad": 0.09974605049865204,
+            "minimum": 11.891178915000637,
+            "maximum": 12.542651071002183,
+            "expected_count": 4,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          }
+        },
+        "heldout": {
+          "cold": {
+            "count": 3,
+            "mean": 6.400065035006264,
+            "median": 6.237544280003931,
+            "mad": 0.08760035199520644,
+            "minimum": 6.1499439280087245,
+            "maximum": 6.812706897006137,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "warm": {
+            "count": 3,
+            "mean": 6.63383057066676,
+            "median": 6.6181656409971765,
+            "mad": 0.21334773199487245,
+            "minimum": 6.404817909002304,
+            "maximum": 6.878508162000799,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "combined": {
+            "count": 3,
+            "mean": 13.033895605673024,
+            "median": 13.11605244200473,
+            "mad": 0.3148200959985843,
+            "minimum": 12.554761837011029,
+            "maximum": 13.430872538003314,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          }
+        }
+      },
+      "seed_slots": {
+        "training": [
+          {
+            "seed": 4633727115259032751,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.198622865995276,
+              "warm": 6.153650432002905,
+              "combined": 12.352273297998181
+            }
+          },
+          {
+            "seed": 5472805353837943239,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.106451786996331,
+              "warm": 5.784727128004306,
+              "combined": 11.891178915000637
+            }
+          },
+          {
+            "seed": 4527664395410713832,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.248034970005392,
+              "warm": 6.095123999999487,
+              "combined": 12.343158970004879
+            }
+          },
+          {
+            "seed": 3308714834524975035,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.202712990998407,
+              "warm": 6.339938080003776,
+              "combined": 12.542651071002183
+            }
+          }
+        ],
+        "heldout": [
+          {
+            "seed": 20272011,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.237544280003931,
+              "warm": 6.878508162000799,
+              "combined": 13.11605244200473
+            }
+          },
+          {
+            "seed": 20272017,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.1499439280087245,
+              "warm": 6.404817909002304,
+              "combined": 12.554761837011029
+            }
+          },
+          {
+            "seed": 20272023,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.812706897006137,
+              "warm": 6.6181656409971765,
+              "combined": 13.430872538003314
+            }
+          }
+        ]
+      }
+    },
+    "aggregate_heldout_oracle": {
+      "configuration": {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "observations": {
+        "training": {
+          "cold": {
+            "count": 4,
+            "mean": 6.553641713751858,
+            "median": 6.581206637001742,
+            "mad": 0.06976559200120391,
+            "minimum": 6.346162470006675,
+            "maximum": 6.7059911109972745,
+            "expected_count": 4,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "warm": {
+            "count": 4,
+            "mean": 6.317929418750282,
+            "median": 6.315433433999715,
+            "mad": 0.08821823049947852,
+            "minimum": 6.2175474030009354,
+            "maximum": 6.423303404000762,
+            "expected_count": 4,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "combined": {
+            "count": 4,
+            "mean": 12.87157113250214,
+            "median": 12.951658952995786,
+            "mad": 0.038191318006283836,
+            "minimum": 12.56370987300761,
+            "maximum": 13.01925675100938,
+            "expected_count": 4,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          }
+        },
+        "heldout": {
+          "cold": {
+            "count": 3,
+            "mean": 6.439439817334157,
+            "median": 6.447549386997707,
+            "mad": 0.10264062599890167,
+            "minimum": 6.320580052008154,
+            "maximum": 6.550190012996609,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "warm": {
+            "count": 3,
+            "mean": 6.158661014334939,
+            "median": 6.090753086005861,
+            "mad": 0.05191677201219136,
+            "minimum": 6.03883631399367,
+            "maximum": 6.346393643005285,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "combined": {
+            "count": 3,
+            "mean": 12.598100831669095,
+            "median": 12.589026326990279,
+            "mad": 0.17769318897626363,
+            "minimum": 12.411333138014015,
+            "maximum": 12.793943030002993,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          }
+        }
+      },
+      "seed_slots": {
+        "training": [
+          {
+            "seed": 4633727115259032751,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.595953347008617,
+              "warm": 6.423303404000762,
+              "combined": 13.01925675100938
+            }
+          },
+          {
+            "seed": 5472805353837943239,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.566459926994867,
+              "warm": 6.3939838639998925,
+              "combined": 12.96044379099476
+            }
+          },
+          {
+            "seed": 4527664395410713832,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.346162470006675,
+              "warm": 6.2175474030009354,
+              "combined": 12.56370987300761
+            }
+          },
+          {
+            "seed": 3308714834524975035,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.7059911109972745,
+              "warm": 6.236883003999537,
+              "combined": 12.942874114996812
+            }
+          }
+        ],
+        "heldout": [
+          {
+            "seed": 20272011,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.550190012996609,
+              "warm": 6.03883631399367,
+              "combined": 12.589026326990279
+            }
+          },
+          {
+            "seed": 20272017,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.447549386997707,
+              "warm": 6.346393643005285,
+              "combined": 12.793943030002993
+            }
+          },
+          {
+            "seed": 20272023,
+            "valid": true,
+            "observed_rows": 1,
+            "failures": [],
+            "phases": {
+              "cold": 6.320580052008154,
+              "warm": 6.090753086005861,
+              "combined": 12.411333138014015
+            }
+          }
+        ]
+      }
+    }
+  },
+  "paired_observations": [
+    {
+      "split": "training",
+      "seed": 4633727115259032751,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.198622865995276,
+          "fixed_aggregate_oracle_seconds": 6.595953347008617,
+          "selected_over_oracle": 0.9397614779683762
+        },
+        "warm": {
+          "selected_seconds": 6.153650432002905,
+          "fixed_aggregate_oracle_seconds": 6.423303404000762,
+          "selected_over_oracle": 0.9580195804187136
+        },
+        "combined": {
+          "selected_seconds": 12.352273297998181,
+          "fixed_aggregate_oracle_seconds": 13.01925675100938,
+          "selected_over_oracle": 0.9487694677378963
+        }
+      }
+    },
+    {
+      "split": "training",
+      "seed": 5472805353837943239,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.106451786996331,
+          "fixed_aggregate_oracle_seconds": 6.566459926994867,
+          "selected_over_oracle": 0.9299457934544866
+        },
+        "warm": {
+          "selected_seconds": 5.784727128004306,
+          "fixed_aggregate_oracle_seconds": 6.3939838639998925,
+          "selected_over_oracle": 0.9047140641962063
+        },
+        "combined": {
+          "selected_seconds": 11.891178915000637,
+          "fixed_aggregate_oracle_seconds": 12.96044379099476,
+          "selected_over_oracle": 0.9174978192693468
+        }
+      }
+    },
+    {
+      "split": "training",
+      "seed": 4527664395410713832,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.248034970005392,
+          "fixed_aggregate_oracle_seconds": 6.346162470006675,
+          "selected_over_oracle": 0.9845375058604228
+        },
+        "warm": {
+          "selected_seconds": 6.095123999999487,
+          "fixed_aggregate_oracle_seconds": 6.2175474030009354,
+          "selected_over_oracle": 0.9803100169461739
+        },
+        "combined": {
+          "selected_seconds": 12.343158970004879,
+          "fixed_aggregate_oracle_seconds": 12.56370987300761,
+          "selected_over_oracle": 0.9824453998673933
+        }
+      }
+    },
+    {
+      "split": "training",
+      "seed": 3308714834524975035,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.202712990998407,
+          "fixed_aggregate_oracle_seconds": 6.7059911109972745,
+          "selected_over_oracle": 0.9249509712034165
+        },
+        "warm": {
+          "selected_seconds": 6.339938080003776,
+          "fixed_aggregate_oracle_seconds": 6.236883003999537,
+          "selected_over_oracle": 1.016523490329729
+        },
+        "combined": {
+          "selected_seconds": 12.542651071002183,
+          "fixed_aggregate_oracle_seconds": 12.942874114996812,
+          "selected_over_oracle": 0.9690777303063705
+        }
+      }
+    },
+    {
+      "split": "heldout",
+      "seed": 20272011,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.237544280003931,
+          "fixed_aggregate_oracle_seconds": 6.550190012996609,
+          "selected_over_oracle": 0.9522692116759454
+        },
+        "warm": {
+          "selected_seconds": 6.878508162000799,
+          "fixed_aggregate_oracle_seconds": 6.03883631399367,
+          "selected_over_oracle": 1.1390453068021358
+        },
+        "combined": {
+          "selected_seconds": 13.11605244200473,
+          "fixed_aggregate_oracle_seconds": 12.589026326990279,
+          "selected_over_oracle": 1.0418639298485326
+        }
+      }
+    },
+    {
+      "split": "heldout",
+      "seed": 20272017,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.1499439280087245,
+          "fixed_aggregate_oracle_seconds": 6.447549386997707,
+          "selected_over_oracle": 0.953842081521835
+        },
+        "warm": {
+          "selected_seconds": 6.404817909002304,
+          "fixed_aggregate_oracle_seconds": 6.346393643005285,
+          "selected_over_oracle": 1.009205900119576
+        },
+        "combined": {
+          "selected_seconds": 12.554761837011029,
+          "fixed_aggregate_oracle_seconds": 12.793943030002993,
+          "selected_over_oracle": 0.9813051228670425
+        }
+      }
+    },
+    {
+      "split": "heldout",
+      "seed": 20272023,
+      "valid": true,
+      "failures": [],
+      "phases": {
+        "cold": {
+          "selected_seconds": 6.812706897006137,
+          "fixed_aggregate_oracle_seconds": 6.320580052008154,
+          "selected_over_oracle": 1.077861025562302
+        },
+        "warm": {
+          "selected_seconds": 6.6181656409971765,
+          "fixed_aggregate_oracle_seconds": 6.090753086005861,
+          "selected_over_oracle": 1.0865923388362435
+        },
+        "combined": {
+          "selected_seconds": 13.430872538003314,
+          "fixed_aggregate_oracle_seconds": 12.411333138014015,
+          "selected_over_oracle": 1.0821458411156981
+        }
+      }
+    }
+  ],
+  "baselines": {
+    "standard_library_fixed": {
+      "expected_seeds": 3,
+      "valid_seeds": 3,
+      "complete_pairs": true,
+      "seed_slots": [
+        {
+          "seed": 20272011,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.11605244200473,
+          "baseline_seconds": 13.510109884002304,
+          "baseline_time_over_selected_time": 1.0300439056446273,
+          "selected_time_over_baseline_time": 0.9708324028908019,
+          "execution_saving_seconds": 0.39405744199757464,
+          "matching_config_intelligent_seconds": 13.11605244200473,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": 1.0300439056446273
+        },
+        {
+          "seed": 20272017,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 12.554761837011029,
+          "baseline_seconds": 11.891463098014356,
+          "baseline_time_over_selected_time": 0.9471675570108157,
+          "selected_time_over_baseline_time": 1.0557794052363019,
+          "execution_saving_seconds": -0.6632987389966729,
+          "matching_config_intelligent_seconds": 12.554761837011029,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": 0.9471675570108157
+        },
+        {
+          "seed": 20272023,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.430872538003314,
+          "baseline_seconds": 12.321177335004904,
+          "baseline_time_over_selected_time": 0.9173772813450152,
+          "selected_time_over_baseline_time": 1.0900640557981196,
+          "execution_saving_seconds": -1.1096952029984095,
+          "matching_config_intelligent_seconds": 13.430872538003314,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": 0.9173772813450152
+        }
+      ],
+      "baseline": {
+        "count": 3,
+        "mean": 12.574250105673855,
+        "median": 12.321177335004904,
+        "mad": 0.42971423699054867,
+        "minimum": 11.891463098014356,
+        "maximum": 13.510109884002304,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "automatic_choice": {
+        "count": 3,
+        "mean": 13.033895605673024,
+        "median": 13.11605244200473,
+        "mad": 0.3148200959985843,
+        "minimum": 12.554761837011029,
+        "maximum": 13.430872538003314,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "matching_config_intelligent": {
+        "count": 3,
+        "mean": 13.033895605673024,
+        "median": 13.11605244200473,
+        "mad": 0.3148200959985843,
+        "minimum": 12.554761837011029,
+        "maximum": 13.430872538003314,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "baseline_mean_over_automatic_choice_mean": 0.9647346032295128,
+      "automatic_choice_mean_over_baseline_mean": 1.0365545059257064,
+      "matching_intelligent_mean_over_stdlib_mean": 1.0365545059257064,
+      "mean_execution_saving_seconds": -0.45964549999916926,
+      "per_seed_baseline_over_selected_ratios": {
+        "count": 3,
+        "mean": 0.9648629146668194,
+        "median": 0.9471675570108157,
+        "mad": 0.029790275665800503,
+        "minimum": 0.9173772813450152,
+        "maximum": 1.0300439056446273,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_selected_over_baseline_ratios": {
+        "count": 3,
+        "mean": 1.0388919546417412,
+        "median": 1.0557794052363019,
+        "mad": 0.03428465056181773,
+        "minimum": 0.9708324028908019,
+        "maximum": 1.0900640557981196,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_execution_savings_seconds": {
+        "count": 3,
+        "mean": -0.45964549999916926,
+        "median": -0.6632987389966729,
+        "mad": 0.4463964640017366,
+        "minimum": -1.1096952029984095,
+        "maximum": 0.39405744199757464,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained.",
+      "configuration": {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "phases": {
+        "cold": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.237544280003931,
+              "baseline_seconds": 7.185723817005055,
+              "baseline_time_over_selected_time": 1.1520116722923732,
+              "selected_time_over_baseline_time": 0.8680467603336978,
+              "execution_saving_seconds": 0.9481795370011241,
+              "matching_config_intelligent_seconds": 6.237544280003931,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 1.1520116722923732
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.1499439280087245,
+              "baseline_seconds": 5.965752615011297,
+              "baseline_time_over_selected_time": 0.9700499199417797,
+              "selected_time_over_baseline_time": 1.0308747822586468,
+              "execution_saving_seconds": -0.1841913129974273,
+              "matching_config_intelligent_seconds": 6.1499439280087245,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9700499199417797
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.812706897006137,
+              "baseline_seconds": 6.080263035008102,
+              "baseline_time_over_selected_time": 0.8924885698047702,
+              "selected_time_over_baseline_time": 1.1204625289696961,
+              "execution_saving_seconds": -0.7324438619980356,
+              "matching_config_intelligent_seconds": 6.812706897006137,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.8924885698047702
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 6.410579822341485,
+            "median": 6.080263035008102,
+            "mad": 0.11451041999680456,
+            "minimum": 5.965752615011297,
+            "maximum": 7.185723817005055,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 6.400065035006264,
+            "median": 6.237544280003931,
+            "mad": 0.08760035199520644,
+            "minimum": 6.1499439280087245,
+            "maximum": 6.812706897006137,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 3,
+            "mean": 6.400065035006264,
+            "median": 6.237544280003931,
+            "mad": 0.08760035199520644,
+            "minimum": 6.1499439280087245,
+            "maximum": 6.812706897006137,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "baseline_mean_over_automatic_choice_mean": 1.0016429188262477,
+          "automatic_choice_mean_over_baseline_mean": 0.9983597759287584,
+          "matching_intelligent_mean_over_stdlib_mean": 0.9983597759287584,
+          "mean_execution_saving_seconds": 0.01051478733522071,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 1.0048500540129743,
+            "median": 0.9700499199417797,
+            "mad": 0.07756135013700949,
+            "minimum": 0.8924885698047702,
+            "maximum": 1.1520116722923732,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 1.0064613571873469,
+            "median": 1.0308747822586468,
+            "mad": 0.0895877467110493,
+            "minimum": 0.8680467603336978,
+            "maximum": 1.1204625289696961,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": 0.010514787335220413,
+            "median": -0.1841913129974273,
+            "mad": 0.5482525490006083,
+            "minimum": -0.7324438619980356,
+            "maximum": 0.9481795370011241,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        },
+        "warm": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.878508162000799,
+              "baseline_seconds": 6.324386066997249,
+              "baseline_time_over_selected_time": 0.9194415297688084,
+              "selected_time_over_baseline_time": 1.0876167408398965,
+              "execution_saving_seconds": -0.5541220950035495,
+              "matching_config_intelligent_seconds": 6.878508162000799,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9194415297688084
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.404817909002304,
+              "baseline_seconds": 5.9257104830030585,
+              "baseline_time_over_selected_time": 0.9251957771780155,
+              "selected_time_over_baseline_time": 1.0808523176036844,
+              "execution_saving_seconds": -0.4791074259992456,
+              "matching_config_intelligent_seconds": 6.404817909002304,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9251957771780155
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.6181656409971765,
+              "baseline_seconds": 6.240914299996803,
+              "baseline_time_over_selected_time": 0.9429975976026596,
+              "selected_time_over_baseline_time": 1.0604480886719703,
+              "execution_saving_seconds": -0.37725134100037394,
+              "matching_config_intelligent_seconds": 6.6181656409971765,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9429975976026596
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 6.16367028333237,
+            "median": 6.240914299996803,
+            "mad": 0.08347176700044656,
+            "minimum": 5.9257104830030585,
+            "maximum": 6.324386066997249,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 6.63383057066676,
+            "median": 6.6181656409971765,
+            "mad": 0.21334773199487245,
+            "minimum": 6.404817909002304,
+            "maximum": 6.878508162000799,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 3,
+            "mean": 6.63383057066676,
+            "median": 6.6181656409971765,
+            "mad": 0.21334773199487245,
+            "minimum": 6.404817909002304,
+            "maximum": 6.878508162000799,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "baseline_mean_over_automatic_choice_mean": 0.9291268774012215,
+          "automatic_choice_mean_over_baseline_mean": 1.0762792728556205,
+          "matching_intelligent_mean_over_stdlib_mean": 1.0762792728556205,
+          "mean_execution_saving_seconds": -0.47016028733438997,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 0.9292116348498278,
+            "median": 0.9251957771780155,
+            "mad": 0.005754247409207047,
+            "minimum": 0.9194415297688084,
+            "maximum": 0.9429975976026596,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 1.0763057157051836,
+            "median": 1.0808523176036844,
+            "mad": 0.006764423236212069,
+            "minimum": 1.0604480886719703,
+            "maximum": 1.0876167408398965,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": -0.4701602873343897,
+            "median": -0.4791074259992456,
+            "mad": 0.07501466900430387,
+            "minimum": -0.5541220950035495,
+            "maximum": -0.37725134100037394,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        },
+        "combined": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 13.11605244200473,
+              "baseline_seconds": 13.510109884002304,
+              "baseline_time_over_selected_time": 1.0300439056446273,
+              "selected_time_over_baseline_time": 0.9708324028908019,
+              "execution_saving_seconds": 0.39405744199757464,
+              "matching_config_intelligent_seconds": 13.11605244200473,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 1.0300439056446273
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 12.554761837011029,
+              "baseline_seconds": 11.891463098014356,
+              "baseline_time_over_selected_time": 0.9471675570108157,
+              "selected_time_over_baseline_time": 1.0557794052363019,
+              "execution_saving_seconds": -0.6632987389966729,
+              "matching_config_intelligent_seconds": 12.554761837011029,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9471675570108157
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 13.430872538003314,
+              "baseline_seconds": 12.321177335004904,
+              "baseline_time_over_selected_time": 0.9173772813450152,
+              "selected_time_over_baseline_time": 1.0900640557981196,
+              "execution_saving_seconds": -1.1096952029984095,
+              "matching_config_intelligent_seconds": 13.430872538003314,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9173772813450152
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 12.574250105673855,
+            "median": 12.321177335004904,
+            "mad": 0.42971423699054867,
+            "minimum": 11.891463098014356,
+            "maximum": 13.510109884002304,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 13.033895605673024,
+            "median": 13.11605244200473,
+            "mad": 0.3148200959985843,
+            "minimum": 12.554761837011029,
+            "maximum": 13.430872538003314,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 3,
+            "mean": 13.033895605673024,
+            "median": 13.11605244200473,
+            "mad": 0.3148200959985843,
+            "minimum": 12.554761837011029,
+            "maximum": 13.430872538003314,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "baseline_mean_over_automatic_choice_mean": 0.9647346032295128,
+          "automatic_choice_mean_over_baseline_mean": 1.0365545059257064,
+          "matching_intelligent_mean_over_stdlib_mean": 1.0365545059257064,
+          "mean_execution_saving_seconds": -0.45964549999916926,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 0.9648629146668194,
+            "median": 0.9471675570108157,
+            "mad": 0.029790275665800503,
+            "minimum": 0.9173772813450152,
+            "maximum": 1.0300439056446273,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 1.0388919546417412,
+            "median": 1.0557794052363019,
+            "mad": 0.03428465056181773,
+            "minimum": 0.9708324028908019,
+            "maximum": 1.0900640557981196,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": -0.45964549999916926,
+            "median": -0.6632987389966729,
+            "mad": 0.4463964640017366,
+            "minimum": -1.1096952029984095,
+            "maximum": 0.39405744199757464,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        }
+      },
+      "comparison_scope": "Predeclared fixed standard-library configuration; same workload algorithm; zero discovery cost.",
+      "estimated_amortization": {
+        "scope": "Conditional component estimate for repeated combined two-pass lifecycles (cold executor lifecycle plus one warm pass), assuming unchanged observed mean execution savings. Discovery costs are virtual sums of requested real training callback durations, not live end-to-end search wall time. Fixture/reference preparation, holdout/oracle measurement, integration and adoption costs are excluded. Fixed/direct baselines have zero discovery cost by design. This is not a future break-even guarantee; no estimate is made without positive execution savings.",
+        "status": "no_positive_execution_saving",
+        "execution_unit": "combined cold lifecycle plus one warm pass",
+        "primary_virtual_callback_seconds": 2620.142999660966,
+        "baseline_virtual_callback_seconds": 0.0,
+        "primary_minus_baseline_discovery_seconds": 2620.142999660966,
+        "nonnegative_extra_discovery_seconds": 2620.142999660966,
+        "mean_execution_saving_seconds": -0.45964549999916926,
+        "minimum_nonnegative_extra_cost_repayment_cycles": null,
+        "formula": "ceil(max(0, primary_virtual_callback_seconds - baseline_virtual_callback_seconds) / positive_mean_combined_execution_saving_seconds)"
+      }
+    },
+    "standard_library_manual_tuning_proxy": {
+      "expected_seeds": 3,
+      "valid_seeds": 3,
+      "complete_pairs": true,
+      "seed_slots": [
+        {
+          "seed": 20272011,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.11605244200473,
+          "baseline_seconds": 12.44118635400082,
+          "baseline_time_over_selected_time": 0.9485465546140528,
+          "selected_time_over_baseline_time": 1.0542445124444975,
+          "execution_saving_seconds": -0.6748660880039097,
+          "matching_config_intelligent_seconds": 13.11605244200473,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": 0.9485465546140528
+        },
+        {
+          "seed": 20272017,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 12.554761837011029,
+          "baseline_seconds": 12.629942151994328,
+          "baseline_time_over_selected_time": 1.0059881912504043,
+          "selected_time_over_baseline_time": 0.9940474537350571,
+          "execution_saving_seconds": 0.07518031498329947,
+          "matching_config_intelligent_seconds": 12.554761837011029,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": 1.0059881912504043
+        },
+        {
+          "seed": 20272023,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.430872538003314,
+          "baseline_seconds": 12.429702187000657,
+          "baseline_time_over_selected_time": 0.925457534633748,
+          "selected_time_over_baseline_time": 1.0805466081117945,
+          "execution_saving_seconds": -1.0011703510026564,
+          "matching_config_intelligent_seconds": 13.430872538003314,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": 0.925457534633748
+        }
+      ],
+      "baseline": {
+        "count": 3,
+        "mean": 12.500276897665268,
+        "median": 12.44118635400082,
+        "mad": 0.011484167000162415,
+        "minimum": 12.429702187000657,
+        "maximum": 12.629942151994328,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "automatic_choice": {
+        "count": 3,
+        "mean": 13.033895605673024,
+        "median": 13.11605244200473,
+        "mad": 0.3148200959985843,
+        "minimum": 12.554761837011029,
+        "maximum": 13.430872538003314,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "matching_config_intelligent": {
+        "count": 3,
+        "mean": 13.033895605673024,
+        "median": 13.11605244200473,
+        "mad": 0.3148200959985843,
+        "minimum": 12.554761837011029,
+        "maximum": 13.430872538003314,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "baseline_mean_over_automatic_choice_mean": 0.9590591543655224,
+      "automatic_choice_mean_over_baseline_mean": 1.0426885510118118,
+      "matching_intelligent_mean_over_stdlib_mean": 1.0426885510118118,
+      "mean_execution_saving_seconds": -0.5336187080077561,
+      "per_seed_baseline_over_selected_ratios": {
+        "count": 3,
+        "mean": 0.959997426832735,
+        "median": 0.9485465546140528,
+        "mad": 0.02308901998030477,
+        "minimum": 0.925457534633748,
+        "maximum": 1.0059881912504043,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_selected_over_baseline_ratios": {
+        "count": 3,
+        "mean": 1.0429461914304496,
+        "median": 1.0542445124444975,
+        "mad": 0.02630209566729702,
+        "minimum": 0.9940474537350571,
+        "maximum": 1.0805466081117945,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_execution_savings_seconds": {
+        "count": 3,
+        "mean": -0.5336187080077556,
+        "median": -0.6748660880039097,
+        "mad": 0.3263042629987467,
+        "minimum": -1.0011703510026564,
+        "maximum": 0.07518031498329947,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained.",
+      "configuration": {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "phases": {
+        "cold": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.237544280003931,
+              "baseline_seconds": 6.324669797999377,
+              "baseline_time_over_selected_time": 1.0139679197588625,
+              "selected_time_over_baseline_time": 0.9862244953842483,
+              "execution_saving_seconds": 0.08712551799544599,
+              "matching_config_intelligent_seconds": 6.237544280003931,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 1.0139679197588625
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.1499439280087245,
+              "baseline_seconds": 6.261412450992793,
+              "baseline_time_over_selected_time": 1.0181251283408304,
+              "selected_time_over_baseline_time": 0.9821975434685836,
+              "execution_saving_seconds": 0.11146852298406884,
+              "matching_config_intelligent_seconds": 6.1499439280087245,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 1.0181251283408304
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.812706897006137,
+              "baseline_seconds": 6.501028398000926,
+              "baseline_time_over_selected_time": 0.9542504170930678,
+              "selected_time_over_baseline_time": 1.0479429530104887,
+              "execution_saving_seconds": -0.31167849900521105,
+              "matching_config_intelligent_seconds": 6.812706897006137,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9542504170930678
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 6.362370215664366,
+            "median": 6.324669797999377,
+            "mad": 0.06325734700658359,
+            "minimum": 6.261412450992793,
+            "maximum": 6.501028398000926,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 6.400065035006264,
+            "median": 6.237544280003931,
+            "mad": 0.08760035199520644,
+            "minimum": 6.1499439280087245,
+            "maximum": 6.812706897006137,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 3,
+            "mean": 6.400065035006264,
+            "median": 6.237544280003931,
+            "mad": 0.08760035199520644,
+            "minimum": 6.1499439280087245,
+            "maximum": 6.812706897006137,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "baseline_mean_over_automatic_choice_mean": 0.9941102443278748,
+          "automatic_choice_mean_over_baseline_mean": 1.0059246504155153,
+          "matching_intelligent_mean_over_stdlib_mean": 1.0059246504155153,
+          "mean_execution_saving_seconds": -0.037694819341898445,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 0.9954478217309202,
+            "median": 1.0139679197588625,
+            "mad": 0.004157208581967886,
+            "minimum": 0.9542504170930678,
+            "maximum": 1.0181251283408304,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 1.0054549972877735,
+            "median": 0.9862244953842483,
+            "mad": 0.0040269519156647116,
+            "minimum": 0.9821975434685836,
+            "maximum": 1.0479429530104887,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": -0.03769481934189874,
+            "median": 0.08712551799544599,
+            "mad": 0.02434300498862285,
+            "minimum": -0.31167849900521105,
+            "maximum": 0.11146852298406884,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        },
+        "warm": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.878508162000799,
+              "baseline_seconds": 6.116516556001443,
+              "baseline_time_over_selected_time": 0.8892213852112796,
+              "selected_time_over_baseline_time": 1.1245793416927319,
+              "execution_saving_seconds": -0.7619916059993557,
+              "matching_config_intelligent_seconds": 6.878508162000799,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.8892213852112796
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.404817909002304,
+              "baseline_seconds": 6.368529701001535,
+              "baseline_time_over_selected_time": 0.9943342326797825,
+              "selected_time_over_baseline_time": 1.0056980511522247,
+              "execution_saving_seconds": -0.03628820800076937,
+              "matching_config_intelligent_seconds": 6.404817909002304,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9943342326797825
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.6181656409971765,
+              "baseline_seconds": 5.928673788999731,
+              "baseline_time_over_selected_time": 0.8958182841894604,
+              "selected_time_over_baseline_time": 1.11629782250404,
+              "execution_saving_seconds": -0.6894918519974453,
+              "matching_config_intelligent_seconds": 6.6181656409971765,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.8958182841894604
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 6.137906682000903,
+            "median": 6.116516556001443,
+            "mad": 0.18784276700171176,
+            "minimum": 5.928673788999731,
+            "maximum": 6.368529701001535,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 6.63383057066676,
+            "median": 6.6181656409971765,
+            "mad": 0.21334773199487245,
+            "minimum": 6.404817909002304,
+            "maximum": 6.878508162000799,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 3,
+            "mean": 6.63383057066676,
+            "median": 6.6181656409971765,
+            "mad": 0.21334773199487245,
+            "minimum": 6.404817909002304,
+            "maximum": 6.878508162000799,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "baseline_mean_over_automatic_choice_mean": 0.9252432085228833,
+          "automatic_choice_mean_over_baseline_mean": 1.080796909167767,
+          "matching_intelligent_mean_over_stdlib_mean": 1.080796909167767,
+          "mean_execution_saving_seconds": -0.4959238886658568,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 0.9264579673601742,
+            "median": 0.8958182841894604,
+            "mad": 0.006596898978180832,
+            "minimum": 0.8892213852112796,
+            "maximum": 0.9943342326797825,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 1.0821917384496655,
+            "median": 1.11629782250404,
+            "mad": 0.0082815191886918,
+            "minimum": 1.0056980511522247,
+            "maximum": 1.1245793416927319,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": -0.4959238886658568,
+            "median": -0.6894918519974453,
+            "mad": 0.07249975400191033,
+            "minimum": -0.7619916059993557,
+            "maximum": -0.03628820800076937,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        },
+        "combined": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 13.11605244200473,
+              "baseline_seconds": 12.44118635400082,
+              "baseline_time_over_selected_time": 0.9485465546140528,
+              "selected_time_over_baseline_time": 1.0542445124444975,
+              "execution_saving_seconds": -0.6748660880039097,
+              "matching_config_intelligent_seconds": 13.11605244200473,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.9485465546140528
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 12.554761837011029,
+              "baseline_seconds": 12.629942151994328,
+              "baseline_time_over_selected_time": 1.0059881912504043,
+              "selected_time_over_baseline_time": 0.9940474537350571,
+              "execution_saving_seconds": 0.07518031498329947,
+              "matching_config_intelligent_seconds": 12.554761837011029,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 1.0059881912504043
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 13.430872538003314,
+              "baseline_seconds": 12.429702187000657,
+              "baseline_time_over_selected_time": 0.925457534633748,
+              "selected_time_over_baseline_time": 1.0805466081117945,
+              "execution_saving_seconds": -1.0011703510026564,
+              "matching_config_intelligent_seconds": 13.430872538003314,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": 0.925457534633748
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 12.500276897665268,
+            "median": 12.44118635400082,
+            "mad": 0.011484167000162415,
+            "minimum": 12.429702187000657,
+            "maximum": 12.629942151994328,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 13.033895605673024,
+            "median": 13.11605244200473,
+            "mad": 0.3148200959985843,
+            "minimum": 12.554761837011029,
+            "maximum": 13.430872538003314,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 3,
+            "mean": 13.033895605673024,
+            "median": 13.11605244200473,
+            "mad": 0.3148200959985843,
+            "minimum": 12.554761837011029,
+            "maximum": 13.430872538003314,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "baseline_mean_over_automatic_choice_mean": 0.9590591543655224,
+          "automatic_choice_mean_over_baseline_mean": 1.0426885510118118,
+          "matching_intelligent_mean_over_stdlib_mean": 1.0426885510118118,
+          "mean_execution_saving_seconds": -0.5336187080077561,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 0.959997426832735,
+            "median": 0.9485465546140528,
+            "mad": 0.02308901998030477,
+            "minimum": 0.925457534633748,
+            "maximum": 1.0059881912504043,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 1.0429461914304496,
+            "median": 1.0542445124444975,
+            "mad": 0.02630209566729702,
+            "minimum": 0.9940474537350571,
+            "maximum": 1.0805466081117945,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": -0.5336187080077556,
+            "median": -0.6748660880039097,
+            "mad": 0.3263042629987467,
+            "minimum": -1.0011703510026564,
+            "maximum": 0.07518031498329947,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        }
+      },
+      "comparison_scope": "Independent training-only exhaustive arithmetic-mean standard-library grid selection; reproducible manual-tuning proxy, not claimed human expertise.",
+      "estimated_amortization": {
+        "scope": "Conditional component estimate for repeated combined two-pass lifecycles (cold executor lifecycle plus one warm pass), assuming unchanged observed mean execution savings. Discovery costs are virtual sums of requested real training callback durations, not live end-to-end search wall time. Fixture/reference preparation, holdout/oracle measurement, integration and adoption costs are excluded. Fixed/direct baselines have zero discovery cost by design. This is not a future break-even guarantee; no estimate is made without positive execution savings.",
+        "status": "no_positive_execution_saving",
+        "execution_unit": "combined cold lifecycle plus one warm pass",
+        "primary_virtual_callback_seconds": 2620.142999660966,
+        "baseline_virtual_callback_seconds": 4068.259785746035,
+        "primary_minus_baseline_discovery_seconds": -1448.1167860850692,
+        "nonnegative_extra_discovery_seconds": 0.0,
+        "mean_execution_saving_seconds": -0.5336187080077561,
+        "minimum_nonnegative_extra_cost_repayment_cycles": null,
+        "formula": "ceil(max(0, primary_virtual_callback_seconds - baseline_virtual_callback_seconds) / positive_mean_combined_execution_saving_seconds)"
+      }
+    },
+    "direct_python": {
+      "expected_seeds": 3,
+      "valid_seeds": 3,
+      "complete_pairs": true,
+      "seed_slots": [
+        {
+          "seed": 20272011,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.11605244200473,
+          "baseline_seconds": 70.17489957100042,
+          "baseline_time_over_selected_time": 5.350306418893405,
+          "selected_time_over_baseline_time": 0.18690518293844344,
+          "execution_saving_seconds": 57.058847128995694,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272017,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 12.554761837011029,
+          "baseline_seconds": 69.86704587300483,
+          "baseline_time_over_selected_time": 5.564983771101022,
+          "selected_time_over_baseline_time": 0.17969504335178893,
+          "execution_saving_seconds": 57.3122840359938,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272023,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.430872538003314,
+          "baseline_seconds": 70.02272595599788,
+          "baseline_time_over_selected_time": 5.213564923489903,
+          "selected_time_over_baseline_time": 0.1918073361845873,
+          "execution_saving_seconds": 56.59185341799457,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        }
+      ],
+      "baseline": {
+        "count": 3,
+        "mean": 70.02155713333438,
+        "median": 70.02272595599788,
+        "mad": 0.152173615002539,
+        "minimum": 69.86704587300483,
+        "maximum": 70.17489957100042,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "automatic_choice": {
+        "count": 3,
+        "mean": 13.033895605673024,
+        "median": 13.11605244200473,
+        "mad": 0.3148200959985843,
+        "minimum": 12.554761837011029,
+        "maximum": 13.430872538003314,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "matching_config_intelligent": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "mad": null,
+        "minimum": null,
+        "maximum": null,
+        "expected_count": 3,
+        "complete": false,
+        "missing_or_invalid_count": 3
+      },
+      "baseline_mean_over_automatic_choice_mean": 5.372266224294246,
+      "automatic_choice_mean_over_baseline_mean": 0.18614118479047823,
+      "matching_intelligent_mean_over_stdlib_mean": null,
+      "mean_execution_saving_seconds": 56.98766152766136,
+      "per_seed_baseline_over_selected_ratios": {
+        "count": 3,
+        "mean": 5.37628503782811,
+        "median": 5.350306418893405,
+        "mad": 0.136741495403502,
+        "minimum": 5.213564923489903,
+        "maximum": 5.564983771101022,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_selected_over_baseline_ratios": {
+        "count": 3,
+        "mean": 0.18613585415827322,
+        "median": 0.18690518293844344,
+        "mad": 0.0049021532461438755,
+        "minimum": 0.17969504335178893,
+        "maximum": 0.1918073361845873,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_execution_savings_seconds": {
+        "count": 3,
+        "mean": 56.98766152766135,
+        "median": 57.058847128995694,
+        "mad": 0.25343690699810395,
+        "minimum": 56.59185341799457,
+        "maximum": 57.3122840359938,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained.",
+      "configuration": null,
+      "capacity": null,
+      "phases": {
+        "cold": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.237544280003931,
+              "baseline_seconds": 34.91151306500251,
+              "baseline_time_over_selected_time": 5.5969964296558885,
+              "selected_time_over_baseline_time": 0.1786672570847935,
+              "execution_saving_seconds": 28.67396878499858,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.1499439280087245,
+              "baseline_seconds": 34.5787251560032,
+              "baseline_time_over_selected_time": 5.6226081994863595,
+              "selected_time_over_baseline_time": 0.17785340264174068,
+              "execution_saving_seconds": 28.428781227994477,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.812706897006137,
+              "baseline_seconds": 35.250478427995404,
+              "baseline_time_over_selected_time": 5.1742250123055085,
+              "selected_time_over_baseline_time": 0.19326565768241,
+              "execution_saving_seconds": 28.437771530989266,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 34.913572216333705,
+            "median": 34.91151306500251,
+            "mad": 0.33278790899930755,
+            "minimum": 34.5787251560032,
+            "maximum": 35.250478427995404,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 6.400065035006264,
+            "median": 6.237544280003931,
+            "mad": 0.08760035199520644,
+            "minimum": 6.1499439280087245,
+            "maximum": 6.812706897006137,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 0,
+            "mean": null,
+            "median": null,
+            "mad": null,
+            "minimum": null,
+            "maximum": null,
+            "expected_count": 3,
+            "complete": false,
+            "missing_or_invalid_count": 3
+          },
+          "baseline_mean_over_automatic_choice_mean": 5.455190224688011,
+          "automatic_choice_mean_over_baseline_mean": 0.1833116644538626,
+          "matching_intelligent_mean_over_stdlib_mean": null,
+          "mean_execution_saving_seconds": 28.51350718132744,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 5.464609880482586,
+            "median": 5.5969964296558885,
+            "mad": 0.025611769830470976,
+            "minimum": 5.1742250123055085,
+            "maximum": 5.6226081994863595,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 0.18326210580298138,
+            "median": 0.1786672570847935,
+            "mad": 0.0008138544430528194,
+            "minimum": 0.17785340264174068,
+            "maximum": 0.19326565768241,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": 28.51350718132744,
+            "median": 28.437771530989266,
+            "mad": 0.00899030299478909,
+            "minimum": 28.428781227994477,
+            "maximum": 28.67396878499858,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        },
+        "warm": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.878508162000799,
+              "baseline_seconds": 35.263386505997914,
+              "baseline_time_over_selected_time": 5.12660386169268,
+              "selected_time_over_baseline_time": 0.19506090717721736,
+              "execution_saving_seconds": 28.384878343997116,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.404817909002304,
+              "baseline_seconds": 35.288320717001625,
+              "baseline_time_over_selected_time": 5.509652455131013,
+              "selected_time_over_baseline_time": 0.1814996514106299,
+              "execution_saving_seconds": 28.88350280799932,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 6.6181656409971765,
+              "baseline_seconds": 34.77224752800248,
+              "baseline_time_over_selected_time": 5.2540612330100664,
+              "selected_time_over_baseline_time": 0.190328958048153,
+              "execution_saving_seconds": 28.154081887005304,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 35.10798491700067,
+            "median": 35.263386505997914,
+            "mad": 0.024934211003710516,
+            "minimum": 34.77224752800248,
+            "maximum": 35.288320717001625,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 6.63383057066676,
+            "median": 6.6181656409971765,
+            "mad": 0.21334773199487245,
+            "minimum": 6.404817909002304,
+            "maximum": 6.878508162000799,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 0,
+            "mean": null,
+            "median": null,
+            "mad": null,
+            "minimum": null,
+            "maximum": null,
+            "expected_count": 3,
+            "complete": false,
+            "missing_or_invalid_count": 3
+          },
+          "baseline_mean_over_automatic_choice_mean": 5.292264332501938,
+          "automatic_choice_mean_over_baseline_mean": 0.1889550364781659,
+          "matching_intelligent_mean_over_stdlib_mean": null,
+          "mean_execution_saving_seconds": 28.47415434633391,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 5.296772516611253,
+            "median": 5.2540612330100664,
+            "mad": 0.12745737131738633,
+            "minimum": 5.12660386169268,
+            "maximum": 5.509652455131013,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 0.1889631722120001,
+            "median": 0.190328958048153,
+            "mad": 0.004731949129064356,
+            "minimum": 0.1814996514106299,
+            "maximum": 0.19506090717721736,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": 28.474154346333915,
+            "median": 28.384878343997116,
+            "mad": 0.23079645699181128,
+            "minimum": 28.154081887005304,
+            "maximum": 28.88350280799932,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        },
+        "combined": {
+          "expected_seeds": 3,
+          "valid_seeds": 3,
+          "complete_pairs": true,
+          "seed_slots": [
+            {
+              "seed": 20272011,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 13.11605244200473,
+              "baseline_seconds": 70.17489957100042,
+              "baseline_time_over_selected_time": 5.350306418893405,
+              "selected_time_over_baseline_time": 0.18690518293844344,
+              "execution_saving_seconds": 57.058847128995694,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            },
+            {
+              "seed": 20272017,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 12.554761837011029,
+              "baseline_seconds": 69.86704587300483,
+              "baseline_time_over_selected_time": 5.564983771101022,
+              "selected_time_over_baseline_time": 0.17969504335178893,
+              "execution_saving_seconds": 57.3122840359938,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            },
+            {
+              "seed": 20272023,
+              "valid": true,
+              "failures": [],
+              "selected_valid": true,
+              "baseline_valid": true,
+              "observed_selected_rows": 1,
+              "observed_baseline_rows": 1,
+              "selected_seconds": 13.430872538003314,
+              "baseline_seconds": 70.02272595599788,
+              "baseline_time_over_selected_time": 5.213564923489903,
+              "selected_time_over_baseline_time": 0.1918073361845873,
+              "execution_saving_seconds": 56.59185341799457,
+              "matching_config_intelligent_seconds": null,
+              "matching_config_failures": [],
+              "stdlib_time_over_matching_config_intelligent_time": null
+            }
+          ],
+          "baseline": {
+            "count": 3,
+            "mean": 70.02155713333438,
+            "median": 70.02272595599788,
+            "mad": 0.152173615002539,
+            "minimum": 69.86704587300483,
+            "maximum": 70.17489957100042,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "automatic_choice": {
+            "count": 3,
+            "mean": 13.033895605673024,
+            "median": 13.11605244200473,
+            "mad": 0.3148200959985843,
+            "minimum": 12.554761837011029,
+            "maximum": 13.430872538003314,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "matching_config_intelligent": {
+            "count": 0,
+            "mean": null,
+            "median": null,
+            "mad": null,
+            "minimum": null,
+            "maximum": null,
+            "expected_count": 3,
+            "complete": false,
+            "missing_or_invalid_count": 3
+          },
+          "baseline_mean_over_automatic_choice_mean": 5.372266224294246,
+          "automatic_choice_mean_over_baseline_mean": 0.18614118479047823,
+          "matching_intelligent_mean_over_stdlib_mean": null,
+          "mean_execution_saving_seconds": 56.98766152766136,
+          "per_seed_baseline_over_selected_ratios": {
+            "count": 3,
+            "mean": 5.37628503782811,
+            "median": 5.350306418893405,
+            "mad": 0.136741495403502,
+            "minimum": 5.213564923489903,
+            "maximum": 5.564983771101022,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_selected_over_baseline_ratios": {
+            "count": 3,
+            "mean": 0.18613585415827322,
+            "median": 0.18690518293844344,
+            "mad": 0.0049021532461438755,
+            "minimum": 0.17969504335178893,
+            "maximum": 0.1918073361845873,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "per_seed_execution_savings_seconds": {
+            "count": 3,
+            "mean": 56.98766152766135,
+            "median": 57.058847128995694,
+            "mad": 0.25343690699810395,
+            "minimum": 56.59185341799457,
+            "maximum": 57.3122840359938,
+            "expected_count": 3,
+            "complete": true,
+            "missing_or_invalid_count": 0
+          },
+          "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained."
+        }
+      },
+      "comparison_scope": "Executor-independent direct sequential execution of the same per-item workload algorithm; no concurrent batching or discovery.",
+      "estimated_amortization": {
+        "scope": "Conditional component estimate for repeated combined two-pass lifecycles (cold executor lifecycle plus one warm pass), assuming unchanged observed mean execution savings. Discovery costs are virtual sums of requested real training callback durations, not live end-to-end search wall time. Fixture/reference preparation, holdout/oracle measurement, integration and adoption costs are excluded. Fixed/direct baselines have zero discovery cost by design. This is not a future break-even guarantee; no estimate is made without positive execution savings.",
+        "status": "conditional_component_estimate",
+        "execution_unit": "combined cold lifecycle plus one warm pass",
+        "primary_virtual_callback_seconds": 2620.142999660966,
+        "baseline_virtual_callback_seconds": 0.0,
+        "primary_minus_baseline_discovery_seconds": 2620.142999660966,
+        "nonnegative_extra_discovery_seconds": 2620.142999660966,
+        "mean_execution_saving_seconds": 56.98766152766136,
+        "minimum_nonnegative_extra_cost_repayment_cycles": 46,
+        "formula": "ceil(max(0, primary_virtual_callback_seconds - baseline_virtual_callback_seconds) / positive_mean_combined_execution_saving_seconds)"
+      }
+    }
+  },
+  "conditional_candidate_oracles": {
+    "cold": {
+      "expected_seeds": 3,
+      "valid_seeds": 3,
+      "complete_pairs": true,
+      "seed_slots": [
+        {
+          "seed": 20272011,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 6.237544280003931,
+          "baseline_seconds": 6.237544280003931,
+          "baseline_time_over_selected_time": 1.0,
+          "selected_time_over_baseline_time": 1.0,
+          "execution_saving_seconds": 0.0,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272017,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 6.1499439280087245,
+          "baseline_seconds": 6.1499439280087245,
+          "baseline_time_over_selected_time": 1.0,
+          "selected_time_over_baseline_time": 1.0,
+          "execution_saving_seconds": 0.0,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272023,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 6.812706897006137,
+          "baseline_seconds": 6.812706897006137,
+          "baseline_time_over_selected_time": 1.0,
+          "selected_time_over_baseline_time": 1.0,
+          "execution_saving_seconds": 0.0,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        }
+      ],
+      "baseline": {
+        "count": 3,
+        "mean": 6.400065035006264,
+        "median": 6.237544280003931,
+        "mad": 0.08760035199520644,
+        "minimum": 6.1499439280087245,
+        "maximum": 6.812706897006137,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "automatic_choice": {
+        "count": 3,
+        "mean": 6.400065035006264,
+        "median": 6.237544280003931,
+        "mad": 0.08760035199520644,
+        "minimum": 6.1499439280087245,
+        "maximum": 6.812706897006137,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "matching_config_intelligent": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "mad": null,
+        "minimum": null,
+        "maximum": null,
+        "expected_count": 3,
+        "complete": false,
+        "missing_or_invalid_count": 3
+      },
+      "baseline_mean_over_automatic_choice_mean": 1.0,
+      "automatic_choice_mean_over_baseline_mean": 1.0,
+      "matching_intelligent_mean_over_stdlib_mean": null,
+      "mean_execution_saving_seconds": 0.0,
+      "per_seed_baseline_over_selected_ratios": {
+        "count": 3,
+        "mean": 1.0,
+        "median": 1.0,
+        "mad": 0.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_selected_over_baseline_ratios": {
+        "count": 3,
+        "mean": 1.0,
+        "median": 1.0,
+        "mad": 0.0,
+        "minimum": 1.0,
+        "maximum": 1.0,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_execution_savings_seconds": {
+        "count": 3,
+        "mean": 0.0,
+        "median": 0.0,
+        "mad": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained.",
+      "oracle_configuration": {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "oracle_valid": true,
+      "grid_audit": {
+        "grid_complete": true,
+        "structural_failures": [],
+        "declared_candidate_count": 24,
+        "declared_seed_count": 3,
+        "expected_row_count": 72,
+        "observed_row_count": 72,
+        "eligible_candidate_count": 24,
+        "candidates": [
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          }
+        ],
+        "budgets": {
+          "max_p95_seconds": 60.0,
+          "max_rss_bytes": 1073741824,
+          "max_cpu_seconds": 300.0
+        },
+        "eligibility": "Every planned seed must pass correctness, errors, timings, throughput, p95, CPU and RSS in both phases."
+      },
+      "scope": "Phase-specific lowest heldout mean among candidates passing every declared seed/gate in a complete grid; hindsight conditional candidate oracle, not a deployable baseline.",
+      "amortization": null,
+      "amortization_scope": "Not estimated: the heldout oracle is hindsight, not a free deployable choice."
+    },
+    "warm": {
+      "expected_seeds": 3,
+      "valid_seeds": 3,
+      "complete_pairs": true,
+      "seed_slots": [
+        {
+          "seed": 20272011,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 6.878508162000799,
+          "baseline_seconds": 6.03883631399367,
+          "baseline_time_over_selected_time": 0.8779282035826083,
+          "selected_time_over_baseline_time": 1.1390453068021358,
+          "execution_saving_seconds": -0.8396718480071286,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272017,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 6.404817909002304,
+          "baseline_seconds": 6.346393643005285,
+          "baseline_time_over_selected_time": 0.9908780754071244,
+          "selected_time_over_baseline_time": 1.009205900119576,
+          "execution_saving_seconds": -0.058424265997018665,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272023,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 6.6181656409971765,
+          "baseline_seconds": 6.090753086005861,
+          "baseline_time_over_selected_time": 0.920308347720374,
+          "selected_time_over_baseline_time": 1.0865923388362435,
+          "execution_saving_seconds": -0.5274125549913151,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        }
+      ],
+      "baseline": {
+        "count": 3,
+        "mean": 6.158661014334939,
+        "median": 6.090753086005861,
+        "mad": 0.05191677201219136,
+        "minimum": 6.03883631399367,
+        "maximum": 6.346393643005285,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "automatic_choice": {
+        "count": 3,
+        "mean": 6.63383057066676,
+        "median": 6.6181656409971765,
+        "mad": 0.21334773199487245,
+        "minimum": 6.404817909002304,
+        "maximum": 6.878508162000799,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "matching_config_intelligent": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "mad": null,
+        "minimum": null,
+        "maximum": null,
+        "expected_count": 3,
+        "complete": false,
+        "missing_or_invalid_count": 3
+      },
+      "baseline_mean_over_automatic_choice_mean": 0.9283717678240218,
+      "automatic_choice_mean_over_baseline_mean": 1.0771546859334866,
+      "matching_intelligent_mean_over_stdlib_mean": null,
+      "mean_execution_saving_seconds": -0.4751695563318208,
+      "per_seed_baseline_over_selected_ratios": {
+        "count": 3,
+        "mean": 0.9297048755700356,
+        "median": 0.920308347720374,
+        "mad": 0.042380144137765696,
+        "minimum": 0.8779282035826083,
+        "maximum": 0.9908780754071244,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_selected_over_baseline_ratios": {
+        "count": 3,
+        "mean": 1.0782811819193183,
+        "median": 1.0865923388362435,
+        "mad": 0.05245296796589227,
+        "minimum": 1.009205900119576,
+        "maximum": 1.1390453068021358,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_execution_savings_seconds": {
+        "count": 3,
+        "mean": -0.4751695563318208,
+        "median": -0.5274125549913151,
+        "mad": 0.31225929301581345,
+        "minimum": -0.8396718480071286,
+        "maximum": -0.058424265997018665,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained.",
+      "oracle_configuration": {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "oracle_valid": true,
+      "grid_audit": {
+        "grid_complete": true,
+        "structural_failures": [],
+        "declared_candidate_count": 24,
+        "declared_seed_count": 3,
+        "expected_row_count": 72,
+        "observed_row_count": 72,
+        "eligible_candidate_count": 24,
+        "candidates": [
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          }
+        ],
+        "budgets": {
+          "max_p95_seconds": 60.0,
+          "max_rss_bytes": 1073741824,
+          "max_cpu_seconds": 300.0
+        },
+        "eligibility": "Every planned seed must pass correctness, errors, timings, throughput, p95, CPU and RSS in both phases."
+      },
+      "scope": "Phase-specific lowest heldout mean among candidates passing every declared seed/gate in a complete grid; hindsight conditional candidate oracle, not a deployable baseline.",
+      "amortization": null,
+      "amortization_scope": "Not estimated: the heldout oracle is hindsight, not a free deployable choice."
+    },
+    "combined": {
+      "expected_seeds": 3,
+      "valid_seeds": 3,
+      "complete_pairs": true,
+      "seed_slots": [
+        {
+          "seed": 20272011,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.11605244200473,
+          "baseline_seconds": 12.589026326990279,
+          "baseline_time_over_selected_time": 0.9598182366725962,
+          "selected_time_over_baseline_time": 1.0418639298485326,
+          "execution_saving_seconds": -0.5270261150144506,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272017,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 12.554761837011029,
+          "baseline_seconds": 12.793943030002993,
+          "baseline_time_over_selected_time": 1.0190510338704208,
+          "selected_time_over_baseline_time": 0.9813051228670425,
+          "execution_saving_seconds": 0.23918119299196405,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        },
+        {
+          "seed": 20272023,
+          "valid": true,
+          "failures": [],
+          "selected_valid": true,
+          "baseline_valid": true,
+          "observed_selected_rows": 1,
+          "observed_baseline_rows": 1,
+          "selected_seconds": 13.430872538003314,
+          "baseline_seconds": 12.411333138014015,
+          "baseline_time_over_selected_time": 0.9240898610939489,
+          "selected_time_over_baseline_time": 1.0821458411156981,
+          "execution_saving_seconds": -1.0195393999892985,
+          "matching_config_intelligent_seconds": null,
+          "matching_config_failures": [],
+          "stdlib_time_over_matching_config_intelligent_time": null
+        }
+      ],
+      "baseline": {
+        "count": 3,
+        "mean": 12.598100831669095,
+        "median": 12.589026326990279,
+        "mad": 0.17769318897626363,
+        "minimum": 12.411333138014015,
+        "maximum": 12.793943030002993,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "automatic_choice": {
+        "count": 3,
+        "mean": 13.033895605673024,
+        "median": 13.11605244200473,
+        "mad": 0.3148200959985843,
+        "minimum": 12.554761837011029,
+        "maximum": 13.430872538003314,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "matching_config_intelligent": {
+        "count": 0,
+        "mean": null,
+        "median": null,
+        "mad": null,
+        "minimum": null,
+        "maximum": null,
+        "expected_count": 3,
+        "complete": false,
+        "missing_or_invalid_count": 3
+      },
+      "baseline_mean_over_automatic_choice_mean": 0.966564503262229,
+      "automatic_choice_mean_over_baseline_mean": 1.0345921008116103,
+      "matching_intelligent_mean_over_stdlib_mean": null,
+      "mean_execution_saving_seconds": -0.43579477400392896,
+      "per_seed_baseline_over_selected_ratios": {
+        "count": 3,
+        "mean": 0.9676530438789887,
+        "median": 0.9598182366725962,
+        "mad": 0.03572837557864739,
+        "minimum": 0.9240898610939489,
+        "maximum": 1.0190510338704208,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_selected_over_baseline_ratios": {
+        "count": 3,
+        "mean": 1.0351049646104244,
+        "median": 1.0418639298485326,
+        "mad": 0.040281911267165516,
+        "minimum": 0.9813051228670425,
+        "maximum": 1.0821458411156981,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "per_seed_execution_savings_seconds": {
+        "count": 3,
+        "mean": -0.43579477400392835,
+        "median": -0.5270261150144506,
+        "mad": 0.4925132849748479,
+        "minimum": -1.0195393999892985,
+        "maximum": 0.23918119299196405,
+        "expected_count": 3,
+        "complete": true,
+        "missing_or_invalid_count": 0
+      },
+      "descriptive_uncertainty_scope": "Mean/median/MAD/range describe the declared correlated seed observations, not confidence intervals or deployment success probabilities. Aggregate statistics and ratios require every expected slot; failed/missing/duplicate slots are retained.",
+      "oracle_configuration": {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      "capacity": {
+        "items_per_pass": 24,
+        "configured_workers": 8,
+        "runnable_batches_per_pass": 24,
+        "maximum_simultaneously_runnable_batches": 8,
+        "scope": "computed work-availability ceiling, not measured active workers, CPU utilisation or proof of performance equivalence",
+        "configured_batch_size": 1,
+        "effective_batch_size_ceiling": 1,
+        "final_batch_size": 1
+      },
+      "oracle_valid": true,
+      "grid_audit": {
+        "grid_complete": true,
+        "structural_failures": [],
+        "declared_candidate_count": 24,
+        "declared_seed_count": 3,
+        "expected_row_count": 72,
+        "observed_row_count": 72,
+        "eligible_candidate_count": 24,
+        "candidates": [
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 1,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 2,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 4,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "process",
+              "workers": 8,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 1,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 2,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 4,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 1,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 4,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          },
+          {
+            "configuration": {
+              "backend": "thread",
+              "workers": 8,
+              "batch_size": 16,
+              "profile_sample_interval": 0
+            },
+            "eligible": true,
+            "observed_rows": 3,
+            "failures": []
+          }
+        ],
+        "budgets": {
+          "max_p95_seconds": 60.0,
+          "max_rss_bytes": 1073741824,
+          "max_cpu_seconds": 300.0
+        },
+        "eligibility": "Every planned seed must pass correctness, errors, timings, throughput, p95, CPU and RSS in both phases."
+      },
+      "scope": "Phase-specific lowest heldout mean among candidates passing every declared seed/gate in a complete grid; hindsight conditional candidate oracle, not a deployable baseline.",
+      "amortization": null,
+      "amortization_scope": "Not estimated: the heldout oracle is hindsight, not a free deployable choice."
+    }
+  },
+  "primary_virtual_callback_seconds": 2620.142999660966,
+  "manual_proxy_virtual_callback_seconds": 4068.259785746035,
+  "primary_matches_exhaustive_choice": true,
+  "cache_scope": null,
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "306ae5aee1668e93e0745c59e50ecd5d3f594766e9f0431acacd8846d58af3f9",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

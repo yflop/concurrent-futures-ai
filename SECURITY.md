@@ -1,16 +1,37 @@
 # Security and trust boundaries
 
-This is an alpha trusted-code concurrency library, not a sandbox. Do not submit
-untrusted Python code or unpickle attacker-controlled objects. Processes isolate
+Version 0.4 is a **Beta trusted-code concurrency library**. Beta is not a security
+or production certification. The release workflow requires source verification,
+built-artifact checks and exact-commit CI. This is not a sandbox: do not submit untrusted Python
+code or unpickle attacker-controlled objects. Processes isolate
 address spaces, not filesystem, credentials, network, or user permissions.
 
-No network/LLM calls, telemetry export, persisted profiles, task retries, or
-credential handling are built in. Snapshot keys are caller-controlled metadata:
+The core makes no network/LLM calls and provides no automatic telemetry upload,
+credential handling, task retries, or durable task/restart storage. Explicit
+strict JSON import/export is available for predictive profiles and measured
+configurations; file storage and access control remain caller-owned. JSON loads
+data, not Python source or pickle, and never starts calibration or grants process
+consent. Schema validation is not authentication: use trusted files and verify the
+workload/runtime/hardware and strategy compatibility required by the API.
+Snapshot/profile keys, features and hardware metadata can identify workloads;
 keep PII and secrets out. Application callables can still transmit or log data.
 
 Bounded task count does not bound bytes, CPU, memory, file descriptors, network
 requests, or process lifetime. A hung running task can block shutdown indefinitely.
 Use external operational isolation for hostile or resource-heavy work.
+
+Use `with` or `shutdown(wait=True)` to guarantee accepted work drains before
+interpreter exit. Omitted shutdown can settle deferred submissions with
+`RuntimeError` during backend teardown. Standard Future API compatibility does
+not imply identical stdlib callback/thread or implicit-exit scheduling semantics.
+
+Normal completion callbacks run serially on an owned completion pump. **Never
+wait for another Future from the same executor in a callback, even with free
+worker slots.** The result can need that blocked pump for publication. Slow
+callbacks can delay unrelated work; there is no callback isolation or general
+dependency-deadlock prevention. A callback added after completion or invoked by
+external cancellation may run on the caller. Waiting shutdown from the executor's
+task/pump context raises `RuntimeError`; use an external lifecycle coordinator.
 
 Custom policies execute trusted code under a lock. A blocking policy can stall
 submission; a malicious policy can perform arbitrary actions. Process routing
@@ -25,12 +46,16 @@ No reporting endpoint or response SLA is assumed to exist yet.
 
 ### Cancellation churn and memory
 
-The admission limit is not a strict physical queue or memory bound. Cancelling a
-queued Future frees logical admission immediately, but stdlib pools can retain
-its cancelled work item and arguments until a worker drains the queue. Repeated
-submit/cancel loops behind blocked workers can therefore accumulate tombstones.
-Rate-limit producers and cancellation churn; do not treat this executor as a
-hard memory limiter. A removable bounded physical queue is planned work.
+`max_pending` separately caps logical unfinished work and physical retained
+scheduling items (owned queued plus dispatched), with each backend's dispatches
+also capped by its worker budget. Cancelling owned queued work removes its payload
+without adding a backend tombstone. Successful dispatched thread cancellation
+releases logical capacity but keeps the physical slot until acknowledgement.
+
+These item-count bounds do not constrain payload/result bytes, blocked-producer
+memory, caller-retained Futures, native allocations, transport bytes, or RSS.
+Earlier churn reports describe the historical direct-submission implementation;
+they are not the current queue contract or a hard memory guarantee.
 
 ## Optional registered tasks and MCP (0.2.0)
 
@@ -63,9 +88,11 @@ Profile JSON never loads code or pickle. Numeric features are caller-provided;
 keys, summaries, timing and hardware metadata may still identify private workloads.
 Review before sharing and never include secrets. Imported measurements are advice,
 not authority to use processes or exceed worker limits. Per-task RSS limits are
-unsupported. Logical pending-Future limits do not bound cancelled entries retained
-in stdlib queues or arbitrary task allocations. A failed batch may already have
-side effects; running batches cannot be partially cancelled and are never retried.
+unsupported. Logical and physical scheduling item bounds do not bound arbitrary
+task allocations, transport bytes or retained results. Process Futures become
+non-cancellable at dispatch commitment, before child execution necessarily begins.
+A failed batch may already have side effects; running batches cannot be partially
+cancelled and are never retried.
 
 
 ## Optional real-workload harnesses

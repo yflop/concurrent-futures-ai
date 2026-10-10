@@ -4,6 +4,8 @@
 
 A benchmark should answer a narrow question, such as “Does a hint-routed hybrid reduce batch completion time for this mixed workload under this worker budget?” It should not begin with “Show that AI is faster.” The sequential loop may win. An ordinary thread pool may win. The adaptive learner may never collect useful evidence before the run ends. Those are valid outcomes.
 
+For the framework's configuration-selection objective, ask how close the selected configuration comes to an independently measured eligible baseline under the same resource envelope, including calibration cost and held-out workload correctness. A same-configuration stdlib comparison measures execution-layer overhead; it cannot by itself establish configuration-selection quality or universal engine speedup.
+
 The included [harness](../../benchmarks/README.md) is a reproducible starting point, not an exhaustive production benchmark. It verifies deterministic output checksums before writing its reports. It compares sequential execution, standard thread and process pools, and the project's thread-only, hint, and adaptive policies on pure-Python CPU loops, simulated I/O sleeps, and a seeded mixture.
 
 ## 2. Running the supplied harness
@@ -51,7 +53,9 @@ The executor's internal profile excludes admission wait. The benchmark's task-la
 | --- | --- | --- | --- |
 | Submit-call duration | Before submission attempt | Submission returns | Producer blocking plus submission overhead |
 | Benchmark task latency | Before submission attempt | Parent completion callback | Admission, queueing, useful work, transport, and observation delay |
-| Executor profile latency | Before backend submission | Internal completion callback | Backend-path observation, excluding admission and policy |
+| Executor profile latency | Owned work-item creation after admission/policy | Public-Future accounting callback | Owned queueing, dispatch/startup, execution and transfer; excludes admission and policy |
+| Uncontended profile latency | Same start, only when chosen backend has no outstanding work | Same accounting callback | Includes startup/serialization; not intrinsic service time |
+| Scheduling load | Locked scheduler snapshot | Point-in-time sample | Queued items and occupied dispatch slots; not CPU utilisation |
 | Worker-local service duration | Inside benchmark worker function | Before that function returns | Local elapsed work interval; includes descheduling, not just CPU cycles |
 | Batch duration | First batch action | Required result collection completed | Useful workload completion time for that phase |
 
@@ -88,7 +92,9 @@ The built-in harness deliberately omits several important dimensions. Before rel
 | Question | Controlled experiment | Required observations |
 | --- | --- | --- |
 | Is admission effective? | Saturate blocked workers, vary producer count | Logical pending peak, producer wait, rejection count |
-| Is physical memory bounded? | Repeat submit/cancel while workers remain blocked | Physical queue behavior and resident memory; expect the current tombstone limitation |
+| Are physical item bounds preserved? | Repeat submit/cancel behind blocked workers while deliberately retaining cancelled public Futures | Payload weak-reference release; owned queued + dispatched peak <= max_pending; each backend dispatched <= workers |
+| Is delayed cancellation accounted for? | Hold backend acknowledgement after a dispatched thread cancellation | Logical capacity releases; physical capacity remains occupied until acknowledgement |
+| What memory remains? | Vary payload size, producer count and retained results/Futures | Traced allocation/RSS scope; distinguish caller-retained objects and native/transport memory from item bounds |
 | Is streaming useful? | Large generator, slow consumer, early exit | Input read-ahead, buffered results, cancellation outcomes |
 | Does payload transfer dominate? | Sweep argument and return sizes | Total latency, startup, memory, same-result verification |
 | Does learning survive drift? | Change workload costs midstream | Route history, cumulative excess latency, recovery delay |
@@ -96,7 +102,9 @@ The built-in harness deliberately omits several important dimensions. Before rel
 | Is native parallelism oversubscribed? | Vary library threads and executor workers independently | Runnable threads, effective CPU use, latency, memory |
 | Is failure handling correct? | Script task exceptions and worker termination | Future terminal states, pending reclamation, no silent retries |
 
-The memory and cancellation experiments need a subprocess watchdog and cleanup. Do not create an intentionally hung pool in the test runner that must later finish unrelated tests.
+The memory and cancellation experiments need a subprocess watchdog and explicit waiting shutdown. Do not create an intentionally hung pool in the test runner that must later finish unrelated tests. The updated `benchmarks/stress/churn_limitation.py` checks physical counts and queued payload release while retaining cancelled public Futures. Its name reflects the historical regression; old churn JSON records the earlier direct-submission limitation. A new source-matched result must be recorded before claiming a completed regression run, and even a passing run is not a hard byte/RSS guarantee.
+
+Load-aware experiments should include sparse demand, bursty queues, differing backend capacities and changing workload costs. Record routing/exploration decisions and load snapshots, while measuring actual CPU separately if relevant. Uncontended latency still includes startup/serialization, and a queue-pressure score is a heuristic. Predictive global admission may idle an available backend: measure that behavior rather than assuming work-conserving scheduling.
 
 ## 9. Reproducibility record
 
@@ -104,9 +112,9 @@ Retain the command, raw JSON, workload version, git revision when available, Pyt
 
 A future performance claim must state what was actually executed, what was skipped, and which limits were not observed. A Linux run is not evidence that Windows or macOS behavior was tested. A successful smoke run is not evidence of throughput superiority. The value of this harness is that it makes those distinctions reproducible.
 
-## 10. Reading the checked-in reference run
+## 10. Reading the historical checked-in reference run
 
-The repository includes a [reference report](../../benchmarks/results/reference.md) and its [raw observations](../../benchmarks/results/reference.json). This run used Python 3.12.14 on Linux, `spawn`, five repetitions, 48 tasks per batch, two warmup batches, and a pending limit of eight. Standard pools had four workers; the hybrid had two threads and two processes.
+The repository includes a [reference report](../../benchmarks/results/reference.md) and its [raw observations](../../benchmarks/results/reference.json.gz). This run used Python 3.12.14 on Linux, `spawn`, five repetitions, 48 tasks per batch, two warmup batches, and a pending limit of eight. Standard pools had four workers; the hybrid had two threads and two processes.
 
 | Warm workload | Adaptive median batch | Relevant fixed baseline median batch |
 | --- | ---: | ---: |
@@ -118,4 +126,4 @@ On these measurements, the adaptive policy did **not** beat the listed fixed bas
 
 The adaptive harness intentionally receives `kind="unknown"` with stable CPU/I/O-family keys and explicit process eligibility, so it is allowed to explore both routes for these synthetic tasks. The hints policy receives the true CPU/I/O kinds. Consequently, adaptive results on the simulated-I/O dataset do not contradict the rule that an explicitly `kind="io"` adaptive submission remains on threads: those benchmark submissions were deliberately labeled unknown. This difference in supplied information is essential when interpreting the comparison.
 
-The reference report is evidence for one measured environment. It is not a performance acceptance threshold for other machines, and all numeric claims should remain linked to its raw data.
+This report predates the owned FIFO/load-aware contract and is retained as historical evidence for its measured implementation and environment. It is not final-source validation of those changes. It is not a performance acceptance threshold for other machines, and all numeric claims should remain linked to its raw data.

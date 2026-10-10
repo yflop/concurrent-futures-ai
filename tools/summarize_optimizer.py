@@ -1,6 +1,7 @@
 """Audit completed primary grids and report configuration quality, not engine parity."""
 from __future__ import annotations
 import argparse
+from tools.report_io import read_report, resolve_report
 from dataclasses import asdict
 import json
 import hashlib
@@ -24,10 +25,10 @@ def execution_capacity(configuration, count):
 def summary(root):
     workloads=[];missing=[];failed=[]
     for name in NAMES:
-        path=root/(name+'.json')
+        path=resolve_report(root/(name+'.json'))
         if not path.exists():
             missing.append(name);continue
-        raw=json.loads(path.read_text())
+        raw=read_report(path)
         if raw['status']!='complete':
             missing.append(name)
             failed.append({'name':name,'status':raw['status'],'failures':raw.get('failures',[]),

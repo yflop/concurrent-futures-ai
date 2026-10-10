@@ -19,7 +19,7 @@ These observations motivate the design; they do not establish that an optimizati
 
 ## What “intelligent” means in this repository
 
-The prototype records successful backend submit-to-completion latency by a caller-chosen task key. An experimental policy uses an exponentially weighted moving average (EWMA), plus deterministic exploration, to compare eligible thread and process routes. This is small, inspectable online adaptation. It does not inspect source code to infer intent, train a neural network, call an LLM, send code or profiles to an inference service, or prove an optimal route.
+The executor records successful backend submit-to-completion latency by a caller-chosen task key. An experimental policy uses an exponentially weighted moving average (EWMA), plus deterministic exploration, to compare eligible thread and process routes. This is small, inspectable online adaptation. It does not inspect source code to infer intent, train a neural network, call an LLM, send code or profiles to an inference service, or prove an optimal route.
 
 Eligibility remains explicit: the caller must permit process execution and configure process workers. A learned preference cannot grant that permission. For fully predictable routing, use the `threads` or `hints` policy.
 

@@ -1,0 +1,224 @@
+{
+  "protocol": {
+    "workload": "video",
+    "grid": [
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      }
+    ],
+    "training_seed": 20261013,
+    "training_fixture_seeds": [
+      8432683584078134192,
+      1788955667248174065,
+      985069894559459440,
+      4372053291212828241
+    ],
+    "heldout_seeds": [
+      20262011,
+      20262017,
+      20262023
+    ],
+    "training_repeats": 4,
+    "count_per_pass": 24,
+    "passes_per_trial": 2,
+    "scale": "representative",
+    "holdout_distribution": "same-generator seeded mixed-input holdout; no distribution-shift claim",
+    "objective": "combined cold executor lifecycle plus warm pass elapsed",
+    "selection": {
+      "exhaustive": "arithmetic mean of four paired training repeats",
+      "exhaustive_median": "median of four paired repeats, statistic-matched control for budgeted search",
+      "budgeted": "PRIMARY: successive halving, median score, minimum two paired repeats, maximum four, 72 callback limit",
+      "budgeted_lowcost": "SECONDARY: successive halving, median score, minimum one paired repeat, maximum four, 48 callback limit"
+    },
+    "selection_cost_scope": "measured-matrix replay; virtual callback seconds summed from requested real training rows; fixture/reference costs separate; replay wall is not live search cost",
+    "gates": {
+      "max_p95_seconds": 60.0,
+      "max_rss_bytes": 1073741824,
+      "max_cpu_seconds": 300.0
+    },
+    "affinity_requested": 8,
+    "baselines": {},
+    "oracle": "all declared candidate configurations on every independent heldout seed; aggregate oracle requires all gates on all seeds",
+    "limits": "one actual host, generated local mixed-input workloads, fixed explicit process safety; no upstream service compatibility, global optimum, cross-hardware generalization or deployment certification",
+    "training_gates": {
+      "max_p95_seconds": 60.0,
+      "max_rss_bytes": 715827882,
+      "max_cpu_seconds": 300.0
+    },
+    "baseline_scope": "Intentionally omitted in this separate follow-on; no baseline comparison claim or denominator.",
+    "experiment": {
+      "calibration_memory_reserve": {
+        "evaluation_gate_bytes": 1073741824,
+        "factor": 1.5,
+        "status": "Experimental post-failure choice; no reservation, enforcement, safety guarantee, or validated universal factor.",
+        "training_filter_bytes": 715827882
+      },
+      "envelope_version": "video-streaming-reserve-v1",
+      "fresh_context": {
+        "enabled": true,
+        "fixture_scope": "Regenerate the same declared seed/profile and independent reference in each fresh interpreter; require exact reference digest match.",
+        "planned_trials": 3,
+        "retention_scope": "Fresh selected context versus reused-parent selected rows; descriptive, order-confounded retention comparison, not causal isolation.",
+        "selection": "Primary budgeted choice frozen before any heldout fixture is prepared; no heldout reselection.",
+        "timeout_seconds": 900
+      },
+      "original_primary_strata": 11,
+      "replaces_primary_evidence": false,
+      "required_adapter": "bounded streaming decoded video frames; unchanged exact frame truth",
+      "resource_attribution": "10 ms process-tree sampling; start/end and parent/descendant RSS at the observed tree peak use non-atomic sweeps and may miss spikes or double-count shared pages.",
+      "runner_source_sha256": "6ad4334ea807d61260199550ccc600fc4531ff162a07062494f9d706be094b0d",
+      "scope": "Separate post-primary development experiment; the original 11-stratum evidence universe and every recorded failure remain unchanged. Acceptance definitions stay with the original reports and analysis.",
+      "source_snapshot_sha256": "a9b43abec2c52c2e72ce23ff0cb91e6f8f81ca0261cc698b9f5440e585320121"
+    },
+    "fixture_failure_handling": "Cache one preparation/reference failure per seed; retain explicit unexecuted grid slots, with no fabricated callback cost or tasks."
+  },
+  "protocol_sha256": "355020e1bef0b10829e8721e47cedb751b148476c72b1286f27304ce73706e66",
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "d7e00c49302e69bc6e5be0cbe1f28bbf664bd6ca1d11439140423e1c155ad031",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

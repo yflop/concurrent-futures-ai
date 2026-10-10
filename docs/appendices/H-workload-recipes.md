@@ -20,7 +20,7 @@ These are reasoning recipes, not tuned configurations or benchmark results. Vali
 
 **Observation:** measure cold startup separately from a warm executor. If the operation takes very little time, per-future and serialization overhead may dominate. The fact that an operation is CPU-bound does not establish that each item should be submitted separately.
 
-**When to revisit:** if the fixed process route consistently wins and workload shape is stable, adaptive routing may add no value. If input sizes vary widely, use application-known size-class keys before considering a more complex predictor. Batching is planned; application-level batching should specify how item errors and cancellation are represented.
+**When to revisit:** if the fixed process route consistently wins and workload shape is stable, adaptive routing may add no value. If input sizes vary widely, use application-known size-class keys before considering a more complex predictor. `map_batches` provides explicit bounded batching; the caller-supplied batch function must specify how item errors and cancellation are represented. Offline configuration search can compare declared batch sizes on safe fixtures.
 
 ## 3. Image or numerical work using native extensions
 

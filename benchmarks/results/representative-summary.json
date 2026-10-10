@@ -1,0 +1,512 @@
+{
+  "scope": "Observed single-host generated-fixture evidence, not production certification or universal superiority.",
+  "ratio_definition": "Calibration-selected stdlib time / calibration-selected intelligent time on held-out inputs.",
+  "workloads": [
+    {
+      "name": "images",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9101599376871777,
+      "ratio_median": 0.9664568140800919,
+      "ratio_max": 1.0179858231580696,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 2.3448231573323333,
+          "mean_lifecycle_cpu_seconds": 4.391732,
+          "peak_sampled_rss_bytes": 178339840,
+          "max_batch_completion_p95_seconds": 0.25243756535201095,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 15.150151686000754,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 2.424309667000974,
+          "mean_lifecycle_cpu_seconds": 4.538495333333337,
+          "peak_sampled_rss_bytes": 171429888,
+          "max_batch_completion_p95_seconds": 0.2588382862511935,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 14.61911982699894,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": -0.07948650966864079,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": null,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-priority.json"
+    },
+    {
+      "name": "ocr",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9589239788368074,
+      "ratio_median": 0.998832192143964,
+      "ratio_max": 1.0223927807972144,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 31.813396917000016,
+          "mean_lifecycle_cpu_seconds": 61.180627333333405,
+          "peak_sampled_rss_bytes": 822550528,
+          "max_batch_completion_p95_seconds": 4.145887810400381,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 195.54340582200166,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 31.99557618366695,
+          "mean_lifecycle_cpu_seconds": 61.64241833333324,
+          "peak_sampled_rss_bytes": 879808512,
+          "max_batch_completion_p95_seconds": 4.0565096048016125,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 192.54477067399785,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": -0.1821792666669353,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": null,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-priority.json"
+    },
+    {
+      "name": "dedup",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9870000923507306,
+      "ratio_median": 1.0336938932250774,
+      "ratio_max": 1.2226487115575306,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.4512722833327037,
+          "mean_lifecycle_cpu_seconds": 0.898884999999988,
+          "peak_sampled_rss_bytes": 151756800,
+          "max_batch_completion_p95_seconds": 0.20773836300213588,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 5.054943884999375,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.42743906866720255,
+          "mean_lifecycle_cpu_seconds": 0.8703726666667535,
+          "peak_sampled_rss_bytes": 211095552,
+          "max_batch_completion_p95_seconds": 0.11526540870017923,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 4.789276612002141,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.023833214665501146,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 200.94966957750245,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-priority.json"
+    },
+    {
+      "name": "http",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9873346500981801,
+      "ratio_median": 1.0187845052509892,
+      "ratio_max": 1.1125675158485104,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.16966820833234428,
+          "mean_lifecycle_cpu_seconds": 0.18638400000000002,
+          "peak_sampled_rss_bytes": 80379904,
+          "max_batch_completion_p95_seconds": 0.03860387199893012,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 1.963871588002803,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.16532636799820466,
+          "mean_lifecycle_cpu_seconds": 0.23758166666666694,
+          "peak_sampled_rss_bytes": 80429056,
+          "max_batch_completion_p95_seconds": 0.032020144198941114,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 1.981068676999712,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.004341840334139618,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 456.2739586305588,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "geospatial",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.954842752363337,
+      "ratio_median": 0.9998488286270883,
+      "ratio_max": 1.0271675908447568,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 1.6594416489994426,
+          "mean_lifecycle_cpu_seconds": 1.6716503333333357,
+          "peak_sampled_rss_bytes": 92315648,
+          "max_batch_completion_p95_seconds": 0.3165946970002551,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 7.780605306998041,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 1.6686031446673344,
+          "mean_lifecycle_cpu_seconds": 1.681562000000002,
+          "peak_sampled_rss_bytes": 92315648,
+          "max_batch_completion_p95_seconds": 0.10409692469911533,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 7.3988962290022755,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": -0.009161495667891817,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": null,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "cached_http",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9147774361527029,
+      "ratio_median": 1.0078095952995572,
+      "ratio_max": 1.0963395226890587,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.3889879433348445,
+          "mean_lifecycle_cpu_seconds": 0.54504066666667,
+          "peak_sampled_rss_bytes": 119582720,
+          "max_batch_completion_p95_seconds": 0.07322052999697914,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 3.4796198190015275,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.38563757499772083,
+          "mean_lifecycle_cpu_seconds": 0.5585573333333329,
+          "peak_sampled_rss_bytes": 133013504,
+          "max_batch_completion_p95_seconds": 0.16148047000024235,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 3.585681823999039,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.0033503683371236548,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 1070.235109455877,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "downloads",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9277739107496111,
+      "ratio_median": 1.0953292384557924,
+      "ratio_max": 1.1718784754074627,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.4505790676679074,
+          "mean_lifecycle_cpu_seconds": 0.46831799999999646,
+          "peak_sampled_rss_bytes": 109031424,
+          "max_batch_completion_p95_seconds": 0.10323904600227252,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 3.0359441510008764,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.4173161630011843,
+          "mean_lifecycle_cpu_seconds": 0.4337113333333302,
+          "peak_sampled_rss_bytes": 109031424,
+          "max_batch_completion_p95_seconds": 0.0871468300028937,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 2.918773206998594,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.0332629046667231,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 87.74859670985364,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "pipeline",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.9558588690797493,
+      "ratio_median": 1.0904917529305218,
+      "ratio_max": 1.3025010949298106,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.5822282123323627,
+          "mean_lifecycle_cpu_seconds": 1.162966666666667,
+          "peak_sampled_rss_bytes": 150736896,
+          "max_batch_completion_p95_seconds": 0.2568273609977041,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 4.871985585999937,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "process",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.5366432606667028,
+          "mean_lifecycle_cpu_seconds": 1.076580000000007,
+          "peak_sampled_rss_bytes": 150753280,
+          "max_batch_completion_p95_seconds": 0.13570045954984378,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 4.830368729002657,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.0455849516656599,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 105.96410772639857,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "sqlite",
+      "accepted": true,
+      "coverage_within_ten_percent": 0.8333333333333334,
+      "ratio_min": 0.9051748675290733,
+      "ratio_median": 1.0255365576170523,
+      "ratio_max": 1.147080170198399,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.09222361400194738,
+          "mean_lifecycle_cpu_seconds": 0.09550733333334449,
+          "peak_sampled_rss_bytes": 110129152,
+          "max_batch_completion_p95_seconds": 0.006802839748525002,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 1.2488311099987186,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.09075078300035481,
+          "mean_lifecycle_cpu_seconds": 0.09310899999999833,
+          "peak_sampled_rss_bytes": 110129152,
+          "max_batch_completion_p95_seconds": 0.018911417999333935,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 1.324876092003251,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.0014728310015925672,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 899.5438652300684,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "discovery",
+      "accepted": true,
+      "coverage_within_ten_percent": 0.8333333333333334,
+      "ratio_min": 0.7437788066617551,
+      "ratio_median": 1.0810801707021338,
+      "ratio_max": 1.094979477333555,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.13446054266387364,
+          "mean_lifecycle_cpu_seconds": 0.14338033333333064,
+          "peak_sampled_rss_bytes": 110678016,
+          "max_batch_completion_p95_seconds": 0.02490821799801779,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 1.7362545659998432,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 1,
+            "batch_size": 4,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 0.13596583833229184,
+          "mean_lifecycle_cpu_seconds": 0.14396766666666375,
+          "peak_sampled_rss_bytes": 110669824,
+          "max_batch_completion_p95_seconds": 0.03820458400150528,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 1.7223354889974871,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": -0.0015052956684181995,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": null,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    },
+    {
+      "name": "video",
+      "accepted": true,
+      "coverage_within_ten_percent": 1.0,
+      "ratio_min": 0.960476623084804,
+      "ratio_median": 1.006246563004412,
+      "ratio_max": 1.0354526205527956,
+      "engines": {
+        "stdlib": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 4.53935215366558,
+          "mean_lifecycle_cpu_seconds": 9.62284200000002,
+          "peak_sampled_rss_bytes": 570871808,
+          "max_batch_completion_p95_seconds": 0.4668562846010899,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 29.331908690997807,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        },
+        "intelligent": {
+          "configuration": {
+            "backend": "thread",
+            "workers": 2,
+            "batch_size": 1,
+            "profile_sample_interval": 0
+          },
+          "mean_cold_plus_warm_seconds": 4.531565664664716,
+          "mean_lifecycle_cpu_seconds": 9.613217333333333,
+          "peak_sampled_rss_bytes": 355446784,
+          "max_batch_completion_p95_seconds": 0.4722992833501848,
+          "total_task_errors": 0,
+          "configuration_search_seconds": 30.4324030889984,
+          "heldout_seeds": 3,
+          "items_per_phase": 24
+        }
+      },
+      "observed_mean_cycle_savings_seconds": 0.007786489000864094,
+      "illustrative_cycles_to_repay_intelligent_execution_search_only": 3908.360120411293,
+      "amortization_limit": "Conditional arithmetic from observed mean, not demonstrated long-run repayment or statistical significance. Search cost excludes shared fixture generation, sequential references, hold-out validation, input curation and operational adoption. No positive saving means no throughput repayment established.",
+      "source_report": "benchmarks/results/representative-remaining.json"
+    }
+  ]
+}

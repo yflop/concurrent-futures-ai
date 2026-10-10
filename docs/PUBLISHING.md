@@ -33,14 +33,18 @@ remote source, CI, release assets, and package-index metadata separately.
    publication workflow; exclude local build output and untracked files.
 3. Write `SHA256SUMS.txt` covering the wheel, source distribution, and source ZIP.
    Upload these four files to the new release and verify the published assets.
-4. Mark research-alpha GitHub releases as prereleases. Explain the optional MCP
-   dependency and transport limits, experimental behavior, and known limitations.
+4. State the approved Beta maturity and experimental capability limits. Explain
+   the optional MCP dependency, transport boundaries and known limitations.
    Include the source commit, CI evidence, and actual verification results.
-   Do not imply planned concepts are implemented or claim unmeasured speedups.
+   Select the GitHub prerelease flag according to the approved release plan;
+   do not infer that decision from the package classifier alone. Do not imply
+   planned concepts are implemented or claim unmeasured speedups.
 
-The GitHub prerelease flag is separate from Python's version ordering. A version
-such as `0.2.0` is a normal index version even when its GitHub release is marked as
-an alpha/prerelease. The package's alpha classifier documents project maturity.
+Version 0.4 has Beta maturity. The publication workflow requires source and
+built-artifact verification, exact-commit CI, review and source-matched endurance
+evidence. Beta is not Production/Stable or a production certification. The GitHub prerelease flag, Python version ordering,
+and package maturity classifier are separate: a version such as `0.4.0` is a
+normal index version even if its GitHub release is marked as a prerelease.
 
 ## PyPI publication
 

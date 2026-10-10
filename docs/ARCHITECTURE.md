@@ -1,48 +1,94 @@
 # Architecture
 
+Intelligent Futures is a workload-aware execution framework for Python that
+automates the evaluation and selection of concurrency configurations. Execution
+policies, workload characteristics, runtime measurements, and adaptive
+optimisation help identify effective thread and process strategies under defined
+resource constraints. Its purpose is configuration quality; the execution layer
+does not promise to outperform the same stdlib configuration for every workload.
+
 ```
-caller -> condition-protected admission -> policy -> validated routing
-                                                -> ThreadPoolExecutor
-                                                -> ProcessPoolExecutor (optional)
-          completion callback <- genuine backend Future
-                 -> counters + bounded per-key EWMA profiles -> next choice
+caller -> condition-protected admission -> policy + immutable load -> validated route
+          -> executor-owned per-backend FIFO -> bounded dispatch -> stdlib pool
+          <- executor-owned standard Future <- owned completion pump <- backend acknowledgement
+          -> counters + bounded profiles -> later routing/admission decisions
 ```
 
-No scheduler thread, event loop, remote service, or generated code is required.
-The underlying executors own task lifecycle and process transport. A single
-condition lock guards admission, counts, profile updates, lifecycle state, and
-policy choice. Worker callbacks decrement admission and notify waiting producers.
-The scheduling lock is not held while waiting for worker-pool shutdown.
+The executor owns genuine `concurrent.futures.Future` objects and removable queued
+payloads. Backend Futures remain internal. Separate thread/process FIFOs preserve
+accepted queue order within each backend; they do not promise producer fairness or
+completion order. Backend transport and execution remain stdlib responsibilities.
+A condition lock guards admission, queues, dispatch slots, counts, profile updates,
+and lifecycle state. Backend callbacks only enqueue completion notifications;
+one executor-owned completion pump handles dispatch acknowledgement and public
+result publication. The pump starts lazily and retires when the executor is idle.
+This avoids entering scheduling/user code while a backend holds its internal
+completion locks. No event loop, remote service, or generated code is needed.
+Explicit shutdown starts a coordinator to drain accepted work, join completion
+handling, and join both pools.
 
-A submission is counted only after the backend accepts it. The done callback is
-installed under the reentrant lock; if work already completed, Python immediately
-invokes it. This prevents shutdown from overtaking callback registration. Metrics use a monotonic performance clock.
+`max_pending` caps both logical unfinished tasks and retained scheduling items
+(owned queued plus dispatched work). Each backend has at most its worker budget
+of outstanding dispatches. Cancelling an owned queued Future removes its payload;
+a cancelled dispatched thread item retains its physical slot until backend
+acknowledgement. Process Futures become `RUNNING` at dispatch commitment, before
+the child callable necessarily starts, and cannot then be cancelled.
 
-## Why lightweight online learning?
+Acceptance may precede backend submission when a dispatch slot is occupied.
+Immediate backend submission failure raises from `submit`; a later dispatch
+failure is published on the already accepted Future. Neither path replays work.
+Accounting is registered before the public Future is returned. Application
+completion callbacks and pool joins run outside the scheduling lock. Metrics use
+a monotonic performance clock.
+
+Normal completion callbacks run serially on the owned completion pump. They must
+not wait for another Future from the same executor, even when worker slots are
+free: the other result may need that blocked pump to become public. Slow callbacks
+can delay result publication, acknowledgement and further dispatch. Use callbacks
+to notify an external coordinator rather than wait for dependencies. A callback
+added after completion, or invoked by external cancellation, may run on the caller
+instead. Standard Future API compatibility does not imply identical stdlib
+callback/thread scheduling or interpreter-exit behavior.
+
+## Transparent online decisions
 
 An LLM in a hot scheduling path would add network latency, nondeterminism, privacy
-risk, and an unearned claim of safety. Here, the transparent learner is a small
-baseline: after sufficient comparable successful observations from both backends,
-it chooses the lower EWMA latency, occasionally explores the alternative, and
-continues adapting. Explicit consent gates every process choice.
+risk, and an unearned claim of safety. The built-in adaptive policy instead uses
+explicit task hints, bounded per-workload exploration, and live queue/dispatch-slot
+counts. With sufficient comparable uncontended observations from both backends,
+it ranks an uncontended completion EWMA multiplied by a queue-pressure factor. A
+switch margin suppresses small ranking changes. Without sufficient observations,
+it uses hints and can divert an established backlog with a material pressure gap.
+Explicit consent gates every process choice; exploration never replays a task.
 
-This is a useful experimental seam, not a statistically rigorous contextual
-bandit implementation. It lacks uncertainty estimates, queue-length features,
-automatic size features, causal counterfactuals, failure-aware decisions, and drift tests.
-The separate opt-in 0.3 predictor adds caller-supplied exact feature buckets and
-qualitative provenance labels, not calibrated statistical uncertainty.
-The catalog describes how those could be added with explicit experiments.
+An uncontended observation means that the selected backend had no outstanding
+work when the task was accepted. It still includes cold startup, dispatch,
+serialization, result transfer, and completion handling. Load counts occupied
+slots and queued work, not CPU utilisation. These are auditable heuristics, not
+intrinsic service-time estimates, optimality guarantees, or a statistically
+rigorous contextual bandit. There are no automatic input features, causal
+counterfactuals, calibrated uncertainty estimates, or drift guarantees. The
+opt-in predictor adds exact caller-supplied feature buckets and qualitative
+provenance labels. Offline tuning separately evaluates explicit configurations.
 
 ## Deliberate boundaries
 
-- Admission count bounds retained unfinished jobs, not argument byte size or RSS.
+- Logical and physical item-count limits do not bound argument bytes, results,
+  blocked producer memory, process transport bytes, native allocations, or RSS.
 - No task arguments/results are inspected or copied for profiling.
 - Worker counts never change dynamically; backend infrastructure may start lazily.
 - `process_safe` is supplied by a knowledgeable caller, not inferred from code.
 - Process pickle execution is trusted-code execution, never an isolation sandbox.
 - Metrics are in memory, coarse, and local to an executor.
 - Extension factories are trusted Python code, not a plugin sandbox.
-- Error propagation/cancellation remain owned by stdlib Future implementations.
+- Standard Future result, exception, wait and cancellation APIs apply; public
+  Future identity is executor-owned, not backend identity.
+- No preemption, dependency-deadlock prevention, callback isolation, or automatic
+  retry is provided.
+- Use a context manager or explicit `shutdown(wait=True)` to guarantee accepted
+  work is drained before interpreter exit. Implicit stdlib teardown is not an
+  equivalent contract: deferred dispatch can fail with `RuntimeError` if pools
+  have already begun interpreter shutdown.
 
 ## Repository structure
 
@@ -90,6 +136,9 @@ validated JSON transfer. `IntelligentExecutor(predictive=True)` measures success
 thread-call wall and current-thread CPU time at a configurable sampling interval.
 A predictor uses compatible observed buckets or an explicitly unvalidated foreign
 hardware prior to adjust admission, bounded by objective, worker and pending limits.
+Its live-load adjustment uses queue/dispatch-slot demand and a bounded switching
+history. The admission limit is global across both backends: a smaller prediction
+can leave the other backend idle. Work-conserving scheduling is not guaranteed.
 Pool objects and their private worker counts remain unchanged. Explicit routing
 policies and process consent still constrain backend selection.
 

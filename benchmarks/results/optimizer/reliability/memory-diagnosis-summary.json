@@ -1,0 +1,66 @@
+{
+  "scope": "Short fresh-process allocation diagnosis, not a reproduction or pass of the original endurance gate",
+  "limitations": [
+    "Five-second epochs with per-epoch GC, tracemalloc instrumentation and no fault probes differ from the original twenty-minute test.",
+    "Equal wall budgets yield different completed pass counts; individual inputs and workload order are identical.",
+    "Direct execution has lower concurrency than the matched stdlib/intelligent executor comparisons.",
+    "Allocator trim is a diagnostic operation only, not used by the package or to decide the original gate.",
+    "Reclaimable pages do not establish which allocator/library caused the high-water or prove leak freedom."
+  ],
+  "script_sha256": "ca2418a4576d3cc2c24cf0fe9c1d2bf1fc13f6a1c6b06f147f5f8ce4565e1939",
+  "script_public_location": "benchmarks/real_world/memory_diagnostics.py",
+  "runs": [
+    {
+      "engine": "intelligent",
+      "raw_sha256": "4578aedabc982fb037192aa4fc12e266b49e94efb3e63cf670bf6a5dd8c6f2e0",
+      "epoch_count": 22,
+      "completed_fixture_passes": 1442,
+      "unexpected_errors": 0,
+      "digest_mismatches": 0,
+      "parent_growth_before_trim_bytes": 165752832,
+      "parent_growth_after_diagnostic_trim_bytes": 90218496,
+      "traced_final_current_bytes": 2144713,
+      "tracemalloc_metadata_bytes": 748144,
+      "final_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      }
+    },
+    {
+      "engine": "stdlib",
+      "raw_sha256": "e3948cc8c9936a4894ee13c7fd6cecba4a9c477d5d69eb3a872f5c42585c62d2",
+      "epoch_count": 22,
+      "completed_fixture_passes": 1567,
+      "unexpected_errors": 0,
+      "digest_mismatches": 0,
+      "parent_growth_before_trim_bytes": 126046208,
+      "parent_growth_after_diagnostic_trim_bytes": 37953536,
+      "traced_final_current_bytes": 2140094,
+      "tracemalloc_metadata_bytes": 602384,
+      "final_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      }
+    },
+    {
+      "engine": "direct",
+      "raw_sha256": "c1c4dc78bcd3f5ab37efcee42180ebb88c1c97eeef876231e3dfdf8e94ac9416",
+      "epoch_count": 22,
+      "completed_fixture_passes": 435,
+      "unexpected_errors": 0,
+      "digest_mismatches": 0,
+      "parent_growth_before_trim_bytes": 18046976,
+      "parent_growth_after_diagnostic_trim_bytes": -50098176,
+      "traced_final_current_bytes": 2134296,
+      "tracemalloc_metadata_bytes": 578768,
+      "final_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      }
+    }
+  ],
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "5d88aec22ce0fbef4c16cb83b9318cc966aa6d2693f2bc5003102f8ddcaba1c5",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

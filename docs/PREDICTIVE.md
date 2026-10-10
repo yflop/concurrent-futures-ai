@@ -2,8 +2,11 @@
 
 This opt-in experiment moves toward **callable + input summaries + hardware +
 objective → an efficient, constrained execution strategy**. It is not a learned
-cross-machine performance model or a promise of speedup. Existing default
-executor behavior is unchanged when `predictive=False`.
+cross-machine performance model or a promise of speedup. `predictive=False`
+disables predictive admission and service-time profiling; the core executor's
+owned FIFO, physical bounds and load-aware adaptive routing still apply. The wider
+framework evaluates and selects configurations; it does not promise a universal
+same-configuration execution-engine improvement.
 
 ## Start safely
 
@@ -49,7 +52,10 @@ eighth invocation in each key/feature bucket, reducing overhead for tiny tasks.
 Sampling is deterministic, not an unbiased statistical sampling guarantee;
 periodic workloads can alias the interval. Counters remain bounded. Failures and cancellation do
 not train successful-runtime profiles. Existing snapshot latency profiles still
-measure submission-to-completion, including queueing and serialization.
+measure accepted-submission-to-completion, including owned queueing, startup,
+dispatch and serialization. Their `uncontended_*` subset records work accepted
+when the chosen backend had no outstanding work; it still includes startup and
+serialization and is distinct from predictive callable service-time samples.
 
 Process runtime and per-task RSS are **unavailable** in the predictive executor.
 A process result is not silently wrapped or replayed. `RuntimeSample` lets an
@@ -85,24 +91,48 @@ trained transfer-learning. Local measured CPU/wall evidence supersedes it. With 
 CPU/wall ratios to guide a heuristic budget, without freezing later bursts at one
 worker. This has `source="measurement-guided"` when CPU measurements are available.
 With multiple eligible buckets it ranks observed choices (`source="empirical"`):
-latency selects shortest mean time, throughput uses the labeled proxy, and
-balanced excludes choices more than 25% slower than the fastest bucket. Latency
-mode can use a single observed bucket. `Prediction.confidence` is a qualitative label: heuristic, observational, or
+without live load, latency selects shortest mean time and throughput uses the
+labeled proxy. Balanced excludes choices more than 25% slower than the fastest
+bucket. Latency mode can use a single observed bucket. `Prediction.confidence` is a qualitative label: heuristic, observational, or
 unvalidated; none is a calibrated probability. Scaling buckets expose
 `provenance="observational-concurrency-bucket"`. Samples are bounded and aging is FIFO;
 there is no causal inference, explicit experiment design, or drift guarantee.
 
-Admission caps **all accepted unfinished tasks** at the prediction, objective,
-configured backend worker capacity, and `max_pending`. Capacity changes affect
+The executor supplies an immutable `SchedulingLoad` to
+`Predictor.recommend(..., load=...)`. It records per-backend workers, queued items
+and occupied dispatch slots, not CPU utilisation. With load, latency ranking
+scales observed service time by queue pressure, while throughput/balanced ranking
+caps useful concurrency by capacity and current demand. A bounded per-workload
+switch margin (10% by default) suppresses small ranking changes. The recommended
+budget is also capped by selected-backend outstanding work plus one, with the
+objective's lower bound applied. Later arrivals can grow it again.
+
+`Prediction.load_adjusted` identifies this path and `stabilized` reports when the
+switch margin retained an incumbent. `expected_wall_seconds`, when present,
+remains an observed service-time mean, not a queueing or batch-duration forecast.
+If demand adjustment changes an empirical concurrency, the source becomes
+`measurement-guided` and that unmeasured expected time is cleared. These controls
+are heuristic; queue pressure is never stored as a service-time measurement.
+
+Admission caps **all accepted unfinished tasks globally** at the prediction,
+objective, selected routing backend's worker capacity, and `max_pending`.
+Separately, owned queued plus dispatched items cannot exceed `max_pending`, and
+each backend's dispatches cannot exceed its worker budget. Capacity changes affect
 future admission, never mutate live stdlib pool internals or kill running tasks.
 A smaller limit can temporarily be below already accepted work; new submissions
-wait for it to drain. `submit_timeout` still limits admission only.
+wait for it to drain. Because the pending limit is global, load on one backend can
+prevent admission to an otherwise idle backend. This is not a work-conserving
+scheduling guarantee. `submit_timeout` still limits admission only.
 `min_concurrency` must fit every enabled backend and pending budget; it is a
 search lower bound, not a promise that tasks will run simultaneously.
 
 With `predictive=True`, default `policy="adaptive"` selects predictive routing.
 Explicit `policy="threads"`, `"hints"`, or a custom policy retains routing control;
-predictions then only constrain admission. Processes still require BOTH
+its selected route is passed as `Predictor.recommend(..., backend=...)` so observed
+backend ranking, live demand and capacity refer to that actual route. Predictions
+then constrain admission without changing the explicit route. The public
+`backend` option accepts `None`, `"thread"`, or `"process"`; it never supplies
+process consent or enables a disabled backend. Processes still require BOTH
 `process_workers > 0` and `TaskHints(process_safe=True)`, regardless of imported
 profiles. No pickling failure, crash, or exception triggers a retry or fallback.
 
@@ -151,12 +181,23 @@ gets its own call/Future. It does not amortize dispatch like `map_batches`.
 - Unknown schema versions/fields, duplicate object keys, nonfinite numbers,
   malformed samples, excessive sizes, and unsupported values are rejected.
   JSON is data only; there is no pickle import or code loading.
-- `max_pending` in the legacy executor bounds logical unfinished Futures, not
-  physical cancelled queue entries. Repeatedly cancelling queued tasks while
-  workers remain blocked can retain queue entries and arguments until workers
-  drain them. None of these APIs impose a hard RSS bound; results and arbitrary
-  callables may allocate memory. Predictive admission is additionally capped by
-  backend worker capacity but is not a memory isolation mechanism.
+- The core executor owns standard Futures and removable FIFO queues. Owned
+  queued cancellation removes payloads; successful dispatched thread cancellation
+  retains a physical slot until backend acknowledgement. Process Futures commit
+  to `RUNNING` at dispatch and cannot then be cancelled. Older cancellation-churn
+  artifacts describe the earlier direct-submission implementation.
+- Logical and physical item-count bounds do not impose byte/RSS limits. Callable
+  inputs/results, blocked producers, transport buffers and native allocations can
+  consume arbitrary memory. There is no task preemption or callback isolation.
+- Normal completion callbacks run serially on one owned completion pump. Never
+  wait for another Future from this executor inside a callback, even with free
+  worker slots; result publication may need that same pump. Immediate callbacks
+  added after completion and external cancellation callbacks can run on the caller.
+  Future API compatibility does not imply identical stdlib callback scheduling.
+- Use a context manager or explicit `shutdown(wait=True)` to guarantee accepted
+  work is drained before interpreter exit. Omitted shutdown can leave deferred
+  submissions to settle with `RuntimeError` during backend teardown; implicit
+  stdlib exit behavior is not an equivalent lifecycle contract.
 - Nested blocking submission into a saturated bounded executor can deadlock,
   as can tasks that require more peers than the current admission limit. Use a
   suitable explicit fixed policy/budget for barrier-style workloads.

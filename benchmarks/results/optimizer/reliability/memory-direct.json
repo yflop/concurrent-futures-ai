@@ -1,0 +1,2523 @@
+{
+  "engine": "direct",
+  "epoch_seconds": 5.0,
+  "scope": "short fresh-process allocation diagnosis; not a repeat or replacement of 20-minute endurance",
+  "epochs": [
+    {
+      "epoch": 0,
+      "workload": "http",
+      "backend": "direct",
+      "passes": 62,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 148639744
+      },
+      "traced_current_bytes": 49744,
+      "traced_peak_bytes": 8509741,
+      "tracemalloc_overhead_bytes": 137808,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 148639744
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 15572,
+          "count_diff": 327
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7802,
+          "count_diff": 166
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1104,
+          "count_diff": 2
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 760,
+          "count_diff": 2
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 600,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 400,
+          "count_diff": 1
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 392,
+          "count_diff": 7
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 368,
+          "count_diff": 6
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 312,
+          "count_diff": 2
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 312,
+          "count_diff": 2
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 304,
+          "count_diff": 2
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 288,
+          "count_diff": 1
+        }
+      ]
+    },
+    {
+      "epoch": 1,
+      "workload": "images",
+      "backend": "direct",
+      "passes": 9,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 148647936
+      },
+      "traced_current_bytes": 86388,
+      "traced_peak_bytes": 11153912,
+      "tracemalloc_overhead_bytes": 218960,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 148647936
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10740,
+          "count_diff": 231
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6533,
+          "count_diff": 139
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6069,
+          "count_diff": 119
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4957,
+          "count_diff": 95
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 4231,
+          "count_diff": 60
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3465,
+          "count_diff": 55
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1976,
+          "count_diff": 22
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1638,
+          "count_diff": 26
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1568,
+          "count_diff": 12
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1512,
+          "count_diff": 24
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1200,
+          "count_diff": 10
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1104,
+          "count_diff": 2
+        }
+      ]
+    },
+    {
+      "epoch": 2,
+      "workload": "geospatial",
+      "backend": "direct",
+      "passes": 2,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 149696512
+      },
+      "traced_current_bytes": 86659,
+      "traced_peak_bytes": 11153912,
+      "tracemalloc_overhead_bytes": 256080,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 149696512
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10416,
+          "count_diff": 224
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6533,
+          "count_diff": 139
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5865,
+          "count_diff": 115
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4853,
+          "count_diff": 93
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 4231,
+          "count_diff": 60
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3952,
+          "count_diff": 44
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3465,
+          "count_diff": 55
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3176,
+          "count_diff": 24
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1800,
+          "count_diff": 15
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1575,
+          "count_diff": 25
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1512,
+          "count_diff": 24
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1200,
+          "count_diff": 3
+        }
+      ]
+    },
+    {
+      "epoch": 3,
+      "workload": "cached_http",
+      "backend": "direct",
+      "passes": 28,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 149708800
+      },
+      "traced_current_bytes": 195338,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 446704,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 149708800
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 11576,
+          "count_diff": 240
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8200,
+          "count_diff": 164
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8037,
+          "count_diff": 171
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5984,
+          "count_diff": 67
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4747,
+          "count_diff": 36
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3681,
+          "count_diff": 50
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3519,
+          "count_diff": 69
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2400,
+          "count_diff": 20
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1929,
+          "count_diff": 37
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1600,
+          "count_diff": 4
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1520,
+          "count_diff": 4
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1472,
+          "count_diff": 24
+        }
+      ]
+    },
+    {
+      "epoch": 4,
+      "workload": "downloads",
+      "backend": "direct",
+      "passes": 20,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150122496
+      },
+      "traced_current_bytes": 116882,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 430224,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150122496
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 20624,
+          "count_diff": 408
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13724,
+          "count_diff": 292
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8016,
+          "count_diff": 90
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6500,
+          "count_diff": 130
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6316,
+          "count_diff": 48
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3571,
+          "count_diff": 48
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3000,
+          "count_diff": 25
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2280,
+          "count_diff": 6
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2193,
+          "count_diff": 43
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2000,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1840,
+          "count_diff": 30
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1472,
+          "count_diff": 46
+        }
+      ]
+    },
+    {
+      "epoch": 5,
+      "workload": "pipeline",
+      "backend": "direct",
+      "passes": 2,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150122496
+      },
+      "traced_current_bytes": 105907,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 426864,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150122496
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 20312,
+          "count_diff": 402
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13536,
+          "count_diff": 288
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10048,
+          "count_diff": 113
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7873,
+          "count_diff": 60
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6500,
+          "count_diff": 130
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3571,
+          "count_diff": 48
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3480,
+          "count_diff": 29
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2400,
+          "count_diff": 6
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2280,
+          "count_diff": 6
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2208,
+          "count_diff": 36
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2193,
+          "count_diff": 43
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1856,
+          "count_diff": 58
+        }
+      ]
+    },
+    {
+      "epoch": 6,
+      "workload": "ocr",
+      "backend": "direct",
+      "passes": 1,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150122496
+      },
+      "traced_current_bytes": 125910,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 450320,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150122496
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 19276,
+          "count_diff": 381
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13207,
+          "count_diff": 281
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 12080,
+          "count_diff": 136
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9430,
+          "count_diff": 72
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6350,
+          "count_diff": 127
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3960,
+          "count_diff": 33
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3876,
+          "count_diff": 76
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3571,
+          "count_diff": 48
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2800,
+          "count_diff": 7
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2576,
+          "count_diff": 42
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2280,
+          "count_diff": 6
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2240,
+          "count_diff": 70
+        }
+      ]
+    },
+    {
+      "epoch": 7,
+      "workload": "dedup",
+      "backend": "direct",
+      "passes": 4,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150126592
+      },
+      "traced_current_bytes": 2042954,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 520336,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150126592
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 19232,
+          "count_diff": 380
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 14112,
+          "count_diff": 159
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13160,
+          "count_diff": 280
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10987,
+          "count_diff": 84
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6350,
+          "count_diff": 127
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4440,
+          "count_diff": 37
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3876,
+          "count_diff": 76
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3571,
+          "count_diff": 48
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3200,
+          "count_diff": 8
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2944,
+          "count_diff": 48
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 2624,
+          "count_diff": 82
+        }
+      ]
+    },
+    {
+      "epoch": 8,
+      "workload": "sqlite",
+      "backend": "direct",
+      "passes": 14,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150126592
+      },
+      "traced_current_bytes": 2220561,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 717840,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150126592
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 19180,
+          "count_diff": 379
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 16144,
+          "count_diff": 182
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13066,
+          "count_diff": 278
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 12542,
+          "count_diff": 96
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6350,
+          "count_diff": 127
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4920,
+          "count_diff": 41
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3876,
+          "count_diff": 76
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3600,
+          "count_diff": 9
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3571,
+          "count_diff": 48
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3312,
+          "count_diff": 54
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3008,
+          "count_diff": 94
+        }
+      ]
+    },
+    {
+      "epoch": 9,
+      "workload": "discovery",
+      "backend": "direct",
+      "passes": 71,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150179840
+      },
+      "traced_current_bytes": 2092313,
+      "traced_peak_bytes": 12874021,
+      "tracemalloc_overhead_bytes": 552240,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 150179840
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 25892,
+          "count_diff": 529
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 19646,
+          "count_diff": 418
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 18176,
+          "count_diff": 205
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 14097,
+          "count_diff": 108
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9165,
+          "count_diff": 195
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5520,
+          "count_diff": 46
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4000,
+          "count_diff": 10
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3800,
+          "count_diff": 10
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3680,
+          "count_diff": 60
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3450,
+          "count_diff": 69
+        },
+        {
+          "traceback": "<frozen abc>:123",
+          "size_diff": 3406,
+          "count_diff": 45
+        }
+      ]
+    },
+    {
+      "epoch": 10,
+      "workload": "video",
+      "backend": "direct",
+      "passes": 4,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152653824
+      },
+      "traced_current_bytes": 2099874,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 563888,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152653824
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 20208,
+          "count_diff": 228
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 17072,
+          "count_diff": 354
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 16920,
+          "count_diff": 360
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 15630,
+          "count_diff": 120
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 11067,
+          "count_diff": 217
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7567,
+          "count_diff": 161
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6000,
+          "count_diff": 50
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4725,
+          "count_diff": 75
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4400,
+          "count_diff": 11
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4048,
+          "count_diff": 66
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3800,
+          "count_diff": 10
+        }
+      ]
+    },
+    {
+      "epoch": 11,
+      "workload": "http",
+      "backend": "direct",
+      "passes": 64,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152653824
+      },
+      "traced_current_bytes": 2091638,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 556560,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152653824
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 22240,
+          "count_diff": 251
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 20268,
+          "count_diff": 419
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 17239,
+          "count_diff": 132
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13630,
+          "count_diff": 290
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6600,
+          "count_diff": 55
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4800,
+          "count_diff": 12
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4700,
+          "count_diff": 100
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4437,
+          "count_diff": 87
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4416,
+          "count_diff": 72
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4160,
+          "count_diff": 130
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3800,
+          "count_diff": 10
+        }
+      ]
+    },
+    {
+      "epoch": 12,
+      "workload": "images",
+      "backend": "direct",
+      "passes": 10,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152653824
+      },
+      "traced_current_bytes": 2107418,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 564272,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152653824
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 24272,
+          "count_diff": 274
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 18832,
+          "count_diff": 144
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 14776,
+          "count_diff": 310
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 11985,
+          "count_diff": 255
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8772,
+          "count_diff": 172
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7200,
+          "count_diff": 60
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5200,
+          "count_diff": 13
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4784,
+          "count_diff": 78
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4544,
+          "count_diff": 142
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4512,
+          "count_diff": 96
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4347,
+          "count_diff": 69
+        }
+      ]
+    },
+    {
+      "epoch": 13,
+      "workload": "geospatial",
+      "backend": "direct",
+      "passes": 2,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152776704
+      },
+      "traced_current_bytes": 2103100,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 562640,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152776704
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 26304,
+          "count_diff": 297
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 20443,
+          "count_diff": 156
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 14408,
+          "count_diff": 302
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 11844,
+          "count_diff": 252
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8517,
+          "count_diff": 167
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7800,
+          "count_diff": 65
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5600,
+          "count_diff": 14
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5152,
+          "count_diff": 84
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4928,
+          "count_diff": 154
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4512,
+          "count_diff": 96
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4221,
+          "count_diff": 67
+        }
+      ]
+    },
+    {
+      "epoch": 14,
+      "workload": "cached_http",
+      "backend": "direct",
+      "passes": 29,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152776704
+      },
+      "traced_current_bytes": 2208417,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 595440,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 152776704
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 28336,
+          "count_diff": 320
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 22054,
+          "count_diff": 168
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 15592,
+          "count_diff": 324
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9635,
+          "count_diff": 205
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8400,
+          "count_diff": 70
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8150,
+          "count_diff": 163
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6000,
+          "count_diff": 15
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5520,
+          "count_diff": 90
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5312,
+          "count_diff": 166
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5253,
+          "count_diff": 103
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4040,
+          "count_diff": 85
+        }
+      ]
+    },
+    {
+      "epoch": 15,
+      "workload": "downloads",
+      "backend": "direct",
+      "passes": 20,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "traced_current_bytes": 2117120,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 566640,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 30368,
+          "count_diff": 343
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 24184,
+          "count_diff": 494
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 23690,
+          "count_diff": 180
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13583,
+          "count_diff": 289
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9000,
+          "count_diff": 75
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6400,
+          "count_diff": 16
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5888,
+          "count_diff": 96
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5696,
+          "count_diff": 178
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4272,
+          "count_diff": 90
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4150,
+          "count_diff": 83
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3800,
+          "count_diff": 10
+        }
+      ]
+    },
+    {
+      "epoch": 16,
+      "workload": "pipeline",
+      "backend": "direct",
+      "passes": 2,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "traced_current_bytes": 2105542,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 561808,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 32400,
+          "count_diff": 366
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 25303,
+          "count_diff": 192
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 23800,
+          "count_diff": 486
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 13113,
+          "count_diff": 279
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9480,
+          "count_diff": 79
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6800,
+          "count_diff": 17
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6256,
+          "count_diff": 102
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6080,
+          "count_diff": 190
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4504,
+          "count_diff": 95
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4150,
+          "count_diff": 83
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3800,
+          "count_diff": 10
+        }
+      ]
+    },
+    {
+      "epoch": 17,
+      "workload": "ocr",
+      "backend": "direct",
+      "passes": 1,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "traced_current_bytes": 2125092,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 569200,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 34432,
+          "count_diff": 389
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 26916,
+          "count_diff": 204
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 22528,
+          "count_diff": 460
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 12737,
+          "count_diff": 271
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9960,
+          "count_diff": 83
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7200,
+          "count_diff": 18
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6624,
+          "count_diff": 108
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6464,
+          "count_diff": 202
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4792,
+          "count_diff": 101
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4692,
+          "count_diff": 92
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4000,
+          "count_diff": 80
+        }
+      ]
+    },
+    {
+      "epoch": 18,
+      "workload": "dedup",
+      "backend": "direct",
+      "passes": 4,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "traced_current_bytes": 2119706,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 567760,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 36464,
+          "count_diff": 412
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 28552,
+          "count_diff": 216
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 22432,
+          "count_diff": 458
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 12690,
+          "count_diff": 270
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10440,
+          "count_diff": 87
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7600,
+          "count_diff": 19
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6992,
+          "count_diff": 114
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 6848,
+          "count_diff": 214
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5080,
+          "count_diff": 107
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4692,
+          "count_diff": 92
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4000,
+          "count_diff": 80
+        }
+      ]
+    },
+    {
+      "epoch": 19,
+      "workload": "sqlite",
+      "backend": "direct",
+      "passes": 14,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "traced_current_bytes": 2297238,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 762928,
+      "gc_collected": 0,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 38496,
+          "count_diff": 435
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 30188,
+          "count_diff": 228
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 22240,
+          "count_diff": 454
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 12596,
+          "count_diff": 268
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10920,
+          "count_diff": 91
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8000,
+          "count_diff": 20
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7360,
+          "count_diff": 120
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7232,
+          "count_diff": 226
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5368,
+          "count_diff": 113
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4692,
+          "count_diff": 92
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 4000,
+          "count_diff": 80
+        }
+      ]
+    },
+    {
+      "epoch": 20,
+      "workload": "discovery",
+      "backend": "direct",
+      "passes": 68,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "traced_current_bytes": 2161912,
+      "traced_peak_bytes": 68610961,
+      "tracemalloc_overhead_bytes": 588368,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157511680
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 40528,
+          "count_diff": 458
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 31824,
+          "count_diff": 240
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 28640,
+          "count_diff": 600
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 16873,
+          "count_diff": 359
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 11520,
+          "count_diff": 96
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 9494,
+          "count_diff": 202
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8400,
+          "count_diff": 21
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7728,
+          "count_diff": 126
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 7616,
+          "count_diff": 238
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5656,
+          "count_diff": 119
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 3800,
+          "count_diff": 10
+        }
+      ]
+    },
+    {
+      "epoch": 21,
+      "workload": "video",
+      "backend": "direct",
+      "passes": 4,
+      "errors": 0,
+      "mismatches": 0,
+      "before_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157839360
+      },
+      "traced_current_bytes": 2165922,
+      "traced_peak_bytes": 68676986,
+      "tracemalloc_overhead_bytes": 589936,
+      "gc_collected": 33,
+      "after_gc": {
+        "threads": [
+          "MainThread",
+          "Thread-16 (serve_forever)",
+          "Thread-2 (serve_forever)",
+          "Thread-45 (serve_forever)",
+          "Thread-9 (serve_forever)"
+        ],
+        "children": [
+          [
+            8,
+            "python"
+          ]
+        ],
+        "fds": 13,
+        "rss_bytes": 157839360
+      },
+      "live_scheduler_objects": {
+        "intelligent_futures.tuning.Configuration": 1
+      },
+      "top_python_live_growth": [
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 1922621,
+          "count_diff": 5
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 42560,
+          "count_diff": 481
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 33398,
+          "count_diff": 252
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 18460,
+          "count_diff": 397
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 14288,
+          "count_diff": 304
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 12000,
+          "count_diff": 100
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 10149,
+          "count_diff": 199
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8800,
+          "count_diff": 22
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8554,
+          "count_diff": 182
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8096,
+          "count_diff": 132
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 8000,
+          "count_diff": 250
+        },
+        {
+          "traceback": "[redacted local path]",
+          "size_diff": 5888,
+          "count_diff": 124
+        }
+      ]
+    }
+  ],
+  "baseline": {
+    "threads": [
+      "MainThread",
+      "Thread-16 (serve_forever)",
+      "Thread-2 (serve_forever)",
+      "Thread-45 (serve_forever)",
+      "Thread-9 (serve_forever)"
+    ],
+    "children": [
+      [
+        8,
+        "python"
+      ]
+    ],
+    "fds": 13,
+    "rss_bytes": 139739136
+  },
+  "baseline_objects": {},
+  "final_before_trim": {
+    "threads": [
+      "MainThread"
+    ],
+    "children": [
+      [
+        8,
+        "python"
+      ]
+    ],
+    "fds": 5,
+    "rss_bytes": 157786112
+  },
+  "final_objects": {
+    "intelligent_futures.tuning.Configuration": 1
+  },
+  "final_traced_bytes": [
+    2134296,
+    68676986
+  ],
+  "tracemalloc_overhead_bytes": 578768,
+  "after_tracemalloc_stop": {
+    "threads": [
+      "MainThread"
+    ],
+    "children": [
+      [
+        8,
+        "python"
+      ]
+    ],
+    "fds": 5,
+    "rss_bytes": 157786112
+  },
+  "diagnostic_malloc_trim_return": 1,
+  "after_diagnostic_trim": {
+    "threads": [
+      "MainThread"
+    ],
+    "children": [
+      [
+        8,
+        "python"
+      ]
+    ],
+    "fds": 5,
+    "rss_bytes": 89640960
+  },
+  "status": "complete",
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "c1c4dc78bcd3f5ab37efcee42180ebb88c1c97eeef876231e3dfdf8e94ac9416",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

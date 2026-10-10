@@ -4,7 +4,7 @@
 
 “Ever-expanding” should mean a maintainable collection of ideas that can be searched, tested, promoted, revised, or rejected. It should not mean a background agent silently modifies the package or that every catalog entry is a runtime switch.
 
-The current catalog has 65 concepts with stable IDs, explicit statuses, mechanisms, use cases, risks, benchmark methods, references, and dependencies. `ConceptRegistry` validates the JSON structure and dependency graph and returns read-only-by-copy query results. It never installs plugins or executes catalog prose.
+The catalog gives concepts stable IDs, explicit statuses, mechanisms, use cases, risks, benchmark methods, references, and dependencies. `ConceptRegistry` validates the JSON structure and dependency graph and returns read-only-by-copy query results. It never installs plugins or executes catalog prose.
 
 ```sh
 python -m intelligent_futures "queue" --status planned
@@ -16,7 +16,7 @@ from intelligent_futures import ConceptRegistry
 
 catalog = ConceptRegistry.bundled()
 entry = catalog.get("CF-061")
-assert entry["status"] == "planned"
+print(entry["status"])  # Consult the candidate's source and validation record too.
 for concept in catalog.search("cancellation"):
     print(concept["id"], concept["title"])
 ```
@@ -28,10 +28,10 @@ Search is a simple text match over entry data; references and dependency IDs are
 | Status | Required evidence | What it does not imply |
 | --- | --- | --- |
 | Planned | Clear problem, proposed mechanism, risks, and falsifiable experiment | Runnable code, API support, schedule, or commitment to ship |
-| Experimental | Executable prototype, focused tests, explicit limitations, and a way to select or disable it | Production suitability or measured superiority |
+| Experimental | Executable implementation, focused tests, explicit limitations, and a way to select or disable it | Production suitability or measured superiority |
 | Implemented | Code, documented contract, tests covering normal and failure paths, and a benchmark method | Optimality, portability beyond tested environments, or universal speedup |
 
-The initial EWMA learner is experimental even though `adaptive` is the constructor default. That fact must remain visible. New experiments should normally be opt-in and preserve conservative behavior by default.
+The load-aware EWMA learner is experimental even though `adaptive` is the constructor default. That fact must remain visible. New experiments should normally be opt-in and preserve conservative behavior by default.
 
 A negative experiment should remain discoverable. Record why it failed and under which conditions, rather than relabeling an unhelpful prototype as successful or deleting the evidence. A future schema can add a separate disposition field for rejected or superseded ideas without overloading implementation status.
 
@@ -73,19 +73,25 @@ with IntelligentExecutor(policy=policy, max_pending=8) as executor:
 
 The registry is per instance. Registering `"prefer-threads"` does not modify a global registry or make that name available to every new executor. Pass the created policy object. Factories should create fresh policy state rather than sharing one mutable instance accidentally.
 
+An optional `choose_with_load(hints, profiles, process_available, load)` hook takes precedence over `choose`. Its public immutable `SchedulingLoad`/`BackendLoad` values expose worker budgets, owned queued items and occupied dispatch slots, not measured CPU utilisation. Keep existing three-argument policies working. Custom policies may implement `for_executor(*, max_keys=...)` for independent sessions; otherwise shared custom state must synchronize itself. Exact built-in adaptive templates already create independent sessions.
+
 The core rejects an invalid route or a process route lacking `process_safe=True` and an available process pool. That enforcement is a correctness boundary, not sandboxing. A slow policy still holds the scheduling lock. An untrusted policy must not be loaded into the application.
 
 ## 5. Suggested milestones
 
 ### Milestone 1: Safer admission under cancellation and composition
 
-Prioritize the removable dispatch queue (CF-061), reentrant-submission guard (CF-022), and byte-weighted admission (CF-016). The target is a clearly specified capacity model that remains useful under cancellation churn and nested workloads.
+The removable FIFO mechanism (CF-061) is implemented in version 0.4. It bounds logical unfinished work and physical owned-queued-plus-dispatched items by `max_pending`, bounds each backend's dispatches by its worker count, and removes owned queued payloads on cancellation. Dispatched thread cancellation retains physical capacity until acknowledgement; process Futures commit to running at dispatch. Mechanism completion is separate from operational maturity. Consult the [source-matched verification record](../VALIDATION.md) and [measured reliability boundaries](../CONFIGURATION-QUALITY.md); release-artifact checks and exact-commit CI retain their own gates.
 
-Acceptance evidence should include physical queue and memory plateau tests, cancellation-versus-dispatch races, shutdown with blocked producers, and proof that no callable whose cancellation succeeded later executes. Do not introduce a dispatcher thread without measuring its new overhead and cleanup obligations.
+Acceptance evidence must include retained cancelled public Futures with released queued payloads, physical counter bounds, cancellation-versus-dispatch races, delayed backend acknowledgement, blocked producers, separate-backend progress, deferred dispatch failure, coordinated shutdown, completion-pump retirement, and contained callback reentry.
+Normal completion callbacks run serially on the owned pump and must not wait for
+another Future from the same executor even when workers are free. The updated churn regression must have its own source-matched result; historical tombstone measurements are not current-code verification. Count bounds do not establish a memory plateau for caller-retained results/Futures, transport buffers or arbitrary callable allocations.
+
+Reentrant-submission protection (CF-022) and byte-weighted admission (CF-016) remain separate work. The current targeted waiting-shutdown self-join rejection does not detect general dependency deadlocks. Explicit `with` or `shutdown(wait=True)` is required to guarantee accepted work drains before interpreter exit; implicit stdlib teardown equivalence is not promised.
 
 ### Milestone 2: Better learning evidence
 
-Add provenance (CF-043), size-aware profiles (CF-008), and uncertainty (CF-012) before a more elaborate learned model. Evaluate hard exploration budgets (CF-010) and drift handling (CF-011) on changing workloads.
+The candidate now has live queue/dispatch-slot snapshots, uncontended completion provenance, bounded per-key/kind exploration and switching margins. The opt-in predictor separately uses exact caller-supplied feature buckets and demand-aware admission. None of these supplies calibrated uncertainty or optimality. Continue improving provenance (CF-043), controlled size-aware evidence (CF-008), and uncertainty (CF-012) before a more elaborate learned model. Evaluate hard exploration cost budgets (CF-010) and drift handling (CF-011) on changing workloads.
 
 The target is reduced decision error under a declared workload distribution, not an impressive model name. Require held-out cases, fixed-policy baselines, and accounting for exploration cost. Existing profile eviction means any persistence design must also explain what happens when histories are incomplete.
 
@@ -110,6 +116,12 @@ A policy change needs more than one favorable mean:
 - End-to-end latency including admission, plus throughput and resource measurements.
 - Cold-start, steady-state, tiny-task, and adversarial mixed-workload cases.
 - Comparable worker budgets and transparent parameter tuning.
+- Sparse/bursty demand, unequal backend capacities, and workload shifts; report
+  queue/dispatch occupancy separately from actual CPU measurements.
+- Independent evaluation of configuration-selection quality and calibration cost;
+  distinguish these from same-configuration execution-engine overhead.
+- Explicit evidence of idle capacity caused by global predictive admission rather
+  than an assumed work-conserving scheduling guarantee.
 - Evidence that faster failures or skipped work are not counted as optimization.
 - At least one known weak case and a documented fallback or scope limit.
 
@@ -117,7 +129,7 @@ If a performance check requires a precise speed threshold on shared CI hardware,
 
 ## 7. Backward compatibility and maintenance
 
-Never silently repurpose a `TaskHints` field or consume a keyword from ordinary `submit` that belongs to the callable. Preserve standard Future interoperability. Changing admission from blocking to rejecting, or replacing actual futures with proxies, is a contract change even when function signatures stay the same.
+Never silently repurpose a `TaskHints` field or consume a keyword from ordinary `submit` that belongs to the callable. Preserve standard Future interoperability. Version 0.4 returns genuine executor-owned Futures instead of backend identities, so document that lifecycle change even though common method signatures remain the same. Likewise, changing admission, process dispatch commitment, cancellation acknowledgement or interpreter-exit semantics requires explicit migration notes; signature compatibility is not full lifecycle equivalence.
 
 Keep catalog labels synchronized with shipped code. Review built wheels because documentation files present in a checkout are not automatically included in the installed package. Retain IDs when titles improve so external references stay meaningful. A reference URL should explain a foundation or verified source; it should not be invented to make a proposal look established.
 
@@ -129,7 +141,8 @@ CF-062 adds the reusable registered-task framework; CF-063 adapts it to local MC
 stdio using an optional SDK dependency. See [framework](../FRAMEWORK.md) and
 [MCP](../MCP.md) for contracts and boundaries. These do not implement the planned
 remote executor, durable recovery, hostile-code sandbox, or byte-weighted core
-admission concepts. Existing concept IDs and planned statuses remain unchanged.
+admission concepts. Existing concept IDs remain stable; statuses must track the
+corresponding implementation rather than being inherited from an older release.
 
 ## 9. Delivered opt-in foundation in 0.3
 

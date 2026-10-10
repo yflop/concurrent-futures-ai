@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "status": "failed",
+  "protocol": {
+    "workload": "ocr",
+    "grid": [
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 1,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 2,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 4,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "thread",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 1,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 2,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 4,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 1,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 4,
+        "profile_sample_interval": 0
+      },
+      {
+        "backend": "process",
+        "workers": 8,
+        "batch_size": 16,
+        "profile_sample_interval": 0
+      }
+    ],
+    "training_seed": 1001207,
+    "training_fixture_seeds": [
+      6864650689634725,
+      8298553551642521213,
+      6264588100250920413,
+      1469084267721278178
+    ],
+    "heldout_seeds": [
+      1010231,
+      1020241,
+      1030249
+    ],
+    "training_repeats": 4,
+    "count_per_pass": 24,
+    "passes_per_trial": 2,
+    "scale": "representative",
+    "holdout_distribution": "same-generator seeded mixed-input holdout; no distribution-shift claim",
+    "objective": "combined cold executor lifecycle plus warm pass elapsed",
+    "selection": {
+      "exhaustive": "arithmetic mean of four paired training repeats",
+      "exhaustive_median": "median of four paired repeats, statistic-matched control for budgeted search",
+      "budgeted": "PRIMARY: successive halving, median score, minimum two paired repeats, maximum four, 72 callback limit",
+      "budgeted_lowcost": "SECONDARY: successive halving, median score, minimum one paired repeat, maximum four, 48 callback limit"
+    },
+    "selection_cost_scope": "measured-matrix replay; virtual callback seconds summed from requested real training rows; fixture/reference costs separate; replay wall is not live search cost",
+    "gates": {
+      "max_p95_seconds": 60.0,
+      "max_rss_bytes": 1073741824,
+      "max_cpu_seconds": 300.0
+    },
+    "affinity_requested": 8,
+    "baselines": {
+      "standard_library_fixed": "ThreadPoolExecutor at declared CPU-affinity worker cap, batch one",
+      "manual_tuning_proxy": "exhaustive mean-ranked training-only standard-library grid, same candidates/repeats/objective/gates; no claimed human expert",
+      "direct_python": "two direct sequential passes of the same workload algorithm, no executor"
+    },
+    "oracle": "all declared candidate configurations on every independent heldout seed; aggregate oracle requires all gates on all seeds",
+    "limits": "one actual host, generated local mixed-input workloads, fixed explicit process safety; no upstream service compatibility, global optimum, cross-hardware generalization or deployment certification"
+  },
+  "protocol_sha256": "6cd4e019d9200e60353597722dcad9c74a7bb522e3f9b4cb31ac6f55160541e7",
+  "environment": {
+    "recorded_at_utc": "2026-10-10T13:10:07.440125+00:00",
+    "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+    "implementation": "CPython",
+    "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+    "cpu_model": "AMD EPYC 9V74 80-Core Processor",
+    "logical_cpus": 9,
+    "affinity_cpus": 8,
+    "cgroup_cpu_max": null,
+    "cgroup_cpu_quota_cores": null,
+    "cgroup_memory_max": null,
+    "free_threaded_build": false,
+    "process_start_method": "spawn",
+    "git_revision": "82a853a79d6ffb3706085f38d927a05db475ae25",
+    "command": "python -m benchmarks.real_world.optimizer --workload ocr --output ocr.json --affinity 8",
+    "native_runtime_environment": {
+      "MALLOC_ARENA_MAX": null,
+      "MALLOC_MMAP_THRESHOLD_": null,
+      "GLIBC_TUNABLES": null,
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1"
+    },
+    "source_sha256": {
+      "benchmarks/real_world/__init__.py": "d3a14705dadf8d7d17698e00aa29c4d107d617ee0e4961808706be2f6e9e2095",
+      "benchmarks/real_world/baseline_measurements.py": "25afc841b313fc3e0f34456afdc200161e9e6f1b2751e1978ca55be785d8e86d",
+      "benchmarks/real_world/data.py": "d06f28d210b3be094f63e199e0f2d622f6f484fcb3e9e153964af7465d467fcc",
+      "benchmarks/real_world/features.py": "dbad43dbc154556a7e77fb8a9b7469eb14faf3a231048ead712ea97ff2edbdce",
+      "benchmarks/real_world/load_scenarios.py": "b5675f833aaf9dd95c43421e1655ec55ce0bf430c5a29ba2fc7ce494c50eb521",
+      "benchmarks/real_world/media.py": "cb71269b9a2f6053bd8b36b1ff39bf296ab505acd14ca871ff05f383a75b1109",
+      "benchmarks/real_world/memory_diagnostics.py": "ca2418a4576d3cc2c24cf0fe9c1d2bf1fc13f6a1c6b06f147f5f8ce4565e1939",
+      "benchmarks/real_world/network.py": "7e2d6df2ee1df2325de89d84ab5728fef3d01260f00f73e5ef9030112b7c64a1",
+      "benchmarks/real_world/optimizer.py": "4d95f4a39a9620fa0f750946a5b22031b93d90fe0ba6f37e5cfaa90ad673b477",
+      "benchmarks/real_world/optimizer_endurance.py": "8474d827e989584ea96c599ed41531c9fbaab4e173681acf63cfac1afd60c752",
+      "benchmarks/real_world/optimizer_metrics.py": "bb0bd54008de7369748b6f747a9fc80a30069391f65c81d1331a4ba1817af2c4",
+      "benchmarks/real_world/optimizer_supervisor.py": "cd4b80f29233f4f99ea69aba4e672bb277855ebed53d3c42f1d6c81c8c195f51",
+      "benchmarks/real_world/optimizer_variants.py": "51ff8a9eb3cfcb578ef59e8584d75ed85d841f2158fce21f44b35c557547e16f",
+      "benchmarks/real_world/recheck.py": "ab4e1a46ec627c2a5947e5420dd78066cd71fad9c2765705d7abf3d64d28de3a",
+      "benchmarks/real_world/resource_sampling.py": "59d0e6058a8b679031759e663ecad54ad67c94d2c698c6db0bc5d97678fc8062",
+      "benchmarks/real_world/run.py": "281b7e47b517750d4889e0229c42f5af56e353a0fb29ec9381e2a759041a3a8b",
+      "benchmarks/real_world/soak.py": "1521f525ec47b2ada9c97144b95b7a2f3be1c9cfc4bef9cd894adae3eceda56f",
+      "src/intelligent_futures/__init__.py": "c28e5fe0c8d5dea0f5f6bbbcefb8f8857231ffb75844b6e4b34258a841687abc",
+      "src/intelligent_futures/__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+      "src/intelligent_futures/catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+      "src/intelligent_futures/executor.py": "a3c5cfb05473ab7553dfad7a2ad54c2286e1b3c8c933688c2b0bd9f7638704ad",
+      "src/intelligent_futures/framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+      "src/intelligent_futures/framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+      "src/intelligent_futures/integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+      "src/intelligent_futures/integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+      "src/intelligent_futures/policies.py": "9db6557b86d18ab8d60c7d88f1d3caf65a88d8b361f9b694149cade04aab732b",
+      "src/intelligent_futures/prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d",
+      "src/intelligent_futures/tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81"
+    },
+    "git_dirty": true,
+    "dependencies": {
+      "Pillow": "12.3.0",
+      "requests": "2.34.2",
+      "requests-cache": "1.3.3",
+      "networkx": "3.7",
+      "psutil": "7.2.2"
+    },
+    "native_tools": {
+      "ffmpeg": "ffmpeg version 7.1.5-0+deb13u1 Copyright (c) 2000-2026 the FFmpeg developers",
+      "pdftoppm": "pdftoppm version 26.05.0",
+      "tesseract": "tesseract 5.5.0"
+    }
+  },
+  "training": [],
+  "manual_training": [],
+  "heldout": [],
+  "baseline_heldout": [],
+  "datasets": [],
+  "selections": {},
+  "failures": [
+    "RuntimeError: Executor-independent same-algorithm reference failed: [{'value': {'name': 'ocr', 'index': 0, 'text': 'LOCAL DOCUMENT NOVEMBER HOTEL ECHO THE QUICK BROWN FOX READ EVERY WORD WEST GREEN EAST SOUTH EAST NORTH BLUE GREEN EAST GREEN WEST NORTH GREEN NORTH WEST BLUE NORTH GREEN EAST BLUE GREEN NORTH SOUTH BLUE LOCAL DOCUMENT ECHO NOVEMBER BRAVO THE QUICK BROWN FOX READ EVERY WORD BLUE GREEN NORTH EAST SOUTH WEST GREEN NORTH GREEN EAST SOUTH NORTH WEST SOUTH EAST NORTH WEST GREEN EAST SOUTH NORTH SOUTH BLUE EAST', 'words': 72, 'sha256': '59f2e91f1a95942b4652507ad54bc6f16f9aaff56924ec59740f405e3a92e0b5'}, 'error': None, 'service_seconds': 1.1793522480002139}, {'value': {'name': 'ocr', 'index': 1, 'text': 'LOCAL DOCUMENT ECHO ALPHA HOTEL THE QUICK BROWN FOX READ EVERY WORD EAST WEST GREEN SOUTH EAST SOUTH BLUE WEST EAST GREEN BLUE NORTH GREEN NORTH EAST BLUE EAST GREEN SOUTH NORTH SOUTH EAST WEST GREEN WEST EAST BLUE SOUTH WEST SOUTH EAST GREEN NORTH SOUTH EAST WEST WEST GREEN EAST BLUE EAST WEST GREEN BLUE BLUE GREEN NORTH EAST LOCAL DOCUMENT NOVEMBER ECHO HOTEL THE QUICK BROWN FOX READ EVERY WORD EAST WEST GREEN NORTH SOUTH EAST WEST GREEN WEST BLUE SOUTH NORTH GREEN SOUTH EAST NORTH SOUTH NORTH BLUE EAST SOUTH WEST EAST GREEN WEST NORTH SOUTH BLUE NORTH SOUTH GREEN WEST NORTH GREEN BLUE EAST BLUE EAST GREEN WEST EAST WEST SOUTH GREEN GREEN WEST SOUTH NORTH LOCAL DOCUMENT HOTEL ECHO BRAVO THE QUICK BROWN FOX READ EVERY WORD NORTH GREEN BLUE EAST BLUE SOUTH EAST WEST NORTH SOUTH BLUE EAST EAST BLUE GREEN WEST BLUE NORTH SOUTH EAST GREEN WEST EAST NORTH NORTH WEST SOUTH BLUE NORTH BLUE WEST EAST SOUTH BLUE EAST WEST NORTH WEST BLUE SOUTH GREEN SOUTH NORTH EAST WEST EAST NORTH SOUTH', 'words': 180, 'sha256': '2fc8aea86d8849059a98bed0b61f684c39f1fa588e2db25ea5f751d2573b6738'}, 'error': None, 'service_seconds': 2.4736907869955758}, {'value': {'name': 'ocr', 'index': 2, 'text': 'LOCAL DOCUMENT BRAVO NOVEMBER DELTA THE QUICK BROWN FOX READ EVERY WORD WEST SOUTH BLUE GREEN NORTH SOUTH BLUE EAST SOUTH EAST WEST NORTH EAST SOUTH BLUE NORTH LOCAL DOCUMENT DELTA NOVEMBER ECHO THE QUICK BROWN FOX READ EVERY WORD BLUE NORTH EAST WEST BLUE WEST SOUTH GREEN WEST NORTH GREEN BLUE WEST SOUTH BLUE EAST', 'words': 56, 'sha256': 'cf4e5102041bb94a63215b7015c300f0fc189562820884d9502124f3deb33a63'}, 'error': None, 'service_seconds': 1.065329801000189}, {'value': {'name': 'ocr', 'index': 3, 'text': 'LOCAL DOCUMENT BRAVO NOVEMBER ECHO THE QUICK BROWN FOX READ EVERY WORD GREEN BLUE EAST WEST EAST WEST GREEN NORTH', 'words': 20, 'sha256': '583f476451d6b6fb65e2f9e5376a79c5b5b94da144e6d31cd9740e3b24246674'}, 'error': None, 'service_seconds': 0.5768871340042097}, {'value': {'name': 'ocr', 'index': 4, 'text': 'LOCAL DOCUMENT ALPHA NOVEMBER ECHO THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH BLUE NORTH BLUE NORTH SOUTH WEST GREEN SOUTH NORTH EAST WEST NORTH GREEN BLUE WEST GREEN BLUE NORTH EAST SOUTH GREEN WEST LOCAL DOCUMENT ALPHA ECHO HOTEL THE QUICK BROWN FOX READ EVERY WORD BLUE EAST SOUTH NORTH NORTH SOUTH EAST GREEN GREEN NORTH EAST BLUE SOUTH BLUE NORTH WEST EAST GREEN BLUE SOUTH WEST BLUE NORTH GREEN', 'words': 72, 'sha256': '0df0ed17412c50883fbf4c43c603612a850b83426b6f433d5b9824dd8f451173'}, 'error': None, 'service_seconds': 1.1959752120019402}, {'value': {'name': 'ocr', 'index': 5, 'text': 'LOCAL DOCUMENT BRAVO ALPHA DELTA THE QUICK BROWN FOX READ EVERY WORD GREEN SOUTH WEST NORTH NORTH SOUTH EAST GREEN NORTH EAST WEST BLUE SOUTH WEST BLUE EAST WEST EAST NORTH SOUTH EAST BLUE NORTH WEST BLUE EAST GREEN WEST NORTH BLUE GREEN SOUTH BLUE SOUTH EAST WEST NORTH EAST WEST BLUE SOUTH BLUE GREEN WEST NORTH EAST BLUE GREEN LOCAL DOCUMENT BRAVO NOVEMBER DELTA THE QUICK BROWN FOX READ EVERY WORD WEST SOUTH BLUE EAST EAST BLUE WEST NORTH EAST GREEN BLUE SOUTH WEST SOUTH BLUE NORTH GREEN NORTH BLUE EAST EAST SOUTH NORTH GREEN SOUTH GREEN WEST NORTH WEST NORTH GREEN BLUE NORTH EAST GREEN SOUTH SOUTH EAST WEST BLUE GREEN EAST WEST SOUTH GREEN EAST WEST NORTH LOCAL DOCUMENT DELTA ECHO NOVEMBER THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH GREEN NORTH EAST GREEN WEST SOUTH WEST EAST BLUE GREEN NORTH WEST GREEN EAST GREEN NORTH WEST SOUTH GREEN EAST BLUE NORTH NORTH WEST EAST GREEN WEST BLUE GREEN NORTH WEST GREEN EAST BLUE BLUE WEST SOUTH NORTH BLUE NORTH GREEN SOUTH WEST SOUTH BLUE EAST', 'words': 180, 'sha256': '462afee2bba1ad970b8b0abd2c85aff41831f1a577bb4fae9f5887c7fcf67de1'}, 'error': None, 'service_seconds': 2.4578727550033364}, {'value': {'name': 'ocr', 'index': 6, 'text': 'LOCAL DOCUMENT ALPHA BRAVO NOVEMBER THE QUICK BROWN FOX READ EVERY WORD BLUE NORTH SOUTH EAST BLUE SOUTH GREEN WEST NORTH GREEN SOUTH WEST GREEN SOUTH EAST NORTH LOCAL DOCUMENT DELTA ALPHA BRAVO THE QUICK BROWN FOX READ EVERY WORD EAST BLUE GREEN NORTH GREEN WEST NORTH EAST WEST GREEN EAST SOUTH GREEN BLUE WEST SOUTH', 'words': 56, 'sha256': '18eec9b147a1f3c431f4861b419d6a97862994cf5e797dbfcc138b8443d11296'}, 'error': None, 'service_seconds': 1.0317574809960206}, {'value': {'name': 'ocr', 'index': 7, 'text': 'LOCAL DOCUMENT NOVEMBER ALPHA ECHO THE QUICK BROWN FOX READ EVERY WORD EAST NORTH WEST GREEN GREEN BLUE EAST SOUTH', 'words': 20, 'sha256': '616255fba2a1ecd8992c055f3d17dbba0a422a169999a2999047ffac101b5da4'}, 'error': None, 'service_seconds': 0.5599025250048726}, {'value': {'name': 'ocr', 'index': 8, 'text': 'LOCAL DOCUMENT BRAVO ALPHA NOVEMBER THE QUICK BROWN FOX READ EVERY WORD SOUTH EAST BLUE NORTH NORTH BLUE SOUTH WEST GREEN WEST BLUE EAST BLUE NORTH WEST EAST SOUTH GREEN NORTH WEST EAST WEST GREEN NORTH LOCAL DOCUMENT BRAVO DELTA ALPHA THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH BLUE GREEN SOUTH EAST BLUE NORTH NORTH BLUE SOUTH EAST SOUTH WEST EAST GREEN EAST GREEN WEST SOUTH BLUE EAST SOUTH NORTH', 'words': 72, 'sha256': '681eac3c67ebc6d395d5eef7721ee596adf6284388dd80c92b6046fe7f27d8a3'}, 'error': None, 'service_seconds': 1.2481530059958459}, {'value': {'name': 'ocr', 'index': 9, 'text': 'LOCAL DOCUMENT NOVEMBER ALPHA BRAVO THE QUICK BROWN FOX READ EVERY WORD BLUE GREEN NORTH EAST GREEN BLUE EAST WEST BLUE GREEN EAST NORTH BLUE GREEN WEST EAST SOUTH NORTH EAST GREEN BLUE GREEN SOUTH WEST NORTH GREEN EAST BLUE WEST EAST NORTH SOUTH EAST GREEN WEST SOUTH WEST EAST SOUTH BLUE NORTH EAST GREEN SOUTH SOUTH WEST NORTH BLUE LOCAL DOCUMENT NOVEMBER ECHO ALPHA THE QUICK BROWN FOX READ EVERY WORD WEST SOUTH EAST GREEN NORTH WEST GREEN BLUE GREEN BLUE WEST NORTH SOUTH WEST NORTH EAST NORTH EAST BLUE WEST WEST EAST NORTH BLUE BLUE NORTH GREEN WEST SOUTH BLUE NORTH EAST SOUTH GREEN NORTH WEST GREEN NORTH SOUTH WEST SOUTH EAST WEST BLUE SOUTH BLUE NORTH EAST LOCAL DOCUMENT HOTEL DELTA NOVEMBER THE QUICK BROWN FOX READ EVERY WORD WEST SOUTH EAST GREEN WEST BLUE NORTH GREEN BLUE EAST NORTH SOUTH BLUE SOUTH EAST WEST BLUE EAST GREEN NORTH WEST GREEN SOUTH BLUE WEST GREEN BLUE SOUTH GREEN NORTH BLUE SOUTH SOUTH GREEN WEST NORTH WEST SOUTH EAST GREEN SOUTH EAST BLUE WEST GREEN EAST BLUE WEST', 'words': 180, 'sha256': 'a6e56aaa46f2142f83d663dab4d6d42b09e1a7f1ed3a9afcd6d7f3476d46a63f'}, 'error': None, 'service_seconds': 2.4576636960046017}, {'value': {'name': 'ocr', 'index': 10, 'text': 'LOCAL DOCUMENT ALPHA ECHO BRAVO THE QUICK BROWN FOX READ EVERY WORD SOUTH EAST BLUE GREEN NORTH GREEN SOUTH EAST SOUTH GREEN EAST WEST GREEN BLUE SOUTH NORTH LOCAL DOCUMENT DELTA BRAVO ALPHA THE QUICK BROWN FOX READ EVERY WORD EAST GREEN SOUTH WEST NORTH GREEN SOUTH EAST SOUTH NORTH GREEN WEST GREEN EAST BLUE NORTH', 'words': 56, 'sha256': '5b3c9f58ca7c2d5fc013288270511ad6375d5784f493b4a500587191e88ff656'}, 'error': None, 'service_seconds': 1.0655864820000716}, {'value': None, 'error': \"ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT HOTEL NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD BLUE EAST WEST GREEN WEST GREEN SOUTH NORTH'\", 'service_seconds': 0.5720419689969276}, {'value': {'name': 'ocr', 'index': 12, 'text': 'LOCAL DOCUMENT ECHO BRAVO HOTEL THE QUICK BROWN FOX READ EVERY WORD EAST GREEN SOUTH NORTH NORTH BLUE GREEN SOUTH NORTH BLUE WEST GREEN SOUTH WEST BLUE EAST GREEN SOUTH WEST NORTH NORTH WEST EAST GREEN LOCAL DOCUMENT NOVEMBER ECHO BRAVO THE QUICK BROWN FOX READ EVERY WORD WEST NORTH EAST SOUTH WEST BLUE NORTH SOUTH EAST SOUTH BLUE WEST EAST GREEN SOUTH NORTH GREEN SOUTH WEST EAST NORTH EAST GREEN WEST', 'words': 72, 'sha256': 'b82624373d0782199df3967a669c9c31197650db8ceefd7cce6046c4adc08582'}, 'error': None, 'service_seconds': 1.2081615549977869}, {'value': {'name': 'ocr', 'index': 13, 'text': 'LOCAL DOCUMENT HOTEL NOVEMBER BRAVO THE QUICK BROWN FOX READ EVERY WORD BLUE SOUTH NORTH GREEN GREEN SOUTH BLUE EAST WEST NORTH GREEN BLUE EAST WEST BLUE SOUTH BLUE NORTH WEST GREEN EAST BLUE SOUTH NORTH BLUE NORTH GREEN SOUTH SOUTH BLUE NORTH GREEN NORTH SOUTH WEST GREEN BLUE SOUTH EAST WEST BLUE EAST WEST SOUTH EAST NORTH WEST GREEN LOCAL DOCUMENT NOVEMBER HOTEL BRAVO THE QUICK BROWN FOX READ EVERY WORD BLUE SOUTH NORTH WEST EAST SOUTH BLUE WEST BLUE EAST WEST GREEN WEST GREEN EAST SOUTH BLUE SOUTH NORTH WEST BLUE SOUTH NORTH EAST WEST SOUTH EAST GREEN GREEN BLUE NORTH SOUTH NORTH EAST SOUTH BLUE SOUTH EAST GREEN BLUE GREEN EAST BLUE NORTH WEST BLUE EAST NORTH LOCAL DOCUMENT HOTEL DELTA BRAVO THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH NORTH WEST WEST GREEN SOUTH EAST WEST NORTH SOUTH EAST SOUTH BLUE NORTH EAST BLUE GREEN SOUTH WEST GREEN NORTH SOUTH WEST SOUTH EAST NORTH GREEN SOUTH NORTH WEST BLUE WEST BLUE NORTH EAST NORTH GREEN EAST SOUTH EAST WEST NORTH GREEN EAST BLUE GREEN WEST', 'words': 180, 'sha256': '52a2ad49f9034687774e2362c94e30f9a27c4cbcea5bce568f7334cd4859f609'}, 'error': None, 'service_seconds': 2.655723007999768}, {'value': {'name': 'ocr', 'index': 14, 'text': 'LOCAL DOCUMENT ALPHA NOVEMBER BRAVO THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH WEST BLUE SOUTH GREEN EAST WEST SOUTH BLUE GREEN NORTH BLUE NORTH GREEN SOUTH LOCAL DOCUMENT ALPHA ECHO NOVEMBER THE QUICK BROWN FOX READ EVERY WORD GREEN WEST BLUE SOUTH GREEN EAST SOUTH NORTH EAST SOUTH NORTH WEST GREEN WEST SOUTH BLUE', 'words': 56, 'sha256': '024508d7bd2af0eedf781db4296be547c8452440955945bd92002ad72e502763'}, 'error': None, 'service_seconds': 1.2305089349974878}, {'value': None, 'error': \"ValueError: OCR correctness mismatch: 'LOCAL DOCUMENT HOTEL NOVEMBER DELIA THE QUICK BROWN FOX READ EVERY WORD SOUTH GREEN BLUE EAST EAST NORTH SOUTH BLUE'\", 'service_seconds': 0.6191572009993251}, {'value': {'name': 'ocr', 'index': 16, 'text': 'LOCAL DOCUMENT HOTEL BRAVO ECHO THE QUICK BROWN FOX READ EVERY WORD GREEN WEST NORTH EAST NORTH BLUE GREEN EAST GREEN NORTH SOUTH WEST GREEN EAST SOUTH WEST SOUTH GREEN WEST NORTH WEST GREEN BLUE SOUTH LOCAL DOCUMENT ECHO NOVEMBER DELTA THE QUICK BROWN FOX READ EVERY WORD GREEN SOUTH EAST BLUE SOUTH GREEN NORTH EAST NORTH BLUE EAST GREEN NORTH GREEN EAST SOUTH EAST WEST SOUTH NORTH EAST SOUTH NORTH WEST', 'words': 72, 'sha256': '21e4fb1f5f8e03e94660c3ca7a661fd680e012e9dd3b9b514a686b274f78d0f2'}, 'error': None, 'service_seconds': 1.2305318840008113}, {'value': {'name': 'ocr', 'index': 17, 'text': 'LOCAL DOCUMENT NOVEMBER BRAVO HOTEL THE QUICK BROWN FOX READ EVERY WORD SOUTH EAST GREEN WEST BLUE EAST NORTH WEST WEST SOUTH NORTH EAST NORTH GREEN SOUTH WEST WEST BLUE GREEN EAST WEST BLUE NORTH SOUTH EAST SOUTH NORTH WEST GREEN SOUTH BLUE EAST EAST NORTH BLUE WEST GREEN EAST NORTH WEST NORTH EAST GREEN WEST EAST WEST SOUTH NORTH LOCAL DOCUMENT NOVEMBER DELTA ECHO THE QUICK BROWN FOX READ EVERY WORD NORTH GREEN WEST EAST BLUE GREEN NORTH WEST EAST WEST GREEN BLUE NORTH GREEN WEST EAST WEST EAST BLUE SOUTH GREEN BLUE EAST NORTH SOUTH NORTH EAST BLUE BLUE WEST NORTH EAST SOUTH BLUE WEST GREEN WEST GREEN NORTH EAST EAST WEST SOUTH GREEN SOUTH EAST NORTH BLUE LOCAL DOCUMENT HOTEL DELTA BRAVO THE QUICK BROWN FOX READ EVERY WORD NORTH SOUTH EAST BLUE BLUE WEST GREEN NORTH NORTH SOUTH EAST GREEN SOUTH NORTH GREEN BLUE WEST EAST NORTH BLUE EAST SOUTH BLUE WEST GREEN BLUE WEST NORTH NORTH WEST BLUE SOUTH WEST GREEN EAST SOUTH SOUTH BLUE NORTH EAST EAST WEST SOUTH NORTH NORTH WEST EAST BLUE', 'words': 180, 'sha256': '3edcc6077676fcd251f08c7cff5a1cc0687ddddcb11631d95ae6ac08e6469901'}, 'error': None, 'service_seconds': 2.6935191489974386}, {'value': {'name': 'ocr', 'index': 18, 'text': 'LOCAL DOCUMENT HOTEL ALPHA ECHO THE QUICK BROWN FOX READ EVERY WORD NORTH SOUTH WEST GREEN BLUE EAST WEST NORTH GREEN EAST NORTH BLUE SOUTH BLUE NORTH WEST LOCAL DOCUMENT DELTA HOTEL ALPHA THE QUICK BROWN FOX READ EVERY WORD EAST NORTH WEST SOUTH NORTH SOUTH GREEN BLUE BLUE WEST SOUTH NORTH SOUTH GREEN WEST BLUE', 'words': 56, 'sha256': 'a06e1c2769791acc56982fd676dd0a60131b84b910b9fefdf08f32143e1465bf'}, 'error': None, 'service_seconds': 1.1073193459960748}, {'value': {'name': 'ocr', 'index': 19, 'text': 'LOCAL DOCUMENT HOTEL DELTA ECHO THE QUICK BROWN FOX READ EVERY WORD BLUE GREEN EAST SOUTH SOUTH EAST BLUE GREEN', 'words': 20, 'sha256': '0745ecd9e000c77445e370872ee286306580a737cf53fb22796c607de5b3f823'}, 'error': None, 'service_seconds': 0.6073709379998036}, {'value': {'name': 'ocr', 'index': 20, 'text': 'LOCAL DOCUMENT ECHO NOVEMBER BRAVO THE QUICK BROWN FOX READ EVERY WORD GREEN SOUTH NORTH WEST BLUE EAST NORTH SOUTH NORTH SOUTH WEST GREEN SOUTH NORTH GREEN BLUE EAST GREEN BLUE WEST EAST NORTH GREEN WEST LOCAL DOCUMENT ECHO NOVEMBER DELTA THE QUICK BROWN FOX READ EVERY WORD SOUTH EAST GREEN BLUE WEST SOUTH BLUE NORTH EAST SOUTH WEST NORTH GREEN WEST BLUE NORTH WEST EAST GREEN SOUTH WEST BLUE NORTH EAST', 'words': 72, 'sha256': '035c334bf1ea82520f7e8e66e7022a6f41c60062a2d151740c9d5c36b8914a18'}, 'error': None, 'service_seconds': 1.1943342450031196}, {'value': {'name': 'ocr', 'index': 21, 'text': 'LOCAL DOCUMENT HOTEL DELTA BRAVO THE QUICK BROWN FOX READ EVERY WORD BLUE WEST GREEN EAST EAST BLUE WEST GREEN BLUE WEST GREEN SOUTH BLUE SOUTH NORTH EAST GREEN BLUE WEST NORTH BLUE WEST SOUTH GREEN SOUTH EAST GREEN BLUE NORTH WEST GREEN SOUTH SOUTH BLUE NORTH WEST NORTH EAST BLUE SOUTH WEST EAST GREEN SOUTH WEST GREEN NORTH EAST LOCAL DOCUMENT ECHO BRAVO HOTEL THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH GREEN NORTH WEST SOUTH BLUE GREEN EAST SOUTH WEST NORTH WEST GREEN EAST BLUE BLUE WEST EAST NORTH GREEN WEST NORTH EAST NORTH GREEN BLUE WEST SOUTH WEST BLUE EAST GREEN SOUTH BLUE WEST GREEN BLUE NORTH WEST WEST EAST NORTH GREEN WEST BLUE SOUTH EAST LOCAL DOCUMENT DELTA ECHO HOTEL THE QUICK BROWN FOX READ EVERY WORD WEST SOUTH GREEN NORTH WEST BLUE EAST SOUTH SOUTH NORTH WEST EAST WEST BLUE EAST GREEN WEST BLUE GREEN EAST BLUE GREEN SOUTH NORTH BLUE SOUTH EAST GREEN GREEN NORTH EAST BLUE SOUTH EAST WEST NORTH WEST NORTH GREEN EAST GREEN BLUE NORTH WEST SOUTH GREEN EAST BLUE', 'words': 180, 'sha256': 'ea0b4b0adab01150f9b57265eea089d333e9d49da8f86d7acd174dd974cf8fa3'}, 'error': None, 'service_seconds': 2.436409821995767}, {'value': {'name': 'ocr', 'index': 22, 'text': 'LOCAL DOCUMENT ECHO DELTA NOVEMBER THE QUICK BROWN FOX READ EVERY WORD BLUE GREEN NORTH EAST GREEN SOUTH EAST WEST WEST NORTH GREEN BLUE BLUE WEST NORTH SOUTH LOCAL DOCUMENT ALPHA BRAVO ECHO THE QUICK BROWN FOX READ EVERY WORD GREEN SOUTH BLUE NORTH NORTH SOUTH GREEN WEST GREEN BLUE EAST NORTH EAST SOUTH GREEN WEST', 'words': 56, 'sha256': '700d4ea2ebf5b7441e4b8d14842bc57cec095c0fc9c272b78bce9e2b52a11530'}, 'error': None, 'service_seconds': 1.1405149330021231}, {'value': {'name': 'ocr', 'index': 23, 'text': 'LOCAL DOCUMENT ECHO HOTEL ALPHA THE QUICK BROWN FOX READ EVERY WORD EAST SOUTH WEST GREEN EAST WEST BLUE NORTH', 'words': 20, 'sha256': '464270be5f9563f37cbfe4cb06f82456156700555c45ededd69a323092fe9ef7'}, 'error': None, 'service_seconds': 0.5677122460037936}]"
+  ],
+  "accepted": false,
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "df9346f7d703f0e3b17cc4ca95e0877366ad846ddb333605acce9298f6724e46",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash",
+    "projected_selections_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+  }
+}

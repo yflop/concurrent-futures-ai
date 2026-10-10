@@ -1,0 +1,37 @@
+{
+  "version": "0.4.0",
+  "source_tests": {
+    "count": 288,
+    "skipped": 0,
+    "passed": true
+  },
+  "benchmark_tests": {
+    "count": 8,
+    "passed": true
+  },
+  "examples": {
+    "count": 8,
+    "passed": true
+  },
+  "wheel_tests": {
+    "count": 288,
+    "skipped": 0,
+    "passed": true,
+    "outside_source_tree": true
+  },
+  "wheel_import_verified": true,
+  "pip_check_passed": true,
+  "sdist_clean_install": true,
+  "sdist_examples": [
+    "tuned_execution",
+    "predictive_batches"
+  ],
+  "sdist_catalog_passed": true,
+  "remote_ci": "not_run_for_this_unpublished_candidate",
+  "catalog_counts": {
+    "implemented": 11,
+    "experimental": 6,
+    "planned": 49
+  },
+  "source_baseline": "0.3.0 final e170fc0b819141c7f2bc6f621c6d93812ff08128; final Windows cgroup fixture fix retained"
+}

@@ -1,12 +1,17 @@
 # Recorded measurements
 
-- [Reference raw JSON](reference.json): five repeats of six engines, three
+Large reports are published as lossless `.json.gz` archives. See
+[archive identities and bounded reading/decompression](ARCHIVES.md) before using
+archived reports as inputs to reproduction harnesses. Markdown links point to
+the shipped files; reproduction `--output` paths still name new plain JSON reports.
+
+- [Reference raw JSON](reference.json.gz): five repeats of six engines, three
   workloads, and cold/warm phases, 180 measured batches in total. Every workload
   checksum matched across every engine, phase, and repeat.
 - [Reference tables and methodology](reference.md): generated from that JSON,
   including median/p95 batch and task latency, submission timing, and measured
   thread/process route counts.
-- [Smoke raw JSON](smoke.json) and [smoke summary](smoke.md): an earlier small
+- [Smoke raw JSON](smoke.json.gz) and [smoke summary](smoke.md): an earlier small
   two-repeat correctness check, not stable performance evidence. That report
   predates the added per-measured-batch route-count field; its final snapshots
   include warmup work.
@@ -113,3 +118,32 @@ reports). Synthetic seed is 41073; OS scheduling is not deterministic.
 
 These results establish tested behavior and exposed overhead, not production
 certification, controlled cross-hardware transfer, or universal speedup.
+
+## 0.4 workload evidence
+
+`representative-*.json` records the larger heterogeneous workloads, source hashes,
+actual command/dependencies/native tools, repeated calibration, separate held-out
+seeds and explicit resource/correctness gates. See `docs/PRODUCTION-EVIDENCE.md`
+and `docs/WORKLOADS.md` for interpretation. Results from fixed admission do not
+establish an online-predictive speedup.
+
+Historical `real-world-images.json` and `real-world-fixed.json` are early smoke
+runs. Their inherited metadata erroneously names `benchmarks.run` rather than
+`benchmarks.real_world.run`; do not use that field to reproduce them. They also
+predate explicit source hashes, lifecycle CPU/teardown accounting and fail-closed
+acceptance gates. Their raw timings remain diagnostic evidence, not final
+production evidence. `integrated-smoke.json` is a later small selector smoke run,
+not a representative capacity measurement.
+
+
+## Publication metadata redaction
+
+For publication, report commands use `python` instead of an absolute interpreter
+path, checkout source paths are relative, temporary build paths are normalized,
+and derived hardware fingerprint identifiers are set to `null`. Compressed logs
+and historical report copies in this release receive the same treatment. These
+metadata-only edits preserve all measured timings, counts, errors, oracle outputs,
+resource observations, source-content hashes, software versions and hardware
+capabilities. These public report snapshots are evidence, not directly reusable
+saved-profile/configuration files; use the documented export API to create those.
+The original 0.1–0.3 release assets remain unchanged.

@@ -1,9 +1,48 @@
 # Validation record
 
-## 0.3.0 verification scope (2026-10-10)
+## Version 0.4 contract and source-matched evidence
 
-The runtime is an opt-in predictive foundation; existing defaults, real Future
-semantics, and explicit process consent remain. No production-readiness or
+The owned FIFO/load-aware implementation changes the execution contract relative
+to the historical runs below. Public Futures are genuine executor-owned stdlib
+Futures rather than backend identities. Admission bounds both logical unfinished
+work and physical queued-plus-dispatched items, with separate backend dispatch
+budgets. Owned queued cancellation releases payloads; dispatched thread
+cancellation retains its physical slot until backend acknowledgement. Processes
+commit to `RUNNING` at dispatch.
+
+Explicit `with` or `shutdown(wait=True)` is required to guarantee accepted work
+drains before interpreter exit. Coordinated shutdown drains owned work before
+joining pools; omitted shutdown can settle deferred submissions with `RuntimeError`
+if backend teardown has begun. Normal completion callbacks run serially on one
+owned pump and must not wait for another Future from the same executor, even with
+free workers. Standard Future API compatibility does not imply stdlib callback
+thread/concurrency equivalence. No full implicit stdlib teardown equivalence,
+preemption, byte/RSS cap, callback isolation, dependency-deadlock prevention, or
+automatic retry is claimed.
+
+`tests/test_physical_dispatch.py` and `tests/test_load_aware_policies.py` cover the
+new lifecycle and policy boundaries. The updated
+`benchmarks/stress/churn_limitation.py` deliberately retains cancelled public
+Futures while checking physical counters and payload weak-reference release.
+The [final integrated source record](../benchmarks/results/optimizer/reliability/final-source-verification.json)
+reports 569 tests plus eight benchmark tests passing, with the listed examples,
+catalog and compilation checks, on CPython 3.12.14/Linux at 17:53:22 UTC on
+2026-10-10. It identifies 110 source files. [Configuration-quality evidence](CONFIGURATION-QUALITY.md)
+separately records updated bounded-churn, load and endurance results, including
+preserved failures. Local source checks are distinct from built-artifact/install
+verification and CI at the final release commit; historical counts and timings
+do not validate later source changes.
+
+Live load means queues and occupied dispatch slots, not CPU utilisation.
+Uncontended latency includes startup/serialization; adaptive decisions remain
+heuristics. Predictive global admission may leave another backend idle. Measure
+configuration-selection quality under declared constraints independently of
+same-configuration execution overhead or universal speedup claims.
+
+## 0.3.0 historical verification scope (2026-10-10)
+
+The 0.3.0 runtime was an opt-in predictive foundation, retaining that release's
+existing defaults, real Future semantics, and explicit process consent. No production-readiness or
 cross-hardware speedup claim is made.
 
 - CPython 3.12.14/Linux with official MCP 2.3.0: **179 tests passed**, including
@@ -29,9 +68,11 @@ cross-hardware speedup claim is made.
   For 400 mixed process/thread tasks, 0.505s vs 0.307s. These are observations,
   not calibrated comparisons to tuned optimum baselines. Genuine batching
   reduced dispatch counts but no incomparable timing speedup is inferred.
-- The legacy raw-core cancellation-queue retention limit is explicitly measured
-  (~64.6 MB for 10,000 cancelled queued 4 KB jobs while a worker blocks).
-  Logical `max_pending` is not a physical queue/RSS bound.
+- The historical direct-submission core's cancellation-queue retention limitation
+  was measured (~64.6 MB for 10,000 cancelled queued 4 KB jobs while a worker
+  blocks). In that implementation logical `max_pending` did not bound physical
+  queue entries. This is historical evidence, not the current owned-FIFO contract;
+  neither implementation supplies a hard byte/RSS cap.
 
 Local checks are Linux-only. Windows/macOS and Python 3.10/3.14 are configured in
 remote CI and are separate from this record. Process task CPU/RSS, calibrated
@@ -39,7 +80,7 @@ uncertainty, controlled scaling curves and trained transfer-learning remain
 unimplemented; observational profiles and conservative foreign priors are labeled.
 
 
-## 0.2.0 verification scope
+## 0.2.0 historical verification scope
 
 The 0.2.0 update preserves the core executor and existing benchmark data. It adds
 a separate standard-library-only task framework and an optional MCP2.3 adapter.
@@ -92,7 +133,7 @@ Local validation: 2026-10-10, Linux x86_64, CPython 3.12.14. This is a tested
 prototype, not a production certification. Cross-platform and multi-version
 GitHub Actions configuration is included; remote CI results are a separate check.
 
-## Verified checks
+## Historical 0.1.0 verified checks
 
 Final installed-wheel run: **89 main-suite tests and 8 benchmark-suite tests
 passed**, plus all five runnable examples. Doctests are included in those suites.
@@ -119,7 +160,7 @@ Run the checks again from an installed environment:
 python tools/verify.py --examples
 ```
 
-## Independent review findings and resolution
+## Historical 0.1.0 review findings and resolution
 
 1. Registering the instrumentation callback outside the lifecycle lock allowed
    shutdown to overtake bookkeeping. Registration now happens under an RLock,
@@ -130,18 +171,21 @@ python tools/verify.py --examples
    wait establishes final task metrics after earlier nonblocking shutdown.
 3. Later shutdown calls could downgrade an earlier cancellation request. The
    executor now keeps cancellation requests sticky.
-4. Cancellation frees logical admission, while cancelled backend queue entries
-   can retain arguments until drained. This is an explicit remaining limitation,
-   not a fixed hard queue/memory bound. See CF-061 for a removable-queue design.
+4. In that release, cancellation freed logical admission while cancelled backend
+   queue entries could retain arguments until drained. This was a documented
+   remaining limitation. The current owned-FIFO implementation addresses physical
+   item retention; new source-matched evidence is required independently of this
+   historical finding, and no hard byte/RSS bound follows.
 5. Policy integer validation and factory exception propagation were tightened
    and covered by regression tests.
 
-Repeated nonblocking process shutdown follows stdlib resource-teardown behavior;
-subsequent waiting guarantees accepted-task completion/accounting here, but does
-not promise every OS process resource is already reaped in that specific path.
-Never call blocking shutdown from an executor worker or callback.
+The historical shutdown path had a narrower process-resource join guarantee
+after repeated nonblocking shutdown. It has been replaced by one coordinator that
+drains owned queues before joining both pools. Use the current
+[API lifecycle contract](API.md#shutdown-and-deadlocks), not these historical
+implementation notes, for new integrations.
 
-## Measured reference outcome
+## Historical measured reference outcome
 
 Five repeats, 48 tasks per batch, 200,000 pure-Python iterations per CPU task,
 10 ms synthetic I/O sleep, spawn processes, two warmup batches per warm sample,
@@ -162,11 +206,11 @@ processes. Hinted routing gets truthful kinds, whereas adaptive routing gets
 unknown kinds and stable comparable keys. Consequently, these are operational
 configurations, not an isolated causal experiment on the learning algorithm.
 Read [methodology](../benchmarks/README.md) and
-[raw reference results](../benchmarks/results/reference.json) before comparing.
+[raw reference results](../benchmarks/results/reference.json.gz) before comparing.
 Synthetic sleep is not a production network or storage benchmark. Five repeats
 are descriptive, not a statistical guarantee or a tail-latency SLA.
 
-## Not verified here
+## Not verified in the historical record
 
 - Remote GitHub Actions for the 0.2.0 candidate (check current commit checks separately)
 - Python 3.10, 3.14, Windows, macOS, free-threaded CPython, subinterpreters
