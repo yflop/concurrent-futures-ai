@@ -1,5 +1,6 @@
 import dataclasses
 import json
+from pathlib import PurePosixPath, PureWindowsPath
 import unittest
 from unittest.mock import patch
 
@@ -44,16 +45,26 @@ class HardwareTests(unittest.TestCase):
         self.assertNotIn('fingerprint', dataclasses.asdict(hardware))
 
     def test_cgroups_v2_nested_and_v1(self):
-        files = {'/proc/self/cgroup': '0::/team/job', '/sys/fs/cgroup/cpu.max': 'max 100000',
-                 '/sys/fs/cgroup/team/cpu.max': '150000 100000',
-                 '/sys/fs/cgroup/team/job/cpu.max': '300000 100000'}
-        with patch('intelligent_futures.prediction._read', side_effect=lambda p: files.get(str(p), '')):
-            self.assertEqual(_quota(), 1.5)
-        files = {'/proc/self/cgroup': '2:cpu,cpuacct:/job',
-                 '/sys/fs/cgroup/cpu/job/cpu.cfs_quota_us': '50000',
-                 '/sys/fs/cgroup/cpu/job/cpu.cfs_period_us': '100000'}
-        with patch('intelligent_futures.prediction._read', side_effect=lambda p: files.get(str(p), '')):
-            self.assertEqual(_quota(), .5)
+        # Exercise both path flavours on every host. Linux cgroup fixture names
+        # must not depend on the host's native separator (e.g. Windows CI).
+        fixtures = [
+            ({'/proc/self/cgroup': '0::/team/job',
+              '/sys/fs/cgroup/cpu.max': 'max 100000',
+              '/sys/fs/cgroup/team/cpu.max': '150000 100000',
+              '/sys/fs/cgroup/team/job/cpu.max': '300000 100000'}, 1.5),
+            ({'/proc/self/cgroup': '2:cpu,cpuacct:/job',
+              '/sys/fs/cgroup/cpu/job/cpu.cfs_quota_us': '50000',
+              '/sys/fs/cgroup/cpu/job/cpu.cfs_period_us': '100000'}, .5),
+        ]
+        for path_type in (PurePosixPath, PureWindowsPath):
+            for fixture, expected in fixtures:
+                files = {path_type(name): text for name, text in fixture.items()}
+                with self.subTest(path_type=path_type.__name__, expected=expected):
+                    with patch('intelligent_futures.prediction.Path', path_type), patch(
+                        'intelligent_futures.prediction._read',
+                        side_effect=lambda p: files.get(path_type(p), ''),
+                    ):
+                        self.assertEqual(_quota(), expected)
         with patch('intelligent_futures.prediction._read', return_value='nonsense'):
             self.assertIsNone(_quota())
 
