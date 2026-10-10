@@ -1,0 +1,2 @@
+# Preserve exact archived source bytes used by diagnostic SHA256 checks.
+benchmarks/results/optimizer/reliability/media_before_streaming.py text eol=lf

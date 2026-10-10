@@ -148,8 +148,8 @@ class MediaEnvelopeTests(unittest.TestCase):
                  patch.object(optimizer, 'trial', side_effect=trial), \
                  patch.object(optimizer, 'workload_environment', return_value={'test_only': True}), \
                  patch.object(probe, 'run_fresh_process', side_effect=fresh), \
-                 patch('os.sched_getaffinity', return_value=set(range(8))), \
-                 patch('os.sched_setaffinity'), contextlib.redirect_stdout(io.StringIO()):
+                 patch('os.sched_getaffinity', return_value=set(range(8)), create=True), \
+                 patch('os.sched_setaffinity', create=True), contextlib.redirect_stdout(io.StringIO()):
                 report = probe.run('video', output)
         self.assertEqual(len(calls), 168)
         self.assertEqual(len(fresh_requests), 3)
@@ -244,7 +244,7 @@ class MediaEnvelopeTests(unittest.TestCase):
              patch.object(probe, 'execute_batch', side_effect=reference_rows), \
              patch.object(probe, 'trial', side_effect=lambda name, engine, config, count, seed, root, prepared: row(config, seed)) as trial_mock, \
              patch.object(probe, 'workload_environment', return_value={'test_only': True}), \
-             patch('os.sched_getaffinity', return_value=set(range(8))), patch('os.sched_setaffinity'):
+             patch('os.sched_getaffinity', return_value=set(range(8)), create=True), patch('os.sched_setaffinity', create=True):
             result = probe.fresh_trial(request)
         return result, trial_mock
 
@@ -353,7 +353,7 @@ class MediaEnvelopeTests(unittest.TestCase):
         process = Mock(pid=123456, returncode=-15)
         process.wait.side_effect = [subprocess.TimeoutExpired('mock', 900), None]
         with patch.object(probe.subprocess, 'Popen', return_value=process), \
-             patch.object(probe.os, 'killpg') as kill_group:
+             patch.object(probe.os, 'killpg', create=True) as kill_group:
             result = probe.run_fresh_process(self.fresh_request())
         kill_group.assert_called_once_with(123456, probe.signal.SIGTERM)
         self.assertIsNone(result['trial_executed'])
