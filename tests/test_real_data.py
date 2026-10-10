@@ -31,6 +31,8 @@ class DataWorkloadsTests(unittest.TestCase):
             (root/"dirlink").symlink_to(root/"nested", target_is_directory=True)
             (root/"dangling").symlink_to(root/"missing")
             expected = [["a", "nested/b"], ["c", "d"], ["empty", "nested/empty"]]
+            # The API returns native relative path strings on each platform.
+            expected = [[str(Path(name)) for name in group] for group in expected]
             self.assertEqual(data.find_duplicates(root), expected)
             with patch.object(data, "_digest_file", return_value="forced-collision"):
                 self.assertEqual(data.find_duplicates(root), expected)
