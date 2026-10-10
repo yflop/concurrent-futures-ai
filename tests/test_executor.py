@@ -14,6 +14,7 @@ from dataclasses import FrozenInstanceError
 import json
 import multiprocessing
 import os
+import pickle
 from pathlib import Path
 import tempfile
 import threading
@@ -919,7 +920,8 @@ class ProcessTests(ExecutorCase):
         hints = TaskHints(kind="cpu", process_safe=True)
         future = executor.submit_task(lambda: "not pickleable", hints=hints)
         self.assertIs(type(future), Future)
-        with self.assertRaises((AttributeError, TypeError)):
+        # Python 3.14 reports local-function serialization as PicklingError.
+        with self.assertRaises((AttributeError, TypeError, pickle.PicklingError)):
             future.result(WAIT)
         self.assertEqual(executor.submit_task(identity, "healthy", hints=hints).result(WAIT), "healthy")
         executor.shutdown()
