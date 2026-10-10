@@ -2,7 +2,7 @@
 from collections import OrderedDict, deque
 from concurrent.futures import (CancelledError, Executor, Future, ThreadPoolExecutor,
                                 ProcessPoolExecutor)
-from dataclasses import asdict
+from dataclasses import asdict, dataclass
 import math
 import logging
 import multiprocessing
@@ -12,13 +12,48 @@ import time
 from types import MappingProxyType
 
 from .policies import (TaskHints, Profile, PolicyRegistry, BackendLoad, SchedulingLoad,
-                       AdaptivePolicy)
+                       AdaptivePolicy, HintPolicy, ProcessPolicy, ThreadPolicy)
 from .prediction import (HardwareCapabilities, ExecutionObjective, Predictor,
                          RuntimeSample, normalize_features)
 
 
 class BackpressureError(TimeoutError):
     """Admission did not become available within submit_timeout."""
+
+
+@dataclass(frozen=True)
+class RoutingDecision:
+    """Sanitized evidence for one accepted submission, without task identity.
+
+    load and pending describe scheduler state immediately before admission.
+    A policy may have chosen its fixed route before an admission wait; its
+    reason/exploration evidence is preserved even if that load later changes.
+    admission_limit bounds unfinished accepted tasks; load.max_pending also
+    bounds physically retained items, and load.*.workers cap dispatch slots.
+    These are exact scheduler limits/counts, not sampled CPU/RSS measurements
+    or a claim that operating-system resource use is capped.
+    """
+    sequence: int
+    backend: str
+    reason: str
+    exploration: bool
+    load: SchedulingLoad
+    pending: int
+    admission_limit: int
+
+
+# Counter cardinality is independent of keys, input data and custom policies.
+_ROUTING_REASONS = (
+    "thread-policy", "process-policy", "cpu-hint", "io-hint", "default-thread",
+    "process-unavailable", "process-consent-required", "task-hint",
+    "queue-pressure", "uncontended-load-proxy", "completion-ewma", "adaptive-policy",
+    "predictive-heuristic", "predictive-measurement-guided", "predictive-empirical",
+    "predictive-transfer-prior", "custom-policy",
+)
+_ADAPTIVE_REASONS = {value: value for value in (
+    "task-hint", "queue-pressure", "uncontended-load-proxy", "completion-ewma")}
+_PREDICTIVE_REASONS = {value: "predictive-" + value for value in (
+    "heuristic", "measurement-guided", "empirical", "transfer-prior")}
 
 
 class _WorkItem:
@@ -76,17 +111,21 @@ class IntelligentExecutor(Executor):
     Each backend has at most its worker count of outstanding submissions.
     submit_timeout controls admission only, never execution deadlines.
     process_workers=0 disables processes. Spawn is the portable default.
+    trace_capacity=0 disables routing traces; positive values retain only the
+    newest bounded sanitized routing decisions, with cumulative route counters.
     Explicit shutdown (or a context manager) drains and joins the scheduler.
     """
     def __init__(self, max_workers=4, *, process_workers=0, max_pending=64,
                  policy="adaptive", submit_timeout=None, ewma_alpha=0.25,
                  max_profile_keys=256, mp_context=None, predictive=False,
-                 hardware=None, objective=None, workload_profiles=(), profile_sample_interval=1):
+                 hardware=None, objective=None, workload_profiles=(), profile_sample_interval=1,
+                 trace_capacity=0):
         for name, value, minimum in (("max_workers", max_workers, 1),
                                      ("process_workers", process_workers, 0),
                                      ("max_pending", max_pending, 1),
                                      ("max_profile_keys", max_profile_keys, 1),
-                                     ("profile_sample_interval", profile_sample_interval, 1)):
+                                     ("profile_sample_interval", profile_sample_interval, 1),
+                                     ("trace_capacity", trace_capacity, 0)):
             if isinstance(value, bool) or not isinstance(value, int) or value < minimum:
                 raise ValueError(f"{name} must be an integer >= {minimum}")
         if submit_timeout is not None and (submit_timeout < 0 or not math.isfinite(submit_timeout)):
@@ -142,6 +181,11 @@ class IntelligentExecutor(Executor):
         self._alpha = ewma_alpha
         self._max_profile_keys = max_profile_keys
         self._profiles = OrderedDict()
+        self._trace_capacity = trace_capacity
+        self._routing_trace = deque(maxlen=trace_capacity)
+        self._routing_recorded = 0
+        self._routing_by_backend = {"thread": 0, "process": 0}
+        self._routing_by_reason = dict.fromkeys(_ROUTING_REASONS, 0)
         self._counts = dict(submitted=0, completed=0, failed=0, cancelled=0,
                             rejected=0, thread_submitted=0, process_submitted=0,
                             peak_pending=0, profiles_evicted=0)
@@ -169,6 +213,70 @@ class IntelligentExecutor(Executor):
         """Immutable, bounded snapshots; serialize each with WorkloadProfile.to_json()."""
         with self._condition:
             return () if self._predictor is None else self._predictor.profiles
+
+    def routing_trace(self):
+        """Immutable, bounded accepted-routing snapshot in admission order.
+
+        Rejections and failed synchronous dispatches are not accepted routes.
+        Trace records never include callables, inputs, results, exceptions,
+        workload keys, features, policy names, or custom-policy explanation text.
+        Use dataclasses.asdict on a record for a JSON-safe detached copy.
+        """
+        with self._condition:
+            return tuple(self._routing_trace)
+
+    def routing_counters(self):
+        """Detached cumulative counters with fixed category cardinality.
+
+        dropped counts accepted records evicted from the bounded trace. With
+        trace_capacity=0 both trace recording and these counters are disabled.
+        Concurrent calls to the two snapshot methods are individually atomic,
+        but need not represent the same instant.
+        """
+        with self._condition:
+            retained = len(self._routing_trace)
+            return {"enabled": bool(self._trace_capacity), "capacity": self._trace_capacity,
+                    "recorded": self._routing_recorded, "retained": retained,
+                    "dropped": self._routing_recorded - retained,
+                    "by_backend": dict(self._routing_by_backend),
+                    "by_reason": dict(self._routing_by_reason)}
+
+    def _routing_reason(self, hints):
+        # Never ask a custom policy for telemetry or retain its strings. Exact
+        # built-in types avoid accidentally invoking a subclass's hooks here.
+        policy_type = type(self._policy)
+        if self._predictor is not None and self._predictive_routing:
+            return _PREDICTIVE_REASONS[self._prediction.source], False
+        if policy_type is ThreadPolicy:
+            return "thread-policy", False
+        if policy_type is ProcessPolicy:
+            return "process-policy", False
+        if policy_type not in (HintPolicy, AdaptivePolicy):
+            return "custom-policy", False
+        if policy_type is AdaptivePolicy or hints.kind == "cpu":
+            if self._processes is None:
+                return "process-unavailable", False
+            if not hints.process_safe:
+                return "process-consent-required", False
+        if hints.kind == "io":
+            return "io-hint", False
+        if policy_type is HintPolicy:
+            return ("cpu-hint" if hints.kind == "cpu" else "default-thread"), False
+        decision = self._policy.snapshot()["last_decision"]
+        reason = None if decision is None else decision["reason"]
+        # Canonical constants, rather than even a string subclass returned by
+        # external mutation of a built-in instance, enter the long-lived trace.
+        reason = _ADAPTIVE_REASONS.get(reason, "adaptive-policy") if type(reason) is str else "adaptive-policy"
+        return reason, decision is not None and decision["exploration"] is True
+
+    def _record_routing_locked(self, backend, hints, load, pending, decision):
+        reason, exploration = self._routing_reason(hints) if decision is None else decision
+        backend = "thread" if backend == "thread" else "process"
+        self._routing_recorded += 1
+        self._routing_by_backend[backend] += 1
+        self._routing_by_reason[reason] += 1
+        self._routing_trace.append(RoutingDecision(self._routing_recorded, backend,
+            reason, exploration, load, pending, self._concurrency_limit))
 
     def _measure_thread(self, fn, args, kwargs, hints, features):
         with self._condition:
@@ -236,7 +344,12 @@ class IntelligentExecutor(Executor):
             raise TypeError("hints must be TaskHints")
         deadline = None if self._submit_timeout is None else time.monotonic() + self._submit_timeout
         chosen_backend = None
+        routing_decision = None
         with self._condition:
+            if not self._closed and type(self._policy) is ProcessPolicy:
+                # Invalid deterministic-process submissions must fail clearly,
+                # even when valid work has saturated the admission budget.
+                self._validate_backend("process", hints)
             while not self._closed:
                 load = self._load_view()
                 backend = None
@@ -244,6 +357,11 @@ class IntelligentExecutor(Executor):
                     if not self._predictive_routing and chosen_backend is None:
                         chosen_backend = self._choose(hints, load)
                         self._validate_backend(chosen_backend, hints)
+                        if self._trace_capacity:
+                            # This fixed route survives admission waits. Other
+                            # producers may advance built-in policy state while
+                            # the condition is released, so capture its reason now.
+                            routing_decision = self._routing_reason(hints)
                     self._prediction = self._predictor.recommend(
                         hints.key, features=features, kind=hints.kind,
                         process_safe=hints.process_safe,
@@ -285,6 +403,8 @@ class IntelligentExecutor(Executor):
             self._counts[backend + "_submitted"] += 1
             self._counts["peak_pending"] = max(self._counts["peak_pending"], self._pending)
             self._peak_retained = max(self._peak_retained, self._retained())
+            if self._trace_capacity:
+                self._record_routing_locked(backend, hints, load, self._pending - 1, routing_decision)
             future.add_done_callback(_RecordCallback(self, item))
         self._run_actions(actions)
         return future

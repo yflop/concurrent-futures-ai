@@ -1,7 +1,7 @@
 # Contributing
 
 Small evidence-backed contributions are welcome. Open a focused issue before a
-large policy, backend, or API change. Version 0.4 has Beta maturity. Beta does not
+large policy, backend, or API change. Version 0.5 has Beta maturity. Beta does not
 promise API stability or production suitability; document compatibility changes
 explicitly and complete the source, artifact and exact-commit CI release checks.
 
@@ -44,3 +44,8 @@ strict JSON boundaries, sanitized failures, capacity reclamation, and shutdown.
 For MCP changes install `.[mcp]` and run `tests.test_mcp` against the actual SDK
 stdio client/server subprocess; core-only optional skips are not an MCP pass.
 Keep the adapter separate from `framework` and avoid importing the SDK in the core.
+
+For adoption evaluation changes, preserve fixed predeclared train/held-out plans,
+explicit fixture/process consent, equivalent stdlib budgets, and every failed or
+negative observation. Synthetic protocol tests are not benchmark evidence. Keep
+historical release reports unchanged; publish new evidence with its exact scope.

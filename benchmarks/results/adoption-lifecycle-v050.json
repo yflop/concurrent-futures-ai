@@ -1,0 +1,42 @@
+{
+  "status": "passed",
+  "cycles": 128,
+  "process_cycles": 8,
+  "accepted_thread_tasks": 32768,
+  "completed_thread_tasks": 26074,
+  "cancelled_thread_tasks": 6694,
+  "completed_process_tasks": 64,
+  "trace_evictions": 30720,
+  "observed_item_peaks": {
+    "retained": 8,
+    "pending": 8,
+    "trace": 16
+  },
+  "before": {
+    "rss_bytes": 19062784,
+    "descendants": 0,
+    "fds": 4,
+    "threads": 1
+  },
+  "after": {
+    "rss_bytes": 20271104,
+    "descendants": 1,
+    "fds": 5,
+    "threads": 1
+  },
+  "rss_growth_bytes": 1208320,
+  "rss_growth_gate_bytes": 134217728,
+  "elapsed_seconds": 3.853579765003815,
+  "source_sha256": {
+    "src/intelligent_futures/__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+    "src/intelligent_futures/tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81",
+    "src/intelligent_futures/evaluation.py": "42c8dc9759ab895c2893d2d55063ae64f0305dffc442bf0beff0f0d43e105913",
+    "src/intelligent_futures/__init__.py": "784e89094e9e57a48de74a1abd103dba2c29e855c70de8149a4e178047e2040a",
+    "src/intelligent_futures/evaluation_workloads.py": "b940f3a3a29fe87bfddd459a8365e8946967b72d30e0c20c380e454fc4db8b52",
+    "src/intelligent_futures/executor.py": "8a75c53dd192b3e4661c5f6b402045af25212aec1817bb8729e3535b29a2c6d8",
+    "src/intelligent_futures/policies.py": "2964f218dc15bf5cca57be6f472855295370d0870f017aa3bba77fc724ca77e4",
+    "src/intelligent_futures/catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+    "src/intelligent_futures/prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d"
+  },
+  "limitations": "Observed test gate, not hard RSS enforcement or universal lifecycle proof."
+}

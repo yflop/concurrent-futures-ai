@@ -4,7 +4,7 @@
   "project": "concurrent-futures-ai",
   "status_definitions": {
     "implemented": "A mechanism present in this repository; its limits and tests remain authoritative. This label is not a performance claim.",
-    "experimental": "Executable implementation with recorded limitations and validation; the adaptive learner uses this status even though adaptive is the constructor default. Choose policy=threads or policy=hints to avoid learning.",
+    "experimental": "Executable implementation with recorded limitations and validation; the adaptive learner uses this status even though adaptive is the constructor default. Choose policy=threads, policy=process or policy=hints to avoid learning.",
     "planned": "Design or research proposal only; not a supported runtime feature."
   },
   "reference_note": "References identify primary-source foundations or inspiration. The proposed mechanisms and benchmark designs are original project designs, not claims that the cited project implements them.",
@@ -28,7 +28,7 @@
       "title": "Explicit thread and process hints",
       "status": "implemented",
       "category": "routing",
-      "mechanism": "Use TaskHints.kind and the explicit process_safe declaration to constrain backend selection before learned preferences are considered.",
+      "mechanism": "Use TaskHints.kind and the explicit process_safe declaration to constrain backend selection before learned preferences are considered. ProcessPolicy supplies a deterministic process-only route that rejects absent backend or per-task consent without fallback.",
       "applicability": "Applications whose authors understand their I/O, CPU work, process importability, and state-sharing requirements.",
       "risks": "CPU is a workload hint rather than proof that processes help. process_safe is an author assertion, not a security sandbox or serialization guarantee.",
       "benchmark_method": "Use importable functions returning process IDs and deterministic outputs. Test CPU, I/O, unknown, and ineligible-process cases separately; compare outputs before timings.",
@@ -1079,6 +1079,42 @@
       "applicability": "Applications with safe repeatable calibration fixtures that can amortize measured configuration cost before running ordinary work.",
       "risks": "Caller owns idempotence, representative inputs and holdout independence. Budgets count evaluator calls, not elapsed-time enforcement; measured caps filter observations rather than impose OS limits. No implicit task replay, global optimum or online convergence guarantee. Saved schema-v2 configurations bind scheduler/strategy revisions, workload, runtime and hardware identity.",
       "benchmark_method": "Use deterministic callback fixtures to verify consent, bounds, errors, caps and selection; then compare actual representative workload runs with equal stdlib algorithm/resource/search grids, separate calibration/hold-out seeds, exact provenance and all configuration cost.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-002"
+      ]
+    },
+    {
+      "id": "CF-067",
+      "title": "Evidence-gated executor adoption",
+      "status": "experimental",
+      "category": "learning",
+      "mechanism": "Evaluate caller-consented repeatable fixtures with equivalent bounded stdlib/intelligent budgets. Freeze training winners before a fixed randomized paired holdout. Require exact median log-speedup evidence versus fixed and tuned stdlib, practical margin, noise/correctness/resource/regression gates and empirical discovery-cost amortization.",
+      "applicability": "Incremental adoption decisions for explicitly representative independent fixtures, with retained stdlib fallback and exact-mode compatibility checks.",
+      "risks": "Fixture consent does not establish idempotence or statistical independence. Median paired gains are not mean throughput, tail or cumulative-savings guarantees. Repeated experiments need separate multiplicity control; resource observations are not hard OS limits. No live-task replay or automatic deployment.",
+      "benchmark_method": "Test controlled positive, null, noisy, failed, missing-resource, stale-mode and process-consent cases; publish every outcome of fixed representative fixture experiments with all raw scalar measurements and discovery cost.",
+      "references": [
+        "https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/signtest.htm",
+        "https://www.itl.nist.gov/div898/handbook/prc/section4/prc463.htm"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-002",
+        "CF-066"
+      ]
+    },
+    {
+      "id": "CF-068",
+      "title": "Bounded sanitized routing explanations",
+      "status": "implemented",
+      "category": "observability",
+      "mechanism": "Opt-in immutable accepted-routing records retained in a bounded ring with fixed-category cumulative counters, backend/reason and exact pre-admission scheduler counts. No callable, input, output, exception, key or custom-policy text is retained.",
+      "applicability": "Inspecting why accepted work chose a backend while keeping data capture explicit and bounded.",
+      "risks": "Metadata has overhead and is not proof of causal speedup or CPU/RSS usage. Rejected submissions are not accepted-routing records; counters and trace snapshots from separate calls can represent different instants.",
+      "benchmark_method": "Verify ring eviction, fixed counter cardinality, immutable concurrent snapshots, no object retention, stable reasons under admission contention, and trace-enabled cancellation/shutdown cycles.",
       "references": [
         "https://docs.python.org/3/library/concurrent.futures.html"
       ],

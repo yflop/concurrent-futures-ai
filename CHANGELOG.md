@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.5.0 — Beta
+
+- Add opt-in evidence-gated adoption for caller-declared repeatable fixtures:
+  independent bounded stdlib/intelligent searches followed by frozen, paired
+  held-out comparisons against both fixed and tuned stdlib baselines.
+- Require an exact median paired log-speedup lower bound above the declared
+  practical margin, complete correctness/resource observations, noise and
+  observed-regression gates, and empirical amortization of discovery cost.
+  Results can recommend the exact measured mode, retain stdlib, or be inconclusive.
+- Add fresh context-managed callable fixtures with equivalent batching and
+  submission windows, cold pool-lifecycle timing, output validation, and explicit
+  process-safety declarations. Ordinary submitted work is never captured/replayed.
+- Add deterministic `ProcessPolicy`, opt-in bounded routing traces and fixed-category
+  routing counters. Process consent remains per task; traces omit workload data.
+- Add workload/runtime/hardware/revision/expiry guards on in-memory adoption
+  recommendations, renewed process consent, and evidence-only JSON export.
+  No report deserialization or automatic deployment is provided.
+- Add one-factory incremental adoption and explicit pre-submission rollback
+  examples. Switching executors never retries failed application tasks.
+
+See the [adoption contract](docs/ADOPTION.md) and the separate
+[0.5 release evaluation record](docs/ADOPTION-EVIDENCE.md). All negative and
+inconclusive observations belong in the evidence. Synthetic protocol tests are
+not performance measurements. The 0.4 reports below retain their original scope
+and outcomes. Beta status does not assert a universal speedup, a globally best
+configuration, hard resource enforcement, or production certification.
+
 
 ## 0.4.0 — Beta
 

@@ -1,6 +1,6 @@
 # Security and trust boundaries
 
-Version 0.4 is a **Beta trusted-code concurrency library**. Beta is not a security
+Version 0.5 is a **Beta trusted-code concurrency library**. Beta is not a security
 or production certification. The release workflow requires source verification,
 built-artifact checks and exact-commit CI. This is not a sandbox: do not submit untrusted Python
 code or unpickle attacker-controlled objects. Processes isolate
@@ -114,3 +114,35 @@ callback may run once per candidate/repeat, so callers must use repeatable fixtu
 without consequential side effects. Process candidates require explicit consent.
 Observed resource-cap filters are not live resource enforcement. Keep calibration
 artifacts, hardware fingerprints, and task identifiers private when appropriate.
+
+
+## Evidence-gated fixture evaluation (0.5)
+
+The evaluator runs only an explicitly supplied `RepeatableWorkload` after
+`repeatable=True` consent. That declaration is not a sandbox or proof of
+idempotence. A caller-controlled fixture factory, callable and validator remain
+trusted code with the process's permissions; repeats can produce repeated side
+effects. Use isolated test state and fresh context-managed fixtures. Ordinary
+submissions are never discovered, intercepted or replayed. Exceptions never
+trigger automatic retries on another backend.
+
+Correctness/resource/uncertainty gates are conservative decisions about supplied
+observations, not guarantees about adversarial callbacks or future work. Required
+missing telemetry fails closed. `max_evaluations` bounds measurement calls; the
+built-in adapter bounds submitted batches and fixture item count. These are not
+hard byte, RSS, CPU or execution-time limits. Use an external process supervisor
+if task termination is required.
+
+Evidence exports contain scalar measurements, non-sensitive caller-supplied
+workload identity/version/scope, configuration, runtime and hardware metadata.
+They omit callable inputs, outputs and exception messages. Review identifiers
+before sharing reports. There is no executable report importer. In-memory
+recommendations check workload identity, runtime/revisions, hardware and expiry,
+and require renewed process consent; matching identity cannot establish
+representative workloads or unchanged load.
+
+Optional routing traces retain bounded accepted-decision records and fixed
+reason categories only. They omit keys, features, callable/input/result objects,
+exception content and custom-policy text. Other existing profile APIs may include
+caller-supplied workload keys and feature summaries; those retain their separate
+data-handling contract.

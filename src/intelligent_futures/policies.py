@@ -123,6 +123,18 @@ class ThreadPolicy:
         return "thread"
 
 
+class ProcessPolicy:
+    """A deterministic process route, requiring explicit consent for every task.
+
+    This policy never falls back to threads. process_safe asserts both pickling
+    compatibility and semantic safety; it does not validate either property.
+    """
+    def choose(self, hints, profiles, process_available):
+        if not process_available or not hints.process_safe:
+            raise ValueError("process routing requires process_safe=True and process_workers > 0")
+        return "process"
+
+
 class HintPolicy:
     def choose(self, hints, profiles, process_available):
         return "process" if hints.kind == "cpu" and hints.process_safe and process_available else "thread"
@@ -248,7 +260,8 @@ class AdaptivePolicy:
 class PolicyRegistry:
     """Thread-safe, per-instance registry. Register factories, not shared state."""
     def __init__(self):
-        self._factories = {"threads": ThreadPolicy, "hints": HintPolicy, "adaptive": AdaptivePolicy}
+        self._factories = {"threads": ThreadPolicy, "process": ProcessPolicy,
+                           "hints": HintPolicy, "adaptive": AdaptivePolicy}
         self._lock = RLock()
 
     def register(self, name, factory):

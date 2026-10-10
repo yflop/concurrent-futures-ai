@@ -11,8 +11,10 @@ class ImportBoundaryTests(unittest.TestCase):
 import json, sys
 import intelligent_futures
 import intelligent_futures.framework
+import intelligent_futures.evaluation
+import intelligent_futures.evaluation_workloads
 import intelligent_futures.integrations.mcp
-print(json.dumps([name for name in sys.modules if name == "mcp" or name.startswith("mcp.")]))
+print(json.dumps([name for name in sys.modules if name.split(".")[0] in {"mcp", "numpy", "scipy", "psutil", "requests", "PIL", "networkx"}]))
 '''
         result = subprocess.run([sys.executable, "-c", script], check=True,
                                 capture_output=True, text=True, timeout=15)

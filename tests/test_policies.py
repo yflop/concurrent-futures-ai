@@ -122,7 +122,7 @@ class AdaptivePolicyTests(unittest.TestCase):
 class RegistryTests(unittest.TestCase):
     def test_builtin_names_and_factories(self):
         registry = PolicyRegistry()
-        self.assertEqual(registry.names(), ("adaptive", "hints", "threads"))
+        self.assertEqual(registry.names(), ("adaptive", "hints", "process", "threads"))
         self.assertIsInstance(registry.create("adaptive"), AdaptivePolicy)
         self.assertIsInstance(registry.create("hints"), HintPolicy)
         self.assertIsInstance(registry.create("threads"), ThreadPolicy)
@@ -141,7 +141,7 @@ class RegistryTests(unittest.TestCase):
         for name in (None, 12, True, (), []):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 registry.register(name, ThreadPolicy)
-        self.assertEqual(registry.names(), ("adaptive", "hints", "threads"))
+        self.assertEqual(registry.names(), ("adaptive", "hints", "process", "threads"))
 
     def test_factory_error_is_not_misreported_as_unknown_name(self):
         registry = PolicyRegistry()

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "scope": "Lossless storage of only the new 0.5.0 adoption evidence; all historical report files and their archive manifest remain unchanged.",
+  "format": "gzip level 9; mtime 0; no filename header; UTF-8 JSON payload",
+  "archives": [
+    {
+      "path": "adoption-v050.json.gz",
+      "payload_path": "adoption-v050.json",
+      "payload_bytes": 2613282,
+      "archive_bytes": 113799,
+      "payload_sha256": "06cbf8f8ebc4f9e1affabb0aab53a37b663d0e291fd0f2be9598bb0c3a7f8c47",
+      "archive_sha256": "d5a327a67e32be63a9961c4adec856821a24e1eafd0bba581d9fb0cd4082cafb"
+    },
+    {
+      "path": "adoption-mixed-v050.json.gz",
+      "payload_path": "adoption-mixed-v050.json",
+      "payload_bytes": 237561,
+      "archive_bytes": 15046,
+      "payload_sha256": "739f39af4be79b28c22f4b8d7b5233b6a3b71c0f305a081f0ee6391e49dda7f3",
+      "archive_sha256": "863ba6663107e1067ee4b41b940567290e87f081e4872586ce99e277c43a1f78"
+    }
+  ]
+}

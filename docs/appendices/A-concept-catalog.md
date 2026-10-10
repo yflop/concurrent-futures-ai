@@ -1,6 +1,6 @@
 # Appendix A: Concept catalog
 
-The machine-readable source of truth is [`../concepts.json`](../concepts.json). It contains 66 concepts: 12 implemented, 7 experimental, and 47 planned. These labels describe delivered mechanisms, not deployment readiness or performance guarantees. Adaptive routing remains a bounded heuristic; explicit hints and threads are available. Each entry records mechanism, risks, applicability, benchmark method and dependencies.
+The machine-readable source of truth is [`../concepts.json`](../concepts.json). It contains 68 concepts: 13 implemented, 8 experimental, and 47 planned. These labels describe delivered mechanisms, not deployment readiness or performance guarantees. Adaptive routing remains a bounded heuristic; explicit hints and threads are available. Each entry records mechanism, risks, applicability, benchmark method and dependencies.
 
 Status is a delivery contract, not a quality rating. A planned item is not accepted by the executor API. References explain background; they do not imply endorsement or an implementation in this repository.
 
@@ -132,3 +132,13 @@ calibration callback, validates observations and process consent, records all
 configuration costs, and freezes selection before held-out inspection. See
 [TUNING.md](../TUNING.md). Its bounded measured search does not implement the
 remaining planned concepts or establish a universal optimal scheduler.
+
+
+## Evidence-gated adoption and explanations (0.5)
+
+CF-067 adds an opt-in, fixed-plan decision about safe repeatable fixtures, with
+independent stdlib tuning, conservative held-out comparison and explicit
+`retain_stdlib`/`inconclusive` outcomes. CF-068 adds a bounded sanitized routing
+ring and fixed-category counters. See [ADOPTION.md](../ADOPTION.md) for scope,
+statistical assumptions, consent, rollback and lifecycle contracts. Neither
+mechanism silently evaluates live application tasks.

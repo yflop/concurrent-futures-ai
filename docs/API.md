@@ -5,7 +5,7 @@
 `IntelligentExecutor(max_workers=4, *, process_workers=0, max_pending=64,
 policy="adaptive", submit_timeout=None, ewma_alpha=0.25, max_profile_keys=256,
 mp_context=None, predictive=False, hardware=None, objective=None,
-workload_profiles=(), profile_sample_interval=1)`
+workload_profiles=(), profile_sample_interval=1, trace_capacity=0)`
 
 Worker counts are fixed for each executor. A process count of zero disables that
 backend. A provided multiprocessing context is passed through; the default is
@@ -208,3 +208,135 @@ metrics, privacy, process consent, JSON bounds, and cancellation limitations.
   target_batch_seconds=0.05, hints=None)` adapts submission windows only
 - Public models: `HardwareCapabilities`, `ExecutionObjective`, `RuntimeSample`,
   `WorkloadProfile`, `ScalingBucket`, `Prediction`, `Predictor`
+
+## Evidence-gated adoption APIs (0.5 Beta)
+
+These are additive opt-in APIs. They do not evaluate or replay ordinary executor
+submissions. See [ADOPTION.md](ADOPTION.md) for the experiment, interpretation,
+guarded adoption, and rollback contract.
+
+Import evaluator types from `intelligent_futures.evaluation`:
+
+- `EvaluationConfiguration(backend="thread", workers=4, batch_size=1,
+  process_workers=0, predictive=False, profile_sample_interval=1)` describes
+  one exact mode. Backends are `thread`, `process`, and `adaptive`. In adaptive
+  mode, `workers` is the total active slot budget and
+  `0 < process_workers < workers` splits it; otherwise `process_workers=0`.
+  Predictive profiling is explicit; a non-default sample interval requires it.
+  `uses_process` identifies process-capable modes; `standard_equivalents()`
+  returns required deterministic stdlib budget counterparts.
+- `RepeatableWorkload(name, version, measure, repeatable=False,
+  independent=False, metric_scope="caller_defined")` declares fixture identity,
+  execution consent and inference assumptions. `measure(engine, configuration,
+  seed)` returns `intelligent_futures.tuning.Measurement`. Names, versions and
+  scope descriptions must be non-sensitive text of at most 256 characters.
+- `EvaluationPlan(...)` sets a fixed experiment and observed acceptance gates.
+  Defaults are `training_blocks=3`, `heldout_blocks=24`, `seed=0`,
+  `metric="cold_seconds"`, `minimum_speedup=0.05`, `family_alpha=0.05`,
+  `max_pair_slowdown=0.25`, `max_log_speedup_mad=0.10`,
+  `minimum_measured_seconds=0.001`, `max_workers=4`, `max_pending=8`,
+  `max_evaluations=512`, `expected_reuses=None`, and
+  `evidence_ttl_seconds=86400.0`. Optional `max_cpu_seconds`,
+  `max_peak_rss_bytes`, `max_batch_p95_seconds`, and `max_observed_seconds`
+  default to `None`. Missing capped metrics fail closed. The metric may be
+  `warm_seconds` only when the workload really measures that scope. These are
+  observation filters and call/count budgets, not task preemption or hard RSS
+  limits. There are at most 128 blocks per phase and 32 configurations per grid.
+- `evaluate_workload(workload, *, stdlib_configurations,
+  intelligent_configurations, fixed_baseline, plan=None, allow_process=False)`
+  returns an `EvaluationReport`. The fixed baseline belongs to the stdlib grid;
+  that grid must include same-budget equivalents for every intelligent mode.
+  Stdlib modes cannot be adaptive or predictive. Process-capable modes require
+  explicit consent. Fixture errors are recorded without exception text;
+  cancellation and `BaseException` interruptions propagate. There is no
+  automatic retry, early-success stop, or held-out reselection.
+
+`EvaluationReport` exposes `status`, `reasons`, workload identity/scope, `plan`,
+`selected_intelligent`, `selected_stdlib`, `fixed_baseline`, every `TrialRecord`
+in `records`, `comparisons`, training/held-out seeds, expected/attempted/
+successful/failed/skipped evaluation counts, discovery/training/validation
+seconds, empirical break-even reuse/net seconds, hardware/version/revision/time
+metadata, and an optional `recommendation`. `to_json()` returns detached
+JSON-compatible data, not encoded text; serialize it with `json.dumps` or
+`json.dump`. It contains no callback, raw fixture inputs/results, or executable
+deserialization path. Preserve excluded, failed, and inconclusive observations.
+
+Each `TrialRecord` records phase, block, randomized order, seed, engine, exact
+configuration, optional measurement, exclusion reason and callback wall time.
+Each `BaselineComparison` records its fixed/tuned role, configuration, pair/win
+counts, sign p-value and comparison alpha, median/lower speedup and log-bound
+order statistic, log-speedup MAD, aggregate speedup, worst observed paired
+slowdown, minimum/mean observed saving, passed flag and reasons. The inferential
+target is the median paired `log(baseline_seconds / candidate_seconds)`, not
+mean throughput or tail latency. `family_alpha` is divided over this report's
+two comparisons; it does not license repeated testing until a report passes.
+
+`AdoptionRecommendation.checked_configuration(workload, *, allow_process=False,
+now=None)` returns its exact `EvaluationConfiguration` or raises `ValueError`.
+It checks workload identity/version/scope and declarations, package/runtime/
+scheduler/evaluation revisions, hardware fingerprint, and the evidence interval.
+Process execution requires renewed consent. Carry its `max_pending` and the
+measured batching/timing assumptions into any explicit adoption decision.
+Hardware matching and observed resource gates are not future-load guarantees.
+
+### Ready-made fixture and executor helpers
+
+Import these from `intelligent_futures.evaluation_workloads`:
+
+- `EvaluationFixture(inputs, validate)` pairs a finite single-input workload
+  with an ordered-result validator returning a real `bool`.
+- `callable_workload(fn, fixture_factory, *, name, version, repeatable=False,
+  independent=False, process_safe=False, max_tasks=10000, max_pending=8)` returns
+  a `RepeatableWorkload`. The factory accepts the seed and is a context manager
+  yielding a fresh `EvaluationFixture` for each measured mode. Construction
+  executes nothing. The adapter validates at most `max_tasks + 1` inputs before
+  pool creation, and rejects empty/oversized fixtures. It submits the same tuple
+  batches with the same ordered window to both engine families. Its window
+  must equal `plan.max_pending`; a scheduling item is a batch, not one byte or
+  necessarily one user call. Its `pool_lifecycle` scope includes pool creation,
+  fixture execution and waiting shutdown; it excludes setup, input collection,
+  validation and cleanup. It supports only a cold objective, supplies no CPU,
+  RSS or p95 observation, and retains the finite fixture's inputs/results locally.
+  `warm_seconds` aliases the cold time solely for Measurement compatibility.
+- `make_executor(engine, configuration, *, max_pending, allow_process=False)`
+  creates the explicitly chosen `stdlib` or `intelligent` executor; the caller
+  owns shutdown, batching and submission windows. The stdlib return is an
+  ordinary `ThreadPoolExecutor` or spawn-based `ProcessPoolExecutor`, without
+  an added admission bound. Intelligent process-only mode uses a deterministic
+  process route with an unused lazy thread-pool shell. Adaptive mode splits
+  its active slot budget. No failed work is retried or transferred between pools.
+
+Process fixtures need both `process_safe=True` and evaluation
+`allow_process=True`. Direct IntelligentExecutor process submissions still need
+`submit_task(..., hints=TaskHints(process_safe=True))`; selecting a process pool
+does not assert semantic safety for arbitrary tasks. Factories and recommendations
+do not create permission to replay live work.
+
+### Deterministic process policy and optional routing evidence
+
+`ProcessPolicy` is exported from `intelligent_futures` and registered as
+`policy="process"`. It requires `process_workers > 0` and per-submission
+`TaskHints(process_safe=True)`, otherwise raises `ValueError` synchronously.
+It never silently falls back to threads. Fixed-route prediction can change
+admission but preserves that backend choice and consent requirement.
+
+The executor constructor adds `trace_capacity=0`. A positive integer enables a
+bounded newest-record ring; zero disables both trace and trace-specific counters.
+These are separate from existing executor aggregate metrics.
+
+- `routing_trace()` returns a tuple of immutable exported `RoutingDecision`
+  records: `sequence`, `backend`, `reason`, `exploration`, `load`, `pending`,
+  and `admission_limit`. Load/pending values describe state before admission.
+  Reasons come from a fixed vocabulary; custom policies are `custom-policy`.
+  Rejected submissions and failed synchronous dispatches are not accepted routes.
+- `routing_counters()` returns a detached dictionary with `enabled`, `capacity`,
+  `recorded`, `retained`, `dropped`, `by_backend`, and `by_reason`. `dropped`
+  counts records evicted from the ring, not rejected or lost tasks. Counters use
+  fixed category cardinality independent of user keys. Each snapshot is atomic;
+  separate calls need not represent the same instant.
+
+Trace records exclude callables, inputs, results, exceptions, workload keys,
+features, policy names, and custom explanation strings. `dataclasses.asdict`
+produces a JSON-compatible detached record. Scheduler counts/limits are not
+sampled CPU/RSS or evidence of a speedup. The existing explicit-shutdown and
+serial-completion-callback limitations still apply.

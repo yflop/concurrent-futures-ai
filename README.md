@@ -2,7 +2,7 @@
 
 Intelligent Futures is a workload-aware execution framework for Python that automates the evaluation and selection of concurrency configurations. It combines execution policies, workload characteristics, runtime measurements, and adaptive optimisation to help identify effective thread and process execution strategies under defined resource constraints.
 
-Version 0.4 is a **Beta workload-aware execution framework**. Beta is not
+Version 0.5 is a **Beta workload-aware execution framework**. Beta is not
 Production/Stable or a deployment certification. Individual adaptive/predictive
 capabilities retain their documented experimental status. The release workflow
 requires source verification, built-artifact checks and exact-commit CI; maturity
@@ -48,6 +48,43 @@ if __name__ == "__main__":  # required when using spawn-based processes
 
 Tiny tasks like `square` generally do not benefit from process overhead. This
 example demonstrates semantics, not a performance recommendation.
+
+## Evidence-gated adoption and simple rollback (0.5)
+
+Use one factory boundary to try the executor on new work, keeping the same
+`submit`/`Future`/`wait` interfaces. The thread-only
+[incremental example](https://github.com/yflop/concurrent-futures-ai/blob/main/examples/incremental_adoption.py) runs with either engine:
+
+```sh
+python -m examples.incremental_adoption --engine stdlib
+python -m examples.incremental_adoption --engine intelligent
+python -m examples.evaluate_adoption --save adoption-demo.json
+```
+
+Choose `stdlib` at the same factory before the next fresh batch to roll back.
+For adaptive/predictive adoption, also restore the original stdlib configuration.
+Drain existing work explicitly; never retry arbitrary failed tasks as part of
+rollback. Normal completion callbacks share a serial pump: do not wait for
+another same-executor Future inside a callback. Both example paths use the same
+caller-side submission window; `max_pending` is an item count, not an RSS limit.
+
+The opt-in `evaluate_workload` API runs only explicitly repeatable fixtures.
+It independently tunes both engine families, freezes the selected intelligent
+configuration, then compares it against both the fixed and tuned stdlib baselines
+on untouched paired blocks. Defaults are 3 training and 24 held-out blocks,
+a 5% practical margin for the median paired log-speedup, correctness/resource
+gates, and empirical accounting for evaluation cost over declared future reuse.
+The short runnable demonstration uses 8 held-out blocks and provides no
+production speedup evidence. `retain_stdlib` and `inconclusive` are normal results.
+
+Recommendations concern the exact measured configuration and scope, require
+compatibility/expiry checks, and renew process consent. Saved JSON is evidence,
+not an executable deployment profile. Read the [adoption guide](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/ADOPTION.md),
+[new APIs](docs/API.md#evidence-gated-adoption-apis-05-beta), and
+[0.5 release evaluation record](https://github.com/yflop/concurrent-futures-ai/blob/main/docs/ADOPTION-EVIDENCE.md). Earlier workload
+reports remain historical evidence for their stated versions; synthetic tests
+verify the protocol rather than performance. No universal speedup, globally best
+configuration, or hard future memory guarantee is claimed.
 
 ## Predictive foundation and actual batching (0.3)
 
