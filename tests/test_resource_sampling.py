@@ -23,6 +23,24 @@ def sampler(process):
     return result
 
 class ResourceSamplingTests(unittest.TestCase):
+    def test_attribution_tracks_first_last_and_aggregate_peak(self):
+        child=Process(50);parent=Process(100,[child]);s=sampler(parent)
+        s.sample();parent.rss=120;child.rss=200;s.sample()
+        parent.rss=140;child.rss=10;s.sample();report=s.report()
+        self.assertEqual(report['first_complete_sample']['tree_rss_bytes'],150)
+        self.assertEqual(report['last_complete_sample']['tree_rss_bytes'],150)
+        self.assertEqual(report['peak_complete_sample'],{'tree_rss_bytes':320,
+            'parent_rss_bytes':120,'descendant_rss_bytes':200,'observed_descendant_count':1})
+        report['peak_complete_sample']['parent_rss_bytes']=0
+        self.assertEqual(s.report()['peak_complete_sample']['parent_rss_bytes'],120)
+
+    def test_attribution_does_not_restore_failed_collection_eligibility(self):
+        parent=Process(100);s=sampler(parent);s.sample()
+        parent.enumeration_failure=AccessDenied();s.sample()
+        self.assertIsNone(s.report()['peak_rss_bytes'])
+        self.assertFalse(s.report()['complete'])
+        self.assertEqual(s.report()['peak_complete_sample']['parent_rss_bytes'],100)
+
     def test_complete_tree_samples(self):
         s=sampler(Process(100,[Process(50)]))
         with s:pass

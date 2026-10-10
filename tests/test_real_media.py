@@ -55,6 +55,24 @@ class MediaTests(unittest.TestCase):
     def test_representative_ocr_backends(self):
         self._exercise("ocr", "representative", len(media.OCR_PROFILES))
 
+    def test_ocr_bold_fixture_preserves_failed_primary_truth(self):
+        # Original typography read DELTA as DELIA on these declared documents.
+        # The revised fixture keeps the independent expected text unchanged.
+        with tempfile.TemporaryDirectory() as folder:
+            try:
+                tasks = media.prepare("ocr", Path(folder), 16,
+                                      6864650689634725, scale="representative")
+            except media.MissingDependency as exc:
+                self.skipTest(str(exc))
+            for index in (11, 15):
+                task = tasks[index]
+                self.assertEqual(task["fixture_revision"], "bold42-exact-text-v2")
+                self.assertEqual(task["font_name"], "DejaVuSans-Bold.ttf")
+                self.assertEqual(len(task["font_sha256"]), 64)
+                self.assertIn("HOTEL NOVEMBER DELTA", task["expected_text"])
+                self.assertNotIn("DELIA", task["expected_text"])
+                self.assertEqual(media.run_task(task)["text"], task["expected_text"])
+
     def test_representative_ocr_resolution_regression(self):
         # At native 1650px long-side resolution, task 6/page 2 was recognized
         # as "ALPHA NOVEMBER DELIA". Keep the real independent DELTA oracle.

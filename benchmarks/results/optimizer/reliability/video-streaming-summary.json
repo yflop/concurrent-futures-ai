@@ -1,0 +1,52 @@
+{
+  "scope": "Video-only bounded-buffer correctness and fresh-process diagnostic; primary optimizer evidence is unchanged.",
+  "backup_source_sha256": "cb71269b9a2f6053bd8b36b1ff39bf296ab505acd14ca871ff05f383a75b1109",
+  "video_only_patch_sha256": "adb0f53b2e1940accd7491767da2a5980a53a55c0896190f61bdf8559f7a696c",
+  "combined_source_sha256": "69884e5e47a43b1520ec8588ea19e81621835a32bacaee49e3392eed84026798",
+  "focused_test_sha256": "65cd167df5b0118fa0bed50644642ff2b391c019e1b66c447b3e2f7ebb1a86cc",
+  "focused_tests": 17,
+  "real_regression_tests": 3,
+  "real_regression_watchdog": {
+    "status": "complete",
+    "returncode": 0,
+    "stop_reason": null,
+    "elapsed_seconds": 5.014171580995026,
+    "sampled_peak_process_tree_rss_bytes": 177356800,
+    "wall_limit_seconds": 120.0,
+    "emergency_sampled_rss_limit_bytes": 1073741824,
+    "scope": "supervisory sampled limits, not a hard OS memory cap"
+  },
+  "all_diagnostic_tasks_match_old_output": true,
+  "diagnostic_task_runs": 96,
+  "measurement_pairs": [
+    {
+      "before_peak_mib": 185.953125,
+      "after_peak_mib": 121.84375,
+      "reduction_percent": 34.476094445844886
+    },
+    {
+      "before_peak_mib": 205.53125,
+      "after_peak_mib": 128.515625,
+      "reduction_percent": 37.471491561502205
+    }
+  ],
+  "limits": [
+    "Only two pairs at two stdlib thread workers; no inference that the primary 1 GiB selection gate now passes.",
+    "Sampled RSS can miss between-sample spikes and double-count shared mappings.",
+    "Source hash includes a separately owned OCR fixture change; that region is not used by this video diagnostic.",
+    "No src executor code or primary benchmark result was edited.",
+    "Deadline is cooperative around PNG callback/cleanup, not a hard total-task wall guarantee.",
+    "Cleanup is scoped to the controlled FFmpeg command with no descendant inheriting pipe writers."
+  ],
+  "diagnostic_combined_source_sha256": "86ac5c1b2d1b61398495f96bde4a1194de3ac5493a4aa75dcddbe8e1e8f2f94c",
+  "video_only_source_sha256": "bfab1851233f1fe3c5e961af928a4c6d62620d5b06de94da5d53640825f20af1",
+  "video_only_final_patch_sha256": "a382ec8db1237ae0c724883b661590fbd05089700c51c6556bac603a868ef158",
+  "audit": "Independent read-only static review and rerun of all 17 tests passed, with no blocking defect. Final edit adds docstring limits only.",
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "7a63b6aac5cf95ccd7ebda1a758d771d9d772b4640ba22e4c2d019c3b6a64cb5",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

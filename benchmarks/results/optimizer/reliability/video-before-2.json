@@ -1,0 +1,94 @@
+{
+  "mode": "before",
+  "source_sha256": "cb71269b9a2f6053bd8b36b1ff39bf296ab505acd14ca871ff05f383a75b1109",
+  "scope": "Paired fresh-process adapter diagnostic: same 8 pre-generated tasks covering all 4 representative video profiles, 3 pool lifecycles, 2 stdlib thread workers. Not the optimizer selection or holdout matrix; not a hard memory-cap proof.",
+  "tasks": 24,
+  "correct_per_repeat": [
+    true,
+    true,
+    true
+  ],
+  "elapsed_seconds_per_repeat": [
+    0.8947342980027315,
+    0.788421434997872,
+    0.959313702005602
+  ],
+  "expected_digest": "ad6bcb3d6688036fe105ba1d92375443b2e13c55b2959fa79b4def72aee6f518",
+  "profiles": [
+    [
+      320,
+      180,
+      12,
+      "ffv1"
+    ],
+    [
+      480,
+      270,
+      36,
+      "png"
+    ],
+    [
+      640,
+      360,
+      24,
+      "png"
+    ],
+    [
+      640,
+      360,
+      48,
+      "ffv1"
+    ]
+  ],
+  "baseline": {
+    "parent_rss_bytes": 14495744,
+    "thread_count": 1,
+    "python_threads": 1,
+    "descendant_count": 0,
+    "fd_count": 4
+  },
+  "final": {
+    "parent_rss_bytes": 96698368,
+    "thread_count": 1,
+    "python_threads": 1,
+    "descendant_count": 0,
+    "fd_count": 4
+  },
+  "sampled_tree_peak_rss_bytes": 215515136,
+  "rss_collection": {
+    "complete": true,
+    "samples": 240,
+    "attempts": 240,
+    "exited_process_races": 0,
+    "error_count": 0,
+    "errors": [],
+    "peak_rss_bytes": 215515136,
+    "first_complete_sample": {
+      "tree_rss_bytes": 14512128,
+      "parent_rss_bytes": 14512128,
+      "descendant_rss_bytes": 0,
+      "observed_descendant_count": 0
+    },
+    "last_complete_sample": {
+      "tree_rss_bytes": 152788992,
+      "parent_rss_bytes": 152788992,
+      "descendant_rss_bytes": 0,
+      "observed_descendant_count": 0
+    },
+    "peak_complete_sample": {
+      "tree_rss_bytes": 215515136,
+      "parent_rss_bytes": 163143680,
+      "descendant_rss_bytes": 52371456,
+      "observed_descendant_count": 2
+    },
+    "attribution_scope": "Parent and descendant current RSS from the same non-atomic sampling sweep; diagnostic snapshots remain available after collection errors but do not make an incomplete trial eligible.",
+    "observational_limits": "10ms samples may miss spikes and double-count shared mappings; not a hard memory cap"
+  },
+  "public_metadata_projection": {
+    "scope": "metadata-only public projection; all numeric measurements, configuration choices, source hashes and hardware characteristics unchanged",
+    "redacted": "absolute interpreter/checkout/temporary paths and report-only hardware fingerprint values",
+    "original_file_sha256": "b4ca12d71e5c993dc542e55b7fcd28c7fa794f29ec1f3d5fd1b4d5b8f5933f05",
+    "saved_configuration_status": "report copies containing redacted fingerprints are intentionally not loadable saved profiles; runtime APIs and raw evidence are unchanged",
+    "original_selection_hash_status": "original frozen selection hashes are retained as run provenance; metadata-redacted selection content has a separate projected hash"
+  }
+}

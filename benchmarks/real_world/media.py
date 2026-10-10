@@ -11,10 +11,13 @@ import importlib.util
 import io
 import os
 from pathlib import Path
+import queue
 import random
 import shutil
 import subprocess
 import tempfile
+import threading
+import time
 
 NAMES = ("images", "ocr", "video")
 MAX_COUNT = 256
@@ -24,12 +27,16 @@ MAX_OCR_PAGES = 3
 MAX_RENDER_SIDE = 2400
 MAX_VIDEO_FRAMES = 48
 MAX_VIDEO_BYTES = 64 * 1024 * 1024
+VIDEO_READ_BYTES = 64 * 1024
+VIDEO_STDERR_BYTES = 2000
 SCALES = ("smoke", "representative")
 IMAGE_PROFILES = ((640, 480, "JPEG", 1), (1600, 1200, "JPEG", 6),
                   (2048, 1536, "PNG", 3), (2560, 1440, "BMP", 1),
                   (1200, 1800, "JPEG", 8), (1920, 1080, "PNG", 1))
 OCR_PROFILES = ((1200, 900, 1, 6), (1275, 1650, 2, 10),
                 (1654, 2339, 3, 16), (1650, 1275, 2, 8))
+OCR_FONT_NAME = "DejaVuSans-Bold.ttf"
+OCR_FIXTURE_REVISION = "bold42-exact-text-v2"
 VIDEO_PROFILES = ((320, 180, 12, "ffv1"), (640, 360, 24, "png"),
                   (640, 360, 48, "ffv1"), (480, 270, 36, "png"))
 
@@ -69,6 +76,119 @@ def _sha(data: bytes) -> str:
 def _ffmpeg() -> list[str]:
     return ["ffmpeg", "-hide_banner", "-loglevel", "error", "-nostdin", "-y",
             "-threads", "1", "-filter_threads", "1", "-filter_complex_threads", "1"]
+
+
+def _stream_video(args: list[str], frame_bytes: int, frames: int,
+                  expected_frames: list[str], consume_frame, timeout: float = 60) -> str:
+    """Hash decoded RGB in order, retaining one frame and bounded pipe chunks.
+
+    ``consume_frame`` must finish using the borrowed frame buffer before it
+    returns. Both pipes are drained concurrently, including on Windows where
+    selectors cannot monitor subprocess pipes. A full queue is interruptible
+    so consumer errors cannot strand a reader during cleanup.
+
+    Only use this with the controlled FFmpeg command: cleanup assumes that no
+    descendant inherits a pipe writer. The deadline is cooperative around the
+    frame callback and cleanup, not a hard wall-time limit for the whole task.
+    """
+    if (not 1 <= frames <= MAX_VIDEO_FRAMES or frame_bytes < 1
+            or frame_bytes * (frames + 1) > MAX_VIDEO_BYTES):
+        raise ValueError("video fixture dimensions/frame cap mismatch")
+    env = dict(os.environ, OMP_THREAD_LIMIT="1", OMP_NUM_THREADS="1", LC_ALL="C")
+    process = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                               bufsize=0, env=env)
+    deadline = time.monotonic() + timeout
+    events = queue.Queue(maxsize=2)
+    stopped = threading.Event()
+    readers = []
+
+    def emit(event):
+        while not stopped.is_set():
+            try:
+                events.put(event, timeout=0.05)
+                return
+            except queue.Full:
+                pass
+
+    def read_pipe(kind, pipe):
+        try:
+            while not stopped.is_set():
+                chunk = pipe.read(VIDEO_READ_BYTES)
+                emit((kind, chunk))
+                if not chunk:
+                    return
+        except BaseException as exc:
+            emit((kind, exc))
+
+    def remaining():
+        duration = deadline - time.monotonic()
+        if duration <= 0:
+            raise subprocess.TimeoutExpired(args, timeout)
+        return duration
+
+    try:
+        for kind, pipe in (("stdout", process.stdout), ("stderr", process.stderr)):
+            reader = threading.Thread(target=read_pipe, args=(kind, pipe),
+                                      name=f"media-video-{kind}", daemon=True)
+            reader.start()
+            readers.append(reader)
+        frame = bytearray(frame_bytes)
+        frame_view = memoryview(frame)
+        filled = total = 0
+        decoded = []
+        digest = hashlib.sha256()
+        stderr = bytearray()
+        open_pipes = 2
+        while open_pipes:
+            try:
+                kind, chunk = events.get(timeout=remaining())
+            except queue.Empty:
+                raise subprocess.TimeoutExpired(args, timeout) from None
+            if isinstance(chunk, BaseException):
+                raise chunk
+            if not chunk:
+                open_pipes -= 1
+                continue
+            if kind == "stderr":
+                stderr.extend(chunk)
+                del stderr[:-VIDEO_STDERR_BYTES]
+                continue
+            total += len(chunk)
+            if total > frame_bytes * frames or total > MAX_VIDEO_BYTES:
+                raise ValueError("decoded video frame count mismatch")
+            digest.update(chunk)
+            chunk_view = memoryview(chunk)
+            offset = 0
+            while offset < len(chunk):
+                take = min(frame_bytes - filled, len(chunk) - offset)
+                frame_view[filled:filled + take] = chunk_view[offset:offset + take]
+                offset += take
+                filled += take
+                if filled == frame_bytes:
+                    frame_digest = _sha(frame)
+                    consume_frame(len(decoded), frame, frame_digest)
+                    decoded.append(frame_digest)
+                    filled = 0
+        returncode = process.wait(timeout=remaining())
+        if returncode:
+            raise RuntimeError(f"{args[0]} failed ({returncode}): "
+                               + stderr.decode(errors="replace"))
+        if filled or len(decoded) != frames:
+            raise ValueError("decoded video frame count mismatch")
+        if decoded != expected_frames:
+            raise ValueError("lossless decoded video pixels differ from fixture oracle")
+        return digest.hexdigest()
+    finally:
+        stopped.set()
+        try:
+            if process.poll() is None:
+                process.kill()
+            process.wait()
+        finally:
+            for reader in readers:
+                reader.join()
+            process.stdout.close()
+            process.stderr.close()
 
 
 def prepare(name: str, root: Path, count: int, seed: int,
@@ -112,9 +232,9 @@ def prepare(name: str, root: Path, count: int, seed: int,
             width, height, page_count, line_count = ((1200, 600, 1, 4) if scale == "smoke"
                 else OCR_PROFILES[(index + seed) % len(OCR_PROFILES)])
             try:
-                font = ImageFont.truetype("DejaVuSans.ttf", 42)
+                font = ImageFont.truetype(OCR_FONT_NAME, 42)
             except OSError as exc:
-                raise MissingDependency("DejaVuSans.ttf is required for OCR fixtures") from exc
+                raise MissingDependency(f"{OCR_FONT_NAME} is required for OCR fixtures") from exc
             pages, expected_pages = [], []
             for page in range(page_count):
                 words = rng.sample(["ALPHA", "BRAVO", "DELTA", "ECHO", "HOTEL", "NOVEMBER"], 3)
@@ -135,6 +255,8 @@ def prepare(name: str, root: Path, count: int, seed: int,
             # after PDF rasterization (seed 12011); no OCR text is corrected.
             render_side = max(1800, width, height)
             task.update(expected_text=" ".join(expected_pages), expected_pages=expected_pages,
+                        fixture_revision=OCR_FIXTURE_REVISION, font_name=OCR_FONT_NAME,
+                        font_sha256=_sha(Path(font.path).read_bytes()), font_size=42,
                         page_count=page_count, source_size=[width, height], render_side=render_side,
                         expected_render_size=[round(side * render_side / max(width, height))
                                               for side in (width, height)])
@@ -256,24 +378,24 @@ def run_task(task: dict) -> dict:
                 or not 1 <= frames <= MAX_VIDEO_FRAMES
                 or width * height * 3 * (frames + 1) > MAX_VIDEO_BYTES):
             raise ValueError("video fixture dimensions/frame cap mismatch")
-        raw = _command(_ffmpeg() + ["-protocol_whitelist", "file,pipe", "-i", str(path),
-                       "-map", "0:v:0", "-an", "-frames:v", str(frames + 1),
-                       "-threads", "1", "-pix_fmt", "rgb24", "-f", "rawvideo", "pipe:1"])
         frame_bytes = width * height * 3
-        if len(raw) != frame_bytes * frames:
-            raise ValueError("decoded video frame count mismatch")
-        decoded = [_sha(raw[n:n + frame_bytes]) for n in range(0, len(raw), frame_bytes)]
-        if decoded != task["expected_frames"]:
-            raise ValueError("lossless decoded video pixels differ from fixture oracle")
         selected = []
         with tempfile.TemporaryDirectory(prefix="media-frames-") as temp:
-            for frame in range(0, frames, 3):
-                image = Image.frombytes("RGB", (width, height), raw[frame * frame_bytes:(frame + 1) * frame_bytes])
-                target = Path(temp) / f"frame-{frame:04}.png"
-                image.save(target, "PNG")
-                with Image.open(target) as check:
-                    if _sha(check.tobytes()) != decoded[frame]:
+            def extract_frame(index, pixels, frame_digest):
+                if index % 3:
+                    return
+                target = Path(temp) / f"frame-{index:04}.png"
+                with closing(Image.frombytes("RGB", (width, height), pixels)) as image:
+                    image.save(target, "PNG")
+                with closing(Image.open(target)) as check:
+                    if _sha(check.tobytes()) != frame_digest:
                         raise ValueError("extracted frame roundtrip mismatch")
                 selected.append(_sha(target.read_bytes()))
-        result.update(frames=frames, extracted=len(selected), decoded_sha256=_sha(raw), png_sha256=selected)
+            decoded_sha256 = _stream_video(
+                _ffmpeg() + ["-protocol_whitelist", "file,pipe", "-i", str(path),
+                             "-map", "0:v:0", "-an", "-frames:v", str(frames + 1),
+                             "-threads", "1", "-pix_fmt", "rgb24", "-f", "rawvideo", "pipe:1"],
+                frame_bytes, frames, task["expected_frames"], extract_frame)
+        result.update(frames=frames, extracted=len(selected), decoded_sha256=decoded_sha256,
+                      png_sha256=selected)
     return result

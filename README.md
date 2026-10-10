@@ -1,4 +1,4 @@
-> **Interim validation branch:** source and tests only. This is not a release-ready or publication candidate. New benchmark evidence is intentionally omitted while validation runs.
+> **Interim validation branch:** source, tests, and completed diagnostic fixtures only. This is not a release-ready or publication candidate. Performance matrix evidence is intentionally omitted while validation runs.
 
 # Intelligent Futures
 

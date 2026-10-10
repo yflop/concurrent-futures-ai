@@ -19,6 +19,9 @@ class RSSSampler:
         self.error_count=0
         self.thread=None
         self._observed_peak=None
+        self._first_sample=None
+        self._last_sample=None
+        self._peak_sample=None
         self._psutil=psutil_module
         self._process=None
 
@@ -38,13 +41,17 @@ class RSSSampler:
         except Exception as exc:
             self._error('enumeration',exc)
             return
-        total=0;complete=True
+        total=0;parent_rss=0;observed_children=0;complete=True
         for index,process in enumerate([self._process,*descendants]):
             try:
                 value=process.memory_info().rss
                 if type(value) is not int or value<0:
                     raise ValueError('invalid RSS metric')
                 total+=value
+                if index==0:
+                    parent_rss=value
+                else:
+                    observed_children+=1
             except self._psutil.NoSuchProcess as exc:
                 if index==0:
                     complete=False;self._error('own_process_missing',exc)
@@ -54,6 +61,14 @@ class RSSSampler:
                 complete=False;self._error('process_rss',exc)
         if complete:
             self.samples+=1
+            attribution={'tree_rss_bytes':total,'parent_rss_bytes':parent_rss,
+                'descendant_rss_bytes':total-parent_rss,
+                'observed_descendant_count':observed_children}
+            if self._first_sample is None:
+                self._first_sample=attribution
+            self._last_sample=attribution
+            if self._observed_peak is None or total>self._observed_peak:
+                self._peak_sample=attribution
             self._observed_peak=max(self._observed_peak or 0,total)
 
     def __enter__(self):
@@ -102,4 +117,8 @@ class RSSSampler:
             'samples':self.samples,'attempts':self.attempts,
             'exited_process_races':self.exited_process_races,'error_count':self.error_count,'errors':list(self.errors),
             'peak_rss_bytes':self.peak,
+            'first_complete_sample':dict(self._first_sample) if self._first_sample else None,
+            'last_complete_sample':dict(self._last_sample) if self._last_sample else None,
+            'peak_complete_sample':dict(self._peak_sample) if self._peak_sample else None,
+            'attribution_scope':'Parent and descendant current RSS from the same non-atomic sampling sweep; diagnostic snapshots remain available after collection errors but do not make an incomplete trial eligible.',
             'observational_limits':'10ms samples may miss spikes and double-count shared mappings; not a hard memory cap'}
