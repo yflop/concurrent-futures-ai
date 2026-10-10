@@ -1,0 +1,1003 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-10",
+  "project": "concurrent-futures-ai",
+  "status_definitions": {
+    "implemented": "A mechanism present in this repository; its limits and tests remain authoritative. This label is not a performance claim.",
+    "experimental": "Executable prototype with recorded limitations and validation; the adaptive learner uses this status even though adaptive is the constructor default. Choose policy=threads or policy=hints to avoid learning.",
+    "planned": "Design or research proposal only; not a supported runtime feature."
+  },
+  "reference_note": "References identify primary-source foundations or inspiration. The proposed mechanisms and benchmark designs are original project designs, not claims that the cited project implements them.",
+  "concepts": [
+    {
+      "id": "CF-001",
+      "title": "Bounded admission",
+      "status": "implemented",
+      "category": "admission",
+      "mechanism": "Cap admitted unfinished tasks across backends; a submitting producer waits for capacity or reaches its configured admission timeout.",
+      "applicability": "Producers that can outpace workers and retain large argument graphs.",
+      "risks": "Logical task count does not strictly bound physical queue entries: cancelled tombstones can remain until workers drain. It also does not bound bytes, blocked producers, retained results, or worker allocations. Reentrant submission can deadlock.",
+      "benchmark_method": "Hold workers behind a barrier, fill the admission budget, and verify the next submission waits or times out. Release tasks and assert capacity is reclaimed after success, failure, and cancellation.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "CF-002",
+      "title": "Explicit thread and process hints",
+      "status": "implemented",
+      "category": "routing",
+      "mechanism": "Use TaskHints.kind and the explicit process_safe declaration to constrain backend selection before learned preferences are considered.",
+      "applicability": "Applications whose authors understand their I/O, CPU work, process importability, and state-sharing requirements.",
+      "risks": "CPU is a workload hint rather than proof that processes help. process_safe is an author assertion, not a security sandbox or serialization guarantee.",
+      "benchmark_method": "Use importable functions returning process IDs and deterministic outputs. Test CPU, I/O, unknown, and ineligible-process cases separately; compare outputs before timings.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html",
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "CF-003",
+      "title": "Per-key backend EWMA selection",
+      "status": "experimental",
+      "category": "learning",
+      "mechanism": "Keep exponentially weighted successful backend submit-to-completion latency by task key and backend; choose the lower EWMA after both backends have enough samples. Deterministic exploration periodically routes a new eligible submission to an under-sampled or alternate backend.",
+      "applicability": "Repeated, reasonably comparable tasks with stable explicit keys.",
+      "risks": "Wall time includes backend waiting and transfer overhead; unequal input sizes and stale samples bias comparisons. This is lightweight online adaptation, not a trained general-purpose AI model.",
+      "benchmark_method": "Feed controlled observations to policy unit tests, then run repeated comparable real workloads with separate cold and warm phases. Compare against fixed routes and report learning cost.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-002",
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-004",
+      "title": "Execution profile records",
+      "status": "implemented",
+      "category": "observability",
+      "mechanism": "Record backend and measured completion information under task keys for inspection and policy feedback.",
+      "applicability": "Explaining decisions and diagnosing workloads that behave differently than their supplied hints.",
+      "risks": "An aggregate is not a profiler: it cannot isolate CPU time, I/O time, transfer cost, or causal bottlenecks. Admission time is excluded. Bounded keys can still expose business context, and callbacks can lag result availability.",
+      "benchmark_method": "Inject successful and failing tasks, then verify recorded keys, backend counts, and nonnegative timings. Separate any diagnostics overhead from task runtime.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "CF-005",
+      "title": "Cancellation propagation",
+      "status": "implemented",
+      "category": "lifecycle",
+      "mechanism": "Keep cancellation connected to the actual backend Future so successful cancellation represents work that the backend can still prevent.",
+      "applicability": "Callers abandoning pending work and shutdown paths that cancel pending futures.",
+      "risks": "A running task usually cannot be cancelled. A result wait timeout is not a cancellation request; process transport can make work non-cancellable before callable entry.",
+      "benchmark_method": "Block a worker, cancel queued work, and verify it never enters its callable. Race cancel against start; ensure wait and as_completed observe terminal cancellation.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "CF-006",
+      "title": "Standard Future interoperability",
+      "status": "implemented",
+      "category": "api",
+      "mechanism": "Expose concurrent.futures-compatible submission and Future behavior so existing result collection and completion callbacks remain usable.",
+      "applicability": "Incremental adoption by callers using submit, result, wait, as_completed, and context-managed shutdown.",
+      "risks": "Compatibility does not imply identical scheduling, nonblocking submission, every new Python-version method, or identical map buffering behavior.",
+      "benchmark_method": "Run compatibility tests for return values, keyword forwarding, exceptions, callbacks, mixed futures, cancellation, and shutdown across supported Python versions.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "CF-007",
+      "title": "Explicit policy registry",
+      "status": "implemented",
+      "category": "extensibility",
+      "mechanism": "Use a per-instance PolicyRegistry of named factories; instantiate a custom registered policy and pass the resulting object to IntelligentExecutor. Built-in names are threads, hints, and adaptive.",
+      "applicability": "Comparing policies and adding workload-specific choices without rewriting execution plumbing.",
+      "risks": "Custom policy code executes inside the application and can block or fail; registration is not sandboxing, automatic package discovery, or compatibility certification.",
+      "benchmark_method": "Register a minimal deterministic policy, resolve it by name, exercise invalid names, and verify the core still applies backend eligibility checks.",
+      "references": [
+        "https://www.activepieces.com/docs/build-pieces/building-pieces/overview"
+      ],
+      "depends_on": [
+        "CF-002"
+      ]
+    },
+    {
+      "id": "CF-008",
+      "title": "Input-size-aware profiles",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Partition observations into application-supplied size buckets rather than mixing every input under one function key.",
+      "applicability": "The same operation over tiny and large payloads where process-transfer economics differ.",
+      "risks": "Automatic deep size inspection is costly and can leak information; too many buckets destroy sample density.",
+      "benchmark_method": "Sweep payload size and plot route choice and latency against fixed-backend crossovers. Hold out sizes and measure bucket overhead.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-003"
+      ]
+    },
+    {
+      "id": "CF-009",
+      "title": "Cold-start-aware routing",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Separate pool-startup and import costs from steady-state observations, then consider expected remaining work before paying startup cost.",
+      "applicability": "Short scripts and intermittent request bursts.",
+      "risks": "Warmth is not binary, imports vary, and hidden prewarming can consume resources unexpectedly.",
+      "benchmark_method": "Run fresh-interpreter single-task and batch trials, then persistent-pool trials. Report first-result and full-batch latency separately.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-010",
+      "title": "Bounded exploration budget",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Extend current interval-based exploration with a hard per-key or per-run budget on exploratory decisions or estimated added latency. The existing interval alone is not such a budget.",
+      "applicability": "Repeated safe work where learning could otherwise impose unbounded user-visible cost.",
+      "risks": "Low exploration misses changes; high exploration hurts latency. Never duplicate a task merely to obtain a counterfactual sample.",
+      "benchmark_method": "Use workload phases with known fixed-route winners and measure cumulative excess latency, exploration count, and constraint violations.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-003"
+      ]
+    },
+    {
+      "id": "CF-011",
+      "title": "Concept-drift detection",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Detect sustained changes in recent versus historical observations and age out or reset affected key profiles.",
+      "applicability": "Changing payloads, network conditions, host load, or function implementations.",
+      "risks": "Ordinary variance can trigger resets; an undetected regime change leaves stale decisions in control.",
+      "benchmark_method": "Introduce a controlled change halfway through a replay and record detection delay, false resets, and time to recover baseline performance.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-003"
+      ]
+    },
+    {
+      "id": "CF-012",
+      "title": "Uncertainty-aware selection",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Track sample counts and dispersion alongside means, declining to prefer a route when evidence is too sparse or noisy.",
+      "applicability": "High-variance task families and infrequent keys.",
+      "risks": "Latency observations are correlated and heavy-tailed; naive confidence formulas can overstate certainty.",
+      "benchmark_method": "Use repeated seeded variable-duration trials and inspect selection stability, empirical error, and reporting overhead.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-003"
+      ]
+    },
+    {
+      "id": "CF-013",
+      "title": "Queue-aware routing",
+      "status": "planned",
+      "category": "routing",
+      "mechanism": "Estimate backend waiting pressure and include it alongside service-time estimates when selecting an eligible destination.",
+      "applicability": "Mixed bursts where the historically faster backend has a long queue.",
+      "risks": "Observed latency already includes some queue effects; counting them twice can oscillate routing. Queue state becomes stale immediately.",
+      "benchmark_method": "Inject staggered CPU and I/O bursts, record queue occupancy and p95 latency, and compare with the same service-only policy.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture/workers"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-014",
+      "title": "Failure-aware policy feedback",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Extend the current exclusion of failed latency samples into explicit failure-rate-aware selection with application-versus-backend failure classification.",
+      "applicability": "Transient backend problems or task families with heterogeneous failure rates.",
+      "risks": "Application errors do not necessarily implicate the backend; route changes must not retry side effects automatically.",
+      "benchmark_method": "Inject distinct application and backend failures, verify classification, and compare successful throughput with raw task throughput.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-015",
+      "title": "Adaptive concurrency control",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Adjust effective admission or dispatch concurrency slowly using latency and resource-pressure feedback.",
+      "applicability": "Workloads whose useful concurrency changes under external load.",
+      "risks": "Controller instability, delayed feedback, and interaction with other autoscalers can make performance worse.",
+      "benchmark_method": "Sweep fixed concurrency first; then test step changes and burst traces, recording overshoot, settling time, p95, and resource use.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture/workers"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-016",
+      "title": "Byte-weighted admission",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Combine the task-count bound with caller-supplied payload weights and a total outstanding-byte budget.",
+      "applicability": "Large heterogeneous payloads that make a count-only bound inadequate.",
+      "risks": "Weights omit copies and worker allocations; a caller can underestimate them. Defining release time matters for memory safety.",
+      "benchmark_method": "Mix small and large buffers, measure peak resident memory and admission delay, and compare predicted versus observed memory.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-001"
+      ]
+    },
+    {
+      "id": "CF-017",
+      "title": "Tenant-weighted fairness",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Allocate admission and dispatch credits to explicit application groups using weighted fair service.",
+      "applicability": "A service sharing one executor across request classes or tenants.",
+      "risks": "Fairness at task count differs from fairness at CPU cost; identities and weights become application policy.",
+      "benchmark_method": "Run competing heavy and light producers and publish per-group throughput, p95, starvation intervals, and unused capacity.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture"
+      ],
+      "depends_on": [
+        "CF-001"
+      ]
+    },
+    {
+      "id": "CF-018",
+      "title": "Deadline-aware admission",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Reject or defer work whose estimated queue plus execution time exceeds an explicitly supplied deadline.",
+      "applicability": "Latency-sensitive requests whose result has no value after a known time.",
+      "risks": "Estimates can reject useful work or admit impossible deadlines. A deadline does not authorize interrupting external side effects.",
+      "benchmark_method": "Use a deadline trace with known durations; measure deadline-goodput, false rejection, and wasted completed work.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-019",
+      "title": "Priority with aging",
+      "status": "planned",
+      "category": "scheduling",
+      "mechanism": "Introduce priority queues with bounded aging so old low-priority tasks eventually make progress.",
+      "applicability": "Interactive and bulk jobs sharing finite capacity.",
+      "risks": "Priority inversion can persist through dependencies or external locks; preemption is not provided by queue reordering.",
+      "benchmark_method": "Continuously submit urgent jobs around a long-lived background stream and verify a maximum starvation bound.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001"
+      ]
+    },
+    {
+      "id": "CF-020",
+      "title": "Per-resource rate limits",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Apply token-bucket admission keyed by an explicit external resource before occupying execution capacity.",
+      "applicability": "APIs or databases with contractual request limits.",
+      "risks": "Process-local limits do not enforce global quotas across services; retry and burst semantics must match the remote contract.",
+      "benchmark_method": "Use a local fake service with quota enforcement and verify time-window request counts, burst size, and worker occupancy.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture"
+      ],
+      "depends_on": [
+        "CF-001"
+      ]
+    },
+    {
+      "id": "CF-021",
+      "title": "Burst reservation pools",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Reserve a small configurable capacity slice for short interactive jobs and lend it to bulk work only under safe rules.",
+      "applicability": "Interactive latency requirements during scheduled bulk imports.",
+      "risks": "Reservations reduce utilization, and long borrowed jobs may occupy capacity when an interactive burst arrives.",
+      "benchmark_method": "Replay interactive arrivals over saturated bulk work; publish idle reservation cost and interactive tail latency.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture/workers"
+      ],
+      "depends_on": [
+        "CF-017"
+      ]
+    },
+    {
+      "id": "CF-022",
+      "title": "Reentrant submission guard",
+      "status": "planned",
+      "category": "lifecycle",
+      "mechanism": "Detect attempts by pool workers to block while submitting into the same bounded executor and provide a clear diagnostic or opt-in fail-fast rule.",
+      "applicability": "Nested parallel functions and accidental recursive use.",
+      "risks": "Thread-local detection misses cross-executor cycles and process boundaries; inline fallback changes semantics.",
+      "benchmark_method": "Construct one-worker and full-capacity nested submissions in subprocess tests with hard watchdogs; require deterministic diagnostics.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001"
+      ]
+    },
+    {
+      "id": "CF-023",
+      "title": "Bounded streaming map",
+      "status": "implemented",
+      "category": "api",
+      "mechanism": "Provide map_bounded for one iterable with ordered output and a buffersize limit on submitted-but-unconsumed results. Closing the iterator attempts to cancel buffered work that has not started.",
+      "applicability": "Large or infinite input streams and consumers slower than workers.",
+      "risks": "Ordered output can retain completed results behind one slow item; iterator abandonment needs cleanup semantics.",
+      "benchmark_method": "Use an instrumented infinite generator and slow consumer to bound read-ahead, retained results, and cancellation after early exit.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-005"
+      ]
+    },
+    {
+      "id": "CF-024",
+      "title": "Small-task batching",
+      "status": "planned",
+      "category": "scheduling",
+      "mechanism": "Pack multiple explicitly batchable calls into a single backend submission to amortize per-task overhead.",
+      "applicability": "Numerous tiny pure transformations with compatible error and cancellation requirements.",
+      "risks": "Batching increases first-result latency and couples failures; partial completion needs a documented result mapping.",
+      "benchmark_method": "Sweep batch size against task duration and payload bytes; report throughput, first result, p95, and per-item errors.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-025",
+      "title": "Adaptive chunk sizing",
+      "status": "planned",
+      "category": "scheduling",
+      "mechanism": "Select batch size from recent service-time estimates while bounding a chunk execution-time target.",
+      "applicability": "Data-parallel jobs with uneven item costs.",
+      "risks": "Large chunks create stragglers; feedback lags and item counts may not predict work.",
+      "benchmark_method": "Compare fixed chunks with heavy-tailed and sorted cost inputs; measure worker idle time and makespan.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-024"
+      ]
+    },
+    {
+      "id": "CF-026",
+      "title": "Explicit shared-memory payloads",
+      "status": "planned",
+      "category": "data-movement",
+      "mechanism": "Accept an application-owned descriptor for shared read-mostly buffers rather than repeatedly serializing bulk bytes.",
+      "applicability": "Large numerical or media payloads reused by process workers.",
+      "risks": "Ownership, lifetime, cleanup, mutation races, and platform behavior are harder than ordinary value passing.",
+      "benchmark_method": "Sweep payload size and reuse count, measuring copies, transfer time, peak memory, and leak-free cleanup after failures.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-002"
+      ]
+    },
+    {
+      "id": "CF-027",
+      "title": "Data-local worker affinity",
+      "status": "planned",
+      "category": "data-movement",
+      "mechanism": "Route related eligible work toward workers with explicitly cached immutable data.",
+      "applicability": "Repeated transformations over large models or datasets.",
+      "risks": "Affinity can defeat load balancing; cache invalidation and worker death require explicit handling.",
+      "benchmark_method": "Compare random and affinity placement under skew and worker restarts; record cache hit rate, transfer bytes, and tail latency.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-026"
+      ]
+    },
+    {
+      "id": "CF-028",
+      "title": "Resource-class budgets",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Use explicit classes such as database, CPU, disk, or accelerator to enforce separate concurrency permits.",
+      "applicability": "Tasks contending for a small external connection pool or a single specialized device.",
+      "risks": "Tasks needing multiple classes can deadlock unless acquisition order and atomic reservation are specified.",
+      "benchmark_method": "Build mixed-resource synthetic jobs, verify simultaneous-use bounds, and test cyclic acquisition requests.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture/workers"
+      ],
+      "depends_on": [
+        "CF-001"
+      ]
+    },
+    {
+      "id": "CF-029",
+      "title": "Cooperative cancellation tokens",
+      "status": "planned",
+      "category": "lifecycle",
+      "mechanism": "Expose an opt-in cancellation signal that long-running callables can poll at application-defined safe points.",
+      "applicability": "Long loops, multipart downloads, and user-interruptible transformations.",
+      "risks": "Callables must cooperate, cleanup is application-specific, and cross-process tokens add synchronization cost.",
+      "benchmark_method": "Cancel at each safe-point boundary and measure stop latency, cleanup correctness, and polling overhead.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html",
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-005"
+      ]
+    },
+    {
+      "id": "CF-030",
+      "title": "Explicit shutdown escalation",
+      "status": "planned",
+      "category": "lifecycle",
+      "mechanism": "Offer a separately named process-only escalation path after graceful waiting, with impact made explicit to the caller.",
+      "applicability": "Operators handling stuck process workers in controlled service teardown.",
+      "risks": "Killing a worker can lose buffered writes, corrupt shared resources, and affect unrelated tasks in the same pool.",
+      "benchmark_method": "Use isolated subprocess fixtures with stuck workers and durable markers; verify bounded teardown and report collateral failures.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html",
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-005"
+      ]
+    },
+    {
+      "id": "CF-031",
+      "title": "Retry budgets and backoff",
+      "status": "planned",
+      "category": "resilience",
+      "mechanism": "Add an explicit retry wrapper for declared retryable failures, with attempt limits, jitter, and a global time budget.",
+      "applicability": "Idempotent calls to transiently failing dependencies.",
+      "risks": "Retries can duplicate side effects and amplify overload; admission limits must include retried work.",
+      "benchmark_method": "Use scripted failure sequences and a fake clock, then outage recovery load tests measuring attempts per successful operation.",
+      "references": [
+        "https://www.activepieces.com/docs/install/guarantees/crash-recovery"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-035"
+      ]
+    },
+    {
+      "id": "CF-032",
+      "title": "Dependency circuit breakers",
+      "status": "planned",
+      "category": "resilience",
+      "mechanism": "Stop new calls to a failing explicit dependency for a cooldown, then admit bounded probes.",
+      "applicability": "A shared remote service failure that otherwise consumes all workers.",
+      "risks": "Bad failure classification creates unnecessary outages; synchronized probes can create recovery spikes.",
+      "benchmark_method": "Fault a local service, recover it, and record rejected calls, wasted work, probe counts, and recovery delay.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture/workers"
+      ],
+      "depends_on": [
+        "CF-014"
+      ]
+    },
+    {
+      "id": "CF-033",
+      "title": "In-flight duplicate coalescing",
+      "status": "planned",
+      "category": "data-movement",
+      "mechanism": "For declared equivalent pure tasks, share one execution among multiple subscribers with independent result views.",
+      "applicability": "Repeated read-only computation for the same immutable input.",
+      "risks": "Hash collisions, mutable inputs, and cancellation ownership can break correctness; shared failures affect all subscribers.",
+      "benchmark_method": "Submit duplicates and near-duplicates concurrently, verify exactly the expected underlying calls, and test subscriber cancellation.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-005",
+        "CF-035"
+      ]
+    },
+    {
+      "id": "CF-034",
+      "title": "Explicit result caching",
+      "status": "planned",
+      "category": "data-movement",
+      "mechanism": "Cache successful outputs only for caller-declared pure operations with versioned keys and expiry.",
+      "applicability": "Expensive deterministic transformations with frequent reuse.",
+      "risks": "Stale data, sensitive result retention, unbounded memory, and invalidation costs may outweigh runtime savings.",
+      "benchmark_method": "Use controlled hit rates, mutated inputs, and version changes; compare total resource cost including cache memory.",
+      "references": [
+        "https://github.com/activepieces/activepieces"
+      ],
+      "depends_on": [
+        "CF-043"
+      ]
+    },
+    {
+      "id": "CF-035",
+      "title": "Idempotency metadata",
+      "status": "planned",
+      "category": "resilience",
+      "mechanism": "Carry application-supplied operation identifiers into retry or durable adapters without pretending the executor can make a side effect atomic.",
+      "applicability": "Writes to services that support their own idempotency keys.",
+      "risks": "A key alone does not create exactly-once execution. Recipient retention windows and payload equality rules matter.",
+      "benchmark_method": "Crash between a fake side effect and acknowledgement; verify duplicate suppression in the recipient and document unsupported windows.",
+      "references": [
+        "https://www.activepieces.com/docs/install/guarantees/crash-recovery"
+      ],
+      "depends_on": []
+    },
+    {
+      "id": "CF-036",
+      "title": "Dependency DAG execution",
+      "status": "planned",
+      "category": "composition",
+      "mechanism": "Build a separate orchestration layer that releases a task only after declared predecessor futures satisfy its dependency policy.",
+      "applicability": "Multi-stage workflows with fan-out and fan-in.",
+      "risks": "Cycles, failure fan-out, retained intermediates, and worker-blocking dependency waits need separate semantics.",
+      "benchmark_method": "Generate acyclic graphs with known critical paths and failure points; test cycle rejection, cancellation fan-out, and retained memory.",
+      "references": [
+        "https://github.com/activepieces/activepieces",
+        "https://www.activepieces.com/docs/install/architecture"
+      ],
+      "depends_on": [
+        "CF-005",
+        "CF-006"
+      ]
+    },
+    {
+      "id": "CF-037",
+      "title": "Checkpointed workflow outputs",
+      "status": "planned",
+      "category": "composition",
+      "mechanism": "Persist versioned outputs of completed DAG nodes through an explicit storage adapter and resume only compatible work.",
+      "applicability": "Long workflows where recomputing completed stages is expensive.",
+      "risks": "Checkpoint writes are not atomic with external side effects; privacy, version drift, corruption, and partial commits require policy.",
+      "benchmark_method": "Inject termination before and after checkpoint boundaries and verify recovered outputs, repeated work, and storage overhead.",
+      "references": [
+        "https://www.activepieces.com/docs/install/guarantees/crash-recovery"
+      ],
+      "depends_on": [
+        "CF-035",
+        "CF-036"
+      ]
+    },
+    {
+      "id": "CF-038",
+      "title": "Remote executor adapter",
+      "status": "planned",
+      "category": "backends",
+      "mechanism": "Implement an explicit transport and authentication boundary for submitting supported tasks to a remote worker system.",
+      "applicability": "Work larger than a single host or requiring specialized machines.",
+      "risks": "Network partitions, credential management, data disclosure, and non-portable callables fundamentally change the trust model.",
+      "benchmark_method": "Test loss, delay, duplicate messages, authentication failure, and reconnect behavior against a local test server before external deployment.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture"
+      ],
+      "depends_on": [
+        "CF-043"
+      ]
+    },
+    {
+      "id": "CF-039",
+      "title": "Durable recovery adapter",
+      "status": "planned",
+      "category": "resilience",
+      "mechanism": "Add durable admission, leases, acknowledgements, and recovery to a separate service-backed layer rather than the base in-memory executor.",
+      "applicability": "Work that must survive client or worker-process loss.",
+      "risks": "Durable storage does not create exactly-once side effects; split-brain leases and schema upgrades complicate correctness.",
+      "benchmark_method": "Inject client, worker, broker, and storage failures independently and publish an explicit survival and duplication matrix.",
+      "references": [
+        "https://www.activepieces.com/docs/install/guarantees/crash-recovery",
+        "https://www.activepieces.com/docs/install/architecture/workers"
+      ],
+      "depends_on": [
+        "CF-035",
+        "CF-038"
+      ]
+    },
+    {
+      "id": "CF-040",
+      "title": "Structured execution event journal",
+      "status": "planned",
+      "category": "observability",
+      "mechanism": "Emit bounded lifecycle events with task IDs, decision reasons, and monotonic timestamps through a nonblocking sink.",
+      "applicability": "Postmortem debugging and trace analysis beyond aggregated profiles.",
+      "risks": "Slow sinks must not block scheduler progress; dropped events and sensitive metadata need explicit handling.",
+      "benchmark_method": "Overload the sink and verify bounded queue memory, drop counters, task correctness, and measured instrumentation overhead.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-041",
+      "title": "Trace-context integration",
+      "status": "planned",
+      "category": "observability",
+      "mechanism": "Add an optional adapter for propagating explicitly selected trace context through threads and processes.",
+      "applicability": "Services already using distributed tracing.",
+      "risks": "Implicit context transfer may expose sensitive fields, and span completion during cancellation can leak resources.",
+      "benchmark_method": "Link a request trace to child tasks, including failed and cancelled work; measure span overhead and verify no payload capture.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-040"
+      ]
+    },
+    {
+      "id": "CF-042",
+      "title": "Deterministic decision replay",
+      "status": "planned",
+      "category": "verification",
+      "mechanism": "Replay recorded policy inputs and observations through a seeded policy to explain route choices offline.",
+      "applicability": "Reproducing routing regressions without rerunning expensive work.",
+      "risks": "Decision replay cannot reproduce OS scheduling or reconstruct unobserved counterfactual timings.",
+      "benchmark_method": "Compare repeated replays byte-for-byte and verify a controlled policy change alters only expected decisions.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-040",
+        "CF-043"
+      ]
+    },
+    {
+      "id": "CF-043",
+      "title": "Policy and workload version provenance",
+      "status": "planned",
+      "category": "verification",
+      "mechanism": "Stamp profiles and benchmark outputs with policy configuration, code revision, workload version, and environment metadata.",
+      "applicability": "Comparing results across releases or reusing persisted observations.",
+      "risks": "Identifiers must not expose secrets; an unchanged function name does not imply unchanged semantics.",
+      "benchmark_method": "Change one code or configuration dimension per trial and verify provenance changes and incompatible profile rejection.",
+      "references": [
+        "https://github.com/activepieces/activepieces"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-044",
+      "title": "Versioned profile persistence",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Save and reload validated aggregate profiles through an opt-in format with environment and workload compatibility checks.",
+      "applicability": "Repeated short-lived jobs where relearning on every launch is expensive.",
+      "risks": "Stale or tampered profiles can degrade decisions; shared files require atomic writes and privacy controls.",
+      "benchmark_method": "Test round-trip, truncated files, unknown schema versions, concurrent writers, and warm-start benefit versus stale-profile regret.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-003",
+        "CF-043"
+      ]
+    },
+    {
+      "id": "CF-045",
+      "title": "Profile cardinality limits",
+      "status": "implemented",
+      "category": "observability",
+      "mechanism": "Keep at most max_profile_keys task-key buckets, evict least-recently-updated buckets, count evictions, and validate nonempty keys of at most 256 characters.",
+      "applicability": "Long-lived services or callers tempted to use one unique key per request.",
+      "risks": "Eviction discards useful learning and can bias against rare work; completion recency differs from request recency. The cap does not bound caller-retained snapshots.",
+      "benchmark_method": "Generate many unique and recurring keys and verify bounded memory, eviction behavior, and hit-rate effects.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-004"
+      ]
+    },
+    {
+      "id": "CF-046",
+      "title": "Shadow policy evaluation",
+      "status": "planned",
+      "category": "verification",
+      "mechanism": "Run a candidate decision function on recorded inputs while the trusted policy remains responsible for actual routing.",
+      "applicability": "Comparing policy decisions before an opt-in rollout.",
+      "risks": "Shadow routes lack counterfactual outcomes; agreement is not proof of performance or safety.",
+      "benchmark_method": "Measure decision disagreement and shadow overhead, then validate promising candidates with authorized live A/B trials.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-042"
+      ]
+    },
+    {
+      "id": "CF-047",
+      "title": "Policy decision guardrails",
+      "status": "planned",
+      "category": "verification",
+      "mechanism": "Extend existing output and process-eligibility validation with an explicitly bounded decision interface and opt-in fallback for slow or faulty plugins.",
+      "applicability": "Third-party or more complex learned policies.",
+      "risks": "Time-bounding arbitrary synchronous Python code is difficult; fallback behavior must not silently change side-effect semantics.",
+      "benchmark_method": "Inject invalid results, exceptions, and slow decisions; verify deterministic failures or approved fallback without duplicate execution.",
+      "references": [
+        "https://www.activepieces.com/docs/install/guarantees/execution-isolation"
+      ],
+      "depends_on": [
+        "CF-007"
+      ]
+    },
+    {
+      "id": "CF-048",
+      "title": "Workload equivalence checks",
+      "status": "planned",
+      "category": "verification",
+      "mechanism": "Attach benchmark-only output digests or domain validators so timing comparisons also prove equivalent useful results.",
+      "applicability": "Optimizations that batch, cache, route, or serialize differently.",
+      "risks": "Checksums can collide and approximate numerical outputs need domain tolerances; validation cost must be separated.",
+      "benchmark_method": "Intentionally corrupt one implementation and ensure the benchmark rejects its result regardless of speed.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-006"
+      ]
+    },
+    {
+      "id": "CF-049",
+      "title": "Explicit hostile-code boundary",
+      "status": "planned",
+      "category": "security",
+      "mechanism": "Design any untrusted-code support as a separate sandbox integration with a defined threat model and resource restrictions.",
+      "applicability": "A future service executing code supplied by mutually untrusted users.",
+      "risks": "Local processes and policy plugins are not security sandboxes; unrestricted pickle and code execution remain dangerous.",
+      "benchmark_method": "Use a reviewed sandbox threat model and isolation tests for filesystem, network, resources, and cross-tenant access.",
+      "references": [
+        "https://www.activepieces.com/docs/install/guarantees/execution-isolation"
+      ],
+      "depends_on": [
+        "CF-038"
+      ]
+    },
+    {
+      "id": "CF-050",
+      "title": "Interpreter-pool backend",
+      "status": "planned",
+      "category": "backends",
+      "mechanism": "Add an optional backend gated on a supported Python interpreter-pool API and explicit compatible-callable declarations.",
+      "applicability": "Multi-core Python work on runtimes offering separate interpreter workers.",
+      "risks": "Extension module compatibility, object isolation, serialization, and Python-version support differ from threads.",
+      "benchmark_method": "Run an importability and extension compatibility matrix, then compare equivalent workloads with process and thread backends.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-002",
+        "CF-048"
+      ]
+    },
+    {
+      "id": "CF-051",
+      "title": "Free-threaded runtime awareness",
+      "status": "planned",
+      "category": "backends",
+      "mechanism": "Include runtime build and GIL state in environment metadata and test routing assumptions separately on free-threaded builds.",
+      "applicability": "Applications adopting Python builds that allow concurrent Python execution in threads.",
+      "risks": "Removing one bottleneck does not make arbitrary shared-state code thread-safe; native extensions can alter runtime behavior.",
+      "benchmark_method": "Run identical correct thread-safe workloads on each build, recording GIL state, extensions, memory, and total throughput.",
+      "references": [
+        "https://peps.python.org/pep-0703/"
+      ],
+      "depends_on": [
+        "CF-043"
+      ]
+    },
+    {
+      "id": "CF-052",
+      "title": "Accelerator batch backend",
+      "status": "planned",
+      "category": "backends",
+      "mechanism": "Create a dedicated opt-in backend that batches compatible jobs around a caller-supplied accelerator runner.",
+      "applicability": "GPU or other device workloads with high launch overhead and bounded device memory.",
+      "risks": "Device memory exhaustion, kernel asynchrony, shape compatibility, and cancellation differ from CPU futures.",
+      "benchmark_method": "Use explicit synchronization around measurements and sweep batch size, shape, device memory, and end-to-end latency.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-024",
+        "CF-028"
+      ]
+    },
+    {
+      "id": "CF-053",
+      "title": "Native-thread oversubscription budgets",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Let applications declare native parallelism per task and coordinate executor concurrency with library thread limits.",
+      "applicability": "Numerical libraries that start multiple native threads inside each submitted task.",
+      "risks": "Environment variables may need to be set before imports; global settings can affect unrelated work.",
+      "benchmark_method": "Compare nested thread counts across worker settings and record total runnable threads, CPU utilization, and throughput.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html",
+        "https://peps.python.org/pep-0703/"
+      ],
+      "depends_on": [
+        "CF-028"
+      ]
+    },
+    {
+      "id": "CF-054",
+      "title": "Cost-aware scheduling objective",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Combine latency with explicitly supplied compute or remote-service prices under a caller-chosen objective and budget.",
+      "applicability": "Work where a cheaper slower backend may be acceptable.",
+      "risks": "Prices and billing granularity can change; a weighted score may hide violations of hard spending limits.",
+      "benchmark_method": "Use a frozen price fixture and workload trace, report both raw latency and cost, and verify budget constraints separately.",
+      "references": [
+        "https://www.activepieces.com/docs/install/architecture"
+      ],
+      "depends_on": [
+        "CF-003",
+        "CF-043"
+      ]
+    },
+    {
+      "id": "CF-055",
+      "title": "Energy-aware scheduling experiments",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Study measured energy per useful completion as a separate experimental objective under controlled hardware conditions.",
+      "applicability": "Batch jobs where energy efficiency matters more than minimum latency.",
+      "risks": "Wall time is not energy; external power measurement and machine isolation are needed for credible conclusions.",
+      "benchmark_method": "Use a calibrated meter or validated hardware counters, report idle subtraction and uncertainty, and repeat complete runs.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-043",
+        "CF-048"
+      ]
+    },
+    {
+      "id": "CF-056",
+      "title": "Offline contextual policy training",
+      "status": "planned",
+      "category": "learning",
+      "mechanism": "Train a small interpretable policy from consented benchmark features and evaluate it on held-out workload families before deployment.",
+      "applicability": "Stable, well-characterized workloads where a simple EWMA is insufficient.",
+      "risks": "Confounding, counterfactual data gaps, overfitting, and deployment drift can produce confident wrong routes.",
+      "benchmark_method": "Split by workload family and machine, compare with simple hints and EWMA, and report regret plus out-of-distribution fallback behavior.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-008",
+        "CF-043",
+        "CF-046"
+      ]
+    },
+    {
+      "id": "CF-057",
+      "title": "Static advisory analysis",
+      "status": "planned",
+      "category": "developer-experience",
+      "mechanism": "Offer opt-in diagnostics for obvious importability and serialization hazards without executing the user task.",
+      "applicability": "Developers moving code from threads to processes.",
+      "risks": "Static inspection cannot prove process safety, purity, or performance; diagnostics must remain advisory.",
+      "benchmark_method": "Use a corpus of closures, top-level functions, bound objects, and dynamic callables; report false positives and false negatives.",
+      "references": [
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-002"
+      ]
+    },
+    {
+      "id": "CF-058",
+      "title": "Async application bridge",
+      "status": "planned",
+      "category": "api",
+      "mechanism": "Provide a tested integration recipe or adapter that offloads blocking admission and bridges concurrent futures into an event loop.",
+      "applicability": "Async services reusing synchronous CPU or blocking I/O functions.",
+      "risks": "Calling bounded submit on the event-loop thread can stall it; cancellation on one side may not stop running work on the other.",
+      "benchmark_method": "Run an event-loop heartbeat under saturated submission, cancellations, and teardown; verify responsiveness and no orphan tasks.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-005"
+      ]
+    },
+    {
+      "id": "CF-059",
+      "title": "Worker initializer and warmup hooks",
+      "status": "planned",
+      "category": "backends",
+      "mechanism": "Expose explicit backend-specific initialization for read-only expensive resources with predictable failure reporting.",
+      "applicability": "Model loading or connection setup performed once per worker.",
+      "risks": "Initialization can leak credentials, block startup, or leave a broken pool; process-local connections must not be inherited blindly.",
+      "benchmark_method": "Measure cold-start and steady-state latency and inject initializer failure, worker restart, and cleanup paths.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html",
+        "https://docs.python.org/3.13/library/multiprocessing.html"
+      ],
+      "depends_on": [
+        "CF-009"
+      ]
+    },
+    {
+      "id": "CF-060",
+      "title": "Fail-fast task groups",
+      "status": "planned",
+      "category": "composition",
+      "mechanism": "Create an opt-in group abstraction that cancels pending siblings after one failure while collecting running-task outcomes.",
+      "applicability": "Independent subtasks whose results are useful only when all succeed.",
+      "risks": "Running siblings keep executing; discarding their errors or assuming side effects rolled back would be incorrect.",
+      "benchmark_method": "Inject one failure among queued and running siblings and verify cancellation attempts, complete error reporting, and bounded cleanup.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-005",
+        "CF-036"
+      ]
+    },
+    {
+      "id": "CF-061",
+      "title": "Removable bounded dispatch queue",
+      "status": "planned",
+      "category": "admission",
+      "mechanism": "Introduce an owned dispatcher queue that can physically remove cancelled pending work, with an explicit combined queued-and-dispatched capacity contract.",
+      "applicability": "Long-running services facing repeated submit-and-cancel traffic while workers are blocked.",
+      "risks": "Stdlib queues can retain cancelled tombstones. An extra dispatcher changes cancellation races, shutdown ordering, and latency, and must not imply it can remove already dispatched process work.",
+      "benchmark_method": "Hold all workers blocked and perform many submit/cancel cycles; verify physical queue length and resident memory plateau, then test cancel-versus-dispatch races and shutdown.",
+      "references": [
+        "https://docs.python.org/3.13/library/concurrent.futures.html"
+      ],
+      "depends_on": [
+        "CF-001",
+        "CF-005"
+      ]
+    }
+  ]
+}

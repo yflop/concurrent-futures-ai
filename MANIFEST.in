@@ -1,0 +1,6 @@
+include LICENSE README.md CONTRIBUTING.md SECURITY.md
+recursive-include docs *.md *.json
+recursive-include examples *.py
+recursive-include benchmarks *.py *.md *.json
+recursive-include tests *.py
+recursive-include tools *.py
