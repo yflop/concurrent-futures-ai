@@ -355,9 +355,35 @@ class MediaEnvelopeTests(unittest.TestCase):
         with patch.object(probe.subprocess, 'Popen', return_value=process), \
              patch.object(probe.os, 'killpg', create=True) as kill_group:
             result = probe.run_fresh_process(self.fresh_request())
-        kill_group.assert_called_once_with(123456, probe.signal.SIGTERM)
+        if probe.os.name == 'posix':
+            kill_group.assert_called_once_with(123456, probe.signal.SIGTERM)
+            process.terminate.assert_not_called()
+        else:
+            kill_group.assert_not_called()
+            process.terminate.assert_called_once_with()
         self.assertIsNone(result['trial_executed'])
         self.assertIn('timed out', result['failure'])
+
+
+    def test_timeout_cleanup_exercises_both_platform_strategies(self):
+        for platform in ('posix', 'nt'):
+            with self.subTest(platform=platform):
+                process = Mock(pid=123456)
+                process.wait.side_effect = [subprocess.TimeoutExpired('mock', 5), None]
+                fake_os = types.SimpleNamespace(name=platform, killpg=Mock())
+                fake_signal = types.SimpleNamespace(SIGTERM=15, SIGKILL=9)
+                with patch.object(probe, 'os', fake_os), patch.object(probe, 'signal', fake_signal):
+                    probe._terminate(process)
+                if platform == 'posix':
+                    self.assertEqual(fake_os.killpg.call_args_list,
+                                     [((123456, 15),), ((123456, 9),)])
+                    process.terminate.assert_not_called()
+                    process.kill.assert_not_called()
+                else:
+                    fake_os.killpg.assert_not_called()
+                    process.terminate.assert_called_once_with()
+                    process.kill.assert_called_once_with()
+                self.assertEqual(process.wait.call_count, 2)
 
 
 if __name__ == '__main__':
