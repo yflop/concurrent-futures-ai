@@ -1,5 +1,44 @@
 # Validation record
 
+## 0.3.0 verification scope (2026-10-10)
+
+The runtime is an opt-in predictive foundation; existing defaults, real Future
+semantics, and explicit process consent remain. No production-readiness or
+cross-hardware speedup claim is made.
+
+- CPython 3.12.14/Linux with official MCP 2.3.0: **179 tests passed**, including
+  actual SDK stdio integration. CPython 3.13.5: **179 tests run, 10 optional MCP
+  tests skipped**, all remaining tests passed. Eight benchmark-harness tests,
+  synchronized 65-concept catalog, compileall, and seven finite examples pass.
+- Independent review exercised multi-producer threads, spawned processes,
+  sampling/key eviction, hostile profile JSON, local-measurement refinement,
+  simulated foreign hardware, and strict consent/cap invariants. Two issues were
+  corrected and independently rechecked: adaptive-window callback timing race
+  and catastrophic subtraction during dominant-sample eviction from cached sums.
+- Twenty-nine new runtime tests and 21 model tests cover opt-in compatibility,
+  real batching, cancellation/failure boundaries, no duplicate invocation, clock
+  provenance, feature privacy, strict bounded JSON, CPU quotas, objectives,
+  unvalidated foreign priors, and stable rolling aggregates.
+- Extended whole-package stress, 20-second service soak, 4,480 real MCP calls,
+  malformed protocol recovery, repeated synthetic thread/process trials, and a
+  real JSON/gzip transform are reproducible in `benchmarks/stress/` and
+  `benchmarks/stress_predictive.py`. Full raw reports and timings, including
+  regressions, are linked in [the results guide](../benchmarks/results/README.md).
+- Synthetic mixed-work medians were slower with prediction: 0.813s vs 0.559s
+  for 1,000 thread tasks; sampling every eighth invocation gave 0.739s vs 0.551s.
+  For 400 mixed process/thread tasks, 0.505s vs 0.307s. These are observations,
+  not calibrated comparisons to tuned optimum baselines. Genuine batching
+  reduced dispatch counts but no incomparable timing speedup is inferred.
+- The legacy raw-core cancellation-queue retention limit is explicitly measured
+  (~64.6 MB for 10,000 cancelled queued 4 KB jobs while a worker blocks).
+  Logical `max_pending` is not a physical queue/RSS bound.
+
+Local checks are Linux-only. Windows/macOS and Python 3.10/3.14 are configured in
+remote CI and are separate from this record. Process task CPU/RSS, calibrated
+uncertainty, controlled scaling curves and trained transfer-learning remain
+unimplemented; observational profiles and conservative foreign priors are labeled.
+
+
 ## 0.2.0 verification scope
 
 The 0.2.0 update preserves the core executor and existing benchmark data. It adds

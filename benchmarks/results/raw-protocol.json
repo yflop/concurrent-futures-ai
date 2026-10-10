@@ -1,0 +1,7 @@
+{
+  "malformed_requests": 60,
+  "recovery_requests": 60,
+  "responses": 61,
+  "clean_eof_exit": 0,
+  "closed_service": true
+}

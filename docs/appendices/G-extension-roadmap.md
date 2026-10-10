@@ -4,7 +4,7 @@
 
 “Ever-expanding” should mean a maintainable collection of ideas that can be searched, tested, promoted, revised, or rejected. It should not mean a background agent silently modifies the package or that every catalog entry is a runtime switch.
 
-The current catalog has 63 concepts with stable IDs, explicit statuses, mechanisms, use cases, risks, benchmark methods, references, and dependencies. `ConceptRegistry` validates the JSON structure and dependency graph and returns read-only-by-copy query results. It never installs plugins or executes catalog prose.
+The current catalog has 65 concepts with stable IDs, explicit statuses, mechanisms, use cases, risks, benchmark methods, references, and dependencies. `ConceptRegistry` validates the JSON structure and dependency graph and returns read-only-by-copy query results. It never installs plugins or executes catalog prose.
 
 ```sh
 python -m intelligent_futures "queue" --status planned
@@ -130,3 +130,16 @@ stdio using an optional SDK dependency. See [framework](../FRAMEWORK.md) and
 [MCP](../MCP.md) for contracts and boundaries. These do not implement the planned
 remote executor, durable recovery, hostile-code sandbox, or byte-weighted core
 admission concepts. Existing concept IDs and planned statuses remain unchanged.
+
+## 9. Delivered opt-in foundation in 0.3
+
+Bounded workload profiles, explicit numeric feature summaries, measured successful
+thread wall/CPU time, objective-constrained admission, and actual adaptive batch
+execution now exist. A foreign-hardware cold start may use a conservative prior,
+explicitly unvalidated; local samples refine it. This does not deliver statistical
+transfer-learning, a causal/counterfactual model, process CPU/RSS profiling, or
+automatic semantic proof that a callable can be parallelized.
+
+Further promotion requires controlled same-workload scaling trials, held-out
+hardware validation, uncertainty calibration, drift detection, and realistic
+end-to-end evidence beating useful baselines without relaxing safety constraints.

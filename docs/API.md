@@ -117,3 +117,19 @@ provide a dependency-free explicit allowlist and bounded JSON task lifecycle.
 The separate [MCP stdio adapter](MCP.md) requires the `mcp` extra. Neither is
 imported by the top-level core package; importing existing symbols adds no SDK,
 network, or application-service side effects.
+
+## Opt-in predictive and batch APIs (0.3)
+
+See [PREDICTIVE.md](PREDICTIVE.md) for complete semantics, measured/unavailable
+metrics, privacy, process consent, JSON bounds, and cancellation limitations.
+
+- Constructor additions: `predictive=False`, `hardware=None`, `objective=None`,
+  `workload_profiles=()`, `profile_sample_interval=1`; they never enable processes implicitly.
+- `submit_profiled(fn, /, *args, hints=None, features=(), **kwargs)`
+- `export_profiles()` returns immutable bounded profile snapshots
+- `map_batches(batch_fn, iterable, *, buffersize=2, min_batch_size=1,
+  max_batch_size=64, target_batch_seconds=0.05, hints=None)` executes real chunks
+- `map_adaptive(fn, iterable, *, min_batch_size=1, max_batch_size=64,
+  target_batch_seconds=0.05, hints=None)` adapts submission windows only
+- Public models: `HardwareCapabilities`, `ExecutionObjective`, `RuntimeSample`,
+  `WorkloadProfile`, `ScalingBucket`, `Prediction`, `Predictor`

@@ -56,3 +56,13 @@ Stdio stdout is reserved for protocol messages: log to stderr instead. See
 Registered task descriptions, parameter defaults, names, and hint/profile keys
 are visible through discovery or metrics. Never use secrets as default argument
 values or metadata. Keep them in trusted application state with narrow operations.
+
+## Predictive profiles and batching
+
+Profile JSON never loads code or pickle. Numeric features are caller-provided;
+keys, summaries, timing and hardware metadata may still identify private workloads.
+Review before sharing and never include secrets. Imported measurements are advice,
+not authority to use processes or exceed worker limits. Per-task RSS limits are
+unsupported. Logical pending-Future limits do not bound cancelled entries retained
+in stdlib queues or arbitrary task allocations. A failed batch may already have
+side effects; running batches cannot be partially cancelled and are never retried.

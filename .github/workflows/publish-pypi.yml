@@ -1,4 +1,4 @@
-name: Publish verified 0.2.0 to PyPI
+name: Publish verified 0.3.0 to PyPI
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: pypi-intelligent-futures-0.2.0
+  group: pypi-intelligent-futures-0.3.0
   cancel-in-progress: false
 
 jobs:
@@ -19,12 +19,12 @@ jobs:
         run: |
           set -euo pipefail
           mkdir dist
-          base=https://github.com/yflop/concurrent-futures-ai/releases/download/v0.2.0
-          curl --fail --location --retry 3 "$base/intelligent_futures-0.2.0-py3-none-any.whl" -o dist/intelligent_futures-0.2.0-py3-none-any.whl
-          curl --fail --location --retry 3 "$base/intelligent_futures-0.2.0.tar.gz" -o dist/intelligent_futures-0.2.0.tar.gz
+          base=https://github.com/yflop/concurrent-futures-ai/releases/download/v0.3.0
+          curl --fail --location --retry 3 "$base/intelligent_futures-0.3.0-py3-none-any.whl" -o dist/intelligent_futures-0.3.0-py3-none-any.whl
+          curl --fail --location --retry 3 "$base/intelligent_futures-0.3.0.tar.gz" -o dist/intelligent_futures-0.3.0.tar.gz
           printf '%s\n' \
-            'bc45189e516f8aeaffeedcd7862057e547280171018d1f34d5d872eaf9959a75  dist/intelligent_futures-0.2.0-py3-none-any.whl' \
-            '1433c7375dd9da246b14c012be6d835ed71e71cb94a082ff86eb7b43c12d144b  dist/intelligent_futures-0.2.0.tar.gz' \
+            '67f371738ab84e8ea14f9dc95256dc9aa52a7341d56cab5faec77b37959e9e71  dist/intelligent_futures-0.3.0-py3-none-any.whl' \
+            '336863116cf884466e4a5045b3771c0174d86ed655fb976b5a5a18cee842712a  dist/intelligent_futures-0.3.0.tar.gz' \
             | sha256sum --check --strict
 
       - name: Install official PyPI upload tooling

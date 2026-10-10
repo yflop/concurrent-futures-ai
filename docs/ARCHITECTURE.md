@@ -28,7 +28,9 @@ continues adapting. Explicit consent gates every process choice.
 
 This is a useful experimental seam, not a statistically rigorous contextual
 bandit implementation. It lacks uncertainty estimates, queue-length features,
-size buckets, causal counterfactuals, failure-aware decisions, and drift tests.
+automatic size features, causal counterfactuals, failure-aware decisions, and drift tests.
+The separate opt-in 0.3 predictor adds caller-supplied exact feature buckets and
+qualitative provenance labels, not calibrated statistical uncertainty.
 The catalog describes how those could be added with explicit experiments.
 
 ## Deliberate boundaries
@@ -80,3 +82,23 @@ by a service wrapper so cancel/forget churn cannot release the physical admissio
 slot before that wrapper drains. Running Python code cannot be forcibly stopped.
 JSON input/result byte limits constrain transmitted and retained JSON, not memory
 allocated by a callable, the SDK's input parser, or total process RSS.
+
+## Opt-in predictive foundation (0.3)
+
+`prediction.py` owns immutable hardware/objective/sample/profile models and bounded
+validated JSON transfer. `IntelligentExecutor(predictive=True)` measures successful
+thread-call wall and current-thread CPU time at a configurable sampling interval.
+A predictor uses compatible observed buckets or an explicitly unvalidated foreign
+hardware prior to adjust admission, bounded by objective, worker and pending limits.
+Pool objects and their private worker counts remain unchanged. Explicit routing
+policies and process consent still constrain backend selection.
+
+`map_batches` sends actual tuple chunks to a caller-supplied batch function. It
+adapts future chunk sizes using callback-observed completion latency and never
+replays failed items. `map_adaptive` changes only submission-window size; every
+input remains a separate Future. Both are bounded streaming APIs with explicit
+close/cancellation limitations, not hard byte/RSS bounds.
+
+See [PREDICTIVE.md](PREDICTIVE.md) for confidence/provenance, metadata privacy,
+non-controlled observational scaling, unavailable metrics, and source/target
+hardware distinctions. Framework/MCP execution remains unchanged and thread-only.

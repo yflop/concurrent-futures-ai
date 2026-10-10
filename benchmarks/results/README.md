@@ -66,3 +66,50 @@ PYTHONPATH=src python -m benchmarks.run --max-pending 8 \
 The source tree had no Git revision when these samples were recorded, so the
 raw metadata correctly records `git_revision: null`. Numerical timing values
 will naturally differ between runs.
+
+## 0.3 predictive foundation and regression stress
+
+New reports are separate from historical 0.1 reference measurements above.
+All were run on the 0.3 working tree on 2026-10-10, CPython 3.12/Linux with
+9 visible/affinity CPUs; raw predictive reports include the CPU model, exact
+configuration, seeds and complete observations. Host load was not isolated.
+
+- [Predictive thread trials](predictive-thread.json.gz): five seeded repeats of
+  1,000 mixed tasks. Median baseline 0.559s versus predictive 0.813s.
+- [Sample interval 8](predictive-sampled.json.gz): five repeats of the same
+  1,000-task mix. Median baseline 0.551s versus predictive 0.739s.
+- [Mixed thread/process trials](predictive-process.json.gz): five repeats of
+  400 tasks with two process workers. Median baseline 0.307s versus predictive
+  0.505s. Baseline and predictive runs share worker budgets; predictive admission
+  is intentionally lower and variable. These are not tuned optimum comparisons.
+- Actual batching produced 36 submissions for 1,000 successful thread items and
+  18 submissions for 400 process items, in every repeat. Its success-only input
+  variant/timing boundaries differ from failure-including single-task trials;
+  do not compare their wall times as a batching speedup.
+- [Extended stress](extended-stress.json): 10 subprocess-isolated regression
+  scenarios, including 16,800 producer tasks, 7,000 service tasks, 110 shutdown
+  race iterations, cancellation, process crashes, callback nesting, JSON bounds,
+  retention pressure and 5,000 ordered map outputs.
+- [MCP stress](mcp-stress.json): 4,480 real SDK calls across 8 connections and
+  64 rounds; capacity rejections expected. [Raw protocol](raw-protocol.json):
+  60 malformed requests followed by recovery checks and clean EOF cleanup.
+- [Service soak](service-soak.json): 20 seconds with 32 producers, 18,577 terminal
+  tasks, ~565 KB peak traced Python allocation. This is not RSS or a long-run SLA.
+- [Cancellation queue limitation](churn-limitation.json): 10,000 cancelled queued
+  jobs retain ~64.6 MB until blocked workers drain, despite logical max_pending=2.
+  This documented raw-core limitation is preserved, not disguised by throughput
+  measurements; TaskService's distinct physical-admission tests pass.
+- [Real JSON/gzip transformation](realistic.json): three randomized-order cold
+  repetitions, matching outputs, equal four active compute workers. This short
+  workload favors stdlib threads; no intelligent-engine superiority is claimed.
+
+The three larger raw reports are losslessly gzipped with mtime=0. Read them using
+`json.load(gzip.open(path, "rt"))` or `gzip -dc path.json.gz`. Their full per-task
+observations, inputs, checksums, profile samples, and machine configuration remain
+available. Reproduction commands are in `benchmarks/stress/README.md`; predictive
+commands use `python -m benchmarks.stress_predictive --tasks 1000 --repeats 5`
+(add `--sample-interval 8`, or use `--tasks 400 --process-workers 2` for the other
+reports). Synthetic seed is 41073; OS scheduling is not deterministic.
+
+These results establish tested behavior and exposed overhead, not production
+certification, controlled cross-hardware transfer, or universal speedup.

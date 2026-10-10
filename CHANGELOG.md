@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0
+
+- Opt-in hardware-aware predictive admission with explicit objectives and unchanged
+  default executor behavior/process consent. No live stdlib pool resizing.
+- Lightweight successful thread wall/CPU measurements, observational scaling
+  buckets, and bounded versioned JSON profile transfer with numeric feature summaries.
+- Actual adaptive tuple-chunk execution through `map_batches`, plus separately
+  documented adaptive submission windows. No duplicate execution or automatic retries.
+- Seeded stress/performance harness and regression tests; observed overhead is
+  reported alongside limitations. No cross-machine learned speedup or RSS guarantee.
+
+
 ## 0.2.0
 
 - Add a standalone, standard-library-only task registration and lifecycle layer.

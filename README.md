@@ -5,7 +5,8 @@ A practical, extensible laboratory for better Python concurrency: a bounded
 online scheduler, and a growing library of optimization concepts.
 
 **Status: alpha research prototype.** No universal speedup is promised. The
-“intelligence” is an auditable EWMA latency learner with controlled exploration,
+“intelligence” includes an auditable EWMA latency learner and opt-in
+hardware-aware predictive admission with bounded runtime profiles,
 not an LLM, code generator, or automatic proof of process safety.
 
 Public repository: [yflop/concurrent-futures-ai](https://github.com/yflop/concurrent-futures-ai).
@@ -42,6 +43,18 @@ if __name__ == "__main__":  # required when using spawn-based processes
 Tiny tasks like `square` generally do not benefit from process overhead. This
 example demonstrates semantics, not a performance recommendation.
 
+## Predictive foundation and actual batching (0.3)
+
+Opt in with `IntelligentExecutor(predictive=True)`: successful thread calls collect
+wall/current-thread CPU measurements, reusable validated JSON profiles guide cold
+starts, and admission adapts within hardware/objective/worker budgets.
+`map_batches(batch_fn, iterable)` submits actual bounded tuple chunks and adjusts
+chunk sizes from measured completion time, without replaying work. See
+[the predictive guide](docs/PREDICTIVE.md) and `examples/predictive_batches.py`.
+Cross-machine learned transfer, per-task RSS enforcement, and process runtime
+profiling are not implemented. Tiny-workload measurements show overhead; this
+experimental foundation does not promise a speedup.
+
 ## What works today
 
 - Standard-library `Future` objects, `wait`, `as_completed`, `map`, exceptions,
@@ -67,7 +80,8 @@ functions and arguments must be pickleable, importable, and semantically safe in
 a separate process. Do not rely on mutated thread-shared globals across processes.
 
 No retries, speculative duplicates, hard timeouts, task killing, distributed
-execution, automatic worker resizing, or remote AI calls are implemented.
+execution, live pool resizing, or remote AI calls are implemented. Predictive mode
+can adjust admission within fixed worker capacities.
 Cancellation never stops a running callable. Context-manager exit waits for work.
 Blocking nested submissions into a saturated executor can deadlock: orchestrate
 from outside worker tasks, or use a finite `submit_timeout` and handle failure.

@@ -1,0 +1,198 @@
+{
+  "seconds": 20.137673688001087,
+  "counts": {
+    "completed": 9284,
+    "cancelled": 9293,
+    "busy": 20502,
+    "task_capacity": 0
+  },
+  "memory_final": 165514,
+  "memory_peak": 565466,
+  "samples": [
+    {
+      "seconds": 0.021919943999819225,
+      "memory_current": 376904,
+      "memory_peak": 377176,
+      "pending": 24,
+      "retained": 18
+    },
+    {
+      "seconds": 1.0305206900011399,
+      "memory_current": 508788,
+      "memory_peak": 548102,
+      "pending": 31,
+      "retained": 19
+    },
+    {
+      "seconds": 2.034477704000892,
+      "memory_current": 486793,
+      "memory_peak": 549578,
+      "pending": 31,
+      "retained": 16
+    },
+    {
+      "seconds": 3.0346437440020964,
+      "memory_current": 456832,
+      "memory_peak": 550051,
+      "pending": 31,
+      "retained": 22
+    },
+    {
+      "seconds": 4.038792692001152,
+      "memory_current": 472953,
+      "memory_peak": 552704,
+      "pending": 32,
+      "retained": 17
+    },
+    {
+      "seconds": 5.042320720000134,
+      "memory_current": 467365,
+      "memory_peak": 552704,
+      "pending": 32,
+      "retained": 18
+    },
+    {
+      "seconds": 6.045671963001951,
+      "memory_current": 484190,
+      "memory_peak": 552704,
+      "pending": 32,
+      "retained": 19
+    },
+    {
+      "seconds": 7.050698506001936,
+      "memory_current": 489438,
+      "memory_peak": 557194,
+      "pending": 32,
+      "retained": 17
+    },
+    {
+      "seconds": 8.058074233002117,
+      "memory_current": 468867,
+      "memory_peak": 557194,
+      "pending": 31,
+      "retained": 20
+    },
+    {
+      "seconds": 9.062305940999067,
+      "memory_current": 483166,
+      "memory_peak": 557194,
+      "pending": 29,
+      "retained": 18
+    },
+    {
+      "seconds": 10.066471481000917,
+      "memory_current": 485277,
+      "memory_peak": 558484,
+      "pending": 31,
+      "retained": 18
+    },
+    {
+      "seconds": 11.076547880002181,
+      "memory_current": 497434,
+      "memory_peak": 558484,
+      "pending": 32,
+      "retained": 17
+    },
+    {
+      "seconds": 12.079429510002228,
+      "memory_current": 491094,
+      "memory_peak": 558484,
+      "pending": 32,
+      "retained": 19
+    },
+    {
+      "seconds": 13.087123388999316,
+      "memory_current": 509810,
+      "memory_peak": 562067,
+      "pending": 30,
+      "retained": 21
+    },
+    {
+      "seconds": 14.092599097999482,
+      "memory_current": 504426,
+      "memory_peak": 562450,
+      "pending": 31,
+      "retained": 21
+    },
+    {
+      "seconds": 15.097141763002583,
+      "memory_current": 476040,
+      "memory_peak": 562450,
+      "pending": 31,
+      "retained": 21
+    },
+    {
+      "seconds": 16.102162695002335,
+      "memory_current": 525763,
+      "memory_peak": 562450,
+      "pending": 32,
+      "retained": 18
+    },
+    {
+      "seconds": 17.110221139002533,
+      "memory_current": 486475,
+      "memory_peak": 565253,
+      "pending": 32,
+      "retained": 22
+    },
+    {
+      "seconds": 18.115575522002473,
+      "memory_current": 511277,
+      "memory_peak": 565466,
+      "pending": 32,
+      "retained": 22
+    },
+    {
+      "seconds": 19.1259159120018,
+      "memory_current": 476738,
+      "memory_peak": 565466,
+      "pending": 31,
+      "retained": 15
+    }
+  ],
+  "snapshot": {
+    "closed": true,
+    "retained": 0,
+    "pending": 0,
+    "max_pending": 32,
+    "max_tasks": 96,
+    "max_input_bytes": 65536,
+    "max_result_bytes": 1048576,
+    "counts": {
+      "submitted": 18577,
+      "completed": 9284,
+      "failed": 0,
+      "cancelled": 9293,
+      "rejected": 20502,
+      "forgotten": 18577
+    },
+    "statuses": {},
+    "executor": {
+      "counts": {
+        "submitted": 18577,
+        "completed": 18577,
+        "failed": 0,
+        "cancelled": 0,
+        "rejected": 0,
+        "thread_submitted": 18577,
+        "process_submitted": 0,
+        "peak_pending": 32,
+        "profiles_evicted": 0
+      },
+      "pending": 0,
+      "predictive": null,
+      "closed": true,
+      "max_pending": 32,
+      "profiles": {
+        "echo": {
+          "thread": {
+            "samples": 18577,
+            "ewma_seconds": 0.008493460366640527,
+            "total_seconds": 530.543738120341,
+            "failures": 0
+          }
+        }
+      }
+    }
+  }
+}

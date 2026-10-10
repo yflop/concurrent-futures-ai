@@ -1,0 +1,7 @@
+{
+  "classification": "documented limitation, not regression",
+  "cancelled": 10000,
+  "logical_pending_before_drain": 1,
+  "bytes_held": 64613762,
+  "bytes_after_drain": 4368
+}

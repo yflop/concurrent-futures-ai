@@ -89,3 +89,11 @@ Useful sequences include:
 A planned concept becomes experimental only after runnable code, a focused test, and an explicit selection or disable path exist. New experimental features should be opt-in; the initial adaptive policy is the documented constructor default. Promotion to implemented also requires public API documentation, failure and shutdown coverage, a benchmark protocol, and explicit limits. If the experiment produces no improvement, keep the result and its provenance; a negative result is more useful than an unsupported success claim.
 
 The dependency graph is advisory. It is not executable orchestration, a release promise, or a schedule. Review it when changing scope because an alternative implementation may remove a dependency.
+
+## 0.3 predictive experiments
+
+CF-008, CF-024 and CF-025 now have opt-in executable experiments. CF-064
+records bounded transferable measurements; CF-065 uses hardware-aware constrained
+admission. See [PREDICTIVE.md](../PREDICTIVE.md) for exact scope. Foreign-hardware
+reuse is an unvalidated conservative prior, not learned transfer. Controlled
+counterfactual/scaling experiments remain future work.

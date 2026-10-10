@@ -116,11 +116,11 @@
     {
       "id": "CF-008",
       "title": "Input-size-aware profiles",
-      "status": "planned",
+      "status": "experimental",
       "category": "learning",
-      "mechanism": "Partition observations into application-supplied size buckets rather than mixing every input under one function key.",
+      "mechanism": "Explicit bounded numeric feature summaries partition immutable versioned workload profiles by exact feature equality; no raw input inspection. Implemented in prediction.py and submit_profiled.",
       "applicability": "The same operation over tiny and large payloads where process-transfer economics differ.",
-      "risks": "Automatic deep size inspection is costly and can leak information; too many buckets destroy sample density.",
+      "risks": "Caller summaries can disclose private information; exact feature buckets can be sparse. Imported measurements do not prove future performance. No automatic feature engineering or learned interpolation.",
       "benchmark_method": "Sweep payload size and plot route choice and latency against fixed-backend crossovers. Hold out sizes and measure bucket overhead.",
       "references": [
         "https://docs.python.org/3.13/library/multiprocessing.html"
@@ -374,11 +374,11 @@
     {
       "id": "CF-024",
       "title": "Small-task batching",
-      "status": "planned",
+      "status": "experimental",
       "category": "scheduling",
-      "mechanism": "Pack multiple explicitly batchable calls into a single backend submission to amortize per-task overhead.",
+      "mechanism": "map_batches submits one explicit tuple chunk to a caller-supplied batch function per Future, yielding one result per batch. No hidden duplicate execution or retry.",
       "applicability": "Numerous tiny pure transformations with compatible error and cancellation requirements.",
-      "risks": "Batching increases first-result latency and couples failures; partial completion needs a documented result mapping.",
+      "risks": "Batching couples failure and cancellation; completed side effects cannot be rolled back, and running chunks cannot be partially cancelled. Result shape belongs to the batch callable. No hard memory bound.",
       "benchmark_method": "Sweep batch size against task duration and payload bytes; report throughput, first result, p95, and per-item errors.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
@@ -390,11 +390,11 @@
     {
       "id": "CF-025",
       "title": "Adaptive chunk sizing",
-      "status": "planned",
+      "status": "experimental",
       "category": "scheduling",
-      "mechanism": "Select batch size from recent service-time estimates while bounding a chunk execution-time target.",
+      "mechanism": "map_batches adapts bounded chunk length from observed admission-to-completion-callback time, including admission/queue/serialization and preceding callbacks. Growth/shrink is constrained to roughly 2x per feedback step.",
       "applicability": "Data-parallel jobs with uneven item costs.",
-      "risks": "Large chunks create stragglers; feedback lags and item counts may not predict work.",
+      "risks": "Feedback lags, callback delays and admission distort intrinsic task costs. Targets are heuristics, not deadlines or latency guarantees. Window-only map_adaptive does not amortize dispatch.",
       "benchmark_method": "Compare fixed chunks with heavy-tailed and sorted cost inputs; measure worker idle time and makespan.",
       "references": [
         "https://docs.python.org/3.13/library/concurrent.futures.html"
@@ -1032,6 +1032,42 @@
       ],
       "depends_on": [
         "CF-062"
+      ]
+    },
+    {
+      "id": "CF-064",
+      "title": "Bounded transferable workload profiles",
+      "status": "experimental",
+      "category": "observability",
+      "mechanism": "Successful opt-in thread wall/current-thread CPU samples, exact numeric input summaries, hardware feature metadata, and observational concurrency buckets are exported/imported as strictly validated bounded schema-v1 JSON.",
+      "applicability": "Explicit opt-in repeated workloads with comparable inputs and constrained execution budgets.",
+      "risks": "Profiles are data, not trusted performance promises. No per-task RSS or built-in process runtime measurements; no pickle or callable/input serialization. Observational concurrency is not a controlled scaling experiment.",
+      "benchmark_method": "Verify JSON limits/privacy/schema rejection and genuine clock provenance; compare timings with and without instrumentation and sample intervals.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html",
+        "https://docs.python.org/3/library/time.html#time.thread_time"
+      ],
+      "depends_on": [
+        "CF-004",
+        "CF-008"
+      ]
+    },
+    {
+      "id": "CF-065",
+      "title": "Hardware-aware predictive admission",
+      "status": "experimental",
+      "category": "learning",
+      "mechanism": "Predictor combines CPU affinity/quota capabilities, workload evidence, objective and explicit constraints. Compatible profiles guide observed selection; foreign profiles supply uncertainty-labeled conservative priors. Admission changes within fixed backend capacities without mutating stdlib pools.",
+      "applicability": "Explicit opt-in repeated workloads with comparable inputs and constrained execution budgets.",
+      "risks": "Hardware feature matches are not identical machine guarantees. Cross-hardware prior is unvalidated, not learned transfer or empirical speedup. Saturation/barrier workloads can deadlock; configured constraints do not limit arbitrary memory.",
+      "benchmark_method": "Compare no-profile, compatible-profile and foreign-profile starts on independently controlled workloads; record raw seeded results, hard-cap invariants, negative speedups and local-measurement refinement.",
+      "references": [
+        "https://docs.python.org/3/library/concurrent.futures.html",
+        "https://docs.python.org/3/library/time.html#time.thread_time"
+      ],
+      "depends_on": [
+        "CF-064",
+        "CF-001"
       ]
     }
   ]
