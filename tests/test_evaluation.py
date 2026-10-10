@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 from intelligent_futures.evaluation import (
     AdoptionRecommendation, EvaluationConfiguration as Config, EvaluationPlan,
-    RepeatableWorkload, evaluate_workload, _median_lower,
+    RepeatableWorkload, evaluate_workload, _median_lower, LOG_MARGIN_GUARD,
 )
 from intelligent_futures.tuning import Measurement
 
@@ -70,7 +70,50 @@ class EvaluationTests(unittest.TestCase):
     def test_practical_margin_ties_are_not_wins(self):
         # A lower interval equal to the requested margin is insufficient.
         r = self.run_evaluation(plan=EvaluationPlan(minimum_speedup=1/0.75-1, expected_reuses=100000))
-        self.assertNotEqual(r.status, 'recommend_intelligent')
+        self.assertEqual(r.status, 'retain_stdlib')
+        for comparison in r.comparisons:
+            self.assertEqual(comparison.wins_above_margin, 0)
+            self.assertEqual(comparison.sign_p_value, 1)
+            self.assertIn('practical_improvement_not_established', comparison.reasons)
+
+    def test_numerical_margin_guard_is_conservative_across_timing_scales(self):
+        margin = .05
+        threshold = math.log1p(margin)
+        for scale in (1e-300, 1.0, 1e300):
+            for offset, wins in ((-1e-10, 0), (0.0, 0),
+                                 (LOG_MARGIN_GUARD / 4, 0),
+                                 (LOG_MARGIN_GUARD * 2, 24), (1e-10, 24)):
+                candidate = scale / math.exp(threshold + offset)
+                workload = self.workload(lambda engine, config, seed:
+                    Measurement(scale if engine == 'stdlib' else candidate, 1.0, True))
+                plan = EvaluationPlan(minimum_speedup=margin, minimum_measured_seconds=0,
+                                      expected_reuses=100000)
+                with self.subTest(scale=scale, offset=offset):
+                    r = self.run_evaluation(workload, plan=plan)
+                    for comparison in r.comparisons:
+                        self.assertEqual(comparison.wins_above_margin, wins)
+                        self.assertEqual(comparison.sign_p_value, 1 if not wins else 2**-24)
+                        self.assertEqual(comparison.passed, bool(wins))
+                    if not wins:
+                        self.assertEqual(r.status, 'retain_stdlib')
+
+    def test_few_ulp_libm_rounding_cannot_turn_tie_into_win(self):
+        margin = 1/.75-1
+        threshold = math.log1p(margin)
+        for steps in (-4, -1, 1, 4):
+            rounded = threshold
+            for _ in range(abs(steps)):
+                rounded = math.nextafter(rounded, math.inf if steps > 0 else -math.inf)
+            def rounded_log(value):
+                self.assertIn(value, (1.0, .75))
+                return 0.0 if value == 1.0 else -rounded
+            with self.subTest(steps=steps), patch(
+                    'intelligent_futures.evaluation.math.log', side_effect=rounded_log):
+                r = self.run_evaluation(plan=EvaluationPlan(minimum_speedup=margin,
+                                                           expected_reuses=100000))
+            self.assertEqual(r.status, 'retain_stdlib')
+            self.assertTrue(all(c.wins_above_margin == 0 and c.sign_p_value == 1
+                                and not c.passed for c in r.comparisons))
 
     def test_small_fixed_plan_has_no_finite_bound(self):
         r = self.run_evaluation(plan=EvaluationPlan(heldout_blocks=5, expected_reuses=100000))
@@ -210,6 +253,8 @@ class EvaluationTests(unittest.TestCase):
 
     def test_reuse_identity_expiry_runtime_checks(self):
         rec=self.run_evaluation().recommendation
+        with self.assertRaisesRegex(ValueError,'runtime'):
+            replace(rec,evaluation_revision='paired-heldout-sign-v1').checked_configuration(self.workload())
         for workload in (replace(self.workload(),version='v2'),replace(self.workload(),name='other'),
                          replace(self.workload(),metric_scope='different')):
             with self.assertRaisesRegex(ValueError,'identity'):rec.checked_configuration(workload)

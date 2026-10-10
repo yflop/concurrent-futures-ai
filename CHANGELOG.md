@@ -2,6 +2,8 @@
 
 ## 0.5.0 — Beta
 
+- Conservative cross-platform numerical margin ties; evaluator revision v2 invalidates v1 reuse. Original measurements are preserved with a zero-task decision recomputation proof.
+
 - Add opt-in evidence-gated adoption for caller-declared repeatable fixtures:
   independent bounded stdlib/intelligent searches followed by frozen, paired
   held-out comparisons against both fixed and tuned stdlib baselines.

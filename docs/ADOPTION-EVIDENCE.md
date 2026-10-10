@@ -250,11 +250,47 @@ python tools/summarize_adoption.py benchmarks/results/adoption-v050.json.gz
 python tools/report_io.py benchmarks/results/adoption-v050.json.gz --output local-report.json
 ```
 
+## Conservative numerical correction after cross-platform CI
+
+The first candidate's macOS/Windows checks exposed a numerical boundary defect:
+platform log rounding could count an exact practical-margin tie as a gain.
+Evaluator revision `paired-heldout-sign-v2` adds the same positive `1e-12` log-unit
+margin guard to sign wins, lower-bound acceptance and median classification.
+Tests cover few-ULP math-library perturbations and timing scales from `1e-300` to
+`1e300`, including gains clearly outside the guard. Old v1 recommendations fail
+the revision compatibility check.
+
+The [exact measured v1 evaluator](../benchmarks/results/adoption-evaluation-v1-measured-source.py)
+is retained with its original SHA256
+`42c8dc9759ab895c2893d2d55063ae64f0305dffc442bf0beff0f0d43e105913`.
+The scheduler, task implementations and measurement semantics did not change.
+All raw report/archive bytes remain unchanged. A separate
+[recomputation proof](../benchmarks/results/adoption-recomputation-v2.json)
+rechecks all 1,104 stored scalar observations, training selections, 24 baseline
+comparisons and 12 complete decisions/reason sets. They match exactly: all retain
+stdlib. No workload was executed again and no new speed measurement was made.
+Original discovery costs remain in the reports; this analysis is restricted to
+complete reports already rejected by comparison gates, so fresh analysis overhead
+cannot change a cost-only decision.
+
+```sh
+python tools/recompute_adoption_decisions.py benchmarks/results/adoption-v050.json.gz
+python tools/recompute_adoption_decisions.py benchmarks/results/adoption-mixed-v050.json.gz
+```
+
+Exact derived floating-field replay requires a matching math runtime. Hash and
+byte checks are always exact; a different platform can round descriptive floating
+fields differently even when its conservative decision agrees. The two additional
+CI failures were test portability assumptions: Python 3.14's pickling exception
+class and absent Windows CPU sampling. Tests now accept the legitimate pickling
+failure without relaxing no-replay checks, and explicitly test unavailable CPU
+telemetry without inventing zero usage. Fresh exact-commit CI is required.
+
 ## Installed-artifact verification
 
 A clean Python 3.12 environment containing only the installed 0.5.0 wheel passed
-640 collected unit tests: 601 passed and 39 expected optional-dependency skips. A separate
-clean environment with the workload lock and MCP extra passed all 640 tests,
+644 collected unit tests: 605 passed and 39 expected optional-dependency skips. A separate
+clean environment with the workload lock and MCP extra passed all 644 tests,
 eight benchmark tests, runnable examples, catalog checks and compilation checks.
 The installed import path was checked to exclude the source tree. Strict wheel
 and source-distribution metadata checks passed. Exact-commit cross-platform CI

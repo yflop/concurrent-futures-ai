@@ -6,6 +6,7 @@ import json
 import multiprocessing
 import os
 from pathlib import Path
+import pickle
 import tempfile
 import threading
 import unittest
@@ -160,7 +161,7 @@ class ProcessPolicyTests(RuntimeCase):
                 executor.submit_task(fail_after_side_effect, path,
                     hints=TaskHints(process_safe=True)).result(WAIT)
             calls = []
-            with self.assertRaises((AttributeError, TypeError)):
+            with self.assertRaises((AttributeError, TypeError, pickle.PicklingError)):
                 executor.submit_task(lambda: calls.append(1),
                     hints=TaskHints(process_safe=True)).result(WAIT)
             executor.shutdown()

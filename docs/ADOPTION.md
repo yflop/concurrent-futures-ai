@@ -188,6 +188,11 @@ and a one-sided order-statistic lower bound. It requires that bound to exceed
 wins. See the [NIST sign-test background](https://www.itl.nist.gov/div898/software/dataplot/refman1/auxillar/signtest.htm).
 Unlike NIST's illustrative tie-excluding procedure, this implementation keeps
 the fixed sample denominator and handles margin ties conservatively.
+The `paired-heldout-sign-v2` evaluator adds a positive `1e-12` log-unit numerical
+guard to the requested margin. Sign wins, lower-bound acceptance and median
+classification all use that same guarded boundary, so values within this
+numerical tie band cannot count as favorable. This guard can only make adoption
+harder; reported raw estimates and order-statistic bounds remain unadjusted.
 
 Default `family_alpha=0.05` is divided between the two comparisons, including
 when their baseline configurations coincide. This uses the

@@ -24,8 +24,8 @@ jobs:
           curl --fail --location --retry 3 "$base/intelligent_futures-0.5.0-py3-none-any.whl" -o dist/intelligent_futures-0.5.0-py3-none-any.whl
           curl --fail --location --retry 3 "$base/intelligent_futures-0.5.0.tar.gz" -o dist/intelligent_futures-0.5.0.tar.gz
           printf '%s\n' \
-            '55fa82269b022ca4e8b383a3e10dd68af7f8ab1e7a30f24c5e119aaf4d69e6e3  dist/intelligent_futures-0.5.0-py3-none-any.whl' \
-            '726e9174855e8b8483af5be0f1949cc40898a427292e099e3ff752b98c97b4b9  dist/intelligent_futures-0.5.0.tar.gz' \
+            '799256582cd98e1e37e03dc0f7466d78042183f9d9c631b5401cc641a388697b  dist/intelligent_futures-0.5.0-py3-none-any.whl' \
+            '4f430099270016cc7a55572cf0217520fe40e264ee1c3832c11bc61fa5dc6464  dist/intelligent_futures-0.5.0.tar.gz' \
             | sha256sum --check --strict
 
       - name: Install official PyPI upload tooling

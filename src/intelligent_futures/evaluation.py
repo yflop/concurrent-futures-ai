@@ -18,7 +18,10 @@ from typing import Callable, Iterable
 from .prediction import HardwareCapabilities
 from .tuning import Measurement, SCHEDULER_REVISION, _integer, _number, _package_version, _median, _runtime_identity
 
-EVALUATION_REVISION = "paired-heldout-sign-v1"
+EVALUATION_REVISION = "paired-heldout-sign-v2"
+# A positive guard can only reject marginal evidence. It absorbs platform libm
+# rounding in log(B)-log(C) and log1p(margin); it never lowers the user's margin.
+LOG_MARGIN_GUARD = 1e-12
 MAX_CONFIGURATIONS = 32
 MAX_BLOCKS = 128
 
@@ -346,6 +349,11 @@ def _safe_expm1(value):
     return result if math.isfinite(result) else None
 
 
+def _above_margin(log_gain, log_margin):
+    """Strict gain beyond the practical margin and conservative numerical ties."""
+    return log_gain > log_margin + LOG_MARGIN_GUARD
+
+
 def _compare(role, baseline, base_records, candidate_records, plan):
     n = len(candidate_records)
     alpha = plan.family_alpha / 2  # Fixed + tuned, even when their modes coincide.
@@ -360,7 +368,7 @@ def _compare(role, baseline, base_records, candidate_records, plan):
     c = [getattr(r.measurement, plan.metric) for r in candidate_records]
     logs = [math.log(x) - math.log(y) for x, y in zip(b, c)]
     margin = math.log1p(plan.minimum_speedup)
-    wins = sum(value > margin for value in logs)
+    wins = sum(_above_margin(value, margin) for value in logs)
     p = sum(math.comb(n, j) for j in range(wins, n + 1)) / 2**n
     lower, k = _median_lower(logs, alpha)
     median = statistics.median(logs)
@@ -376,7 +384,7 @@ def _compare(role, baseline, base_records, candidate_records, plan):
     mean_saving = statistics.fmean(v / scale for v in savings) * scale
     if lower is None:
         reasons.append("insufficient_fixed_sample")
-    elif not lower > margin or p > alpha:
+    elif not _above_margin(lower, margin) or p > alpha:
         reasons.append("practical_improvement_not_established")
     if min(*b, *c) < plan.minimum_measured_seconds:
         reasons.append("timing_below_resolution_floor")
@@ -542,7 +550,10 @@ def evaluate_workload(workload: RepeatableWorkload, *,
     # regression, or excessive measured adoption cost. Failures/noise stay unknown.
     adverse = {"aggregate_regression_or_tie", "observed_tail_regression"}
     retain = any(set(c.reasons) & adverse for c in comparisons)
-    if comparisons and any(c.median_speedup is not None and c.median_speedup <= plan.minimum_speedup for c in comparisons):
+    if comparisons and any(c.median_speedup is not None and (
+            c.median_speedup <= 0 or not _above_margin(
+                math.log1p(c.median_speedup), math.log1p(plan.minimum_speedup)))
+            for c in comparisons):
         retain = True
     if "evaluation_cost_not_amortized_in_declared_horizon" in reasons:
         retain = True

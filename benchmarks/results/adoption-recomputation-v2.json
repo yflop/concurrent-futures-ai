@@ -1,0 +1,201 @@
+{
+  "purpose": "Post-CI conservative floating-point margin correction; recompute original decisions without rerunning tasks",
+  "original_revision": "paired-heldout-sign-v1",
+  "corrected_revision": "paired-heldout-sign-v2",
+  "measured_evaluator_snapshot": "benchmarks/results/adoption-evaluation-v1-measured-source.py",
+  "measured_evaluator_sha256": "42c8dc9759ab895c2893d2d55063ae64f0305dffc442bf0beff0f0d43e105913",
+  "corrected_evaluator_sha256": "577e15eae9276e51d4284f08ddd2932641df1640a990fb4c91dd6cacb03624cf",
+  "recompute_tool_sha256": "1f04a8911921060ec1f589cb41f2166985178d73ea77bf3894809c6ee87bc295",
+  "reports": [
+    {
+      "evaluation_revision": "paired-heldout-sign-v2",
+      "positive_log_margin_guard": 1e-12,
+      "workload_count": 11,
+      "comparison_count": 22,
+      "scalar_observations": 1017,
+      "task_executions": 0,
+      "workloads": [
+        {
+          "name": "http",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:aggregate_regression_or_tie",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:paired_noise_exceeds_threshold",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "images",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "tuned:practical_improvement_not_established"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 75,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "geospatial",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:paired_noise_exceeds_threshold",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:paired_noise_exceeds_threshold",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "cached_http",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:paired_noise_exceeds_threshold",
+            "fixed:aggregate_regression_or_tie",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:paired_noise_exceeds_threshold",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "downloads",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "pipeline",
+          "status": "retain_stdlib",
+          "reasons": [
+            "tuned:practical_improvement_not_established"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "ocr",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "tuned:practical_improvement_not_established"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 75,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "dedup",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:paired_noise_exceeds_threshold",
+            "tuned:practical_improvement_not_established",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "sqlite",
+          "status": "retain_stdlib",
+          "reasons": [
+            "tuned:practical_improvement_not_established",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "discovery",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:paired_noise_exceeds_threshold",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:paired_noise_exceeds_threshold",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 99,
+          "exact_decision_and_selection_match": true
+        },
+        {
+          "name": "video",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:aggregate_regression_or_tie",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 75,
+          "exact_decision_and_selection_match": true
+        }
+      ],
+      "scope": "Numeric decision recomputation only; original measurements, timing costs, assumptions and source provenance remain in unchanged raw reports. Matching math runtime required for exact derived floating-field equality.",
+      "archive_sha256": "d5a327a67e32be63a9961c4adec856821a24e1eafd0bba581d9fb0cd4082cafb"
+    },
+    {
+      "evaluation_revision": "paired-heldout-sign-v2",
+      "positive_log_margin_guard": 1e-12,
+      "workload_count": 1,
+      "comparison_count": 2,
+      "scalar_observations": 87,
+      "task_executions": 0,
+      "workloads": [
+        {
+          "name": "mixed-geospatial-http",
+          "status": "retain_stdlib",
+          "reasons": [
+            "fixed:practical_improvement_not_established",
+            "fixed:aggregate_regression_or_tie",
+            "fixed:observed_tail_regression",
+            "tuned:practical_improvement_not_established",
+            "tuned:aggregate_regression_or_tie",
+            "tuned:observed_tail_regression"
+          ],
+          "comparisons": 2,
+          "scalar_observations": 87,
+          "exact_decision_and_selection_match": true
+        }
+      ],
+      "scope": "Numeric decision recomputation only; original measurements, timing costs, assumptions and source provenance remain in unchanged raw reports. Matching math runtime required for exact derived floating-field equality.",
+      "archive_sha256": "863ba6663107e1067ee4b41b940567290e87f081e4872586ce99e277c43a1f78"
+    }
+  ]
+}

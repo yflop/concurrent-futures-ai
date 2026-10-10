@@ -6,6 +6,7 @@ from intelligent_futures.evaluation import (EvaluationConfiguration, EvaluationP
     RepeatableWorkload, evaluate_workload)
 from intelligent_futures.tuning import Measurement
 from tools.summarize_adoption import summarize
+from tools.recompute_adoption_decisions import recompute
 
 
 class AdoptionSummaryTests(unittest.TestCase):
@@ -21,6 +22,15 @@ class AdoptionSummaryTests(unittest.TestCase):
         self.assertEqual(summary['attempted_evaluations'],14)
         self.assertEqual(summary['failed_evaluations'],0)
         self.assertEqual(summary['workloads'][0]['status'],'retain_stdlib')
+
+    def test_scalar_decision_recomputation_runs_no_tasks_and_rejects_status_change(self):
+        proof=recompute(self.payload())
+        self.assertEqual(proof['task_executions'],0)
+        self.assertEqual(proof['scalar_observations'],14)
+        self.assertEqual(proof['comparison_count'],2)
+        self.assertTrue(proof['workloads'][0]['exact_decision_and_selection_match'])
+        payload=self.payload();payload['workloads'][0]['report']['status']='inconclusive'
+        with self.assertRaisesRegex(ValueError,'decision changed'):recompute(payload)
 
     def test_incomplete_and_modified_gate_rejected(self):
         payload=self.payload();payload['status']='running'
