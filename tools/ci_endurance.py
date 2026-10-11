@@ -32,9 +32,13 @@ def check(condition, message):
         raise RuntimeError(message)
 
 
+def relative_key(path, root):
+    return path.relative_to(root).as_posix()
+
+
 def source_identity(plan):
     package = ROOT / 'src/intelligent_futures'
-    files = {str(p.relative_to(package)): sha(p) for p in sorted(package.rglob('*'))
+    files = {relative_key(p, package): sha(p) for p in sorted(package.rglob('*'))
              if p.is_file() and '__pycache__' not in p.parts}
     check(files == plan['runtime_files'], 'runtime files differ from frozen candidate')
     digest = hashlib.sha256(json.dumps(files, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
@@ -117,7 +121,7 @@ def finalize(directory, plan):
         result.update(error_type=type(error).__name__, error=str(error), traceback=traceback.format_exc(),
                       cleanup_verified_for_this_run=False)
     finally:
-        result['evidence_files'] = {str(p.relative_to(directory)): {'sha256': sha(p), 'bytes': p.stat().st_size}
+        result['evidence_files'] = {relative_key(p, directory): {'sha256': sha(p), 'bytes': p.stat().st_size}
                                     for p in sorted(directory.rglob('*')) if p.is_file()}
         write(directory / 'ci-terminal.json', result)
         print(json.dumps(result, indent=2), flush=True)

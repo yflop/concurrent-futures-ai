@@ -5,7 +5,7 @@ import signal
 import subprocess
 import json
 import os
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 import tempfile
 import unittest
 from unittest.mock import patch, MagicMock
@@ -28,6 +28,18 @@ class CiEnduranceTests(unittest.TestCase):
                     'errors': [], 'wall_limit_seconds': 15000, 'sampled_rss_limit_bytes': 1024**3,
                     'progress_limit_seconds': 90}
         return summary, watchdog
+
+    def test_manifest_keys_are_portable_posix_paths(self):
+        for cls, root in ((PureWindowsPath, 'C:/checkout'), (PurePosixPath, '/checkout')):
+            for name in ('executor.py', 'framework/tasks.py', 'integrations/mcp.py'):
+                with self.subTest(platform=cls.__name__, name=name):
+                    self.assertEqual(ci.relative_key(cls(root) / name, cls(root)), name)
+
+    def test_linux_manifest_keys_are_unchanged(self):
+        root = PurePosixPath('/checkout')
+        for name in PLAN['runtime_files']:
+            path = root / name
+            self.assertEqual(ci.relative_key(path, root), str(path.relative_to(root)))
 
     def test_frozen_source_identity(self):
         self.assertEqual(ci.source_identity(PLAN)['runtime_manifest_sha256'], PLAN['runtime_manifest_sha256'])
