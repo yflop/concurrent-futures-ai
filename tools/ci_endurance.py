@@ -40,7 +40,11 @@ def source_identity(plan):
     package = ROOT / 'src/intelligent_futures'
     files = {relative_key(p, package): sha(p) for p in sorted(package.rglob('*'))
              if p.is_file() and '__pycache__' not in p.parts}
-    check(files == plan['runtime_files'], 'runtime files differ from frozen candidate')
+    if files != plan['runtime_files']:
+        names = sorted(set(files) | set(plan['runtime_files']))
+        differences = {name: {'expected': plan['runtime_files'].get(name), 'actual': files.get(name)}
+                       for name in names if files.get(name) != plan['runtime_files'].get(name)}
+        raise RuntimeError('runtime files differ from frozen candidate: ' + json.dumps(differences, sort_keys=True))
     digest = hashlib.sha256(json.dumps(files, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
     check(digest == plan['runtime_manifest_sha256'], 'runtime manifest digest mismatch')
     frozen = {name: sha(ROOT / name) for name in plan['frozen_files']}

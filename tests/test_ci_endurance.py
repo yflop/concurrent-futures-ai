@@ -1,5 +1,6 @@
 """The CI evidence gate must never promote an incomplete experiment."""
 import copy
+import hashlib
 import importlib.util
 import signal
 import subprocess
@@ -40,6 +41,22 @@ class CiEnduranceTests(unittest.TestCase):
         for name in PLAN['runtime_files']:
             path = root / name
             self.assertEqual(ci.relative_key(path, root), str(path.relative_to(root)))
+
+    def test_source_identity_rejects_line_ending_transformation(self):
+        lf = b'# Synthetic byte-identity fixture.\nvalue = 1\n'
+        files = {'executor.py': hashlib.sha256(lf).hexdigest()}
+        digest = hashlib.sha256(json.dumps(files, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+        plan = {'runtime_files': files, 'runtime_manifest_sha256': digest, 'frozen_files': {}}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'src/intelligent_futures/executor.py'
+            source.parent.mkdir(parents=True)
+            source.write_bytes(lf)
+            with patch.object(ci, 'ROOT', root):
+                self.assertEqual(ci.source_identity(plan)['runtime_manifest_sha256'], digest)
+                source.write_bytes(lf.replace(b'\n', b'\r\n'))
+                with self.assertRaisesRegex(RuntimeError, 'executor.py'):
+                    ci.source_identity(plan)
 
     def test_frozen_source_identity(self):
         self.assertEqual(ci.source_identity(PLAN)['runtime_manifest_sha256'], PLAN['runtime_manifest_sha256'])
