@@ -1,0 +1,100 @@
+name: operational-endurance-github-v1
+on:
+  push:
+    branches: ['validation/v0.5.1-endurance-candidate-20261011']
+    paths: ['.github/workflows/operational-endurance-github-v1.yml']
+permissions:
+  contents: read
+concurrency:
+  group: operational-endurance-github-v1
+  cancel-in-progress: false
+jobs:
+  endurance:
+    if: >-
+      github.repository == 'yflop/concurrent-futures-ai' &&
+      github.ref == 'refs/heads/validation/v0.5.1-endurance-candidate-20261011' &&
+      github.run_attempt == 1 &&
+      contains(github.event.head_commit.message, '[run endurance github-v1]')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 300
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONPATH: src
+      PYTHONUNBUFFERED: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+    steps:
+      - name: Check out exact workflow commit
+        timeout-minutes: 3
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Set up recorded Python version
+        timeout-minutes: 5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12.14'
+          architecture: x64
+      - name: Initialize fresh evidence
+        timeout-minutes: 1
+        run: |
+          mkdir endurance-artifacts
+          cp benchmarks/results/operational-endurance-github-v1-plan.json endurance-artifacts/
+          cp docs/OPERATIONAL-ENDURANCE-PROTOCOL.md endurance-artifacts/
+          cp docs/OPERATIONAL-ENDURANCE-RESTART.md endurance-artifacts/
+          python - <<'PY'
+          import json, os, pathlib, time
+          keys = ('GITHUB_RUN_ID', 'GITHUB_RUN_ATTEMPT', 'GITHUB_SHA', 'GITHUB_REF', 'GITHUB_REPOSITORY')
+          data = {key: os.environ.get(key) for key in keys}
+          data['initialized_unix_time'] = time.time()
+          pathlib.Path('endurance-artifacts/run-context.json').write_text(json.dumps(data, indent=2) + '\n')
+          PY
+      - name: Install only pinned sampling dependency
+        timeout-minutes: 3
+        run: |
+          python -m pip install --only-binary=:all: --no-deps psutil==7.2.2 2>&1 | tee endurance-artifacts/dependency-install.log
+      - name: Verify frozen source and runner compatibility
+        timeout-minutes: 1
+        id: preflight
+        run: python tools/ci_endurance.py preflight --evidence endurance-artifacts
+      - name: Run focused frozen watchdog and semantics tests
+        id: focused
+        timeout-minutes: 5
+        run: python -m unittest tests.test_operational_endurance_tools tests.test_reentrant_admission tests.test_ci_endurance -v 2>&1 | tee endurance-artifacts/focused-tests.log
+      - name: Run one full frozen four-hour experiment
+        id: endurance
+        timeout-minutes: 270
+        run: |
+          python tools/ci_endurance.py observe --evidence endurance-artifacts \
+            2>&1 | tee endurance-artifacts/endurance.log
+      - name: Record terminal status even after failure
+        timeout-minutes: 2
+        if: always()
+        env:
+          ENDURANCE_OUTCOME: ${{ steps.endurance.outcome }}
+          PREFLIGHT_OUTCOME: ${{ steps.preflight.outcome }}
+          TESTS_OUTCOME: ${{ steps.focused.outcome }}
+        run: |
+          mkdir -p endurance-artifacts
+          status=1
+          if test -f tools/ci_endurance.py; then
+            if python tools/ci_endurance.py finalize --evidence endurance-artifacts; then
+              status=0
+            fi
+          fi
+          if ! test -s endurance-artifacts/ci-terminal.json; then
+            printf '%s\n' '{"status":"failed","error":"terminal helper, Python, plan or checkout unavailable; no completion or cleanup claim"}' > endurance-artifacts/ci-terminal.json
+            status=1
+          fi
+          exit "$status"
+      - name: Upload all available failure-inclusive evidence
+        timeout-minutes: 5
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: operational-endurance-github-v1-${{ github.run_id }}-${{ github.run_attempt }}
+          path: endurance-artifacts/
+          if-no-files-found: error
+          retention-days: 1
+          compression-level: 6
