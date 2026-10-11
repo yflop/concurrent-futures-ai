@@ -1,0 +1,68 @@
+{
+  "cleanup_verified_for_this_run": true,
+  "counts": {
+    "accepted": 6637520,
+    "attempted": 6637520,
+    "cancel_attempted": 948215,
+    "cancel_false": 66333,
+    "cancel_true": 881882,
+    "cancelled": 881882,
+    "expected_failure": 284465,
+    "rejected": 0,
+    "success": 5471173,
+    "unexpected_failure": 0
+  },
+  "diagnostic_checkpoints": 16,
+  "measured_counts": {
+    "accepted": 6627920,
+    "attempted": 6627920,
+    "cancel_attempted": 946843,
+    "cancel_false": 66232,
+    "cancel_true": 880611,
+    "cancelled": 880611,
+    "expected_failure": 284053,
+    "rejected": 0,
+    "success": 5463256,
+    "unexpected_failure": 0
+  },
+  "previous_attempt_cleanup": "Unknown; no elapsed time or counts carried forward.",
+  "quiescent_checkpoints": 18,
+  "quiescent_resource_trends": {
+    "parent_fds": {
+      "delta": 0,
+      "first": 16,
+      "last": 16,
+      "ols_per_hour": 0.0
+    },
+    "parent_rss": {
+      "delta": 1134592,
+      "first": 29274112,
+      "last": 30408704,
+      "ols_per_hour": 110313.93752735812
+    },
+    "python_threads": {
+      "delta": 0,
+      "first": 6,
+      "last": 6,
+      "ols_per_hour": 0.0
+    },
+    "task_children": {
+      "delta": 0,
+      "first": 2,
+      "last": 2,
+      "ols_per_hour": 0.0
+    },
+    "tree_rss": {
+      "delta": 1372160,
+      "first": 94687232,
+      "last": 96059392,
+      "ols_per_hour": 132525.94117671295
+    }
+  },
+  "raw_events": 2992,
+  "run_id": "38109973786",
+  "scope": "Independent raw/summary/provenance consistency audit; not workload reexecution or production certification.",
+  "source_commit": "e0079e050682931b7cb96e13c5fdf88babebbc90",
+  "status": "passed",
+  "workload_seconds": 14400.01722684214
+}

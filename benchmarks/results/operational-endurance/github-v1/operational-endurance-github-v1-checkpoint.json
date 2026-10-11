@@ -1,0 +1,1158 @@
+{
+  "elapsed_seconds": 14465.883229595,
+  "event": "complete",
+  "result": {
+    "after": {
+      "children": [
+        {
+          "created": 1791690999.58,
+          "fds": 4,
+          "pid": 2546,
+          "resource_tracker": true,
+          "rss": 13557760,
+          "status": "sleeping",
+          "threads": 1
+        }
+      ],
+      "parent_fds": 6,
+      "parent_native_threads": 1,
+      "parent_rss": 30334976,
+      "python_threads": 1,
+      "task_children": 0,
+      "tree_rss": 43892736
+    },
+    "batches": 207422,
+    "before": {
+      "children": [],
+      "parent_fds": 5,
+      "parent_native_threads": 1,
+      "parent_rss": 26894336,
+      "python_threads": 1,
+      "task_children": 0,
+      "tree_rss": 26894336
+    },
+    "by_kind": {
+      "blocking": {
+        "accepted": 2655004,
+        "attempted": 2655004,
+        "cancel_attempted": 379286,
+        "cancel_false": 0,
+        "cancel_true": 379286,
+        "cancelled": 379286,
+        "expected_failure": 0,
+        "rejected": 0,
+        "success": 2275718,
+        "unexpected_failure": 0
+      },
+      "cpu": {
+        "accepted": 2323125,
+        "attempted": 2323125,
+        "cancel_attempted": 331875,
+        "cancel_false": 35150,
+        "cancel_true": 296725,
+        "cancelled": 296725,
+        "expected_failure": 0,
+        "rejected": 0,
+        "success": 2026400,
+        "unexpected_failure": 0
+      },
+      "failure": {
+        "accepted": 331875,
+        "attempted": 331875,
+        "cancel_attempted": 47410,
+        "cancel_false": 0,
+        "cancel_true": 47410,
+        "cancelled": 47410,
+        "expected_failure": 284465,
+        "rejected": 0,
+        "success": 0,
+        "unexpected_failure": 0
+      },
+      "health": {
+        "accepted": 16,
+        "attempted": 16,
+        "success": 16
+      },
+      "payload": {
+        "accepted": 1327500,
+        "attempted": 1327500,
+        "cancel_attempted": 189644,
+        "cancel_false": 31183,
+        "cancel_true": 158461,
+        "cancelled": 158461,
+        "expected_failure": 0,
+        "rejected": 0,
+        "success": 1169039,
+        "unexpected_failure": 0
+      }
+    },
+    "callbacks": {
+      "total": 6637520
+    },
+    "counts": {
+      "accepted": 6637520,
+      "attempted": 6637520,
+      "cancel_attempted": 948215,
+      "cancel_false": 66333,
+      "cancel_true": 881882,
+      "cancelled": 881882,
+      "expected_failure": 284465,
+      "rejected": 0,
+      "success": 5471173,
+      "unexpected_failure": 0
+    },
+    "diagnostics": [
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 1,
+        "elapsed_seconds": 0.25270669400003953,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.00659192599994185,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 2,
+        "elapsed_seconds": 0.2541896380000708,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.0063758149999557645,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 3,
+        "elapsed_seconds": 0.2530254960001912,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.0065772940001807,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 4,
+        "elapsed_seconds": 0.25171667999984493,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.006649446999745123,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 5,
+        "elapsed_seconds": 0.2497214940003687,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.0065378099998270045,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 6,
+        "elapsed_seconds": 0.2531233629997587,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.006562796000253002,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 7,
+        "elapsed_seconds": 0.2565970969999398,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.006637071000113792,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 8,
+        "elapsed_seconds": 0.25503066500004934,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.00682907900045393,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 9,
+        "elapsed_seconds": 0.25738662100047804,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.00656460600112041,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 10,
+        "elapsed_seconds": 0.25927183800013154,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.006460411999796634,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 11,
+        "elapsed_seconds": 0.2685328320003464,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.008081197998762946,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 12,
+        "elapsed_seconds": 0.25000590199852013,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.0066615119994821725,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 13,
+        "elapsed_seconds": 0.25695028100017225,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.006571104999238742,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 14,
+        "elapsed_seconds": 0.26085141700059467,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.0066876519995275885,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 15,
+        "elapsed_seconds": 0.2546087959999568,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.00659718399947451,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      },
+      {
+        "accepted": 38,
+        "cancelled": 7,
+        "cycle": 16,
+        "elapsed_seconds": 0.25427375700019184,
+        "expected_failures": 9,
+        "predictive_probe": {
+          "counts": {
+            "cancelled": 0,
+            "completed": 16,
+            "failed": 0,
+            "peak_pending": 1,
+            "process_submitted": 0,
+            "profiles_evicted": 12,
+            "reentrant_rejected": 0,
+            "rejected": 0,
+            "submitted": 16,
+            "thread_submitted": 16
+          },
+          "profile_count": 4,
+          "routing": {
+            "by_backend": {
+              "process": 0,
+              "thread": 16
+            },
+            "by_reason": {
+              "adaptive-policy": 0,
+              "completion-ewma": 0,
+              "cpu-hint": 0,
+              "custom-policy": 0,
+              "default-thread": 0,
+              "io-hint": 0,
+              "predictive-empirical": 0,
+              "predictive-heuristic": 16,
+              "predictive-measurement-guided": 0,
+              "predictive-transfer-prior": 0,
+              "process-consent-required": 0,
+              "process-policy": 0,
+              "process-unavailable": 0,
+              "queue-pressure": 0,
+              "task-hint": 0,
+              "thread-policy": 0,
+              "uncontended-load-proxy": 0
+            },
+            "capacity": 8,
+            "dropped": 8,
+            "enabled": true,
+            "recorded": 16,
+            "retained": 8
+          },
+          "scope": "short lifecycle probe, not four-hour predictive endurance",
+          "seconds": 0.0065427360004832735,
+          "tasks": 16
+        },
+        "recovery": "new executor only; serialization error did not break new pool",
+        "rejected": 4,
+        "status": "passed",
+        "successes": 22
+      }
+    ],
+    "elapsed_seconds": 14465.883112826,
+    "identity": {
+      "affinity": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "harness_sha256": "4202e4a01f4f5a53f7f854ad4fb7b1e3d7601d9894b8bc840091fcdc1d3497f7",
+      "loaded_package_directory": "[local path]",
+      "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+      "protocol_sha256": "384435dc15821af4c3ba88cc761ab9cd4cbd941ea681262e1b77c4a43b2dfbed",
+      "psutil": "7.2.2",
+      "published_base_commit": "7c95c6fac134e2aaf53245dc20ac0e195bf5e6ed",
+      "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+      "python_optimization_level": 0,
+      "runtime_sha256": {
+        "__init__.py": "21d954f5bb58f4884e40775a7e8ceb01fb2852195d6a9d7438d2fcca2317f965",
+        "__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+        "catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+        "concepts.json": "bb16c73daaeff3dc536eb4824f48cf78744a872077dff86167aee5cdc2396a96",
+        "evaluation.py": "577e15eae9276e51d4284f08ddd2932641df1640a990fb4c91dd6cacb03624cf",
+        "evaluation_workloads.py": "b940f3a3a29fe87bfddd459a8365e8946967b72d30e0c20c380e454fc4db8b52",
+        "executor.py": "4a36a03a08f774ae4db764a5bb960f5d28c5e376d3088b17006899bc0661b9f6",
+        "framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+        "framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+        "integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+        "integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+        "policies.py": "2964f218dc15bf5cca57be6f472855295370d0870f017aa3bba77fc724ca77e4",
+        "prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d",
+        "py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81"
+      },
+      "runtime_variant": "unreleased-0.5.1-reentrant-guard",
+      "version": "0.5.1"
+    },
+    "measured_counts": {
+      "accepted": 6627920,
+      "attempted": 6627920,
+      "cancel_attempted": 946843,
+      "cancel_false": 66232,
+      "cancel_true": 880611,
+      "cancelled": 880611,
+      "expected_failure": 284053,
+      "rejected": 0,
+      "success": 5463256,
+      "unexpected_failure": 0
+    },
+    "mode": "endurance",
+    "peaks": {
+      "parent_fds": 16,
+      "parent_native_threads": 7,
+      "parent_rss": 31072256,
+      "python_threads": 7,
+      "task_children": 2,
+      "tree_rss": 96714752
+    },
+    "quiescent_resource_trends": {
+      "parent_fds": {
+        "delta": 0,
+        "first": 16,
+        "last": 16,
+        "ols_per_hour": 0.0
+      },
+      "parent_rss": {
+        "delta": 1134592,
+        "first": 29274112,
+        "last": 30408704,
+        "ols_per_hour": 110313.93752735812
+      },
+      "python_threads": {
+        "delta": 0,
+        "first": 6,
+        "last": 6,
+        "ols_per_hour": 0.0
+      },
+      "task_children": {
+        "delta": 0,
+        "first": 2,
+        "last": 2,
+        "ols_per_hour": 0.0
+      },
+      "tree_rss": {
+        "delta": 1372160,
+        "first": 94687232,
+        "last": 96059392,
+        "ols_per_hour": 132525.94117671295
+      }
+    },
+    "quiescent_samples": 18,
+    "required_workload_seconds": 14400.0,
+    "scope": "One host/interpreter and declared workload only; no production certification or performance claim.",
+    "status": "passed",
+    "warmup_counts": {
+      "accepted": 9600,
+      "attempted": 9600,
+      "cancel_attempted": 1372,
+      "cancel_false": 101,
+      "cancel_true": 1271,
+      "cancelled": 1271,
+      "expected_failure": 412,
+      "rejected": 0,
+      "success": 7917,
+      "unexpected_failure": 0
+    },
+    "workload_seconds": 14400.01722684214
+  },
+  "unix_time": 1791705465.8668156
+}

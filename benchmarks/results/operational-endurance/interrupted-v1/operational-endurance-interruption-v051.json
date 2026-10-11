@@ -1,0 +1,98 @@
+{
+  "cause": "Execution transport/session loss was observed; underlying cause and original namespace terminal state are unknown.",
+  "frozen_hashes_reverified": true,
+  "recorded_unix_time": 1791690296.284685,
+  "recovered_checkpoint": {
+    "by_kind": {
+      "blocking": {
+        "accepted": 411996,
+        "attempted": 411996,
+        "cancel_attempted": 58857,
+        "cancel_false": 0,
+        "cancel_true": 58857,
+        "cancelled": 58857,
+        "expected_failure": 0,
+        "rejected": 0,
+        "success": 353139,
+        "unexpected_failure": 0
+      },
+      "cpu": {
+        "accepted": 360493,
+        "attempted": 360493,
+        "cancel_attempted": 51499,
+        "cancel_false": 5607,
+        "cancel_true": 45892,
+        "cancelled": 45892,
+        "expected_failure": 0,
+        "rejected": 0,
+        "success": 314601,
+        "unexpected_failure": 0
+      },
+      "failure": {
+        "accepted": 51499,
+        "attempted": 51499,
+        "cancel_attempted": 7357,
+        "cancel_false": 0,
+        "cancel_true": 7357,
+        "cancelled": 7357,
+        "expected_failure": 44142,
+        "rejected": 0,
+        "success": 0,
+        "unexpected_failure": 0
+      },
+      "health": {
+        "accepted": 2,
+        "attempted": 2,
+        "success": 2
+      },
+      "payload": {
+        "accepted": 205996,
+        "attempted": 205996,
+        "cancel_attempted": 29428,
+        "cancel_false": 3937,
+        "cancel_true": 25491,
+        "cancelled": 25491,
+        "expected_failure": 0,
+        "rejected": 0,
+        "success": 180505,
+        "unexpected_failure": 0
+      }
+    },
+    "callbacks": 1029986,
+    "counts": {
+      "accepted": 1029986,
+      "attempted": 1029986,
+      "cancel_attempted": 147141,
+      "cancel_false": 9544,
+      "cancel_true": 137597,
+      "cancelled": 137597,
+      "expected_failure": 44142,
+      "rejected": 0,
+      "success": 848247,
+      "unexpected_failure": 0
+    },
+    "elapsed_seconds": 2563.546693174,
+    "event": "workload_progress",
+    "held_futures": 0,
+    "unix_time": 1791685917.361062,
+    "workload_seconds": 2502.2461496041105
+  },
+  "recovered_external_files": {
+    "endurance-4h-v1-watchdog.samples.jsonl": {
+      "bytes": 1174095,
+      "sha256": "ae567b6ca71151a16bd8bc4edc45f95421238e8861f6678791d1e6f29229eac7",
+      "valid_json_records": 5125
+    }
+  },
+  "recovered_files": {
+    "checkpoint.json": "0f7ba832334d5318ac4e78fb2cd72a2f654c3482cced024fd74a7d4c87c6cef4",
+    "events.jsonl": "cebce4a76ec4a54f9a7ccea7f6a5d1085caa4bfe84b8df280a14fe01c8d95cbf"
+  },
+  "resume_check": "Unknown process id 56723",
+  "rollback_observation": "An earlier successful tool read reported a one-hour checkpoint. The restored raw file ends earlier, at2502.246 measured seconds. Lost raw measurements are not reconstructed or counted.",
+  "scope": "No completed four-hour or final cleanup claim. Current environment has no visible runner processes; original execution session cannot be resumed.",
+  "status": "interrupted_unknown_cause_unverified_terminal",
+  "summary_present": false,
+  "tool_error": "exec-server transport disconnected; executor key changed during session recovery",
+  "watchdog_summary_present": false
+}

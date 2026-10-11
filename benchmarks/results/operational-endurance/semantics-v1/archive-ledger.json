@@ -1,0 +1,57 @@
+{
+  "attempt": "paired-operational-semantics",
+  "classification": "completed",
+  "files": [
+    {
+      "file": "operational-semantics-published050.json",
+      "format": "json",
+      "original_bytes": 3085,
+      "original_sha256": "e0c8a2e4f5cf3216f73e1aa4e36695235b8e05f2673dd0df62f50e9b7fa342fc",
+      "public_file_bytes": 3085,
+      "public_file_sha256": "2deba793665f21766d1687e7fadbf1965053569a9a944be239b33be943d47230",
+      "public_payload_bytes": 3085,
+      "public_payload_sha256": "2deba793665f21766d1687e7fadbf1965053569a9a944be239b33be943d47230",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "semantics-published050.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-semantics-candidate051.json",
+      "format": "json",
+      "original_bytes": 3504,
+      "original_sha256": "97a920e20e47122e7869a7965638bef4868f9f9c0ca5be5bf6bf5f5185d10800",
+      "public_file_bytes": 3431,
+      "public_file_sha256": "eaf5d1303c55baf08619cfe59e9f844128209b88f79641f15aad5599eb778e17",
+      "public_payload_bytes": 3431,
+      "public_payload_sha256": "eaf5d1303c55baf08619cfe59e9f844128209b88f79641f15aad5599eb778e17",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 1
+      },
+      "source_name": "semantics-candidate051.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-semantics-published050-identity-check.json",
+      "format": "json",
+      "original_bytes": 342,
+      "original_sha256": "62af48dfc12f2c23d8071eebdeec9badd73b3c70cb6116fd20a30a5de6d21687",
+      "public_file_bytes": 342,
+      "public_file_sha256": "ab6f159f87aaf7f83a63b06fd9a56704b172c1f35452f360d2b6bd229bf32892",
+      "public_payload_bytes": 342,
+      "public_payload_sha256": "ab6f159f87aaf7f83a63b06fd9a56704b172c1f35452f360d2b6bd229bf32892",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "semantics-published050-identity-check.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    }
+  ],
+  "missing_evidence": [],
+  "schema_version": 1,
+  "scope": "Metadata-redacted derivatives. Original bytes preserved separately; no numeric/boolean/null/structural changes. This archive classification is not a runtime pass certification."
+}

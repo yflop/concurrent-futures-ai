@@ -1,0 +1,6 @@
+{
+  "archive_sha256": "7b18e8288c95155b763be82f1f03807fbcbda53438a28367b3a47e1a127d9940",
+  "baseline_executor_sha256": "8a75c53dd192b3e4661c5f6b402045af25212aec1817bb8729e3535b29a2c6d8",
+  "note": "Original paired probe ran before candidate edits; baseline source hash exactly matches verified published0.5.0 ZIP.",
+  "status": "verified"
+}

@@ -1,0 +1,125 @@
+{
+  "executor_sha256": "4a36a03a08f774ae4db764a5bb960f5d28c5e376d3088b17006899bc0661b9f6",
+  "limits": "Single-host Python 3.12 observations. No universal callback-thread contract or performance claim.",
+  "loaded_executor_path": "[local path]",
+  "observations": {
+    "blocked_callback": [
+      {
+        "callback_thread": "ThreadPoolExecutor-0_0",
+        "engine": "stdlib-thread",
+        "second_body_executed": true,
+        "second_result_published_while_callback_blocked": true
+      },
+      {
+        "callback_thread": "intelligent-completion",
+        "engine": "intelligent-thread",
+        "second_body_executed": true,
+        "second_result_published_while_callback_blocked": false
+      },
+      {
+        "callback_thread": "Thread-1",
+        "engine": "stdlib-process",
+        "second_body_executed": true,
+        "second_result_published_while_callback_blocked": false
+      },
+      {
+        "callback_thread": "intelligent-completion",
+        "engine": "intelligent-process",
+        "second_body_executed": true,
+        "second_result_published_while_callback_blocked": false
+      }
+    ],
+    "callback_dependency": [
+      {
+        "dependency_result": 7,
+        "engine": "stdlib-thread"
+      },
+      {
+        "dependency_result": "TimeoutError",
+        "engine": "intelligent-thread"
+      },
+      {
+        "dependency_result": "TimeoutError",
+        "engine": "stdlib-process"
+      },
+      {
+        "dependency_result": "TimeoutError",
+        "engine": "intelligent-process"
+      }
+    ],
+    "implicit_exit": [
+      {
+        "engine": "stdlib-thread",
+        "exit_code": 0,
+        "settled": [
+          {
+            "result": 0
+          },
+          {
+            "result": 1
+          },
+          {
+            "result": 2
+          },
+          {
+            "result": 3
+          }
+        ],
+        "stderr": ""
+      },
+      {
+        "engine": "intelligent-thread",
+        "exit_code": 0,
+        "settled": [
+          {
+            "error": "RuntimeError"
+          },
+          {
+            "error": "RuntimeError"
+          },
+          {
+            "error": "RuntimeError"
+          },
+          {
+            "result": 0
+          }
+        ],
+        "stderr": ""
+      }
+    ],
+    "nested_submission": [
+      {
+        "admission_seconds": 0.00024377800036745612,
+        "engine": "stdlib-thread",
+        "nested_result": 7,
+        "nested_submit": "accepted"
+      },
+      {
+        "admission_seconds": 2.023999968514545e-05,
+        "engine": "intelligent-thread",
+        "nested_submit": "BackpressureError",
+        "reason": "reentrant submission would block on this executor's admission limit",
+        "reentrant_rejected": 1
+      }
+    ],
+    "worker_shutdown": [
+      {
+        "engine": "stdlib-thread",
+        "later_submit": "RuntimeError",
+        "worker_waiting_shutdown": "RuntimeError"
+      },
+      {
+        "engine": "intelligent-thread",
+        "later_submit": 8,
+        "worker_waiting_shutdown": "RuntimeError"
+      }
+    ]
+  },
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.41",
+  "probe_sha256": "3ee11ec583a8b56a1c5d063e4f54e7fcb64719b83f920c4c633aab4a66931986",
+  "published_base_commit": "7c95c6fac134e2aaf53245dc20ac0e195bf5e6ed",
+  "python": "3.12.14 (main, Aug 25 2026, 14:00:49) [Clang 22.1.3 ]",
+  "runtime_variant": "unreleased-0.5.1-reentrant-guard",
+  "status": "observed",
+  "version": "0.5.1"
+}

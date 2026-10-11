@@ -1,0 +1,75 @@
+{
+  "by_kind": {
+    "blocking": {
+      "accepted": 411996,
+      "attempted": 411996,
+      "cancel_attempted": 58857,
+      "cancel_false": 0,
+      "cancel_true": 58857,
+      "cancelled": 58857,
+      "expected_failure": 0,
+      "rejected": 0,
+      "success": 353139,
+      "unexpected_failure": 0
+    },
+    "cpu": {
+      "accepted": 360493,
+      "attempted": 360493,
+      "cancel_attempted": 51499,
+      "cancel_false": 5607,
+      "cancel_true": 45892,
+      "cancelled": 45892,
+      "expected_failure": 0,
+      "rejected": 0,
+      "success": 314601,
+      "unexpected_failure": 0
+    },
+    "failure": {
+      "accepted": 51499,
+      "attempted": 51499,
+      "cancel_attempted": 7357,
+      "cancel_false": 0,
+      "cancel_true": 7357,
+      "cancelled": 7357,
+      "expected_failure": 44142,
+      "rejected": 0,
+      "success": 0,
+      "unexpected_failure": 0
+    },
+    "health": {
+      "accepted": 2,
+      "attempted": 2,
+      "success": 2
+    },
+    "payload": {
+      "accepted": 205996,
+      "attempted": 205996,
+      "cancel_attempted": 29428,
+      "cancel_false": 3937,
+      "cancel_true": 25491,
+      "cancelled": 25491,
+      "expected_failure": 0,
+      "rejected": 0,
+      "success": 180505,
+      "unexpected_failure": 0
+    }
+  },
+  "callbacks": 1029986,
+  "counts": {
+    "accepted": 1029986,
+    "attempted": 1029986,
+    "cancel_attempted": 147141,
+    "cancel_false": 9544,
+    "cancel_true": 137597,
+    "cancelled": 137597,
+    "expected_failure": 44142,
+    "rejected": 0,
+    "success": 848247,
+    "unexpected_failure": 0
+  },
+  "elapsed_seconds": 2563.546693174,
+  "event": "workload_progress",
+  "held_futures": 0,
+  "unix_time": 1791685917.361062,
+  "workload_seconds": 2502.2461496041105
+}

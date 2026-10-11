@@ -9,9 +9,22 @@
   prevent arbitrary task dependencies or callback-result waits.
 - Expose the fixed-cardinality `reentrant_rejected` count, also included in
   aggregate `rejected`, without retaining task identities or adding queues.
-- Add paired operational compatibility probes, focused regressions, and a
-  predeclared endurance protocol. Evidence is reported separately; a protocol
-  or short test is not a completed endurance run or production certification.
+- Add paired operational compatibility probes and focused regressions; retain
+  the documented serial-callback publication and explicit-shutdown constraints.
+- Record a preregistered four-hour default-adaptive endurance run on one Linux
+  host, with 6,627,904 measured workload jobs, sixteen separate health checks,
+  failure-inclusive diagnostics, bounded-state/resource checks and final cleanup.
+  Preserve the interrupted prior attempt and its unknown terminal state. Short
+  predictive probes do not establish multi-hour predictive endurance.
+- Retain the sustained warm-workload comparison's negative result: no supported
+  advantage against tuned stdlib/hybrid alternatives. All evidence remains
+  bounded to its measured workload and host, without production certification.
+- Add raw-evidence reconciliation and lossless-numeric public archive tooling,
+  with source/run identity checks and failure/mutation regressions.
+
+See [operational endurance evidence](docs/OPERATIONAL-ENDURANCE-EVIDENCE.md),
+[compatibility limits](docs/OPERATIONAL-COMPATIBILITY.md), and
+[sustained performance evidence](docs/ADOPTION-SUSTAINED-EVIDENCE.md).
 
 ## 0.5.0 — Beta
 

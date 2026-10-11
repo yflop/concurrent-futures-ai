@@ -65,3 +65,6 @@ Sources: Python 3.12 standard-library documentation for
 [Executor and Future contracts](https://docs.python.org/3.12/library/concurrent.futures.html),
 the published package's `executor.py`, and the recorded paired probe. Cross-
 version/OS callback placement and implicit-exit behavior require their own tests.
+
+The [0.5.1 endurance record](OPERATIONAL-ENDURANCE-EVIDENCE.md) links the preserved
+paired 0.5.0/0.5.1 probe observations and their source/projection hashes.

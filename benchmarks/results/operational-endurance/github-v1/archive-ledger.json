@@ -1,0 +1,217 @@
+{
+  "attempt": "github-v1-38109973786-attempt-1",
+  "classification": "completed",
+  "files": [
+    {
+      "file": "operational-endurance-github-v1-summary.json",
+      "format": "json",
+      "original_bytes": 33637,
+      "original_sha256": "af5706a7b72620a8bdcd04fe264d5092bc195b9100ec237e47edca8b1a0deb7b",
+      "public_file_bytes": 33564,
+      "public_file_sha256": "99aced9a8bda85cd532da9619c823dfaa60f7b0af4d51be7207c8e3f89554db7",
+      "public_payload_bytes": 33564,
+      "public_payload_sha256": "99aced9a8bda85cd532da9619c823dfaa60f7b0af4d51be7207c8e3f89554db7",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 1
+      },
+      "source_name": "summary.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-events.jsonl.gz",
+      "format": "jsonl",
+      "original_bytes": 5006912,
+      "original_sha256": "d4162d4a53f32c908cfaf147a629ab7cd8ac3ed4998b4395a0c96f56df231324",
+      "public_file_bytes": 436745,
+      "public_file_sha256": "11886488bc723a497a382562f344feb859ed8752c574e8f6e7823540badd5f31",
+      "public_payload_bytes": 5006766,
+      "public_payload_sha256": "ca18b4c2f229abb45aa239da42d40358399890b01926e46e9ab44eae3b3ed984",
+      "records": 2992,
+      "redaction_counts": {
+        "path_occurrences": 2
+      },
+      "source_name": "events.jsonl",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-checkpoint.json",
+      "format": "json",
+      "original_bytes": 23635,
+      "original_sha256": "34e1b3e4f746a3293d3ea9121b9e9f2f88788c696b76c35c02e44e5f418baa0e",
+      "public_file_bytes": 35980,
+      "public_file_sha256": "8dc5ee77cfd8caadd7ce1995bc027f19fd7b92e1db65c20591fe44da94a2020d",
+      "public_payload_bytes": 35980,
+      "public_payload_sha256": "8dc5ee77cfd8caadd7ce1995bc027f19fd7b92e1db65c20591fe44da94a2020d",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 1
+      },
+      "source_name": "checkpoint.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-watchdog.json",
+      "format": "json",
+      "original_bytes": 434,
+      "original_sha256": "6be7ffac1ed7027f9524f5e41224937b084c758d1d5afe7ba2d3a1f26285172a",
+      "public_file_bytes": 434,
+      "public_file_sha256": "b961e1008c546f2faf81a86d3392a4ba6431e916cd88e9de94d23bcfae1f56f3",
+      "public_payload_bytes": 434,
+      "public_payload_sha256": "b961e1008c546f2faf81a86d3392a4ba6431e916cd88e9de94d23bcfae1f56f3",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "watchdog.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-watchdog-samples.jsonl.gz",
+      "format": "jsonl",
+      "original_bytes": 6763378,
+      "original_sha256": "c5cf43d9cda066adc8e1b149817b72ae5cb088e91bf3f69910f4730759121bf1",
+      "public_file_bytes": 264950,
+      "public_file_sha256": "6166cc1d7f456e07065bf444b82688fd5f999e768e521d358bd5c729779c71e9",
+      "public_payload_bytes": 6763378,
+      "public_payload_sha256": "04f8309a4c102c3fd46f5b634578bcb541993446633bebe35eb9cda460f23f2b",
+      "records": 28534,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "watchdog.samples.jsonl",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-ci-terminal.json",
+      "format": "json",
+      "original_bytes": 4922,
+      "original_sha256": "d9dcd47e832520042797333940bb45896acec1ae9890b4a5ea9f859f514b5aee",
+      "public_file_bytes": 4922,
+      "public_file_sha256": "f10ada87196c8176f1d4c100f7032b603dbcf9347809156e3ecd9d8a6241bb34",
+      "public_payload_bytes": 4922,
+      "public_payload_sha256": "f10ada87196c8176f1d4c100f7032b603dbcf9347809156e3ecd9d8a6241bb34",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "ci-terminal.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-host-observed.json",
+      "format": "json",
+      "original_bytes": 2580,
+      "original_sha256": "6b8ad7027c52a870fd329c29b2a7bf5e93face47fecd2921c080971c17e4f5b1",
+      "public_file_bytes": 2580,
+      "public_file_sha256": "095f9d7d65b4718f70c2c9ebd655800d13cfc372bf1af8e25024489d4703f7d9",
+      "public_payload_bytes": 2580,
+      "public_payload_sha256": "095f9d7d65b4718f70c2c9ebd655800d13cfc372bf1af8e25024489d4703f7d9",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "host-observed.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-preflight.json",
+      "format": "json",
+      "original_bytes": 2611,
+      "original_sha256": "f32f80861351acb90c4ff7c4027165b05a343f89ddbedfb76d0f94100d2297bd",
+      "public_file_bytes": 2611,
+      "public_file_sha256": "793aafd0efb193553fb29160f037a48d09c446d682b40d7a1fa20f396f23e57f",
+      "public_payload_bytes": 2611,
+      "public_payload_sha256": "793aafd0efb193553fb29160f037a48d09c446d682b40d7a1fa20f396f23e57f",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "preflight.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-run-context.json",
+      "format": "json",
+      "original_bytes": 304,
+      "original_sha256": "9635e801889a1d1b680a0859ab8a2728b1c9f611f1d5e2c7c39a4edc42074776",
+      "public_file_bytes": 304,
+      "public_file_sha256": "a9598606955b8188a036c9f0d2da7f37c52936c3502cf6db728f49f7fb592c3b",
+      "public_payload_bytes": 304,
+      "public_payload_sha256": "a9598606955b8188a036c9f0d2da7f37c52936c3502cf6db728f49f7fb592c3b",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "run-context.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-source-manifest.json",
+      "format": "json",
+      "original_bytes": 37052,
+      "original_sha256": "f18a9d29d7d45a5417e214d7b35936a6e414f5512d814906793fd9af855c9edc",
+      "public_file_bytes": 37052,
+      "public_file_sha256": "f18a9d29d7d45a5417e214d7b35936a6e414f5512d814906793fd9af855c9edc",
+      "public_payload_bytes": 37052,
+      "public_payload_sha256": "f18a9d29d7d45a5417e214d7b35936a6e414f5512d814906793fd9af855c9edc",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "source-manifest.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-command.json",
+      "format": "json",
+      "original_bytes": 819,
+      "original_sha256": "be14a6968b904ddeeabb82f7efbb1d820ded6ed5137297d899d558be633c90e6",
+      "public_file_bytes": 585,
+      "public_file_sha256": "925c2ec5388f063c8438f8bd6b02160f788105a0671df8f5c2f1b4aeb7b0a4c1",
+      "public_payload_bytes": 585,
+      "public_payload_sha256": "925c2ec5388f063c8438f8bd6b02160f788105a0671df8f5c2f1b4aeb7b0a4c1",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 4
+      },
+      "source_name": "command.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-observed-plan.json",
+      "format": "json",
+      "original_bytes": 2738,
+      "original_sha256": "195a999fac2e46bf4183e083a2011c092f610e517fe5618f4ca97897f777e15e",
+      "public_file_bytes": 2738,
+      "public_file_sha256": "db07ac4435767a109403ae9abb3867f9101408e24f8a6a4daea90f02ae8257be",
+      "public_payload_bytes": 2738,
+      "public_payload_sha256": "db07ac4435767a109403ae9abb3867f9101408e24f8a6a4daea90f02ae8257be",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "operational-endurance-github-v1-plan.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-github-v1-independent-audit.json",
+      "format": "json",
+      "original_bytes": 1710,
+      "original_sha256": "ae9803838d1b56eb89931d26dab1142bc76de3ef36413998b4d2083d311fde54",
+      "public_file_bytes": 1710,
+      "public_file_sha256": "b8f2aefec7eeec5c46594764a349acf9ad79b2ab8ab29de99294476d933e42cb",
+      "public_payload_bytes": 1710,
+      "public_payload_sha256": "b8f2aefec7eeec5c46594764a349acf9ad79b2ab8ab29de99294476d933e42cb",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "github-v1-independent-audit.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    }
+  ],
+  "missing_evidence": [],
+  "schema_version": 1,
+  "scope": "Metadata-redacted derivatives. Original bytes preserved separately; no numeric/boolean/null/structural changes. This archive classification is not a runtime pass certification."
+}

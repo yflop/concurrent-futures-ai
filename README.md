@@ -86,6 +86,17 @@ reports remain historical evidence for their stated versions; synthetic tests
 verify the protocol rather than performance. No universal speedup, globally best
 configuration, or hard future memory guarantee is claimed.
 
+## Operational evidence for 0.5.1
+
+The [four-hour adaptive endurance record](docs/OPERATIONAL-ENDURANCE-EVIDENCE.md)
+reports one declared workload on one Linux host, including expected faults,
+cancellations, bounded-state checks and final cleanup. The interrupted earlier
+attempt remains in the evidence. This is not a production certification or a
+four-hour predictive-mode result. The [paired compatibility audit](docs/OPERATIONAL-COMPATIBILITY.md)
+explains the remaining callback and shutdown limits and the narrow fail-fast
+reentrant-admission guard. The separate [sustained performance comparison](docs/ADOPTION-SUSTAINED-EVIDENCE.md)
+found no supported advantage over tuned stdlib/hybrid alternatives.
+
 ## Predictive foundation and actual batching (0.3)
 
 Opt in with `IntelligentExecutor(predictive=True)`: successful thread calls collect

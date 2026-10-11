@@ -1,0 +1,106 @@
+{
+  "cleanup_verified_for_this_run": true,
+  "commit": "e0079e050682931b7cb96e13c5fdf88babebbc90",
+  "endurance_step_outcome": "success",
+  "evidence_files": {
+    "OPERATIONAL-ENDURANCE-PROTOCOL.md": {
+      "bytes": 8873,
+      "sha256": "384435dc15821af4c3ba88cc761ab9cd4cbd941ea681262e1b77c4a43b2dfbed"
+    },
+    "OPERATIONAL-ENDURANCE-RESTART.md": {
+      "bytes": 6327,
+      "sha256": "47918a59fab35fe0b8211792dd3f21a6ebf809005ca0ad05540ffd906e725aa9"
+    },
+    "command.json": {
+      "bytes": 819,
+      "sha256": "be14a6968b904ddeeabb82f7efbb1d820ded6ed5137297d899d558be633c90e6"
+    },
+    "dependency-install.log": {
+      "bytes": 335,
+      "sha256": "93c0832b2a5c3910d774c7f268588706b12fc8c0f34da9181e95f01f5b386695"
+    },
+    "endurance.log": {
+      "bytes": 62770,
+      "sha256": "96307045e72d99ef60e77b36710a0c0f41b35ac1e2f36eac63fdc34869cbb3ee"
+    },
+    "endurance/checkpoint.json": {
+      "bytes": 23635,
+      "sha256": "34e1b3e4f746a3293d3ea9121b9e9f2f88788c696b76c35c02e44e5f418baa0e"
+    },
+    "endurance/events.jsonl": {
+      "bytes": 5006912,
+      "sha256": "d4162d4a53f32c908cfaf147a629ab7cd8ac3ed4998b4395a0c96f56df231324"
+    },
+    "endurance/summary.json": {
+      "bytes": 33637,
+      "sha256": "af5706a7b72620a8bdcd04fe264d5092bc195b9100ec237e47edca8b1a0deb7b"
+    },
+    "focused-tests.log": {
+      "bytes": 5948,
+      "sha256": "54a7893e12d67b187432e5c9ebbac70c4c45bc4689d9814bdb5b744d4fce86f4"
+    },
+    "host-observed.json": {
+      "bytes": 2580,
+      "sha256": "6b8ad7027c52a870fd329c29b2a7bf5e93face47fecd2921c080971c17e4f5b1"
+    },
+    "operational-endurance-github-v1-plan.json": {
+      "bytes": 2738,
+      "sha256": "195a999fac2e46bf4183e083a2011c092f610e517fe5618f4ca97897f777e15e"
+    },
+    "preflight.json": {
+      "bytes": 2611,
+      "sha256": "f32f80861351acb90c4ff7c4027165b05a343f89ddbedfb76d0f94100d2297bd"
+    },
+    "run-context.json": {
+      "bytes": 304,
+      "sha256": "9635e801889a1d1b680a0859ab8a2728b1c9f611f1d5e2c7c39a4edc42074776"
+    },
+    "source-manifest.json": {
+      "bytes": 37052,
+      "sha256": "f18a9d29d7d45a5417e214d7b35936a6e414f5512d814906793fd9af855c9edc"
+    },
+    "watchdog.json": {
+      "bytes": 434,
+      "sha256": "6be7ffac1ed7027f9524f5e41224937b084c758d1d5afe7ba2d3a1f26285172a"
+    },
+    "watchdog.samples.jsonl": {
+      "bytes": 6763378,
+      "sha256": "c5cf43d9cda066adc8e1b149817b72ae5cb088e91bf3f69910f4730759121bf1"
+    }
+  },
+  "identity_after": {
+    "frozen_files": {
+      "docs/OPERATIONAL-ENDURANCE-PROTOCOL.md": "384435dc15821af4c3ba88cc761ab9cd4cbd941ea681262e1b77c4a43b2dfbed",
+      "tests/test_operational_endurance_tools.py": "bc94df05bf4ce3765953ed6370a7361cea9cc6b88b8d15be33048b30a61b4ad6",
+      "tests/test_reentrant_admission.py": "52e6ab16f703ca46239a5a3b4aaf3e99be1b52c613e4556002ea9ed5114b14d8",
+      "tools/operational_endurance.py": "4202e4a01f4f5a53f7f854ad4fb7b1e3d7601d9894b8bc840091fcdc1d3497f7",
+      "tools/supervise_endurance.py": "5fd9bf150fda82051611c49eb2f71cc463b5ec045fb2bd421470f6263b0da2dc"
+    },
+    "runtime_files": {
+      "__init__.py": "21d954f5bb58f4884e40775a7e8ceb01fb2852195d6a9d7438d2fcca2317f965",
+      "__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+      "catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+      "concepts.json": "bb16c73daaeff3dc536eb4824f48cf78744a872077dff86167aee5cdc2396a96",
+      "evaluation.py": "577e15eae9276e51d4284f08ddd2932641df1640a990fb4c91dd6cacb03624cf",
+      "evaluation_workloads.py": "b940f3a3a29fe87bfddd459a8365e8946967b72d30e0c20c380e454fc4db8b52",
+      "executor.py": "4a36a03a08f774ae4db764a5bb960f5d28c5e376d3088b17006899bc0661b9f6",
+      "framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+      "framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+      "integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+      "integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+      "policies.py": "2964f218dc15bf5cca57be6f472855295370d0870f017aa3bba77fc724ca77e4",
+      "prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d",
+      "py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81"
+    },
+    "runtime_manifest_sha256": "7774e028757fd04922b22db1cb61c5483a147fcfd11f25015536094df8f4ba4e"
+  },
+  "preflight_step_outcome": "success",
+  "previous_attempt_cleanup": "Unknown in the inaccessible original local PID namespace; no time carried forward.",
+  "recorded_unix_time": 1791705466.3776245,
+  "run_attempt": "1",
+  "run_id": "38109973786",
+  "status": "passed",
+  "tests_step_outcome": "success",
+  "workload_seconds": 14400.01722684214
+}

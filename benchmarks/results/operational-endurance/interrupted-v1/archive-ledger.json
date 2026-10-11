@@ -1,0 +1,76 @@
+{
+  "attempt": "local-endurance-interrupted-v1",
+  "classification": "interrupted",
+  "files": [
+    {
+      "file": "operational-endurance-interrupted-events-v051.jsonl.gz",
+      "format": "jsonl",
+      "original_bytes": 865873,
+      "original_sha256": "cebce4a76ec4a54f9a7ccea7f6a5d1085caa4bfe84b8df280a14fe01c8d95cbf",
+      "public_file_bytes": 78816,
+      "public_file_sha256": "7fe1863f54d6885f1d4952e5853d3ccb507ccf322abb0e143657a239c60a08ce",
+      "public_payload_bytes": 865812,
+      "public_payload_sha256": "c9075ae5173ca9ad52041d2117037ce4eea954725f8027e5bcb332ec2f4fa98b",
+      "records": 530,
+      "redaction_counts": {
+        "path_occurrences": 1
+      },
+      "source_name": "events.jsonl",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-interrupted-checkpoint-v051.json",
+      "format": "json",
+      "original_bytes": 1377,
+      "original_sha256": "0f7ba832334d5318ac4e78fb2cd72a2f654c3482cced024fd74a7d4c87c6cef4",
+      "public_file_bytes": 1751,
+      "public_file_sha256": "13ba5d243fb9dacadfedb5f36eba7f36660beb3af2b976bd08e9c6068127d339",
+      "public_payload_bytes": 1751,
+      "public_payload_sha256": "13ba5d243fb9dacadfedb5f36eba7f36660beb3af2b976bd08e9c6068127d339",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "checkpoint.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-interrupted-watchdog-samples-v051.jsonl.gz",
+      "format": "jsonl",
+      "original_bytes": 1174095,
+      "original_sha256": "ae567b6ca71151a16bd8bc4edc45f95421238e8861f6678791d1e6f29229eac7",
+      "public_file_bytes": 52864,
+      "public_file_sha256": "28de5eefa56d9da78333abf11441c554fb4eeccf440017a9038363ffccc219dc",
+      "public_payload_bytes": 1174095,
+      "public_payload_sha256": "17613a7d90b5bf6b456104517d38384c2f5179a5b3c1e8063006e9db37d91717",
+      "records": 5125,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "endurance-4h-v1-watchdog.samples.jsonl",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    },
+    {
+      "file": "operational-endurance-interruption-v051.json",
+      "format": "json",
+      "original_bytes": 3221,
+      "original_sha256": "9673742e59df87b7f30dc11b57dfcda6d1db8a7848623ef30a7436e1c33aaa5f",
+      "public_file_bytes": 3221,
+      "public_file_sha256": "931b0e5451736fe8bebf6bf995b7be4c978b270cde1e388a3a768e15ef3c73f2",
+      "public_payload_bytes": 3221,
+      "public_payload_sha256": "931b0e5451736fe8bebf6bf995b7be4c978b270cde1e388a3a768e15ef3c73f2",
+      "records": 1,
+      "redaction_counts": {
+        "path_occurrences": 0
+      },
+      "source_name": "endurance-4h-v1-interruption.json",
+      "structure_and_all_nonstring_observations_exactly_equal": true
+    }
+  ],
+  "missing_evidence": [
+    "endurance summary.json",
+    "final watchdog report"
+  ],
+  "schema_version": 1,
+  "scope": "Metadata-redacted derivatives. Original bytes preserved separately; no numeric/boolean/null/structural changes. This archive classification is not a runtime pass certification."
+}

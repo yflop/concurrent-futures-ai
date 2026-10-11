@@ -1,0 +1,47 @@
+{
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "free_disk_bytes": 91543400448,
+  "host_check_status": "passed",
+  "identity": {
+    "frozen_files": {
+      "docs/OPERATIONAL-ENDURANCE-PROTOCOL.md": "384435dc15821af4c3ba88cc761ab9cd4cbd941ea681262e1b77c4a43b2dfbed",
+      "tests/test_operational_endurance_tools.py": "bc94df05bf4ce3765953ed6370a7361cea9cc6b88b8d15be33048b30a61b4ad6",
+      "tests/test_reentrant_admission.py": "52e6ab16f703ca46239a5a3b4aaf3e99be1b52c613e4556002ea9ed5114b14d8",
+      "tools/operational_endurance.py": "4202e4a01f4f5a53f7f854ad4fb7b1e3d7601d9894b8bc840091fcdc1d3497f7",
+      "tools/supervise_endurance.py": "5fd9bf150fda82051611c49eb2f71cc463b5ec045fb2bd421470f6263b0da2dc"
+    },
+    "runtime_files": {
+      "__init__.py": "21d954f5bb58f4884e40775a7e8ceb01fb2852195d6a9d7438d2fcca2317f965",
+      "__main__.py": "6686fdfaea9fbfb2fb12ed6e469ce11f5814270529ec12e945eda73f0242ab34",
+      "catalog.py": "9bb02ea844392827c63777ed7c2e69c2d1b85d177d7653d0d51ae490d97e4b00",
+      "concepts.json": "bb16c73daaeff3dc536eb4824f48cf78744a872077dff86167aee5cdc2396a96",
+      "evaluation.py": "577e15eae9276e51d4284f08ddd2932641df1640a990fb4c91dd6cacb03624cf",
+      "evaluation_workloads.py": "b940f3a3a29fe87bfddd459a8365e8946967b72d30e0c20c380e454fc4db8b52",
+      "executor.py": "4a36a03a08f774ae4db764a5bb960f5d28c5e376d3088b17006899bc0661b9f6",
+      "framework/__init__.py": "041aac7988c224cf9154c49cda661f32fd2cde9b33cb9f1740a238fb6e5474a3",
+      "framework/tasks.py": "969aeb1eb42006f24008df31bcabd716cbbc6889e192476c6ca80992633be853",
+      "integrations/__init__.py": "cca3784575f88310764010d5c83dde5b496129d6b44576ef01bbd1304e18e96d",
+      "integrations/mcp.py": "ee82b8904f296d3705dd20748b869bda7faa3706057fc9d929357500cddb35e3",
+      "policies.py": "2964f218dc15bf5cca57be6f472855295370d0870f017aa3bba77fc724ca77e4",
+      "prediction.py": "8684f18d4d2a8fc0247ecc27a3138f60bfb244a078d8fc63dbe81bdeca82e86d",
+      "py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "tuning.py": "a83cc65456d08dbb993f456f80f4973cedd3c08148f5c9dc34470e4fbac9ee81"
+    },
+    "runtime_manifest_sha256": "7774e028757fd04922b22db1cb61c5483a147fcfd11f25015536094df8f4ba4e"
+  },
+  "logical_cpu_count": 4,
+  "machine": "x86_64",
+  "memory_bytes": 16766410752,
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "psutil_version": "7.2.2",
+  "python": "3.12.14 (main, Aug 13 2026, 02:47:42) [GCC 13.3.0]",
+  "python_optimization_level": 0,
+  "runner_image": "ubuntu24",
+  "runner_image_version": "20261004.327.1",
+  "status": "passed"
+}

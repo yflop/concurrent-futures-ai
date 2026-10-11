@@ -1,0 +1,112 @@
+{
+  "analysis_tools": {
+    "tests/test_archive_endurance_evidence.py": "1742811c714be8442d727d420658f6d3e7b4d1a1ea3e6ce2c4a5e9bd2231e80d",
+    "tests/test_audit_endurance_evidence.py": "d5fbd05585c1fbbd1a7b6282be11343d6c7145b7bb23eadd94b470b01904910f",
+    "tools/archive_endurance_evidence.py": "cc78ea219d90c9ecd0aced83e1f4eefb0e66c656d56479718a8e43cfc8cbb98b",
+    "tools/audit_endurance_evidence.py": "29dfb696a673a3d13396bd0a85ef456b55e9f85ac3bd8735e6e9bcf821b90bc2"
+  },
+  "hosted_status": "passed, independently reconciled",
+  "interrupted_attempt": "Incomplete, unknown underlying cause and old-namespace cleanup; no elapsed time or counters carried into hosted run.",
+  "later_ci_helper_commit": "b8328cbdb04dfe7ded1944c1352f69e86bc90d43",
+  "measured_commit": "e0079e050682931b7cb96e13c5fdf88babebbc90",
+  "non_projected_originals": {
+    "OPERATIONAL-ENDURANCE-PROTOCOL.md": "Same bytes are already present in docs.",
+    "OPERATIONAL-ENDURANCE-RESTART.md": "Same bytes are already present in docs.",
+    "dependency-install.log": "Original text log retained with raw artifact; no quantitative observations omitted from structured evidence.",
+    "endurance.log": "Original text log retained with raw artifact; underlying productive checkpoints, terminal reports and outcomes are preserved in structured evidence.",
+    "focused-tests.log": "Original text log retained with raw artifact; focused test status is preserved in CI terminal evidence."
+  },
+  "original_artifact": {
+    "bytes": 720484,
+    "original_files": {
+      "OPERATIONAL-ENDURANCE-PROTOCOL.md": {
+        "bytes": 8873,
+        "sha256": "384435dc15821af4c3ba88cc761ab9cd4cbd941ea681262e1b77c4a43b2dfbed"
+      },
+      "OPERATIONAL-ENDURANCE-RESTART.md": {
+        "bytes": 6327,
+        "sha256": "47918a59fab35fe0b8211792dd3f21a6ebf809005ca0ad05540ffd906e725aa9"
+      },
+      "ci-terminal.json": {
+        "bytes": 4922,
+        "sha256": "d9dcd47e832520042797333940bb45896acec1ae9890b4a5ea9f859f514b5aee"
+      },
+      "command.json": {
+        "bytes": 819,
+        "sha256": "be14a6968b904ddeeabb82f7efbb1d820ded6ed5137297d899d558be633c90e6"
+      },
+      "dependency-install.log": {
+        "bytes": 335,
+        "sha256": "93c0832b2a5c3910d774c7f268588706b12fc8c0f34da9181e95f01f5b386695"
+      },
+      "endurance.log": {
+        "bytes": 62770,
+        "sha256": "96307045e72d99ef60e77b36710a0c0f41b35ac1e2f36eac63fdc34869cbb3ee"
+      },
+      "endurance/checkpoint.json": {
+        "bytes": 23635,
+        "sha256": "34e1b3e4f746a3293d3ea9121b9e9f2f88788c696b76c35c02e44e5f418baa0e"
+      },
+      "endurance/events.jsonl": {
+        "bytes": 5006912,
+        "sha256": "d4162d4a53f32c908cfaf147a629ab7cd8ac3ed4998b4395a0c96f56df231324"
+      },
+      "endurance/summary.json": {
+        "bytes": 33637,
+        "sha256": "af5706a7b72620a8bdcd04fe264d5092bc195b9100ec237e47edca8b1a0deb7b"
+      },
+      "focused-tests.log": {
+        "bytes": 5948,
+        "sha256": "54a7893e12d67b187432e5c9ebbac70c4c45bc4689d9814bdb5b744d4fce86f4"
+      },
+      "host-observed.json": {
+        "bytes": 2580,
+        "sha256": "6b8ad7027c52a870fd329c29b2a7bf5e93face47fecd2921c080971c17e4f5b1"
+      },
+      "operational-endurance-github-v1-plan.json": {
+        "bytes": 2738,
+        "sha256": "195a999fac2e46bf4183e083a2011c092f610e517fe5618f4ca97897f777e15e"
+      },
+      "preflight.json": {
+        "bytes": 2611,
+        "sha256": "f32f80861351acb90c4ff7c4027165b05a343f89ddbedfb76d0f94100d2297bd"
+      },
+      "run-context.json": {
+        "bytes": 304,
+        "sha256": "9635e801889a1d1b680a0859ab8a2728b1c9f611f1d5e2c7c39a4edc42074776"
+      },
+      "source-manifest.json": {
+        "bytes": 37052,
+        "sha256": "f18a9d29d7d45a5417e214d7b35936a6e414f5512d814906793fd9af855c9edc"
+      },
+      "watchdog.json": {
+        "bytes": 434,
+        "sha256": "6be7ffac1ed7027f9524f5e41224937b084c758d1d5afe7ba2d3a1f26285172a"
+      },
+      "watchdog.samples.jsonl": {
+        "bytes": 6763378,
+        "sha256": "c5cf43d9cda066adc8e1b149817b72ae5cb088e91bf3f69910f4730759121bf1"
+      }
+    },
+    "sha256": "9013c6c775882ca83d638998eca4ef2b25d78e13d5e87278b1a9bf7da9ebf04c"
+  },
+  "projection_rule": "Local-path string redaction only; exact structure, numeric/boolean/null observations and record counts retained. Original hashes in CI inventory refer to original bytes.",
+  "public_archive_ledgers": {
+    "operational-endurance/github-v1/archive-ledger.json": {
+      "bytes": 9340,
+      "sha256": "bb826aed432e0207523abc7481c2933a30618a1b87b1ded98f2b7ffa75d1965a"
+    },
+    "operational-endurance/interrupted-v1/archive-ledger.json": {
+      "bytes": 3228,
+      "sha256": "0c1f4816384b460c03a8d038e509960d7c1e6c075feb2869d5d6b4150002a0fa"
+    },
+    "operational-endurance/semantics-v1/archive-ledger.json": {
+      "bytes": 2432,
+      "sha256": "fadfb781a3769b9ac519eaf28f6c4f686fa077f237f060a99348883ef21a35a8"
+    }
+  },
+  "run_attempt": 1,
+  "run_id": 38109973786,
+  "run_url": "https://github.com/yflop/concurrent-futures-ai/actions/runs/38109973786",
+  "schema_version": 1
+}

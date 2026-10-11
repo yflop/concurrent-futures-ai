@@ -1,0 +1,32 @@
+{
+  "command": [
+    "[local path]",
+    "[local path]",
+    "--seconds",
+    "15000",
+    "--rss-mib",
+    "1024",
+    "--stall-seconds",
+    "90",
+    "--checkpoint",
+    "endurance-artifacts/endurance/checkpoint.json",
+    "--report",
+    "endurance-artifacts/watchdog.json",
+    "--",
+    "[local path]",
+    "[local path]",
+    "--mode",
+    "endurance",
+    "--seconds",
+    "14400",
+    "--warmup",
+    "60",
+    "--cycle-seconds",
+    "900",
+    "--sample-seconds",
+    "10",
+    "--output",
+    "endurance-artifacts/endurance"
+  ],
+  "started_unix_time": 1791690999.8349211
+}
