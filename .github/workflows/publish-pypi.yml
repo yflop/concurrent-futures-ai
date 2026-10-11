@@ -1,7 +1,16 @@
-name: Publish verified 0.5.0 to PyPI
+# Approved Trusted Publishing setup; production verification awaits a new release.
+# Keep 0.5.0 bytes unchanged. Existing-version preflight intentionally prevents
+# republishing them; a future approved release must update all versioned values.
+name: Verify or publish frozen distributions to PyPI
 
-on:
+"on":
   workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish a separately approved NEW release after owner review'
+        type: boolean
+        required: true
+        default: false
 
 permissions:
   contents: read
@@ -11,34 +20,94 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  publish:
+  verify:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
     steps:
-      - name: Download and verify immutable release artifacts
+      - name: Download and verify frozen release artifacts
         shell: bash
         run: |
           set -euo pipefail
           mkdir dist
           base=https://github.com/yflop/concurrent-futures-ai/releases/download/v0.5.0
-          curl --fail --location --retry 3 "$base/intelligent_futures-0.5.0-py3-none-any.whl" -o dist/intelligent_futures-0.5.0-py3-none-any.whl
-          curl --fail --location --retry 3 "$base/intelligent_futures-0.5.0.tar.gz" -o dist/intelligent_futures-0.5.0.tar.gz
+          curl --fail --location --retry 3 --proto '=https' --tlsv1.2 "$base/intelligent_futures-0.5.0-py3-none-any.whl" -o dist/intelligent_futures-0.5.0-py3-none-any.whl
+          curl --fail --location --retry 3 --proto '=https' --tlsv1.2 "$base/intelligent_futures-0.5.0.tar.gz" -o dist/intelligent_futures-0.5.0.tar.gz
           printf '%s\n' \
             '799256582cd98e1e37e03dc0f7466d78042183f9d9c631b5401cc641a388697b  dist/intelligent_futures-0.5.0-py3-none-any.whl' \
             '4f430099270016cc7a55572cf0217520fe40e264ee1c3832c11bc61fa5dc6464  dist/intelligent_futures-0.5.0.tar.gz' \
             | sha256sum --check --strict
 
-      - name: Install official PyPI upload tooling
+      - name: Install metadata validation tooling without publishing credentials
+        shell: bash
         run: |
-          python3 -m venv .upload-venv
-          .upload-venv/bin/python -m pip install --disable-pip-version-check twine==6.2.0 packaging==25.0
+          set -euo pipefail
+          python3 -m venv .validation-venv
+          .validation-venv/bin/python -m pip install --disable-pip-version-check twine==6.2.0 packaging==25.0
 
-      - name: Validate distributions
-        run: .upload-venv/bin/python -m twine check --strict dist/*
+      - name: Validate distribution metadata strictly
+        shell: bash
+        run: .validation-venv/bin/python -m twine check --strict dist/*
 
-      - name: Publish verified distributions
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
-          TWINE_NON_INTERACTIVE: '1'
-        run: .upload-venv/bin/python -m twine upload --repository-url https://upload.pypi.org/legacy/ dist/*
+      - name: Refuse an existing version before starting the privileged job
+        if: inputs.publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import urllib.error
+          import urllib.request
+
+          url = "https://pypi.org/pypi/intelligent-futures/0.5.0/json"
+          try:
+              with urllib.request.urlopen(url, timeout=30) as response:
+                  metadata = json.load(response)
+          except urllib.error.HTTPError as error:
+              if error.code != 404:
+                  raise
+          else:
+              raise SystemExit(
+                  "Refusing to upload: this version already exists on PyPI. "
+                  "Inspect any partial publication; never replace published files."
+              )
+          PY
+
+  publish:
+    needs: verify
+    if: github.ref == 'refs/heads/main' && inputs.publish
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Configure this environment FIRST: selected Branch main only, yflop review,
+    # self-review allowed for the single owner, administrator bypass disabled.
+    environment:
+      name: pypi
+      url: https://pypi.org/project/intelligent-futures/
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      # No checkout, repository scripts, build, package installation, or imports.
+      - name: Retrieve and recheck the same frozen distribution bytes
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir dist
+          base=https://github.com/yflop/concurrent-futures-ai/releases/download/v0.5.0
+          curl --fail --location --retry 3 --proto '=https' --tlsv1.2 "$base/intelligent_futures-0.5.0-py3-none-any.whl" -o dist/intelligent_futures-0.5.0-py3-none-any.whl
+          curl --fail --location --retry 3 --proto '=https' --tlsv1.2 "$base/intelligent_futures-0.5.0.tar.gz" -o dist/intelligent_futures-0.5.0.tar.gz
+          printf '%s\n' \
+            '799256582cd98e1e37e03dc0f7466d78042183f9d9c631b5401cc641a388697b  dist/intelligent_futures-0.5.0-py3-none-any.whl' \
+            '4f430099270016cc7a55572cf0217520fe40e264ee1c3832c11bc61fa5dc6464  dist/intelligent_futures-0.5.0.tar.gz' \
+            | sha256sum --check --strict
+
+      - name: Publish using the approved OIDC identity with attestations
+        # Official signed v1.14.2 tag resolves to this full commit SHA.
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33
+        with:
+          packages-dir: dist/
+          attestations: true
+          skip-existing: false
+          verify-metadata: true
