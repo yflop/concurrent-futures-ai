@@ -12,6 +12,12 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+        env:
+          # Frozen source identity compares actual bytes, including line endings.
+          # Scope this override to checkout; do not normalize verifier input.
+          GIT_CONFIG_COUNT: '1'
+          GIT_CONFIG_KEY_0: core.autocrlf
+          GIT_CONFIG_VALUE_0: 'false'
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
