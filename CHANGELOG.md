@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.5.1 — unreleased Beta candidate
+
+- Fail fast with `BackpressureError` when a submission from this executor's own
+  task or completion context would block on bounded admission. Successful
+  reentrant submissions and external admission timeout behavior are unchanged.
+  This conservative guard replaces a possible indefinite wait; it does not
+  prevent arbitrary task dependencies or callback-result waits.
+- Expose the fixed-cardinality `reentrant_rejected` count, also included in
+  aggregate `rejected`, without retaining task identities or adding queues.
+- Add paired operational compatibility probes, focused regressions, and a
+  predeclared endurance protocol. Evidence is reported separately; a protocol
+  or short test is not a completed endurance run or production certification.
+
 ## 0.5.0 — Beta
 
 - Conservative cross-platform numerical margin ties; evaluator revision v2 invalidates v1 reuse. Original measurements are preserved with a zero-task decision recomputation proof.

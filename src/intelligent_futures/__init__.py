@@ -6,6 +6,6 @@ from .policies import AdaptivePolicy, BackendLoad, SchedulingLoad, HintPolicy, P
 from .prediction import (HardwareCapabilities, ExecutionObjective, RuntimeSample,
                          WorkloadProfile, ScalingBucket, Prediction, Predictor)
 
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 __all__ = ["ProcessPolicy", "RoutingDecision", "BackendLoad", "SchedulingLoad", "ConceptRegistry", "IntelligentExecutor", "BackpressureError", "TaskHints", "Profile", "Policy", "PolicyRegistry", "AdaptivePolicy", "HintPolicy", "ThreadPolicy", "HardwareCapabilities", "ExecutionObjective", "RuntimeSample",
            "WorkloadProfile", "ScalingBucket", "Prediction", "Predictor"]

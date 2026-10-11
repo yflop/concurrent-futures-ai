@@ -1,0 +1,162 @@
+{
+  "verified": true,
+  "attempted_observations": 216,
+  "training_observations": 96,
+  "heldout_observations": 120,
+  "failed_observations": 1,
+  "training_selections_recomputed": true,
+  "randomized_order_recomputed": true,
+  "paired_actual_content_digests_verified": true,
+  "comparison_exact_replay": true,
+  "stock_evaluator_scalar_parity": [
+    "fixed",
+    "single",
+    "static",
+    "overflow"
+  ],
+  "mean_saving_parity_tolerance": {
+    "relative": 1e-12,
+    "absolute_seconds": 1e-12
+  },
+  "status": "no_full_execution_advantage",
+  "selected": {
+    "single": {
+      "engine": "stdlib",
+      "route": "process",
+      "threads": 0,
+      "processes": 8,
+      "batch": 1
+    },
+    "static": {
+      "engine": "stdlib",
+      "route": "static",
+      "threads": 2,
+      "processes": 6,
+      "batch": 1
+    },
+    "overflow": {
+      "engine": "stdlib",
+      "route": "overflow",
+      "threads": 2,
+      "processes": 6,
+      "batch": 4
+    },
+    "intelligent": {
+      "engine": "intelligent",
+      "route": "adaptive",
+      "threads": 2,
+      "processes": 6,
+      "batch": 4
+    }
+  },
+  "comparisons": [
+    {
+      "role": "fixed",
+      "comparison_alpha": 0.0125,
+      "pairs": 24,
+      "passed": false,
+      "wins_above_margin": 24,
+      "sign_p_value": 5.960464477539063e-08,
+      "lower_order_statistic": 7,
+      "median_speedup": 5.100308838146594,
+      "lower_speedup": 4.3928118327884835,
+      "log_speedup_mad": 0.10078974066180624,
+      "aggregate_speedup": 4.9788169726278335,
+      "worst_pair_slowdown": -0.774561123635089,
+      "minimum_observed_saving_seconds": 5.021694066999771,
+      "mean_observed_saving_seconds": 6.09996046966656,
+      "maximum_p95_ratios": {
+        "all": 0.28890525416818125,
+        "geospatial": 0.3737160113662511,
+        "http": 0.2030597897556405
+      },
+      "reasons": [
+        "paired_noise_exceeds_threshold"
+      ]
+    },
+    {
+      "role": "single",
+      "comparison_alpha": 0.0125,
+      "pairs": 24,
+      "passed": false,
+      "wins_above_margin": 1,
+      "sign_p_value": 0.9999999403953552,
+      "lower_order_statistic": 7,
+      "median_speedup": -0.09944914149992194,
+      "lower_speedup": -0.168364157516626,
+      "log_speedup_mad": 0.06577954505004742,
+      "aggregate_speedup": -0.11395902853417084,
+      "worst_pair_slowdown": 0.48157015941043635,
+      "minimum_observed_saving_seconds": -0.475073398000859,
+      "mean_observed_saving_seconds": -0.13962063137523728,
+      "maximum_p95_ratios": {
+        "all": 2.0092098599030233,
+        "geospatial": 1.9924078515436012,
+        "http": 1.8265420328288655
+      },
+      "reasons": [
+        "practical_improvement_not_established",
+        "aggregate_regression_or_tie",
+        "observed_tail_regression",
+        "all:observed_p95_regression",
+        "geospatial:observed_p95_regression",
+        "http:observed_p95_regression"
+      ]
+    },
+    {
+      "role": "static",
+      "comparison_alpha": 0.0125,
+      "pairs": 24,
+      "passed": false,
+      "wins_above_margin": 2,
+      "sign_p_value": 0.9999985098838806,
+      "lower_order_statistic": 7,
+      "median_speedup": -0.05667086521736478,
+      "lower_speedup": -0.15380047417616358,
+      "log_speedup_mad": 0.066179581388083,
+      "aggregate_speedup": -0.0959842819645238,
+      "worst_pair_slowdown": 0.49612359192550426,
+      "minimum_observed_saving_seconds": -0.48466959400047926,
+      "mean_observed_saving_seconds": -0.11759828266671472,
+      "maximum_p95_ratios": {
+        "all": 1.754787078423699,
+        "geospatial": 1.7263011143868607,
+        "http": 7.053046111358417
+      },
+      "reasons": [
+        "practical_improvement_not_established",
+        "aggregate_regression_or_tie",
+        "observed_tail_regression",
+        "all:observed_p95_regression",
+        "geospatial:observed_p95_regression",
+        "http:observed_p95_regression"
+      ]
+    },
+    {
+      "role": "overflow",
+      "comparison_alpha": 0.0125,
+      "pairs": 24,
+      "passed": false,
+      "wins_above_margin": 11,
+      "sign_p_value": 0.7293719053268433,
+      "lower_order_statistic": 7,
+      "median_speedup": 0.02876653505099031,
+      "lower_speedup": -0.04834538037018119,
+      "log_speedup_mad": 0.07992178367401188,
+      "aggregate_speedup": 0.036888178201305744,
+      "worst_pair_slowdown": 0.23042457382131215,
+      "minimum_observed_saving_seconds": -0.2651296090007236,
+      "mean_observed_saving_seconds": 0.04519475812488357,
+      "maximum_p95_ratios": {
+        "all": 1.1360718569985597,
+        "geospatial": 1.096763047395256,
+        "http": 4.28394064055949
+      },
+      "reasons": [
+        "practical_improvement_not_established",
+        "http:observed_p95_regression"
+      ]
+    }
+  ],
+  "scope": "Read-only replay of a stored complete report; no new workload measurement, adoption permission, or independent replication."
+}

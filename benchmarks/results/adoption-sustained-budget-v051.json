@@ -1,0 +1,32 @@
+{
+  "purpose": "One frozen training + untouched held-out campaign, every slot retained; no early success stop or retry",
+  "planned_maximum_observations": 216,
+  "estimated_wall_minutes": [
+    35,
+    45
+  ],
+  "hard_wall_seconds": 3600,
+  "whole_command_sampled_emergency_rss_bytes": 2147483648,
+  "per_observation_wall_seconds": 90,
+  "per_observation_sampled_emergency_rss_bytes": 1610612736,
+  "affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "source_sha256": {
+    "benchmarks/real_world/adoption_sustained.py": "9977a0b608f40117b34ebdcacbc7234a3a0e5fbe3b489e8b9d35c5d373c1c4c5",
+    "tools/supervise_sustained.py": "f870cdfd2faa4b7da25b6d940b7d04ff1e46c187065b12457a3d4eec36d113f2",
+    "docs/SUSTAINED-PERFORMANCE-PROTOCOL.md": "c1a6e90144054b27cbdf0b2de7cc0311378e2f652a95670182d34a593700ff4a",
+    "tests/test_adoption_sustained.py": "f0b75dec64aa3c4b58756876da5ff40355976f4160ce6f8abfb69674c6134999",
+    "tests/test_supervise_sustained.py": "a5c163bef6aa0ec96196b22e5389dab2619d23e0ab70cf6e58c1ffaaf348f95c"
+  },
+  "runtime_manifest_sha256": "7774e028757fd04922b22db1cb61c5483a147fcfd11f25015536094df8f4ba4e",
+  "development_report": "[local path]",
+  "development_report_sha256": "bdf7be7b1aecaf7f82dcb052d8b70be81d8415066429922dd5817ca486ae8ef9"
+}

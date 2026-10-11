@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "intelligent-futures"
-version = "0.5.0"
+version = "0.5.1"
 description = "Intelligent Futures is a workload-aware execution framework for Python that automates the evaluation and selection of concurrency configurations. It combines execution policies, workload characteristics, runtime measurements, and adaptive optimisation to help identify effective thread and process execution strategies under defined resource constraints."
 readme = "README.md"
 requires-python = ">=3.10"

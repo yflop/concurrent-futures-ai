@@ -1,0 +1,10 @@
+{
+  "status": "complete",
+  "returncode": 0,
+  "stop_reason": null,
+  "elapsed_seconds": 83.28934162299993,
+  "sampled_peak_process_tree_rss_bytes": 479539200,
+  "wall_limit_seconds": 840.0,
+  "emergency_sampled_rss_limit_bytes": 2147483648,
+  "scope": "supervisory sampled limits, not a hard OS memory cap"
+}

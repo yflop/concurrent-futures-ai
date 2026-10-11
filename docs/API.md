@@ -22,6 +22,17 @@ admission raises `BackpressureError` (a `TimeoutError`). Time spent waiting for
 admission is not a task metric. Concurrent producers race fairly only according
 to Python condition scheduling: strict FIFO fairness is not promised.
 
+Same-executor task bodies and normal completion callbacks may submit when
+capacity is immediately available. If their submission would wait for either
+admission bound, it fails immediately with `BackpressureError`, regardless of
+`submit_timeout`. The message identifies reentrant admission; snapshot counts
+include it in both `rejected` and the fixed-cardinality `reentrant_rejected`
+counter. This deliberately changes earlier behavior that could wait forever.
+It is conservative even when another task might eventually release capacity.
+External producers and after-done callbacks running on an external caller retain
+the configured admission timeout. Hand dependent submissions to an external
+coordinator; do not catch this error by busy-looping inside a task or callback.
+
 ## Submission and futures
 
 `submit(fn, /, *args, **kwargs)` passes every keyword through to the callable.

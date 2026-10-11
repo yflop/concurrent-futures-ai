@@ -33,6 +33,12 @@ dependency-deadlock prevention. A callback added after completion or invoked by
 external cancellation may run on the caller. Waiting shutdown from the executor's
 task/pump context raises `RuntimeError`; use an external lifecycle coordinator.
 
+Reentrant submissions from this executor's task/pump context fail immediately
+with `BackpressureError` if admission would block. The `reentrant_rejected`
+counter exposes this reason without retaining task identities. This guard does
+not detect or prevent waits on another Future after successful submission,
+general dependency cycles, or callbacks blocking on external resources.
+
 Custom policies execute trusted code under a lock. A blocking policy can stall
 submission; a malicious policy can perform arbitrary actions. Process routing
 validation protects only accidental selection without explicit caller consent.

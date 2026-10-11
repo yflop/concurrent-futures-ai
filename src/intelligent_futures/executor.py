@@ -18,7 +18,7 @@ from .prediction import (HardwareCapabilities, ExecutionObjective, Predictor,
 
 
 class BackpressureError(TimeoutError):
-    """Admission did not become available within submit_timeout."""
+    """Admission timed out, or a same-executor reentrant call would block."""
 
 
 @dataclass(frozen=True)
@@ -187,7 +187,8 @@ class IntelligentExecutor(Executor):
         self._routing_by_backend = {"thread": 0, "process": 0}
         self._routing_by_reason = dict.fromkeys(_ROUTING_REASONS, 0)
         self._counts = dict(submitted=0, completed=0, failed=0, cancelled=0,
-                            rejected=0, thread_submitted=0, process_submitted=0,
+                            rejected=0, reentrant_rejected=0,
+                            thread_submitted=0, process_submitted=0,
                             peak_pending=0, profiles_evicted=0)
 
     def submit(self, fn, /, *args, **kwargs):
@@ -373,6 +374,15 @@ class IntelligentExecutor(Executor):
                         self._worker_limits[backend], self._prediction.concurrency)
                 if self._pending < self._concurrency_limit and self._retained() < self._max_pending:
                     break
+                if getattr(self._callback_context, "active", False):
+                    # Waiting here can require progress by this same task or
+                    # completion pump. Preserve genuine Futures and bounded
+                    # storage; reject rather than add workers, bypass the
+                    # bound, or rely on an execution timeout to break a cycle.
+                    self._counts["rejected"] += 1
+                    self._counts["reentrant_rejected"] += 1
+                    raise BackpressureError(
+                        "reentrant submission would block on this executor's admission limit")
                 remaining = None if deadline is None else deadline - time.monotonic()
                 if remaining is not None and remaining <= 0:
                     self._counts["rejected"] += 1

@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "scope": "Metadata-redacted public derivatives; original evidence bytes preserved separately. Numerical observations, decisions, source hashes and hardware characteristics are unchanged.",
+  "files": [
+    {
+      "file": "adoption-sustained-v051.json.gz",
+      "original_sha256": "fab98f4b04d19a875454e449877d19721a49c13c2d9c181db458188a46aa53f0",
+      "original_bytes": 32471751,
+      "public_json_sha256": "1fd911dcf8f60c8f9c7615a0d665b86ba0e0c01fb68e6afceaca48bbfddfd44a",
+      "public_json_bytes": 32455219,
+      "public_file_sha256": "1bb314995d830609f75b7302ee170aeb2320434022d46c3703984f8bef4d1757",
+      "public_file_bytes": 3831567,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 222,
+        "nonpublic_bookkeeping_fields_removed": 0
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    },
+    {
+      "file": "adoption-sustained-development-v051.json.gz",
+      "original_sha256": "bdf7be7b1aecaf7f82dcb052d8b70be81d8415066429922dd5817ca486ae8ef9",
+      "original_bytes": 1233287,
+      "public_json_sha256": "fdb9a8df08f41ebff404eb378d5b4ece804cc3e4ed43391eb71c1bf302f70d63",
+      "public_json_bytes": 1232535,
+      "public_file_sha256": "51fccac44f0b4d9a035cb2f36b97caf70392c1f28ecd15770e9c33548adb8fe0",
+      "public_file_bytes": 153143,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 11,
+        "nonpublic_bookkeeping_fields_removed": 0
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    },
+    {
+      "file": "adoption-sustained-recomputation-v051.json",
+      "original_sha256": "761ba34345f966b9fe9898d6d113adcd2d096e058cd713a8116525c7d2b529c7",
+      "original_bytes": 4903,
+      "public_json_sha256": "761ba34345f966b9fe9898d6d113adcd2d096e058cd713a8116525c7d2b529c7",
+      "public_json_bytes": 4903,
+      "public_file_sha256": "761ba34345f966b9fe9898d6d113adcd2d096e058cd713a8116525c7d2b529c7",
+      "public_file_bytes": 4903,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 0,
+        "nonpublic_bookkeeping_fields_removed": 0
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    },
+    {
+      "file": "adoption-sustained-supervisor-v051.json",
+      "original_sha256": "41b62054c3719ea09c7fdcfa11256b640f51a98d0011fff7b274e92d8f1bceda",
+      "original_bytes": 75880,
+      "public_json_sha256": "41b62054c3719ea09c7fdcfa11256b640f51a98d0011fff7b274e92d8f1bceda",
+      "public_json_bytes": 75880,
+      "public_file_sha256": "41b62054c3719ea09c7fdcfa11256b640f51a98d0011fff7b274e92d8f1bceda",
+      "public_file_bytes": 75880,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 0,
+        "nonpublic_bookkeeping_fields_removed": 0
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    },
+    {
+      "file": "adoption-sustained-summary-v051.json",
+      "original_sha256": "941e683557a6a02af3c1fdcc4955d2a8d4187f3d8c3d1f568162f3f96ecbc89a",
+      "original_bytes": 7829,
+      "public_json_sha256": "941e683557a6a02af3c1fdcc4955d2a8d4187f3d8c3d1f568162f3f96ecbc89a",
+      "public_json_bytes": 7829,
+      "public_file_sha256": "941e683557a6a02af3c1fdcc4955d2a8d4187f3d8c3d1f568162f3f96ecbc89a",
+      "public_file_bytes": 7829,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 0,
+        "nonpublic_bookkeeping_fields_removed": 0
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    },
+    {
+      "file": "adoption-sustained-development-supervisor-v051.json",
+      "original_sha256": "7a9504556ef24cdf4c17f97226286932fd941eaf7c407c87d9d22000c6f43ea2",
+      "original_bytes": 310,
+      "public_json_sha256": "7a9504556ef24cdf4c17f97226286932fd941eaf7c407c87d9d22000c6f43ea2",
+      "public_json_bytes": 310,
+      "public_file_sha256": "7a9504556ef24cdf4c17f97226286932fd941eaf7c407c87d9d22000c6f43ea2",
+      "public_file_bytes": 310,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 0,
+        "nonpublic_bookkeeping_fields_removed": 0
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    },
+    {
+      "file": "adoption-sustained-budget-v051.json",
+      "original_sha256": "586bdf20084b4ef84c0bbc2dcfb1192fe9d173d980e5d7cd8ef9b89fc801207f",
+      "original_bytes": 1476,
+      "public_json_sha256": "ad1965934105d49e6eaf93a0e7729ae16c5c9046e3b895df9c229471f6563fae",
+      "public_json_bytes": 1289,
+      "public_file_sha256": "ad1965934105d49e6eaf93a0e7729ae16c5c9046e3b895df9c229471f6563fae",
+      "public_file_bytes": 1289,
+      "redaction_counts": {
+        "local_path_occurrences_redacted": 1,
+        "nonpublic_bookkeeping_fields_removed": 1
+      },
+      "numeric_boolean_tree_exactly_equal": true,
+      "comparison_and_plan_exactly_equal_when_present": true
+    }
+  ],
+  "protocol": {
+    "original_frozen_sha256": "c1a6e90144054b27cbdf0b2de7cc0311378e2f652a95670182d34a593700ff4a",
+    "public_sha256": "d1a7791cba0e54b07c827422e3e8bc6f0258593da74c482c6cab72d5faa2e41c",
+    "public_bytes": 19353
+  }
+}
